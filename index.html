@@ -9,7 +9,8 @@
   <link rel="canonical" href="https://mru.systems/">
   <meta name="robots" content="index, follow">
   <meta name="author" content="Will Binns">
-  <meta name="theme-color" content="#fafaf8">
+  <meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121214" media="(prefers-color-scheme: dark)">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -90,7 +91,7 @@
       background-image: radial-gradient(ellipse 60% 45% at 50% 32%, var(--glow), transparent 70%);
     }
 
-    /* Starfield + tesseract (progressive enhancement; the glow above is the no-JS base). */
+    /* Starfield (progressive enhancement; the glow above is the no-JS base). */
     #bg {
       position: fixed;
       inset: 0;
@@ -137,18 +138,22 @@
       margin: 0 auto 1.75rem;
       display: block;
     }
-    .maru circle { fill: none; stroke: var(--ink); stroke-width: 6; }
-    .maru line { stroke: var(--ink); stroke-width: 2; opacity: .4; }
-
-    /* The inner line sweeps slowly around the centre — an orbit / passing time. */
-    @media (prefers-reduced-motion: no-preference) {
-      .maru line {
-        transform-box: view-box;
-        transform-origin: center;
-        animation: maru-sweep 14s linear infinite;
-      }
+    .maru .ring { fill: none; stroke: var(--ink); stroke-width: 6; }
+    .maru .pulse {
+      fill: var(--ink);
+      transform-box: fill-box;
+      transform-origin: center;
+      transform: scale(0);   /* hidden by default (and under reduced motion) */
     }
-    @keyframes maru-sweep { to { transform: rotate(360deg); } }
+
+    /* The inner circle breathes — grows to fill the mark, then recedes to nothing. */
+    @media (prefers-reduced-motion: no-preference) {
+      .maru .pulse { animation: maru-breathe 6s ease-in-out infinite; }
+    }
+    @keyframes maru-breathe {
+      0%, 100% { transform: scale(0); }
+      50%      { transform: scale(1); }
+    }
 
     .wordmark {
       font-size: clamp(3.25rem, 12vw, 5rem);
@@ -156,16 +161,6 @@
       font-weight: 400;
       letter-spacing: .01em;
       margin: 0;
-    }
-
-    .tagline {
-      font-size: clamp(1.15rem, 3.5vw, 1.5rem);
-      line-height: 1.4;
-      color: var(--ink-soft);
-      font-style: italic;
-      margin: clamp(1.75rem, 4.5vw, 2.5rem) auto 0;
-      max-width: 34rem;
-      text-wrap: balance;
     }
 
     /* CTA */
@@ -204,13 +199,8 @@
       text-align: center;
       margin-top: clamp(1.75rem, 4.5vw, 2.5rem);
     }
-    .status p { margin: 0 0 .5rem; }
     .status .cta-row { margin-top: 0; }
     code, .mono { font-family: var(--mono); font-size: .92em; }
-    .secondary-link {
-      text-decoration-thickness: 1px;
-      text-underline-offset: 3px;
-    }
 
     /* Footer */
     footer {
@@ -239,9 +229,9 @@
 
   <div class="wrap">
     <header class="hero">
-      <svg class="maru" viewBox="0 0 100 100" role="img" aria-label="Mru mark — a circle">
-        <circle cx="50" cy="50" r="34"/>
-        <line x1="50" y1="16" x2="50" y2="84"/>
+      <svg class="maru" viewBox="0 0 100 100" role="img" aria-label="Mru mark">
+        <circle class="ring" cx="50" cy="50" r="34"/>
+        <circle class="pulse" cx="50" cy="50" r="30"/>
       </svg>
       <h1 class="wordmark">Mru</h1>
     </header>
