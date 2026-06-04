@@ -44,7 +44,6 @@
       --bg: #fafaf8;
       --rule: #e3e3dd;
       --accent: #3a4a5a;
-      --grid: rgba(22, 22, 26, 0.028);
       --glow: transparent;
       --tess: 22, 22, 26;
       --maxw: 42rem; /* ~672px */
@@ -60,7 +59,6 @@
         --bg: #121214;
         --rule: #2a2a2e;
         --accent: #9fb4cb;
-        --grid: rgba(159, 180, 203, 0.04);
         --glow: rgba(120, 140, 170, 0.10);
         --tess: 159, 180, 203;
       }
@@ -82,23 +80,17 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Graph-paper grid + faint glow, fading toward the edges. Pure CSS, no JS. */
+    /* Faint depth glow behind the wordmark. Pure CSS. */
     body::before {
       content: "";
       position: fixed;
       inset: 0;
       z-index: -2;
       pointer-events: none;
-      background-image:
-        linear-gradient(to right, var(--grid) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--grid) 1px, transparent 1px),
-        radial-gradient(ellipse 60% 45% at 50% 32%, var(--glow), transparent 70%);
-      background-size: 72px 72px, 72px 72px, 100% 100%;
-      -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 36%, #000 35%, transparent 80%);
-              mask-image: radial-gradient(ellipse 85% 70% at 50% 36%, #000 35%, transparent 80%);
+      background-image: radial-gradient(ellipse 60% 45% at 50% 32%, var(--glow), transparent 70%);
     }
 
-    /* Rotating-tesseract field (progressive enhancement; grid above is the fallback). */
+    /* Starfield + tesseract (progressive enhancement; the glow above is the no-JS base). */
     #bg {
       position: fixed;
       inset: 0;
@@ -108,9 +100,6 @@
       pointer-events: none;
       -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 46%, #000 55%, transparent 100%);
               mask-image: radial-gradient(ellipse 90% 90% at 50% 46%, #000 55%, transparent 100%);
-    }
-    @media (prefers-reduced-motion: reduce) {
-      #bg { display: none; } /* static grid only */
     }
 
     .wrap {
@@ -309,15 +298,14 @@
   </div>
 
   <script>
-  // Rotating-tesseract field. Ambient slow rotation; scrolling advances the
-  // rotation and gently swells the figures; when you stop, it breathes (fades
-  // in and out). Progressive enhancement — the CSS grid is the fallback.
+  // A faint night sky — stars that fade in, flicker, fade out and reappear in
+  // new random places — with a large tesseract drifting over it. The tesseract
+  // morphs as you scroll (reversibly) and breathes when you're still.
+  // Progressive enhancement: reduced-motion gets one still frame.
   (function () {
-    var reduce = matchMedia('(prefers-reduced-motion: reduce)');
-    if (reduce.matches) return;
-
     var canvas = document.getElementById('bg');
     var ctx = canvas.getContext('2d');
+    var reduce = matchMedia('(prefers-reduced-motion: reduce)');
     var DIST = 2.6;
     var W = 0, H = 0, dpr = 1;
 
@@ -333,24 +321,45 @@
       }
     }
 
-    // Theme-driven stroke colour + peak alpha.
-    var rgb = '22, 22, 26', peak = 0.08;
+    // Theme-driven colour + peak alphas (tesseract strokes, stars).
+    var rgb = '22, 22, 26', peak = 0.08, starPeak = 0.5;
     function readTheme() {
       var v = getComputedStyle(document.documentElement).getPropertyValue('--tess').trim();
       if (v) rgb = v;
-      peak = matchMedia('(prefers-color-scheme: dark)').matches ? 0.085 : 0.05;
+      var dark = matchMedia('(prefers-color-scheme: dark)').matches;
+      peak = dark ? 0.085 : 0.05;
+      starPeak = dark ? 0.55 : 0.18;
     }
     readTheme();
     matchMedia('(prefers-color-scheme: dark)').addEventListener('change', readTheme);
+
+    // Starfield. Positions are normalised so they survive resizes.
+    var stars = [];
+    function newStar() {
+      return {
+        nx: Math.random(), ny: Math.random(),
+        r: 0.5 + Math.random() * 1.3,
+        speed: 0.07 + Math.random() * 0.22,   // slow appear/disappear cycle
+        phase: Math.random() * Math.PI * 2,
+        flick: 1.4 + Math.random() * 2.8,      // faster shimmer on top
+        fphase: Math.random() * Math.PI * 2,
+        pv: 0
+      };
+    }
+    function seedStars() {
+      var n = Math.max(70, Math.min(260, Math.round(W * H / 8500)));
+      stars = [];
+      for (var s = 0; s < n; s++) stars.push(newStar());
+    }
 
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       W = window.innerWidth; H = window.innerHeight;
       canvas.width = W * dpr; canvas.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      seedStars();
+      if (reduce.matches) draw(performance.now(), false);
     }
-    resize();
-    window.addEventListener('resize', resize);
 
     var lastScroll = performance.now();
     addEventListener('scroll', function () { lastScroll = performance.now(); }, { passive: true });
@@ -364,30 +373,47 @@
       return t * t * (3 - 2 * t);
     }
 
-    var pts = new Array(16), last = 0;
-    function frame(now) {
-      requestAnimationFrame(frame);
-      if (now - last < 33) return;          // ~30fps cap
-      last = now;
-      if (document.hidden) return;
-
+    var pts = new Array(16);
+    function draw(now, animated) {
       var t = now / 1000;
+      ctx.clearRect(0, 0, W, H);
+
+      // Stars.
+      for (var i = 0; i < stars.length; i++) {
+        var s = stars[i], vis, fl;
+        if (animated) {
+          var v = Math.sin(t * s.speed + s.phase);
+          if (s.pv <= 0 && v > 0) {            // re-born → new random spot
+            s.nx = Math.random(); s.ny = Math.random();
+            s.flick = 1.4 + Math.random() * 2.8; s.fphase = Math.random() * Math.PI * 2;
+          }
+          s.pv = v;
+          vis = v > 0 ? v : 0;
+          fl = 0.8 + 0.2 * Math.sin(t * s.flick + s.fphase);
+        } else {
+          vis = Math.abs(Math.sin(s.phase)); fl = 1;   // still spread of brightnesses
+        }
+        if (vis <= 0.002) continue;
+        ctx.fillStyle = 'rgba(' + rgb + ', ' + (starPeak * vis * fl).toFixed(3) + ')';
+        ctx.fillRect(s.nx * W, s.ny * H, s.r, s.r);
+      }
+
+      // Tesseract.
       var docH = document.documentElement.scrollHeight - window.innerHeight;
       var prog = docH > 0 ? Math.min(1, Math.max(0, window.scrollY / docH)) : 0;
-
-      // Scroll drives the morph (reversible: scroll up unwinds it). A whisper
-      // of ambient drift keeps it alive while still.
       var aXW = prog * Math.PI * 2.0 + t * 0.018;
       var aZW = prog * Math.PI * 1.3 + t * 0.012;
       var aXY = prog * Math.PI * 0.7;
 
-      // Always breathing — a slow fade in and out so it never fixes the eye or
-      // competes with the text. Scrolling lifts it a touch toward full.
-      var active = 1 - smoothstep(0.4, 2.2, (now - lastScroll) / 1000);
-      var breath = 0.10 + 0.55 * (0.5 + 0.5 * Math.sin(t * 0.42));
-      var alpha = peak * (breath + active * (1 - breath) * 0.45);
+      var alpha;
+      if (animated) {
+        var active = 1 - smoothstep(0.4, 2.2, (now - lastScroll) / 1000);
+        var breath = 0.10 + 0.55 * (0.5 + 0.5 * Math.sin(t * 0.42));
+        alpha = peak * (breath + active * (1 - breath) * 0.45);
+      } else {
+        alpha = peak * 0.5;
+      }
 
-      // One large tesseract, centred, sized to nearly fill the viewport width.
       var size = Math.min(W * 1.5, H * 1.7);
       var cx = W / 2, cy = H * 0.46;
       for (var k = 0; k < 16; k++) {
@@ -398,20 +424,31 @@
         var kz = 1 / (DIST - z3);
         pts[k] = [cx + x3 * kz * size, cy + y3 * kz * size];
       }
-
-      ctx.clearRect(0, 0, W, H);
       ctx.strokeStyle = 'rgba(' + rgb + ', ' + alpha.toFixed(3) + ')';
       ctx.lineWidth = 1.25;
       ctx.lineJoin = 'round';
       ctx.beginPath();
       for (var e = 0; e < edges.length; e++) {
         var p = pts[edges[e][0]], q = pts[edges[e][1]];
-        ctx.moveTo(p[0], p[1]);
-        ctx.lineTo(q[0], q[1]);
+        ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]);
       }
       ctx.stroke();
     }
-    requestAnimationFrame(frame);
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    if (reduce.matches) {
+      draw(performance.now(), false);   // one still frame, no animation
+    } else {
+      var last = 0;
+      (function frame(now) {
+        requestAnimationFrame(frame);
+        if (now - last < 33 || document.hidden) return;  // ~30fps, pause when hidden
+        last = now;
+        draw(now, true);
+      })(0);
+    }
   })();
   </script>
 </body>
