@@ -379,14 +379,14 @@
           s.pv = v;
           vis = v > 0 ? v : 0;
           // Deeper, faster shimmer while scrolling → more sparkle.
-          var amp = 0.18 + 0.6 * spark;
-          var spd = s.flick * (1 + spark * 2.2);
+          var amp = 0.16 + 0.26 * spark;
+          var spd = s.flick * (1 + spark * 0.8);
           fl = (1 - amp) + amp * (0.5 + 0.5 * Math.sin(t * spd + s.fphase));
         } else {
           vis = Math.abs(Math.sin(s.phase)); fl = 1;   // still spread of brightnesses
         }
         if (vis <= 0.004) continue;
-        ctx.globalAlpha = Math.min(1, starPeak * vis * fl * (1 + spark * 0.35));
+        ctx.globalAlpha = Math.min(1, starPeak * vis * fl * (1 + spark * 0.12));
         ctx.fillRect(s.nx * W, s.ny * H, s.r, s.r);
       }
       ctx.globalAlpha = 1;
