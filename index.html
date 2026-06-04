@@ -139,23 +139,21 @@
       display: block;
     }
     .maru .ring { fill: none; stroke: var(--ink); stroke-width: 6; }
-    .maru .tri, .maru .tri2 {
+    .maru .tri {
       fill: none;
       stroke: var(--ink);
+      stroke-width: 3;
       stroke-linejoin: round;
       transform-box: view-box;
       transform-origin: center;
     }
-    .maru .tri { stroke-width: 3; }
-    .maru .tri2 { stroke-width: 2; }
+    .maru .inner { fill: none; stroke: var(--ink); stroke-width: 2.5; }
 
-    /* Two nested triangles turning in opposite directions. */
+    /* The inscribed triangle turns slowly; its edges stay tangent to the inner circle. */
     @media (prefers-reduced-motion: no-preference) {
-      .maru .tri  { animation: maru-spin-cw  14s linear infinite; }
-      .maru .tri2 { animation: maru-spin-ccw 10s linear infinite; }
+      .maru .tri { animation: maru-spin 14s linear infinite; }
     }
-    @keyframes maru-spin-cw  { to { transform: rotate(360deg); } }
-    @keyframes maru-spin-ccw { to { transform: rotate(-360deg); } }
+    @keyframes maru-spin { to { transform: rotate(360deg); } }
 
     .wordmark {
       font-size: clamp(3.25rem, 12vw, 5rem);
@@ -234,7 +232,7 @@
       <svg class="maru" viewBox="0 0 100 100" role="img" aria-label="Mru mark">
         <circle class="ring" cx="50" cy="50" r="34"/>
         <polygon class="tri" points="50,18.5 22.72,65.75 77.28,65.75"/>
-        <polygon class="tri2" points="50,35 37.01,57.5 62.99,57.5"/>
+        <circle class="inner" cx="50" cy="50" r="15.75"/>
       </svg>
       <h1 class="wordmark">Mru</h1>
     </header>
