@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Mru — A Fault-Tolerant Operating System for Thousand-Year Autonomous Operation</title>
-  <meta name="description" content="Mru is an open-source operating system designed to run autonomously for a thousand years aboard an interstellar probe — treating degradation as the governing design constraint.">
+  <meta name="description" content="Software that still runs a thousand years after we're gone. Mru is an open-source operating system built to operate autonomously across deep space and time — treating degradation as the governing design constraint.">
   <link rel="canonical" href="https://mru.systems/">
   <meta name="robots" content="index, follow">
   <meta name="author" content="Will Binns">
@@ -14,7 +14,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Mru — A Fault-Tolerant Operating System for Thousand-Year Autonomous Operation">
-  <meta property="og:description" content="An open-source operating system designed to run autonomously for a thousand years aboard an interstellar probe — treating degradation as the governing design constraint.">
+  <meta property="og:description" content="Software that still runs a thousand years after we're gone. Mru is an open-source operating system built to operate autonomously across deep space and time — treating degradation as the governing design constraint.">
   <meta property="og:url" content="https://mru.systems/">
   <meta property="og:image" content="https://mru.systems/assets/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -25,13 +25,14 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Mru — A Fault-Tolerant Operating System for Thousand-Year Autonomous Operation">
-  <meta name="twitter:description" content="An open-source operating system designed to run autonomously for a thousand years aboard an interstellar probe — treating degradation as the governing design constraint.">
+  <meta name="twitter:description" content="Software that still runs a thousand years after we're gone. Mru is an open-source operating system built to operate autonomously across deep space and time — treating degradation as the governing design constraint.">
   <meta name="twitter:image" content="https://mru.systems/assets/og-image.png">
   <meta name="twitter:image:alt" content="Mru — A Fault-Tolerant Operating System for Thousand-Year Autonomous Operation">
 
   <!-- Icons -->
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="/assets/favicon-light.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" href="/assets/favicon-dark.png" media="(prefers-color-scheme: dark)">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
 
@@ -43,6 +44,8 @@
       --bg: #fafaf8;
       --rule: #e3e3dd;
       --accent: #3a4a5a;
+      --grid: rgba(22, 22, 26, 0.045);
+      --glow: transparent;
       --maxw: 42rem; /* ~672px */
       --serif: "Charter", "Source Serif 4", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
       --mono: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
@@ -56,6 +59,8 @@
         --bg: #121214;
         --rule: #2a2a2e;
         --accent: #9fb4cb;
+        --grid: rgba(159, 180, 203, 0.06);
+        --glow: rgba(120, 140, 170, 0.10);
       }
     }
 
@@ -73,6 +78,22 @@
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Graph-paper grid + faint glow, fading toward the edges. Pure CSS, no JS. */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image:
+        linear-gradient(to right, var(--grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid) 1px, transparent 1px),
+        radial-gradient(ellipse 60% 45% at 50% 32%, var(--glow), transparent 70%);
+      background-size: 44px 44px, 44px 44px, 100% 100%;
+      -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 36%, #000 35%, transparent 80%);
+              mask-image: radial-gradient(ellipse 85% 70% at 50% 36%, #000 35%, transparent 80%);
     }
 
     .wrap {
@@ -186,7 +207,6 @@
     }
     .status p { margin: 0 0 .5rem; }
     .status .cta-row { margin-top: 0; }
-    .status .muted { color: var(--ink-faint); font-size: 1rem; margin-top: 1.5rem; }
     code, .mono { font-family: var(--mono); font-size: .92em; }
     .secondary-link {
       text-decoration-thickness: 1px;
@@ -205,6 +225,11 @@
     }
     footer a { color: var(--ink-soft); }
     footer .sep { opacity: .5; padding: 0 .35rem; }
+    footer .footnote {
+      margin: 1rem 0 0;
+      font-size: .8125rem;
+      opacity: .8;
+    }
 
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; }
@@ -221,13 +246,13 @@
         <line x1="50" y1="16" x2="50" y2="84"/>
       </svg>
       <h1 class="wordmark">Mru</h1>
-      <p class="tagline">A Fault-Tolerant Operating System for Thousand-Year Autonomous Operation</p>
+      <p class="tagline">Software that still runs a thousand years after we&rsquo;re gone</p>
     </header>
 
     <hr class="rule">
 
     <main id="main" class="prose">
-      <h2>What it is</h2>
+      <h2>Why</h2>
 
       <p>No software system in human history has been designed to operate for
       centuries without human intervention. The longest-lived systems we have
@@ -250,9 +275,8 @@
 
       <div class="status">
         <div class="cta-row">
-          <a class="btn btn-primary" href="/mru-whitepaper.pdf">Read the whitepaper (PDF)</a>
+          <a class="btn btn-primary" href="/mru-whitepaper.pdf">Read the whitepaper</a>
         </div>
-        <p class="muted">Reference implementation coming soon — <code>mru</code>, AGPL v3.</p>
       </div>
     </main>
 
@@ -262,6 +286,7 @@
       <span>Whitepaper licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a></span>
       <span class="sep" aria-hidden="true">·</span>
       <span><a href="mailto:contact@mru.systems">contact@mru.systems</a></span>
+      <p class="footnote">Reference implementation coming soon — <code>mru</code>, AGPL v3.</p>
     </footer>
   </div>
 </body>
