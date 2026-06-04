@@ -139,21 +139,21 @@
       display: block;
     }
     .maru .ring { fill: none; stroke: var(--ink); stroke-width: 6; }
-    .maru .pulse {
-      fill: var(--ink);
-      transform-box: fill-box;
+    .maru .tri {
+      fill: none;
+      stroke: var(--ink);
+      stroke-width: 2;
+      stroke-linejoin: round;
+      opacity: .42;
+      transform-box: view-box;
       transform-origin: center;
-      transform: scale(0);   /* hidden by default (and under reduced motion) */
     }
 
-    /* The inner circle breathes — grows to fill the mark, then recedes to nothing. */
+    /* The inscribed triangle turns slowly clockwise within the mark. */
     @media (prefers-reduced-motion: no-preference) {
-      .maru .pulse { animation: maru-breathe 6s ease-in-out infinite; }
+      .maru .tri { animation: maru-spin 14s linear infinite; }
     }
-    @keyframes maru-breathe {
-      0%, 100% { transform: scale(0); }
-      50%      { transform: scale(1); }
-    }
+    @keyframes maru-spin { to { transform: rotate(360deg); } }
 
     .wordmark {
       font-size: clamp(3.25rem, 12vw, 5rem);
@@ -231,7 +231,7 @@
     <header class="hero">
       <svg class="maru" viewBox="0 0 100 100" role="img" aria-label="Mru mark">
         <circle class="ring" cx="50" cy="50" r="34"/>
-        <circle class="pulse" cx="50" cy="50" r="30"/>
+        <polygon class="tri" points="50,16 20.56,67 79.44,67"/>
       </svg>
       <h1 class="wordmark">Mru</h1>
     </header>
