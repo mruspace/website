@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Not found — Mru</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --ink: #16161a; --ink-faint: #6f6f78; --bg: #fafaf8; --accent: #3a4a5a;
+      --serif: "Charter", "Source Serif 4", "Iowan Old Style", Palatino, Georgia, serif;
+      --mono: ui-monospace, "SF Mono", Menlo, monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --ink: #ecece8; --ink-faint: #8f8f8a; --bg: #121214; --accent: #9fb4cb; }
+    }
+    html, body { height: 100%; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink);
+      font-family: var(--serif);
+      display: grid; place-items: center; text-align: center; padding: 1.5rem;
+    }
+    .code { font-family: var(--mono); font-size: .8125rem; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--ink-faint); margin-bottom: 1rem; }
+    h1 { font-size: clamp(1.75rem, 6vw, 2.5rem); font-weight: 400; margin: 0 0 1rem; }
+    a { color: var(--accent); text-underline-offset: 3px; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="code">404</p>
+    <h1>This page is lost in transit.</h1>
+    <p><a href="/">Return to mru.systems</a></p>
+  </main>
+</body>
+</html>

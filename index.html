@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Mru — A Fault-Tolerant Operating System for Thousand-Year Autonomous Operation</title>
+  <meta name="description" content="Mru is an open-source operating system designed to run autonomously for a thousand years aboard an interstellar probe — treating degradation as the governing design constraint.">
+  <link rel="canonical" href="https://mru.systems/">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Will Binns">
+  <meta name="theme-color" content="#fafaf8">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mru — A Fault-Tolerant Operating System for Thousand-Year Autonomous Operation">
+  <meta property="og:description" content="An open-source operating system designed to run autonomously for a thousand years aboard an interstellar probe — treating degradation as the governing design constraint.">
+  <meta property="og:url" content="https://mru.systems/">
+  <meta property="og:image" content="https://mru.systems/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Mru — A Fault-Tolerant Operating System for Thousand-Year Autonomous Operation">
+  <meta property="og:site_name" content="Mru">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mru — A Fault-Tolerant Operating System for Thousand-Year Autonomous Operation">
+  <meta name="twitter:description" content="An open-source operating system designed to run autonomously for a thousand years aboard an interstellar probe — treating degradation as the governing design constraint.">
+  <meta name="twitter:image" content="https://mru.systems/assets/og-image.png">
+  <meta name="twitter:image:alt" content="Mru — A Fault-Tolerant Operating System for Thousand-Year Autonomous Operation">
+
+  <!-- Icons -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <style>
+    :root {
+      --ink: #16161a;
+      --ink-soft: #44444c;
+      --ink-faint: #6f6f78;
+      --bg: #fafaf8;
+      --rule: #e3e3dd;
+      --accent: #3a4a5a;
+      --maxw: 42rem; /* ~672px */
+      --serif: "Charter", "Source Serif 4", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+      --mono: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #ecece8;
+        --ink-soft: #c0c0bc;
+        --ink-faint: #8f8f8a;
+        --bg: #121214;
+        --rule: #2a2a2e;
+        --accent: #9fb4cb;
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 1.125rem;
+      line-height: 1.65;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .wrap {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: clamp(3rem, 8vw, 6rem) 1.5rem clamp(2.5rem, 6vw, 4rem);
+    }
+
+    a { color: inherit; }
+
+    /* Skip link */
+    .skip {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      background: var(--ink);
+      color: var(--bg);
+      padding: .6rem 1rem;
+      border-radius: 4px;
+    }
+    .skip:focus { left: 1rem; top: 1rem; z-index: 10; }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* Hero */
+    .hero { text-align: center; }
+
+    .maru {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 1.75rem;
+      display: block;
+    }
+    .maru circle { fill: none; stroke: var(--ink); stroke-width: 6; }
+    .maru line { stroke: var(--ink); stroke-width: 2; opacity: .4; }
+
+    .wordmark {
+      font-size: clamp(3.25rem, 12vw, 5rem);
+      line-height: 1;
+      font-weight: 400;
+      letter-spacing: .01em;
+      margin: 0;
+    }
+
+    .tagline {
+      font-size: clamp(1.15rem, 3.5vw, 1.5rem);
+      line-height: 1.4;
+      color: var(--ink-soft);
+      font-style: italic;
+      margin: 1.25rem auto 0;
+      max-width: 34rem;
+      text-wrap: balance;
+    }
+
+    .positioning {
+      margin: 1.75rem auto 0;
+      max-width: 32rem;
+      color: var(--ink);
+      text-wrap: pretty;
+    }
+
+    /* CTA */
+    .cta-row {
+      margin-top: 2.5rem;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .btn {
+      display: inline-block;
+      font-family: var(--serif);
+      font-size: 1.0625rem;
+      text-decoration: none;
+      padding: .8rem 1.6rem;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      transition: background-color .15s ease, color .15s ease, transform .15s ease;
+    }
+    .btn-primary { background: var(--ink); color: var(--bg); }
+    .btn-primary:hover { transform: translateY(-1px); opacity: .9; }
+    .btn-primary:active { transform: translateY(0); }
+
+    /* Divider */
+    .rule {
+      border: 0;
+      border-top: 1px solid var(--rule);
+      max-width: 4rem;
+      margin: clamp(3rem, 8vw, 4.5rem) auto;
+    }
+
+    /* Prose section */
+    .prose h2 {
+      font-size: .8125rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--ink-faint);
+      font-family: var(--mono);
+      margin: 0 0 1.5rem;
+      text-align: center;
+    }
+    .prose p { margin: 0 0 1.35rem; }
+    .prose p:last-child { margin-bottom: 0; }
+
+    .prose strong { font-weight: 600; }
+    .term { font-style: italic; }
+
+    /* Status block */
+    .status {
+      text-align: center;
+      margin-top: clamp(2.5rem, 6vw, 3.5rem);
+    }
+    .status p { margin: 0 0 .5rem; }
+    .status .muted { color: var(--ink-faint); font-size: 1rem; }
+    code, .mono { font-family: var(--mono); font-size: .92em; }
+    .secondary-link {
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: clamp(3.5rem, 9vw, 5.5rem);
+      padding-top: 1.75rem;
+      border-top: 1px solid var(--rule);
+      text-align: center;
+      font-size: .9375rem;
+      color: var(--ink-faint);
+      line-height: 1.9;
+    }
+    footer a { color: var(--ink-soft); }
+    footer .sep { opacity: .5; padding: 0 .35rem; }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <div class="wrap">
+    <header class="hero">
+      <svg class="maru" viewBox="0 0 100 100" role="img" aria-label="Mru mark — a circle">
+        <circle cx="50" cy="50" r="34"/>
+        <line x1="50" y1="16" x2="50" y2="84"/>
+      </svg>
+      <h1 class="wordmark">Mru</h1>
+      <p class="tagline">A Fault-Tolerant Operating System for Thousand-Year Autonomous Operation</p>
+      <p class="positioning">Software designed to outlive its makers — to operate autonomously across deep space and time.</p>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="/mru-whitepaper.pdf">Download the whitepaper (PDF)</a>
+      </div>
+    </header>
+
+    <hr class="rule">
+
+    <main id="main" class="prose">
+      <h2>What it is</h2>
+
+      <p>No software system in human history has been designed to operate for
+      centuries without human intervention. The longest-lived systems we have
+      built — deep-space probes approaching fifty years of service, banking
+      codebases approaching sixty — survive only through continuous human
+      maintenance.</p>
+
+      <p>Mru is an open-source operating system that treats this physical decay
+      not as an exceptional fault but as the governing design constraint — the
+      <span class="term">Degradation-First Principle</span>. From it follows a
+      layered architecture modeled on biological robustness: a minimal, formally
+      verified interpreter, replicated across reconfigurable hardware, executing
+      behavior encoded as mutable data — the way DNA encodes behavior run by a
+      replicated molecular interpreter.</p>
+
+      <p>Designing software to outlive its makers is not speculation but a
+      tractable engineering discipline — one the interstellar case makes
+      unavoidable, and a growing class of terrestrial systems increasingly
+      needs.</p>
+
+      <div class="status">
+        <p><a class="secondary-link" href="/mru-whitepaper.pdf">Read the whitepaper (PDF)</a></p>
+        <p class="muted">Reference implementation coming soon — <code>mru</code>, AGPL v3.</p>
+      </div>
+    </main>
+
+    <footer>
+      <span>&copy; 2026 Binns Pte. Ltd.</span>
+      <span class="sep" aria-hidden="true">·</span>
+      <span>Whitepaper licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a></span>
+      <span class="sep" aria-hidden="true">·</span>
+      <span><a href="mailto:contact@mru.systems">contact@mru.systems</a></span>
+    </footer>
+  </div>
+</body>
+</html>
