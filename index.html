@@ -333,11 +333,29 @@
     readTheme();
     matchMedia('(prefers-color-scheme: dark)').addEventListener('change', readTheme);
 
-    // Starfield. Positions are normalised so they survive resizes.
+    // Starfield with a diagonal galactic band and a dark central rift.
+    // Placement is weighted: a sparse field everywhere, denser along a diagonal
+    // band, but suppressed right down its centre (the dust-lane "gap").
+    var BANG = -0.52, bcos = Math.cos(BANG), bsin = Math.sin(BANG);
+    function bandWeight(nx, ny) {
+      var v = -(nx - 0.5) * bsin + (ny - 0.5) * bcos;   // perpendicular dist from band
+      var band = Math.exp(-(v * v) / 0.040);            // broad luminous band
+      var gap = Math.exp(-(v * v) / 0.0022);            // narrow dark rift down the middle
+      var w = 0.14 + 0.92 * band * (1 - gap);
+      return w > 1 ? 1 : w;
+    }
+    function placeStar(s) {
+      for (var tries = 0; tries < 14; tries++) {
+        var x = Math.random(), y = Math.random();
+        if (Math.random() < bandWeight(x, y)) { s.nx = x; s.ny = y; return; }
+      }
+      s.nx = Math.random(); s.ny = Math.random();
+    }
+
+    // Positions are normalised so they survive resizes.
     var stars = [];
     function newStar() {
-      return {
-        nx: Math.random(), ny: Math.random(),
+      var s = {
         r: 0.5 + Math.random() * 1.3,
         speed: 0.07 + Math.random() * 0.22,   // slow appear/disappear cycle
         phase: Math.random() * Math.PI * 2,
@@ -345,9 +363,11 @@
         fphase: Math.random() * Math.PI * 2,
         pv: 0
       };
+      placeStar(s);
+      return s;
     }
     function seedStars() {
-      var n = Math.max(70, Math.min(260, Math.round(W * H / 8500)));
+      var n = Math.max(220, Math.min(900, Math.round(W * H / 2600)));
       stars = [];
       for (var s = 0; s < n; s++) stars.push(newStar());
     }
@@ -383,8 +403,8 @@
         var s = stars[i], vis, fl;
         if (animated) {
           var v = Math.sin(t * s.speed + s.phase);
-          if (s.pv <= 0 && v > 0) {            // re-born → new random spot
-            s.nx = Math.random(); s.ny = Math.random();
+          if (s.pv <= 0 && v > 0) {            // re-born → new band-weighted spot
+            placeStar(s);
             s.flick = 1.4 + Math.random() * 2.8; s.fphase = Math.random() * Math.PI * 2;
           }
           s.pv = v;
