@@ -181,14 +181,6 @@
     .btn-primary:hover { transform: translateY(-1px); opacity: .9; }
     .btn-primary:active { transform: translateY(0); }
 
-    /* Divider */
-    .rule {
-      border: 0;
-      border-top: 1px solid var(--rule);
-      max-width: 4rem;
-      margin: clamp(3rem, 8vw, 4.5rem) auto;
-    }
-
     /* Prose section */
     .prose h2 {
       font-size: .8125rem;
@@ -197,7 +189,7 @@
       font-weight: 600;
       color: var(--ink-faint);
       font-family: var(--mono);
-      margin: 0 0 1.5rem;
+      margin: clamp(3rem, 8vw, 4.5rem) 0 1.5rem;
       text-align: center;
     }
     .prose p { margin: 0 0 1.35rem; }
@@ -255,8 +247,6 @@
       <h1 class="wordmark">Mru</h1>
       <p class="tagline">Software that still runs a thousand years after we&rsquo;re gone</p>
     </header>
-
-    <hr class="rule">
 
     <main id="main" class="prose">
       <h2>Why</h2>
