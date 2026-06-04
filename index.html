@@ -129,21 +129,10 @@
       fill: none;
       stroke: var(--ink);
       stroke-linejoin: round;
-      transform-box: view-box;
-      transform-origin: center;
     }
     .maru .tri  { stroke-width: 3; }
     .maru .tri2 { stroke-width: 2; }
     .maru .tri3 { stroke-width: 1.5; }
-
-    /* Three nested triangles turning CW / CCW / CW at different speeds. */
-    @media (prefers-reduced-motion: no-preference) {
-      .maru .tri  { animation: maru-spin-cw  14s linear infinite; }
-      .maru .tri2 { animation: maru-spin-ccw 10s linear infinite; }
-      .maru .tri3 { animation: maru-spin-cw   8s linear infinite; }
-    }
-    @keyframes maru-spin-cw  { to { transform: rotate(360deg); } }
-    @keyframes maru-spin-ccw { to { transform: rotate(-360deg); } }
 
     .wordmark {
       font-size: clamp(3.25rem, 12vw, 5rem);
