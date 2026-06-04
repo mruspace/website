@@ -7,9 +7,13 @@
   </defs>
   <rect width="1200" height="630" fill="#121214"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
-  <!-- maru mark -->
-  <circle cx="600" cy="225" r="33" fill="none" stroke="#ecece8" stroke-width="5"/>
-  <line x1="600" y1="192" x2="600" y2="258" stroke="#ecece8" stroke-width="2" opacity="0.4"/>
+  <!-- maru mark: ring + two nested triangles + centre ring -->
+  <g transform="translate(550,175)" fill="none" stroke="#ecece8" stroke-linejoin="round">
+    <circle cx="50" cy="50" r="34" stroke-width="6"/>
+    <polygon points="50,18.5 22.72,65.75 77.28,65.75" stroke-width="3"/>
+    <polygon points="50,35 37.01,57.5 62.99,57.5" stroke-width="2"/>
+    <polygon points="50,42.5 43.5,53.75 56.5,53.75" stroke-width="1.5"/>
+  </g>
   <!-- wordmark -->
   <text x="600" y="425" text-anchor="middle" font-family="Charter, 'Source Serif 4', 'Iowan Old Style', Palatino, Georgia, serif" font-size="160" fill="#ecece8" letter-spacing="1">Mru</text>
   <!-- domain -->

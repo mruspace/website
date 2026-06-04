@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Mru">
   <style>
-    .mark { stroke: #16161a; }
-    @media (prefers-color-scheme: dark) {
-      .mark { stroke: #ecece8; }
-    }
+    .mk { fill: none; stroke: #16161a; stroke-linejoin: round; }
+    @media (prefers-color-scheme: dark) { .mk { stroke: #ecece8; } }
   </style>
-  <circle class="mark" cx="50" cy="50" r="34" fill="none" stroke-width="6"/>
-  <line class="mark" x1="50" y1="16" x2="50" y2="84" stroke-width="2" opacity="0.45"/>
+  <circle class="mk" cx="50" cy="50" r="34" stroke-width="6"/>
+  <polygon class="mk" points="50,18.5 22.72,65.75 77.28,65.75" stroke-width="3"/>
+  <polygon class="mk" points="50,35 37.01,57.5 62.99,57.5" stroke-width="2"/>
+  <polygon class="mk" points="50,42.5 43.5,53.75 56.5,53.75" stroke-width="1.5"/>
 </svg>
