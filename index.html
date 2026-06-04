@@ -192,7 +192,8 @@
       margin-top: clamp(2.5rem, 6vw, 3.5rem);
     }
     .status p { margin: 0 0 .5rem; }
-    .status .muted { color: var(--ink-faint); font-size: 1rem; }
+    .status .cta-row { margin-top: 0; }
+    .status .muted { color: var(--ink-faint); font-size: 1rem; margin-top: 1.5rem; }
     code, .mono { font-family: var(--mono); font-size: .92em; }
     .secondary-link {
       text-decoration-thickness: 1px;
@@ -229,10 +230,6 @@
       <h1 class="wordmark">Mru</h1>
       <p class="tagline">A Fault-Tolerant Operating System for Thousand-Year Autonomous Operation</p>
       <p class="positioning">Software designed to outlive its makers — to operate autonomously across deep space and time.</p>
-
-      <div class="cta-row">
-        <a class="btn btn-primary" href="/mru-whitepaper.pdf">Download the whitepaper (PDF)</a>
-      </div>
     </header>
 
     <hr class="rule">
@@ -260,7 +257,9 @@
       needs.</p>
 
       <div class="status">
-        <p><a class="secondary-link" href="/mru-whitepaper.pdf">Read the whitepaper (PDF)</a></p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/mru-whitepaper.pdf">Read the whitepaper (PDF)</a>
+        </div>
         <p class="muted">Reference implementation coming soon — <code>mru</code>, AGPL v3.</p>
       </div>
     </main>
