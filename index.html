@@ -327,8 +327,8 @@
       var v = getComputedStyle(document.documentElement).getPropertyValue('--tess').trim();
       if (v) rgb = v;
       var dark = matchMedia('(prefers-color-scheme: dark)').matches;
-      peak = dark ? 0.085 : 0.05;
-      starPeak = dark ? 0.55 : 0.18;
+      peak = dark ? 0.06 : 0.035;
+      starPeak = dark ? 0.38 : 0.13;
     }
     readTheme();
     matchMedia('(prefers-color-scheme: dark)').addEventListener('change', readTheme);
@@ -367,7 +367,7 @@
       return s;
     }
     function seedStars() {
-      var n = Math.max(220, Math.min(900, Math.round(W * H / 2600)));
+      var n = Math.max(1800, Math.min(7000, Math.round(W * H / 240)));
       stars = [];
       for (var s = 0; s < n; s++) stars.push(newStar());
     }
@@ -398,7 +398,8 @@
       var t = now / 1000;
       ctx.clearRect(0, 0, W, H);
 
-      // Stars.
+      // Stars. Modulate brightness via globalAlpha (cheap) so thousands stay fast.
+      ctx.fillStyle = 'rgb(' + rgb + ')';
       for (var i = 0; i < stars.length; i++) {
         var s = stars[i], vis, fl;
         if (animated) {
@@ -413,10 +414,11 @@
         } else {
           vis = Math.abs(Math.sin(s.phase)); fl = 1;   // still spread of brightnesses
         }
-        if (vis <= 0.002) continue;
-        ctx.fillStyle = 'rgba(' + rgb + ', ' + (starPeak * vis * fl).toFixed(3) + ')';
+        if (vis <= 0.004) continue;
+        ctx.globalAlpha = starPeak * vis * fl;
         ctx.fillRect(s.nx * W, s.ny * H, s.r, s.r);
       }
+      ctx.globalAlpha = 1;
 
       // Tesseract.
       var docH = document.documentElement.scrollHeight - window.innerHeight;
