@@ -1,10 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Mru">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Mru Systems">
   <style>
-    .mk { fill: none; stroke: #16161a; stroke-linejoin: round; }
-    @media (prefers-color-scheme: dark) { .mk { stroke: #ecece8; } }
+    .mk { stroke: #16161a; }
+    .fl { fill: #16161a; }
+    text { font-family: "Futura", "Century Gothic", "Avenir Next", sans-serif; font-weight: 500; }
+    @media (prefers-color-scheme: dark) {
+      .mk { stroke: #ecece8; }
+      .fl { fill: #ecece8; }
+    }
   </style>
-  <circle class="mk" cx="50" cy="50" r="34" stroke-width="6"/>
-  <polygon class="mk" points="50,18.5 22.72,65.75 77.28,65.75" stroke-width="3"/>
-  <polygon class="mk" points="50,35 37.01,57.5 62.99,57.5" stroke-width="2"/>
-  <polygon class="mk" points="50,42.5 43.5,53.75 56.5,53.75" stroke-width="1.5"/>
+  <circle class="mk" cx="50" cy="50" r="34" fill="none" stroke-width="2.4"/>
+  <ellipse class="mk" cx="50" cy="50" rx="30" ry="14" fill="none" stroke-width="1.4" transform="rotate(-22 50 50)"/>
+  <text class="fl" x="50" y="55.6" text-anchor="middle" font-size="16">M</text>
 </svg>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Mru — A Fault-Tolerant Operating System for Thousand-Year Autonomous Operation</title>
+  <title>Mru Systems</title>
   <meta name="description" content="Software that still runs a thousand years after we're gone.">
   <link rel="canonical" href="https://mru.systems/">
   <meta name="robots" content="index, follow">
@@ -14,21 +14,21 @@
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Mru — A Fault-Tolerant Operating System for Thousand-Year Autonomous Operation">
+  <meta property="og:title" content="Mru Systems">
   <meta property="og:description" content="Software that still runs a thousand years after we're gone.">
   <meta property="og:url" content="https://mru.systems/">
   <meta property="og:image" content="https://mru.systems/assets/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Mru — A Fault-Tolerant Operating System for Thousand-Year Autonomous Operation">
-  <meta property="og:site_name" content="Mru">
+  <meta property="og:image:alt" content="Mru Systems">
+  <meta property="og:site_name" content="Mru Systems">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mru — A Fault-Tolerant Operating System for Thousand-Year Autonomous Operation">
+  <meta name="twitter:title" content="Mru Systems">
   <meta name="twitter:description" content="Software that still runs a thousand years after we're gone.">
   <meta name="twitter:image" content="https://mru.systems/assets/og-image.png">
-  <meta name="twitter:image:alt" content="Mru — A Fault-Tolerant Operating System for Thousand-Year Autonomous Operation">
+  <meta name="twitter:image:alt" content="Mru Systems">
 
   <!-- Icons -->
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -38,6 +38,16 @@
   <link rel="manifest" href="/site.webmanifest">
 
   <style>
+    /* Jost (open Futura revival), subset to "Mru" and inlined — self-contained,
+       no external request. Mac users get real Futura first; everyone else this. */
+    @font-face {
+      font-family: "Jost Mru";
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url("data:font/woff2;base64,d09GMgABAAAAAALcAA8AAAAABawAAAKFAAO1wwAAAAAAAAAAAAAAAAAAAAAAAAAAGhYbIBwwBmA/U1RBVEQARBEICoFAgS4BNgIkAxALCgAEIAWDYAcgG40EIB6DbbN5hLEkl4xDCKccv7/xPPy4r3PfezMLMcGhwhlKVt4GlgI1Mu60VdoSp338/Bzr/Q215uIz/8MSVMiiiYQ3KjQxuXT5vF3+c/JN3EybnMgWjCUuTANfOhZwgoHObZ2n83/TkwYGr948NCSmVbtSBxCMBRQRVQSjzeUDbdhU1QQ2GvQBgtFWiEFafudxVKcE8DnVj2XwsU+DVvzyywDlZmkDtssgOSghHojFv+L4pQiAr1DNbDG9G7RVGQECGSofsRAhYqSCqQgsRVw9ymIEHL/ULyIvSDMRgoxCv1BFiTdAQEHFVKRgKgtrgJFGKthJZ/bpK+q/7N/v3xUAkT4TEA2MRMN6YBMADRBFRlu4TOtsb1r7nkN0l33naALddi3ujp76fQvp11Y/jJl+sIu0Iyb+aOlfLNiDf/7WkPn9Yu2W/cOuXhvvffd99nkWXzlu56cwJFxvS+r4sTcrMC8hrCk1yf/T09NjA168mKkENTT0VscVhbWWiqfiTN+VJ5+oGYBzEOqrHwe195p6nbOGR5Lkd8CvSf8xAP73r2j8X2+fHK7fgEEFhG8RaqcACz6CF9Dyi7pdSAzFxV8xhGYvKxCsG+OmKs0WeMqUiOnWiWK8r0S1zLm32YgBs/3DB02PmwyBsQkL0BZNAr3QvHne7FKlkEI1RsdhsDA/CeIG0U/TIkgxKygMOKyOTsGjDNZHz2fCWAqdwU8YFoapDBlixWJwMJZpQIxBCkksjmwIxYDpTIMwzgARJRo2RkWJPdwbfo1lq1GGcEySBhSGSdRPlyhGqnhxMnGwCJmp7GiwJVVn4ChkfmAlBWzlHkm3dUHlsH4izqAGCkk/GQn0tw4B") format("woff2");
+    }
+
     :root {
       --ink: #16161a;
       --ink-soft: #44444c;
@@ -48,6 +58,7 @@
       --glow: transparent;
       --maxw: 42rem; /* ~672px */
       --serif: "Charter", "Source Serif 4", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+      --display: "Futura", "Jost Mru", "Century Gothic", "Avenir Next", "Avenir", system-ui, sans-serif;
       --mono: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
     }
 
@@ -119,26 +130,21 @@
     .hero { text-align: center; margin-bottom: clamp(2.5rem, 6vw, 4rem); }
 
     .maru {
-      width: 56px;
-      height: 56px;
+      width: 78px;
+      height: 78px;
       margin: 0 auto 1.75rem;
       display: block;
     }
-    .maru .ring { fill: none; stroke: var(--ink); stroke-width: 6; }
-    .maru .tri, .maru .tri2, .maru .tri3 {
-      fill: none;
-      stroke: var(--ink);
-      stroke-linejoin: round;
-    }
-    .maru .tri  { stroke-width: 3; }
-    .maru .tri2 { stroke-width: 2; }
-    .maru .tri3 { stroke-width: 1.5; }
+    .maru .ring  { fill: none; stroke: var(--ink); stroke-width: 2.4; }
+    .maru .orbit { fill: none; stroke: var(--ink); stroke-width: 1.4; }
+    .maru .mk    { font-family: var(--display); font-weight: 500; font-size: 16px; fill: var(--ink); }
 
     .wordmark {
+      font-family: var(--display);
       font-size: clamp(3.25rem, 12vw, 5rem);
       line-height: 1;
-      font-weight: 400;
-      letter-spacing: .01em;
+      font-weight: 500;
+      letter-spacing: .005em;
       margin: 0;
     }
 
@@ -207,11 +213,10 @@
 
   <div class="wrap">
     <header class="hero">
-      <svg class="maru" viewBox="0 0 100 100" role="img" aria-label="Mru mark">
+      <svg class="maru" viewBox="0 0 100 100" role="img" aria-label="Mru">
         <circle class="ring" cx="50" cy="50" r="34"/>
-        <polygon class="tri" points="50,18.5 22.72,65.75 77.28,65.75"/>
-        <polygon class="tri2" points="50,35 37.01,57.5 62.99,57.5"/>
-        <polygon class="tri3" points="50,42.5 43.5,53.75 56.5,53.75"/>
+        <ellipse class="orbit" cx="50" cy="50" rx="30" ry="14" transform="rotate(-22 50 50)"/>
+        <text class="mk" x="50" y="55.6" text-anchor="middle">M</text>
       </svg>
       <h1 class="wordmark">Mru</h1>
     </header>
