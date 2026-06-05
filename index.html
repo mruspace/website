@@ -148,6 +148,16 @@
       margin: 0;
     }
 
+    .tagline {
+      margin: clamp(1.25rem, 3.5vw, 1.85rem) auto 0;
+      max-width: none;
+      font-size: clamp(1rem, 2.6vw, 1.2rem);
+      line-height: 1.45;
+      font-style: italic;
+      color: var(--ink-soft);
+      text-wrap: balance;
+    }
+
     /* CTA */
     .cta-row {
       margin-top: 2.5rem;
@@ -171,20 +181,6 @@
     .btn-primary:hover { transform: translateY(-1px); opacity: .9; }
     .btn-primary:active { transform: translateY(0); }
 
-    /* Prose section */
-    .prose { margin-top: clamp(1.75rem, 4.5vw, 2.5rem); }
-    .prose p { margin: 0 0 1.6rem; }
-    .prose p:last-child { margin-bottom: 0; }
-
-    .prose strong { font-weight: 600; }
-    .term { font-style: italic; }
-
-    /* Status block */
-    .status {
-      text-align: center;
-      margin-top: clamp(1.75rem, 4.5vw, 2.5rem);
-    }
-    .status .cta-row { margin-top: 0; }
     code, .mono { font-family: var(--mono); font-size: .92em; }
 
     /* Footer */
@@ -212,50 +208,31 @@
   <a class="skip" href="#main">Skip to content</a>
 
   <div class="wrap">
-    <header class="hero">
+    <main id="main" class="hero">
       <svg class="maru" viewBox="0 0 100 100" role="img" aria-label="Mru">
         <circle class="ring" cx="50" cy="50" r="34"/>
         <ellipse class="orbit" cx="50" cy="50" rx="30" ry="14" transform="rotate(-22 50 50)"/>
         <text class="mk" x="50" y="55.6" text-anchor="middle">M</text>
       </svg>
       <h1 class="wordmark">Mru</h1>
-    </header>
-
-    <main id="main" class="prose">
-      <p>No software system in human history has been designed to operate for
-      centuries without human intervention. The longest-lived systems we have
-      built -- deep-space probes approaching fifty years of service, banking
-      codebases approaching sixty -- survive only through continuous human
-      maintenance.</p>
-
-      <p>Mru is an operating system that treats this physical decay
-      not as an exceptional fault but as the governing design constraint -- the
-      <span class="term">Degradation-First Principle</span>. From it follows a
-      layered architecture modeled on biological robustness: a minimal, formally
-      verified interpreter, replicated across reconfigurable hardware, executing
-      behavior encoded as mutable data -- the way DNA encodes behavior run by a
-      replicated molecular interpreter.</p>
-
-      <p>Designing software to outlive its makers is not speculation but a
-      tractable engineering discipline -- one the interstellar case makes
-      unavoidable, and a growing class of terrestrial systems increasingly
-      needs.</p>
-
-      <div class="status">
-        <div class="cta-row">
-          <a class="btn btn-primary" href="/mru-whitepaper.pdf">Whitepaper</a>
-        </div>
+      <p class="tagline">Software that still runs a thousand years after we&rsquo;re gone</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="/mru-whitepaper.pdf">Paper</a>
       </div>
     </main>
 
     <footer>
       <span>&copy; 2026 Binns Pte. Ltd.</span>
       <span class="sep" aria-hidden="true">·</span>
-      <span>Whitepaper licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a></span>
+      <span>Paper licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a></span>
       <span class="sep" aria-hidden="true">·</span>
       <span><a href="mailto:contact@mru.systems">contact@mru.systems</a></span>
-      <p class="footnote">Reference implementation coming soon — <code>mru</code>, AGPL v3.</p>
+      <p class="footnote">Reference implementation in development -- <code>mru</code>, AGPL v3.</p>
     </footer>
   </div>
+
+  <!-- 100% privacy-first analytics -->
+  <script data-collect-dnt="true" async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+  <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif?collect-dnt=true" alt="" referrerpolicy="no-referrer-when-downgrade"/></noscript>
 </body>
 </html>
