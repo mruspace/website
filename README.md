@@ -27,7 +27,7 @@ trademarks — see [TRADEMARK.md](./TRADEMARK.md).
 index.html          # the single page (all CSS + the "Mru" font subset inlined)
 404.html            # custom not-found page
 mru-whitepaper.pdf  # the whitepaper (served at a permanent /mru-whitepaper.pdf URL)
-favicon.svg         # the "maru" orbit-M mark
+favicon.svg         # the orbit-M mark
 apple-touch-icon.png
 site.webmanifest    # PWA manifest
 robots.txt

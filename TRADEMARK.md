@@ -3,11 +3,12 @@
 **Mru™**, the **Mru** logo (the orbit-M mark), and **mru.systems™** are
 trademarks of **Binns Pte. Ltd.** ("we," "us," "our").
 
-These are unregistered (common-law) marks. We claim rights in them based on first
-use in commerce in May 2026 in connection with the Mru operating-system project,
-its whitepaper, and the website at [mru.systems](https://mru.systems). We use the
-™ symbol to assert these rights; we do not currently claim a federal registration
-(®).
+These are unregistered marks, which we identify with the ™ symbol. We use
+**Mru**, the Mru logo, and **mru.systems** to identify this project, its
+whitepaper, and the website at [mru.systems](https://mru.systems). We have not
+registered these marks (®), and we don't claim exclusive rights in the name or
+priority over similar or earlier names used by others. Our aim is narrow: to
+identify our own work and avoid confusion about its source.
 
 ## Code license vs. trademark
 
