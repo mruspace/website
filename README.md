@@ -8,6 +8,17 @@ via GitHub Pages at [`https://mru.systems`](https://mru.systems).
 
 > Software that still runs a thousand years after we're gone.
 
+## About this repository
+
+This repo is public **for transparency** and to make it easy for collaborators
+to propose changes to the official site. It is the canonical source for
+[`mru.systems`](https://mru.systems) — not a template.
+
+Please **don't redeploy it as a mirror** or stand up look-alike "mru.systems"
+sites. The "Mru" name, mark, and whitepaper are ours; the Apache-2.0 license
+covers reuse of the *code* (see [License](#license)), not the branding. If you
+want to contribute, open an issue or PR here.
+
 ## Structure
 
 ```
@@ -55,36 +66,15 @@ python3 -m http.server 8000
 # open http://localhost:8000
 ```
 
-## Deploy (GitHub Pages)
+## Deployment
 
-1. Push to the `main` branch.
-2. Repo **Settings → Pages → Build and deployment → Source: Deploy from a
-   branch**, branch `main` / `/ (root)`.
-3. The `CNAME` file sets the custom domain `mru.systems`. In Pages settings,
-   confirm the custom domain is `mru.systems` and **Enforce HTTPS** is checked.
+> Maintainers only — the official site auto-deploys.
 
-### DNS (at your registrar / Cloudflare)
-
-Point the apex `mru.systems` at GitHub Pages with **A / AAAA** records:
-
-```
-A     @   185.199.108.153
-A     @   185.199.109.153
-A     @   185.199.110.153
-A     @   185.199.111.153
-AAAA  @   2606:50c0:8000::153
-AAAA  @   2606:50c0:8001::153
-AAAA  @   2606:50c0:8002::153
-AAAA  @   2606:50c0:8003::153
-CNAME www mrusystems.github.io.
-```
-
-`www.mru.systems` then redirects to the apex automatically via GitHub Pages.
-
-### Email (contact@mru.systems)
-
-Set up **Cloudflare Email Routing** (free): add the MX/TXT records it provides
-and forward `contact@mru.systems` → your real inbox.
+Merges to `main` publish automatically to `mru.systems` via GitHub Pages (the
+`CNAME` file pins the custom domain; **Enforce HTTPS** is on). DNS, the
+`www` → apex redirect, and `contact@mru.systems` email routing are configured
+out of band. Contributors don't need any of this — just preview locally and open
+a PR.
 
 ## Regenerating assets
 
