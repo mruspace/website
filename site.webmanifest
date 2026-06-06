@@ -1,7 +1,7 @@
 {
   "name": "Mru",
   "short_name": "Mru",
-  "description": "Software that still runs a thousand years after we're gone.",
+  "description": "Building systems that still run a thousand years after we're gone.",
   "start_url": "/",
   "display": "browser",
   "background_color": "#121214",
