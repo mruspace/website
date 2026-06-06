@@ -6,7 +6,7 @@ The landing page for **Mru** — *A Fault-Tolerant Operating System for
 Thousand-Year Autonomous Operation*. A minimal, single-page static site served
 via GitHub Pages at [`https://mru.space`](https://mru.space).
 
-> Building systems that still run a thousand years after we're gone.
+> Systems that run a thousand years after we're gone.
 
 ## About this repository
 
