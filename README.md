@@ -10,14 +10,17 @@ via GitHub Pages at [`https://mru.systems`](https://mru.systems).
 
 ## About this repository
 
-This repo is public **for transparency** and to make it easy for collaborators
-to propose changes to the official site. It is the canonical source for
-[`mru.systems`](https://mru.systems) — not a template.
+This is the source for [`mru.systems`](https://mru.systems), shared openly so
+you can see exactly how the site is built. Feel free to read it, learn from it,
+and borrow ideas — that's why it's here.
 
-Please **don't redeploy it as a mirror** or stand up look-alike "mru.systems"
-sites. The "Mru" name, mark, and whitepaper are ours; the Apache-2.0 license
-covers reuse of the *code* (see [License](#license)), not the branding. If you
-want to contribute, open an issue or PR here.
+Got a question, spotted a typo, or want to help out? Say hi on X at
+[@mrusystems](https://x.com/mrusystems) or email
+[contact@mru.systems](mailto:contact@mru.systems) — we'd love to hear from you.
+
+A small ask: the code is Apache-2.0 (see [License](#license)), but the **Mru**
+name, mark, and whitepaper are part of our identity, so please build your own
+thing rather than a copy of mru.systems. 💛
 
 ## Structure
 
@@ -73,8 +76,7 @@ python3 -m http.server 8000
 Merges to `main` publish automatically to `mru.systems` via GitHub Pages (the
 `CNAME` file pins the custom domain; **Enforce HTTPS** is on). DNS, the
 `www` → apex redirect, and `contact@mru.systems` email routing are configured
-out of band. Contributors don't need any of this — just preview locally and open
-a PR.
+out of band. None of this is needed just to read the code or preview it locally.
 
 ## Regenerating assets
 
