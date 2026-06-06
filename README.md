@@ -1,18 +1,22 @@
 # mru.systems
 
+![Repobeats analytics](https://repobeats.axiom.co/api/embed/4bb221ccaa0107045df10c7ab08adf12c6e38802.svg "Repobeats analytics image")
+
 The landing page for **Mru** — *A Fault-Tolerant Operating System for
 Thousand-Year Autonomous Operation*. A minimal, single-page static site served
 via GitHub Pages at [`https://mru.systems`](https://mru.systems).
 
+> Software that still runs a thousand years after we're gone.
+
 ## Structure
 
 ```
-index.html          # the single page (all CSS inlined for performance)
+index.html          # the single page (all CSS + the "Mru" font subset inlined)
 404.html            # custom not-found page
-mru-whitepaper.pdf  # the whitepaper — MUST BE ADDED (see below)
-favicon.svg/.ico    # the "maru" circle mark
+mru-whitepaper.pdf  # the whitepaper (served at a permanent /mru-whitepaper.pdf URL)
+favicon.svg         # the "maru" orbit-M mark
 apple-touch-icon.png
-site.webmanifest
+site.webmanifest    # PWA manifest
 robots.txt
 sitemap.xml
 CNAME               # custom domain (mru.systems)
@@ -20,22 +24,29 @@ CNAME               # custom domain (mru.systems)
 assets/
   og-image.png      # 1200×630 social/link-preview image
   og-source.svg     # editable source for the OG image
-  icon-192/512.png  # PWA icons
+  favicon-light.png # light/dark favicon variants
+  favicon-dark.png
+  icon-192.png      # PWA icons
+  icon-512.png
+  jost.ttf          # font source for the inlined "Mru" subset
+  _gen_icons.sh     # regenerate favicons/icons
+  _gen_og.py        # regenerate the OG image
 ```
 
-## ⚠️ One required manual step: add the whitepaper PDF
+Everything is inlined into `index.html` (CSS and a base64 font subset of just
+the letters "Mru"), so the page is fully self-contained and renders with no
+external requests beyond privacy-first analytics.
 
-The download buttons link to `/mru-whitepaper.pdf`, but the PDF is **not yet in
-this repo** (the sibling `mru/mru.pdf` source was not present at build time).
-Before launch:
+## ⚠️ Keep the whitepaper URL stable
+
+The "Paper" button links to `/mru-whitepaper.pdf`. Keep this path **stable
+forever** — the PDF itself hard-codes `https://mru.systems` as its home. To
+update the paper, replace the file in place:
 
 ```sh
 cp ../mru/mru.pdf ./mru-whitepaper.pdf
-git add mru-whitepaper.pdf && git commit -m "Add whitepaper PDF" && git push
+git add mru-whitepaper.pdf && git commit -m "Update whitepaper PDF" && git push
 ```
-
-Keep the path `/mru-whitepaper.pdf` **stable forever** — the PDF itself
-hard-codes `https://mru.systems` as its home.
 
 ## Local preview
 
@@ -46,12 +57,11 @@ python3 -m http.server 8000
 
 ## Deploy (GitHub Pages)
 
-1. Push to the `main` branch of `mrusystems/website`.
+1. Push to the `main` branch.
 2. Repo **Settings → Pages → Build and deployment → Source: Deploy from a
    branch**, branch `main` / `/ (root)`.
-3. The `CNAME` file configures the custom domain `mru.systems`. In GitHub Pages
-   settings, confirm the custom domain is `mru.systems` and **Enforce HTTPS** is
-   checked.
+3. The `CNAME` file sets the custom domain `mru.systems`. In Pages settings,
+   confirm the custom domain is `mru.systems` and **Enforce HTTPS** is checked.
 
 ### DNS (at your registrar / Cloudflare)
 
@@ -76,15 +86,26 @@ CNAME www mrusystems.github.io.
 Set up **Cloudflare Email Routing** (free): add the MX/TXT records it provides
 and forward `contact@mru.systems` → your real inbox.
 
-## Editing the OG image
-
-Edit `assets/og-source.svg`, then regenerate:
+## Regenerating assets
 
 ```sh
+# OG image (from assets/og-source.svg)
 magick -background none assets/og-source.svg assets/og-image.png
+
+# favicons / PWA icons
+./assets/_gen_icons.sh
 ```
 
 ## License
 
-- Site content & whitepaper: **CC BY 4.0**
-- Reference implementation (`mru`, coming soon): **AGPL v3** (dual-licensed)
+This repository is **dual-licensed**:
+
+- **Site code** (`index.html`, `404.html`, styles, scripts, build helpers):
+  [Apache License 2.0](./LICENSE).
+- **Content** (the whitepaper `mru-whitepaper.pdf` and site copy):
+  [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+The `mru` reference implementation lives in its own repository and is also
+licensed under **Apache License 2.0**.
+
+© 2026 Binns Pte. Ltd.
