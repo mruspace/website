@@ -1,22 +1,22 @@
-# mru.systems
+# mru.space
 
 ![Repobeats analytics](https://repobeats.axiom.co/api/embed/4bb221ccaa0107045df10c7ab08adf12c6e38802.svg "Repobeats analytics image")
 
 The landing page for **Mru** — *A Fault-Tolerant Operating System for
 Thousand-Year Autonomous Operation*. A minimal, single-page static site served
-via GitHub Pages at [`https://mru.systems`](https://mru.systems).
+via GitHub Pages at [`https://mru.space`](https://mru.space).
 
 > Software that still runs a thousand years after we're gone.
 
 ## About this repository
 
-This is the source for [`mru.systems`](https://mru.systems), shared openly so
+This is the source for [`mru.space`](https://mru.space), shared openly so
 you can see exactly how the site is built. Feel free to read it, learn from it,
 and borrow ideas — that's why it's here.
 
 Got a question, spotted a typo, or want to help out? Say hi on X at
 [@mrusystems](https://x.com/mrusystems) or email
-[contact@mru.systems](mailto:contact@mru.systems) — we'd love to hear from you.
+[contact@mru.space](mailto:contact@mru.space) — we'd love to hear from you.
 
 The code is Apache-2.0 (see [License](#license)); the **Mru** name and logo are
 trademarks — see [TRADEMARK.md](./TRADEMARK.md).
@@ -32,7 +32,7 @@ apple-touch-icon.png
 site.webmanifest    # PWA manifest
 robots.txt
 sitemap.xml
-CNAME               # custom domain (mru.systems)
+CNAME               # custom domain (mru.space)
 .nojekyll           # serve files as-is, no Jekyll processing
 LICENSE             # Apache License 2.0 (the code)
 TRADEMARK.md        # trademark notice (the Mru name/logo)
@@ -55,7 +55,7 @@ external requests beyond privacy-first analytics.
 ## ⚠️ Keep the whitepaper URL stable
 
 The "Paper" button links to `/mru-whitepaper.pdf`. Keep this path **stable
-forever** — the PDF itself hard-codes `https://mru.systems` as its home. To
+forever** — the PDF itself hard-codes `https://mru.space` as its home. To
 update the paper, replace the file in place:
 
 ```sh
@@ -74,9 +74,9 @@ python3 -m http.server 8000
 
 > Maintainers only — the official site auto-deploys.
 
-Merges to `main` publish automatically to `mru.systems` via GitHub Pages (the
+Merges to `main` publish automatically to `mru.space` via GitHub Pages (the
 `CNAME` file pins the custom domain; **Enforce HTTPS** is on). DNS, the
-`www` → apex redirect, and `contact@mru.systems` email routing are configured
+`www` → apex redirect, and `contact@mru.space` email routing are configured
 out of band. None of this is needed just to read the code or preview it locally.
 
 ## Regenerating assets
@@ -101,7 +101,7 @@ This repository is **dual-licensed**:
 The `mru` reference implementation lives in its own repository and is also
 licensed under **Apache License 2.0**.
 
-The **Mru** name, logo, and `mru.systems` are trademarks of Binns Pte. Ltd. and
+The **Mru** name, logo, and `mru.space` are trademarks of Binns Pte. Ltd. and
 are **not** covered by the code license — see [TRADEMARK.md](./TRADEMARK.md).
 
 © Binns Pte. Ltd.

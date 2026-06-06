@@ -46,7 +46,7 @@ svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewB
   <!-- wordmark -->
   <text class="word" x="600" y="430" text-anchor="middle" font-size="150" fill="#ecece8">Mru</text>
   <!-- domain -->
-  <text x="600" y="540" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="23" fill="#8f8f8a" letter-spacing="3">mru.systems</text>
+  <text x="600" y="540" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="23" fill="#8f8f8a" letter-spacing="3">mru.space</text>
 </svg>
 '''
 

@@ -1,11 +1,11 @@
 # Trademark Notice
 
-**Mru™**, the **Mru** logo (the orbit-M mark), and **mru.systems™** are
+**Mru™**, the **Mru** logo (the orbit-M mark), and **mru.space™** are
 trademarks of **Binns Pte. Ltd.** ("we," "us," "our").
 
 These are unregistered marks, which we identify with the ™ symbol. We use
-**Mru**, the Mru logo, and **mru.systems** to identify this project, its
-whitepaper, and the website at [mru.systems](https://mru.systems). We have not
+**Mru**, the Mru logo, and **mru.space** to identify this project, its
+whitepaper, and the website at [mru.space](https://mru.space). We have not
 registered these marks (®), and we don't claim exclusive rights in the name or
 priority over similar or earlier names used by others. Our aim is narrow: to
 identify our own work and avoid confusion about its source.
@@ -25,7 +25,7 @@ example to:
 
 - State that your work uses, integrates with, is compatible with, or is based on
   Mru or the Mru source code.
-- Link to [mru.systems](https://mru.systems) or to this repository.
+- Link to [mru.space](https://mru.space) or to this repository.
 - Discuss, review, teach, or report on the project.
 
 When you do, please use the marks accurately and don't imply that we sponsor,
@@ -35,7 +35,7 @@ endorse, or are affiliated with your work unless we actually are.
 
 Please don't, without asking us first:
 
-- Use **Mru**, **mru.systems**, or any confusingly similar name or logo as the
+- Use **Mru**, **mru.space**, or any confusingly similar name or logo as the
   name, branding, logo, or domain of your own product, service, project, site,
   company, or social account.
 - Redistribute the code (in source or modified form) under the Mru name or mark
@@ -53,6 +53,6 @@ the **marks** — they cover different things.
 We're friendly — just reach out:
 
 - X: [@mrusystems](https://x.com/mrusystems)
-- Email: [contact@mru.systems](mailto:contact@mru.systems)
+- Email: [contact@mru.space](mailto:contact@mru.space)
 
 © Binns Pte. Ltd. All trademark rights reserved.
