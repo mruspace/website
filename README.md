@@ -18,9 +18,8 @@ Got a question, spotted a typo, or want to help out? Say hi on X at
 [@mrusystems](https://x.com/mrusystems) or email
 [contact@mru.systems](mailto:contact@mru.systems) — we'd love to hear from you.
 
-A small ask: the code is Apache-2.0 (see [License](#license)), but the **Mru**
-name, mark, and whitepaper are part of our identity, so please build your own
-thing rather than a copy of mru.systems. 💛
+The code is Apache-2.0 (see [License](#license)); the **Mru** name and logo are
+trademarks — see [TRADEMARK.md](./TRADEMARK.md).
 
 ## Structure
 
@@ -35,6 +34,8 @@ robots.txt
 sitemap.xml
 CNAME               # custom domain (mru.systems)
 .nojekyll           # serve files as-is, no Jekyll processing
+LICENSE             # Apache License 2.0 (the code)
+TRADEMARK.md        # trademark notice (the Mru name/logo)
 assets/
   og-image.png      # 1200×630 social/link-preview image
   og-source.svg     # editable source for the OG image
@@ -99,5 +100,8 @@ This repository is **dual-licensed**:
 
 The `mru` reference implementation lives in its own repository and is also
 licensed under **Apache License 2.0**.
+
+The **Mru** name, logo, and `mru.systems` are trademarks of Binns Pte. Ltd. and
+are **not** covered by the code license — see [TRADEMARK.md](./TRADEMARK.md).
 
 © 2026 Binns Pte. Ltd.
