@@ -104,4 +104,4 @@ licensed under **Apache License 2.0**.
 The **Mru** name, logo, and `mru.systems` are trademarks of Binns Pte. Ltd. and
 are **not** covered by the code license — see [TRADEMARK.md](./TRADEMARK.md).
 
-© 2026 Binns Pte. Ltd.
+© Binns Pte. Ltd.

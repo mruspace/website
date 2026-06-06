@@ -54,4 +54,4 @@ We're friendly — just reach out:
 - X: [@mrusystems](https://x.com/mrusystems)
 - Email: [contact@mru.systems](mailto:contact@mru.systems)
 
-© 2026 Binns Pte. Ltd. All trademark rights reserved.
+© Binns Pte. Ltd. All trademark rights reserved.
