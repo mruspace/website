@@ -24,4 +24,9 @@ draw_mark apple-touch-icon.png     180 "#ecece8" "#121214"
 draw_mark assets/icon-192.png      192 "#ecece8" "#121214"
 draw_mark assets/icon-512.png      512 "#ecece8" "#121214"
 
+# Legacy / direct-request favicon.ico (multi-res, opaque dark plate). Covers
+# crawlers and clients that request /favicon.ico regardless of <link> tags.
+draw_mark /tmp/_mark256.png        256 "#ecece8" "#121214"
+magick /tmp/_mark256.png -define icon:auto-resize=48,32,16 favicon.ico
+
 echo "icons regenerated"
