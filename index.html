@@ -246,6 +246,17 @@
 
   <!-- 100% privacy-first analytics -->
   <script data-collect-dnt="true" async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+
+  <!-- Madruga — which community produced each visitor. https://madruga.dev
+       This is a static site with no server, so there is no /go route to mount: links pasted into a
+       community look like https://mru.space/?c=<slug>, which is still OUR domain — a shortlink
+       would read as a tracking link and cost the standing the post was meant to build.
+       The key is public by design: it can record a click and nothing else, and only from the
+       origins listed in Madruga. No fingerprinting, no third-party cookie, no personal data. -->
+  <script src="https://madruga.dev/m.js"
+          data-madruga-key="mad_browser_56a99e913b49a46d_8ed59215a94b7a3b02f02cbf6ae45168fa7fe10d1f555d51"
+          defer></script>
+
   <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif?collect-dnt=true" alt="" referrerpolicy="no-referrer-when-downgrade"/></noscript>
 </body>
 </html>
