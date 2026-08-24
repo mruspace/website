@@ -40,14 +40,31 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
 
-  <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) — GA4.
+       No cookie banner: use of the site is consent, per /terms/. Consent Mode is
+       defaulted to granted so nothing downstream throttles collection. -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6BT77YW84T"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+
+    gtag('consent', 'default', {
+      'ad_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'analytics_storage': 'granted',
+      'functionality_storage': 'granted',
+      'personalization_storage': 'granted',
+      'security_storage': 'granted'
+    });
+
     gtag('js', new Date());
 
-    gtag('config', 'G-6BT77YW84T');
+    gtag('config', 'G-6BT77YW84T', {
+      'send_page_view': true,
+      'allow_google_signals': true,
+      'allow_ad_personalization_signals': true
+    });
   </script>
 
   <style>
@@ -251,11 +268,9 @@
       <span><a href="mailto:contact@mru.space">contact@mru.space</a></span>
       <p class="footnote">Paper <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a> &middot; Code <a href="https://www.apache.org/licenses/LICENSE-2.0" rel="license noopener">Apache 2.0</a></p>
       <p class="footnote">Mru&trade; and the Mru logo are our trademarks</p>
+      <p class="footnote"><a href="/terms/">Terms &amp; Analytics Notice</a></p>
     </footer>
   </div>
-
-  <!-- 100% privacy-first analytics -->
-  <script data-collect-dnt="true" async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
 
   <!-- Madruga — which community produced each visitor. https://madruga.dev
        This is a static site with no server, so there is no /go route to mount: links pasted into a
@@ -266,7 +281,5 @@
   <script src="https://madruga.dev/m.js"
           data-madruga-key="mad_browser_56a99e913b49a46d_8ed59215a94b7a3b02f02cbf6ae45168fa7fe10d1f555d51"
           defer></script>
-
-  <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif?collect-dnt=true" alt="" referrerpolicy="no-referrer-when-downgrade"/></noscript>
 </body>
 </html>

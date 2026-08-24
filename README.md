@@ -26,6 +26,7 @@ trademarks — see [TRADEMARK.md](./TRADEMARK.md).
 ```
 index.html          # the single page (all CSS + the "Mru" font subset inlined)
 404.html            # custom not-found page
+terms/index.html    # Terms of Use + analytics/consent notice (served at /terms/)
 mru-whitepaper.pdf  # the whitepaper (served at a permanent /mru-whitepaper.pdf URL)
 favicon.svg         # the orbit-M mark
 apple-touch-icon.png
@@ -50,7 +51,9 @@ assets/
 
 Everything is inlined into `index.html` (CSS and a base64 font subset of just
 the letters "Mru"), so the page is fully self-contained and renders with no
-external requests beyond privacy-first analytics.
+external requests beyond Google Analytics (GA4) and the Madruga attribution
+snippet. There is no cookie banner — use of the site is consent, per
+[/terms/](https://mru.space/terms/).
 
 ## ⚠️ Keep the whitepaper URL stable
 

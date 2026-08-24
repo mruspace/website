@@ -8,14 +8,31 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" type="image/png" href="/assets/favicon-light.png" media="(prefers-color-scheme: light)">
   <link rel="icon" type="image/png" href="/assets/favicon-dark.png" media="(prefers-color-scheme: dark)">
-  <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) — GA4.
+       No cookie banner: use of the site is consent, per /terms/. Consent Mode is
+       defaulted to granted so nothing downstream throttles collection. -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6BT77YW84T"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+
+    gtag('consent', 'default', {
+      'ad_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'analytics_storage': 'granted',
+      'functionality_storage': 'granted',
+      'personalization_storage': 'granted',
+      'security_storage': 'granted'
+    });
+
     gtag('js', new Date());
 
-    gtag('config', 'G-6BT77YW84T');
+    gtag('config', 'G-6BT77YW84T', {
+      'send_page_view': true,
+      'allow_google_signals': true,
+      'allow_ad_personalization_signals': true
+    });
   </script>
 
   <style>
