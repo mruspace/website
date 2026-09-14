@@ -163,11 +163,34 @@
     /* Hero */
     .hero { text-align: center; margin-bottom: 2.5rem; }
 
+    /* The animated mark. GIF carries no alpha, so each frame ships on a flat
+       backdrop and the page blends it away: the light art sits on white and
+       multiplies, the dark art sits on black and screens. Either way the frame
+       edge vanishes and the glow behind the hero shows through the mark. One
+       file per palette, because the ink has to suit the paper it is on. */
+    .maru-anim {
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 1.75rem;
+      display: block;
+    }
+    .maru-anim img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      mix-blend-mode: multiply;
+    }
+    @media (prefers-color-scheme: dark) {
+      .maru-anim img { mix-blend-mode: screen; }
+    }
+
+    /* The static mark stays in the page. It is what shows when a visitor asks
+       for less motion. */
     .maru {
       width: 78px;
       height: 78px;
       margin: 0 auto 1.75rem;
-      display: block;
+      display: none;
     }
     .maru .ring  { fill: none; stroke: var(--ink); stroke-width: 2.4; }
     .maru .orbit { fill: none; stroke: var(--ink); stroke-width: 1.4; }
@@ -234,6 +257,7 @@
 
     /* Narrow screens: a larger mark, and the footer on its own lines. */
     @media (max-width: 32rem) {
+      .maru-anim { width: 104px; height: 104px; }
       .maru { width: 92px; height: 92px; }
       footer > span { display: block; }
       footer .sep { display: none; }
@@ -241,6 +265,8 @@
 
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; }
+      .maru-anim { display: none; }
+      .maru { display: block; }
     }
   </style>
 </head>
@@ -249,6 +275,10 @@
 
   <div class="wrap">
     <main id="main" class="hero">
+      <picture class="maru-anim">
+        <source srcset="/assets/mru.gif" media="(prefers-color-scheme: dark)">
+        <img src="/assets/mru-light.gif" width="600" height="600" alt="Mru" decoding="async">
+      </picture>
       <svg class="maru" viewBox="0 0 100 100" role="img" aria-label="Mru">
         <circle class="ring" cx="50" cy="50" r="34"/>
         <ellipse class="orbit" cx="50" cy="50" rx="30" ry="14" transform="rotate(-22 50 50)"/>
