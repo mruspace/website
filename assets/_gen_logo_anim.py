@@ -19,7 +19,11 @@ them. Every variant closes on its own first frame.
   classic    the full lockup holds still, a bead rides the orbit. 6s, one lap.
   precess    the orbit ellipse turns inside the ring, the bead rides with it.
 
-Usage: _gen_logo_anim.py [name|all]
+The mark is drawn in one of two palettes, matching the site's light and dark
+themes. The dark trace variant publishes as mru.gif / mru.mp4, the light one as
+mru-light.gif / mru-light.mp4; everything else keeps its logo-loop-* name.
+
+Usage: _gen_logo_anim.py [name|all] [dark|light|both]
 """
 import math, os, subprocess, shutil, sys, tempfile
 
@@ -28,9 +32,34 @@ FONT_JOST = os.path.join(HERE, "jost.ttf")
 FONT_MONO = "/System/Library/Fonts/SFNSMono.ttf"
 
 W = H = 1080
-INK = "#ecece8"
-BG = "#121214"
 FPS = 30
+
+# The site's two palettes, mirroring the :root blocks in index.html. Light is
+# not a negative of dark: the page has no glow in light mode, and the trace
+# plate has to darken the paper rather than light it up, so it carries its own
+# blend. Nothing here changes the geometry.
+THEMES = {
+    "dark": dict(
+        ink="#ecece8", bg="#121214", faint="#8f8f8a", glow="#7c8caa",
+        glow_op=0.16, blend="screen", pen="#ecece8", trace_gain=1.0),
+    "light": dict(
+        ink="#16161a", bg="#fafaf8", faint="#6f6f78", glow=None,
+        glow_op=0.0, blend="multiply", pen="white", trace_gain=0.914),
+}
+
+INK = BG = FAINT = GLOW = PEN = BLEND = None
+GLOW_OP = TRACE_GAIN = 0.0
+
+
+def use_theme(name):
+    """Point the drawing code at one palette. build() calls this first."""
+    global INK, BG, FAINT, GLOW, GLOW_OP, BLEND, PEN, TRACE_GAIN
+    t = THEMES[name]
+    INK, BG, FAINT, GLOW = t["ink"], t["bg"], t["faint"], t["glow"]
+    GLOW_OP, BLEND, PEN, TRACE_GAIN = t["glow_op"], t["blend"], t["pen"], t["trace_gain"]
+
+
+use_theme("dark")
 
 WORD_SIZE, WORD_BASE = 170, 712
 DOM_SIZE, DOM_BASE, DOM_KERN = 26, 800, 4
@@ -67,7 +96,7 @@ VARIANTS = {
     "trace": dict(
         geom=MARK, seconds=12, lockup=False, dial=False, trace=True, align=False,
         orbits=[orbit(spin=360.0)], beads=[bead(laps=12)],
-        mp4_loops=0, gif_fps=20, gif_colors=160),
+        mp4_loops=0, gif_fps=20, gif_colors=160, publish="mru", flat=True),
     "classic": dict(
         geom=LOCKUP, seconds=6, lockup=True, dial=False, trace=False, align=False,
         orbits=[orbit()], beads=[bead(laps=1)],
@@ -146,15 +175,28 @@ def align_flash(t):
     return (1.0 - _smoothstep(d / 0.06)) * 0.45
 
 
-def build_base(g, path, lockup):
-    """Everything that never moves: bg + glow + ring (+ wordmark + domain)."""
-    cmd = ["magick",
-        "-size", f"{W}x{H}", f"xc:{BG}",
+def build_base(g, path, lockup, flat=False):
+    """Everything that never moves: bg + glow + ring (+ wordmark + domain).
+
+    flat is for the variants that ship onto the site. index.html draws its own
+    glow behind the hero, so the art must not carry a second one, and it must
+    not carry the page colour either: any opaque backdrop shows up as a tile
+    over that glow. Instead the frame is laid on the blend-neutral colour for
+    the theme (black under screen, white under multiply) and the page composites
+    it with the matching mix-blend-mode. On a dark page screen over black and on
+    a light page multiply over white both come out equal to painting the ink
+    straight onto whatever is behind it, so the frame edge disappears."""
+    backdrop = ("black" if BLEND == "screen" else "white") if flat else BG
+    cmd = ["magick", "-size", f"{W}x{H}", f"xc:{backdrop}"]
+    if GLOW and not flat:
         # faint depth glow, mirrors the site's radial-gradient
-        "(", "-size", f"{W}x{H}", "radial-gradient:#7c8caa-#121214",
-             "-gravity", "center", "-crop", f"{W}x{H}+0+0", "+repage",
-             "-alpha", "set", "-channel", "A", "-evaluate", "multiply", "0.16", "+channel", ")",
-        "-compose", "over", "-composite",
+        cmd += [
+            "(", "-size", f"{W}x{H}", f"radial-gradient:{GLOW}-{BG}",
+                 "-gravity", "center", "-crop", f"{W}x{H}+0+0", "+repage",
+                 "-alpha", "set", "-channel", "A",
+                 "-evaluate", "multiply", f"{GLOW_OP}", "+channel", ")",
+            "-compose", "over", "-composite"]
+    cmd += [
         # ring
         "-fill", "none", "-stroke", INK, "-strokewidth", f"{g.sw_ring:.2f}",
         "-draw", f"circle {g.X(50):.1f},{g.Y(50):.1f} {g.X(50):.1f},{g.Y(50)-g.r_ring:.1f}",
@@ -165,7 +207,7 @@ def build_base(g, path, lockup):
         cmd += [
             "-gravity", "none", "-pointsize", str(WORD_SIZE), "-kerning", "0",
             "-annotate", f"+{(W - word_w)//2}+{WORD_BASE}", "Mru",
-            "-font", FONT_MONO, "-fill", "#8f8f8a", "-pointsize", str(DOM_SIZE),
+            "-font", FONT_MONO, "-fill", FAINT, "-pointsize", str(DOM_SIZE),
             "-kerning", str(DOM_KERN),
             "-annotate", f"+{(W - dom_w)//2}+{DOM_BASE}", "mru.space"]
     run(cmd + [path])
@@ -294,7 +336,7 @@ def trace_step(g, acc, t, prev_t, v):
         # line; the depth shading is slow enough to carry at frame resolution.
         depth = sum(p[2] for p in pts) / len(pts)
         d = "M " + " L ".join(f"{x:.2f},{y:.2f}" for x, y, _ in pts)
-        cmd += ["-draw", f"fill none stroke {INK} stroke-linecap round "
+        cmd += ["-draw", f"fill none stroke {PEN} stroke-linecap round "
                          f"stroke-linejoin round stroke-width {g.px(0.5):.2f} "
                          f"stroke-opacity {ink * (0.45 + 0.55 * depth):.3f} path '{d}'"]
     run(cmd + [acc])
@@ -317,8 +359,13 @@ def frame(g, base, out, t, v, acc=None):
     """orbits, then the M over them, then the dial, then the beads."""
     cmd = ["magick", base]
     if acc and trace_vis(t) > 0.003:
-        cmd += ["(", acc, "-evaluate", "multiply", f"{trace_vis(t):.4f}", ")",
-                "-compose", "screen", "-composite", "-compose", "over"]
+        vis = trace_vis(t) * TRACE_GAIN
+        # The plate holds exposure, not colour. On dark, screening it in adds
+        # light. On light there is no light to add, so invert the scaled plate
+        # into a multiply mask and let it pull the paper down towards the ink.
+        neg = ["-negate"] if BLEND == "multiply" else []
+        cmd += ["(", acc, "-evaluate", "multiply", f"{vis:.4f}"] + neg + [")",
+                "-compose", BLEND, "-composite", "-compose", "over"]
     cmd += ["-draw", orbits_draw(g, t, v["orbits"]),
         "-stroke", "none", "-fill", INK, "-font", FONT_JOST,
         "-pointsize", f"{g.m_size:.1f}", "-gravity", "center",
@@ -330,17 +377,21 @@ def frame(g, base, out, t, v, acc=None):
     run(cmd)
 
 
-def build(name):
+def build(name, theme="dark"):
     v = VARIANTS[name]
+    use_theme(theme)
     g = Geom(*v["geom"])
     suffix = "" if name == "classic" else f"-{name}"
-    mp4 = os.path.join(HERE, f"logo-loop{suffix}.mp4")
-    gif = os.path.join(HERE, f"logo-loop{suffix}.gif")
+    stem = v.get("publish") or f"logo-loop{suffix}"
+    if theme != "dark":
+        stem += f"-{theme}"
+    mp4 = os.path.join(HERE, f"{stem}.mp4")
+    gif = os.path.join(HERE, f"{stem}.gif")
     frames = FPS * v["seconds"]
     tmp = tempfile.mkdtemp(prefix=f"mru-logo-{name}-")
     try:
         base = os.path.join(tmp, "base.png")
-        build_base(g, base, v["lockup"])
+        build_base(g, base, v["lockup"], v.get("flat", False))
         acc = None
         if v["trace"]:
             acc = os.path.join(tmp, "acc.png")
@@ -370,12 +421,24 @@ def build(name):
                      f"[a]palettegen=max_colors={v['gif_colors']}:stats_mode=diff[p];"
                      "[b][p]paletteuse=dither=bayer:bayer_scale=4:diff_mode=rectangle"),
              "-loop", "0", gif])
+
+        if v.get("flat"):
+            # ffmpeg's palette lands the flat backdrop a shade off pure, and a
+            # shade off is enough to tint the page inside the frame once the
+            # blend mode is on it. Snap the extreme back, and let the layer
+            # optimiser drop what does not change between frames: on this art
+            # that is most of the picture, so the file roughly halves.
+            pure = "white" if BLEND == "multiply" else "black"
+            run(["magick", gif, "-fuzz", "2%", "-fill", pure, "-opaque", pure,
+                 "-layers", "optimize", gif])
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
-    print(f"{name}: {os.path.basename(mp4)}, {os.path.basename(gif)}")
+    print(f"{name}/{theme}: {os.path.basename(mp4)}, {os.path.basename(gif)}")
 
 
 if __name__ == "__main__":
     which = sys.argv[1] if len(sys.argv) > 1 else "all"
-    for n in (VARIANTS if which == "all" else [which]):
-        build(n)
+    theme = sys.argv[2] if len(sys.argv) > 2 else "dark"
+    for t in (THEMES if theme == "both" else [theme]):
+        for n in (VARIANTS if which == "all" else [which]):
+            build(n, t)
