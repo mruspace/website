@@ -38,6 +38,10 @@ CNAME               # custom domain (mru.space)
 LICENSE             # Apache License 2.0 (the code)
 TRADEMARK.md        # trademark notice (the Mru name/logo)
 assets/
+  mru.gif           # the animated mark on the homepage (dark theme)
+  mru-light.gif     # the same mark, light theme
+  mru.mp4           # video cuts of the same loop, for use off the site
+  mru-light.mp4
   og-image.png      # 1200×630 social/link-preview image
   og-source.svg     # editable source for the OG image
   favicon-light.png # light/dark favicon variants
@@ -47,7 +51,20 @@ assets/
   jost.ttf          # font source for the inlined "Mru" subset
   _gen_icons.sh     # regenerate favicons/icons
   _gen_og.py        # regenerate the OG image
+  _gen_logo_anim.py # regenerate the animated mark
 ```
+
+### The animated mark
+
+GIF has no alpha channel, so each frame ships on a flat backdrop and the page
+blends that backdrop away: the light art sits on white and multiplies, the dark
+art sits on black and screens. That is why there are two files, and why the
+frame edge does not show over the glow behind the hero. The static SVG mark
+stays in `index.html` and is what shows under `prefers-reduced-motion: reduce`.
+
+Anything that gives `.maru-anim`, or an element above it, its own stacking
+context (`transform`, `filter`, `opacity`, `z-index`) stops the blend and turns
+the mark back into an opaque square.
 
 Everything is inlined into `index.html` (CSS and a base64 font subset of just
 the letters "Mru"), so the page is fully self-contained and renders with no
@@ -90,6 +107,9 @@ magick -background none assets/og-source.svg assets/og-image.png
 
 # favicons / PWA icons
 ./assets/_gen_icons.sh
+
+# the animated mark, both themes (needs ImageMagick and ffmpeg; takes a few minutes)
+./assets/_gen_logo_anim.py trace both
 ```
 
 ## License
