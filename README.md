@@ -1,7 +1,5 @@
 # mru.space
 
-![Repobeats analytics](https://repobeats.axiom.co/api/embed/4bb221ccaa0107045df10c7ab08adf12c6e38802.svg "Repobeats analytics image")
-
 The landing page for **Mru** — *A Fault-Tolerant Operating System for
 Thousand-Year Autonomous Operation*. A minimal, single-page static site served
 via GitHub Pages at [`https://mru.space`](https://mru.space).
