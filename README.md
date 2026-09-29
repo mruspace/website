@@ -12,9 +12,8 @@ This is the source for [`mru.space`](https://mru.space), shared openly so
 you can see exactly how the site is built. Feel free to read it, learn from it,
 and borrow ideas — that's why it's here.
 
-Got a question, spotted a typo, or want to help out? Say hi on X at
-[@mruspace](https://x.com/mruspace) or email
-[contact@mru.space](mailto:contact@mru.space) — we'd love to hear from you.
+Got a question, spotted a typo, or want to help out? Email
+[contact@mru.space](mailto:contact@mru.space). We'd love to hear from you.
 
 The code is Apache-2.0 (see [License](#license)); the **Mru** name and logo are
 trademarks — see [TRADEMARK.md](./TRADEMARK.md).
