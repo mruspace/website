@@ -1,3 +1,12 @@
+<p align="center">
+  <a href="https://mru.space">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="assets/readme/mru-github-dark.gif">
+      <img src="assets/readme/mru-github-light.gif" alt="Mru" width="120" height="120">
+    </picture>
+  </a>
+</p>
+
 # mru.space
 
 The landing page for **Mru** — *A Fault-Tolerant Operating System for
@@ -49,6 +58,8 @@ assets/
   _gen_icons.sh     # regenerate favicons/icons
   _gen_og.py        # regenerate the OG image
   _gen_logo_anim.py # regenerate the animated mark
+  _gen_readme_gifs.sh # README-sized copies of the mark, for GitHub
+  readme/           # those copies: 240px, tuned to GitHub's page colours
 ```
 
 ### The animated mark
@@ -107,6 +118,9 @@ magick -background none assets/og-source.svg assets/og-image.png
 
 # the animated mark, both themes (needs ImageMagick and ffmpeg; takes a few minutes)
 ./assets/_gen_logo_anim.py trace both
+
+# README copies of the mark, used by every mruspace repo (needs gifsicle)
+(cd assets && ./_gen_readme_gifs.sh)
 ```
 
 ## License
