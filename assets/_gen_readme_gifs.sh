@@ -11,6 +11,12 @@ mkdir -p readme
 magick mru.gif -coalesce null: \( -size 600x600 xc:'#0d1117' \) -compose screen \
   -layers composite -resize 240x240 -layers optimize readme/mru-github-dark.gif
 magick mru-light.gif -coalesce -resize 240x240 -layers optimize readme/mru-github-light.gif
-for v in dark light; do
-  gifsicle -O3 --lossy=30 --colors 64 -b readme/mru-github-$v.gif
+# Cutting the palette to 64 colours can nudge the backdrop a step off the page
+# colour (254 instead of 255), which shows as a faint square. Snap it back.
+for v in dark:0d1117 light:ffffff; do
+  name=${v%%:*} page=${v#*:}
+  f=readme/mru-github-$name.gif
+  gifsicle -O3 --lossy=30 --colors 64 -b "$f"
+  bg=$(magick "$f[0]" -format '%[hex:p{0,0}]' info: | cut -c1-6 | tr 'A-F' 'a-f')
+  [ "$bg" = "$page" ] || gifsicle -b --change-color "#$bg" "#$page" "$f"
 done
