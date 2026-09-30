@@ -214,28 +214,62 @@
       text-wrap: balance;
     }
 
-    /* CTA */
-    .cta-row {
-      margin-top: 2.5rem;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1rem;
+    /* Research. Newest first. Each row is one link: name, one line on what it
+       is, and the month it shipped. Wide screens set the three in columns;
+       narrow ones put the summary under the name and date. */
+    .research {
+      margin-top: clamp(2.5rem, 6vw, 3.25rem);
+      text-align: left;
     }
-
-    .btn {
-      display: inline-block;
-      font-family: var(--serif);
-      font-size: 1.0625rem;
+    .research h2 {
+      margin: 0 0 .9rem;
+      text-align: center;
+      font-family: var(--display);
+      font-size: .8125rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .research ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid var(--rule);
+    }
+    .research li { border-bottom: 1px solid var(--rule); }
+    .research a {
+      display: grid;
+      grid-template-columns: 7rem 1fr auto;
+      column-gap: 1.25rem;
+      align-items: baseline;
+      padding: .95rem .25rem;
       text-decoration: none;
-      padding: .8rem 1.6rem;
-      border: 1px solid var(--ink);
-      border-radius: 999px;
-      transition: background-color .15s ease, color .15s ease, transform .15s ease;
     }
-    .btn-primary { background: var(--ink); color: var(--bg); }
-    .btn-primary:hover { transform: translateY(-1px); opacity: .9; }
-    .btn-primary:active { transform: translateY(0); }
+    .research .name {
+      font-weight: 600;
+      text-decoration: underline;
+      text-decoration-color: transparent;
+      text-underline-offset: .2em;
+      transition: text-decoration-color .15s ease;
+    }
+    .research .what {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--ink-soft);
+      transition: color .15s ease;
+    }
+    .research time {
+      font-family: var(--mono);
+      font-size: .8125rem;
+      color: var(--ink-faint);
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+    .research a:hover .name,
+    .research a:focus-visible .name { text-decoration-color: currentColor; }
+    .research a:hover .what,
+    .research a:focus-visible .what { color: var(--ink); }
 
     code, .mono { font-family: var(--mono); font-size: .92em; }
 
@@ -261,6 +295,12 @@
       .maru { width: 92px; height: 92px; }
       footer > span { display: block; }
       footer .sep { display: none; }
+      .research a {
+        grid-template-columns: 1fr auto;
+        row-gap: .2rem;
+        padding: .9rem .125rem;
+      }
+      .research .what { grid-column: 1 / -1; grid-row: 2; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -286,9 +326,25 @@
       </svg>
       <h1 class="wordmark">Mru</h1>
       <p class="tagline">Systems that still run a thousand years after we&rsquo;re gone</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="https://zenodo.org/records/20579438">Paper</a>
-      </div>
+      <section class="research" aria-labelledby="research-h">
+        <h2 id="research-h">Research</h2>
+        <ul>
+          <li>
+            <a href="https://dusk.mru.space">
+              <span class="name">Dusk</span>
+              <span class="what">What a shrinking quorum buys on hardware that only ever decays</span>
+              <time datetime="2026-09">Sep 2026</time>
+            </a>
+          </li>
+          <li>
+            <a href="https://zenodo.org/records/20579438">
+              <span class="name">Whitepaper</span>
+              <span class="what">A fault-tolerant operating system for thousand-year autonomous operation</span>
+              <time datetime="2026-05">May 2026</time>
+            </a>
+          </li>
+        </ul>
+      </section>
     </main>
 
     <footer>
