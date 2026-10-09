@@ -1,0 +1,26 @@
+---
+// Internal pages: the style guide (the canvas Direction board) and an empty
+// layout. Both are noindex and are left out of the sitemap. Astro skips
+// page files that start with "_", so the route comes from a parameter.
+import Base from '../../layouts/Base.astro';
+import Styleguide from '../../components/internal/Styleguide.astro';
+
+export function getStaticPaths() {
+  return [{ params: { internal: '_styleguide' } }, { params: { internal: '_layout' } }];
+}
+const { internal } = Astro.params;
+---
+
+{
+  internal === '_styleguide' ? (
+    <Base title="Style guide · Mru Aerospace" description="The Mru design rules: grid, proportion, type, colour, mark, plates and share card. Internal page." chrome={false} noindex>
+      <Styleguide />
+    </Base>
+  ) : (
+    <Base title="Layout · Mru Aerospace" description="The empty Mru page layout: header, footer and beacon, with no page content. Internal page." noindex>
+      <section class="wrap section">
+        <h1 class="eyebrow">Internal · empty layout</h1>
+      </section>
+    </Base>
+  )
+}

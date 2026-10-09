@@ -1,0 +1,41 @@
+/* Site-only rules, loaded after mru.css. Nothing here changes a canvas rule
+   except where noted. */
+
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); }
+
+/* Skip link: off screen until focused. */
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 10;
+  background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 4px;
+  font-family: var(--display); font-size: 16px; text-decoration: none;
+}
+.skip:focus { left: 16px; top: 16px; }
+
+/* Visually hidden, still read by screen readers. */
+.sr-only {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* Canvas fix: the quorum cell carries the class "mru" for its ochre bar, which
+   also gave it the page wrapper's min-height of 100vh. */
+.qcell.mru { min-height: 0; }
+
+/* Theme toggle, in the beacon row of the footer. The buttons draw at 26 px so
+   the row keeps its canvas height; a transparent ::after extends each hit
+   area to 44 px. */
+.theme-switch:not([hidden]) { display: flex; gap: 6px; margin-left: auto; flex-wrap: wrap; }
+.theme-switch button {
+  position: relative;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; line-height: 1;
+  height: 26px; min-width: 44px; padding: 0 12px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--rule-strong); background: transparent; color: var(--ink-soft);
+}
+.theme-switch button::after { content: ""; position: absolute; inset: -9px -3px; }
+.theme-switch button:hover { border-color: var(--ink); color: var(--ink); }
+.theme-switch button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+/* Astro's <picture> wraps each plate image. display: contents keeps the
+   canvas sizing rules (.plate img, .tile img) working on the <img>. */
+.plate picture, .tile picture { display: contents; }

@@ -1,0 +1,17 @@
+---
+// The static mark: ring r34, orbit at -22 degrees, the M. Geometry from favicon.svg.
+interface Props {
+  class?: string;
+  style?: string;
+  /** Set for a meaningful image. Leave out when the mark sits next to its name. */
+  label?: string;
+}
+const { class: cls = '', style, label } = Astro.props;
+const a11y = label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': 'true' };
+---
+
+<svg class:list={['mark-svg', cls]} viewBox="0 0 100 100" style={style} {...a11y}>
+  <circle class="ring" cx="50" cy="50" r="34"></circle>
+  <ellipse class="orbit" cx="50" cy="50" rx="30" ry="14" transform="rotate(-22 50 50)"></ellipse>
+  <text class="mk" x="50" y="55.6">M</text>
+</svg>

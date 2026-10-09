@@ -1,0 +1,79 @@
+---
+import '../styles/fonts.css';
+import '../styles/mru.css';
+import '../styles/site.css';
+import Analytics from '../components/Analytics.astro';
+import Madruga from '../components/Madruga.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import type { NavId } from '../data/nav';
+import { SITE } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Extra classes on the page wrapper, e.g. "glow" on Home. */
+  rootClass?: string;
+  active?: NavId;
+  noindex?: boolean;
+  /** false: no site header, footer or analytics (internal pages such as the style guide). */
+  chrome?: boolean;
+  mainClass?: string;
+  mainStyle?: string;
+}
+const {
+  title,
+  description,
+  rootClass = '',
+  active = 'none',
+  noindex = false,
+  chrome = true,
+  mainClass,
+  mainStyle,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('mru-theme');
+          if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {}
+      })();
+    </script>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
+    <meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121214" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" type="image/png" href="/assets/favicon-light.png" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/png" href="/assets/favicon-dark.png" media="(prefers-color-scheme: dark)" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preload" href="/fonts/jost-500.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/source-serif-4-400.woff2" as="font" type="font/woff2" crossorigin />
+    <slot name="head" />
+    {chrome && <Analytics />}
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class:list={['mru', rootClass]}>
+      {chrome && <SiteHeader active={active} />}
+      <main id="main" class={mainClass} style={mainStyle}>
+        <slot />
+      </main>
+      <slot name="after" />
+      {chrome && <SiteFooter />}
+    </div>
+    {chrome && <Madruga />}
+  </body>
+</html>

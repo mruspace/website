@@ -1,0 +1,28 @@
+---
+// GA4, exactly as on the previous mru.space. No cookie banner: use of the
+// site is consent, per /terms/. Consent Mode defaults to granted.
+---
+
+<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-6BT77YW84T"></script>
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+
+  gtag('consent', 'default', {
+    'ad_storage': 'granted',
+    'ad_user_data': 'granted',
+    'ad_personalization': 'granted',
+    'analytics_storage': 'granted',
+    'functionality_storage': 'granted',
+    'personalization_storage': 'granted',
+    'security_storage': 'granted'
+  });
+
+  gtag('js', new Date());
+
+  gtag('config', 'G-6BT77YW84T', {
+    'send_page_view': true,
+    'allow_google_signals': true,
+    'allow_ad_personalization_signals': true
+  });
+</script>

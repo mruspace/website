@@ -1,0 +1,54 @@
+---
+// A figure plate: plate number, photo, caption and credit in mono.
+import PlateImage from './PlateImage.astro';
+import { creditLine, type Photo } from '../data/images';
+
+interface Props {
+  photo: Photo;
+  /** Label in the corner. Defaults to "PL. <n>". */
+  no?: string | false;
+  alt?: string;
+  caption?: string | false;
+  credit?: string | false;
+  ratio?: '' | 'tall' | 'wide' | 'sq';
+  sizes?: string;
+  loading?: 'lazy' | 'eager';
+  class?: string;
+  style?: string;
+  phStyle?: string;
+  imgStyle?: string;
+}
+const {
+  photo,
+  no,
+  alt,
+  caption,
+  credit,
+  ratio = '',
+  sizes,
+  loading,
+  class: cls,
+  style,
+  phStyle,
+  imgStyle,
+} = Astro.props;
+const label = no === false ? null : (no ?? `PL. ${photo.plate}`);
+const cap = caption === false ? null : (caption ?? photo.caption);
+const cr = credit === false ? null : (credit ?? creditLine(photo));
+---
+
+<figure class:list={['plate', cls]} style={style}>
+  <div class:list={['ph', ratio]} style={phStyle}>
+    {label && <span class="no">{label}</span>}
+    <PlateImage photo={photo} alt={alt} sizes={sizes} loading={loading} style={imgStyle} />
+  </div>
+  {
+    (cap || cr) && (
+      <figcaption>
+        {cap && <span class="cap">{cap}</span>}
+        {cr && <span class="cr">{cr}</span>}
+      </figcaption>
+    )
+  }
+  <slot />
+</figure>

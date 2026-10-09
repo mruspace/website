@@ -1,0 +1,15 @@
+---
+// Light / dark / auto. Hidden until the script runs: with JS off, the page
+// follows prefers-color-scheme and shows no control that cannot work.
+---
+
+<div class="theme-switch" role="group" aria-label="Colour theme" hidden>
+  <button type="button" data-theme-set="light" aria-pressed="false">Light</button>
+  <button type="button" data-theme-set="dark" aria-pressed="false">Dark</button>
+  <button type="button" data-theme-set="auto" aria-pressed="true">Auto</button>
+</div>
+
+<script>
+  import { initThemeToggle } from '../scripts/theme';
+  initThemeToggle();
+</script>
