@@ -28,7 +28,7 @@ const research = defineCollection({
     bibtex: z.string().optional(),
     /** A one-line citation, when there is no BibTeX. HTML allowed (<em>). */
     citeText: z.string().optional(),
-    external: z.string().url().optional(),
+    external: z.url().optional(),
     byline: z.array(z.object({ label: z.string(), text: z.string(), href: z.string().optional() })).default([]),
     sources: z.array(z.string()).default([]),
     related: z.array(z.string()).default([]),
@@ -49,7 +49,7 @@ const research = defineCollection({
       })
       .optional(),
     /** Software: repository and language, for SoftwareSourceCode JSON-LD. */
-    code: z.object({ repo: z.string().url(), language: z.string(), license: z.string() }).optional(),
+    code: z.object({ repo: z.url(), language: z.string(), license: z.string() }).optional(),
   }),
 });
 

@@ -50,11 +50,7 @@
           "src": "EMSO ERIC · EMSO-Azores"
         }
       ],
-      "fails": [
-        "compute",
-        "power",
-        "alone"
-      ],
+      "fails": ["compute", "power", "alone"],
       "last": "keeps logging until the ship comes",
       "fit": {
         "power": "Batteries or seafloor cable",
@@ -74,11 +70,7 @@
           "shared": "START"
         }
       ],
-      "rel": [
-        "ocean-buoys",
-        "profiling-floats",
-        "auv"
-      ]
+      "rel": ["ocean-buoys", "profiling-floats", "auv"]
     },
     {
       "slug": "ocean-buoys",
@@ -98,11 +90,7 @@
           "src": "Credence Research"
         }
       ],
-      "fails": [
-        "compute",
-        "link",
-        "power"
-      ],
+      "fails": ["compute", "link", "power"],
       "last": "keeps the record going",
       "fit": {
         "power": "Solar and batteries",
@@ -122,11 +110,7 @@
           "shared": "START"
         }
       ],
-      "rel": [
-        "deep-sea-observatories",
-        "profiling-floats",
-        "satellite-iot"
-      ]
+      "rel": ["deep-sea-observatories", "profiling-floats", "satellite-iot"]
     },
     {
       "slug": "profiling-floats",
@@ -146,11 +130,7 @@
           "src": "Argo Program"
         }
       ],
-      "fails": [
-        "power",
-        "compute",
-        "link"
-      ],
+      "fails": ["power", "compute", "link"],
       "last": "keeps profiling until the battery ends",
       "fit": {
         "power": "Batteries only",
@@ -170,11 +150,7 @@
           "shared": "START"
         }
       ],
-      "rel": [
-        "ocean-buoys",
-        "auv",
-        "deep-sea-observatories"
-      ]
+      "rel": ["ocean-buoys", "auv", "deep-sea-observatories"]
     },
     {
       "slug": "auv",
@@ -187,11 +163,7 @@
       "hook": "Out of contact for hours to months, with no way to swap a board.",
       "intro": "An AUV works with finite power, ageing hardware and almost no communication until it surfaces. The whitepaper names it as one of the closest cousins of a deep-space probe.",
       "stats": [],
-      "fails": [
-        "alone",
-        "link",
-        "compute"
-      ],
+      "fails": ["alone", "link", "compute"],
       "last": "brings the mission home",
       "fit": {
         "power": "Batteries",
@@ -211,11 +183,7 @@
           "shared": "START"
         }
       ],
-      "rel": [
-        "profiling-floats",
-        "deep-sea-observatories",
-        "polar-stations"
-      ]
+      "rel": ["profiling-floats", "deep-sea-observatories", "polar-stations"]
     },
     {
       "slug": "offshore-wind",
@@ -241,11 +209,7 @@
           "src": "GWO / GWEC"
         }
       ],
-      "fails": [
-        "compute",
-        "alone",
-        "memory"
-      ],
+      "fails": ["compute", "alone", "memory"],
       "last": "keeps monitoring until the next window",
       "fit": {
         "power": "Grid, with backup",
@@ -265,11 +229,7 @@
           "shared": "START"
         }
       ],
-      "rel": [
-        "remote-energy",
-        "remote-telecom",
-        "satellite-iot"
-      ]
+      "rel": ["remote-energy", "remote-telecom", "satellite-iot"]
     },
     {
       "slug": "remote-energy",
@@ -289,11 +249,7 @@
           "src": "IEA, 2025"
         }
       ],
-      "fails": [
-        "compute",
-        "alone",
-        "link"
-      ],
+      "fails": ["compute", "alone", "link"],
       "last": "keeps watching the site",
       "fit": {
         "power": "On site",
@@ -313,11 +269,7 @@
           "shared": "START"
         }
       ],
-      "rel": [
-        "offshore-wind",
-        "remote-telecom",
-        "pipelines"
-      ]
+      "rel": ["offshore-wind", "remote-telecom", "pipelines"]
     },
     {
       "slug": "remote-telecom",
@@ -330,11 +282,7 @@
       "hook": "Sites placed for coverage, not for access.",
       "intro": "Relay and cell sites sit where coverage is needed, not where technicians live. A failed controller can mean a truck roll, or a helicopter.",
       "stats": [],
-      "fails": [
-        "compute",
-        "power",
-        "alone"
-      ],
+      "fails": ["compute", "power", "alone"],
       "last": "keeps the site reporting",
       "fit": {
         "power": "Grid, solar or generator",
@@ -354,11 +302,7 @@
           "shared": "START"
         }
       ],
-      "rel": [
-        "remote-energy",
-        "satellite-iot",
-        "rail-trackside"
-      ]
+      "rel": ["remote-energy", "satellite-iot", "rail-trackside"]
     },
     {
       "slug": "satellite-iot",
@@ -378,11 +322,7 @@
           "src": "Berg Insight"
         }
       ],
-      "fails": [
-        "link",
-        "alone",
-        "power"
-      ],
+      "fails": ["link", "alone", "power"],
       "last": "keeps sending checked results",
       "fit": {
         "power": "Solar and batteries",
@@ -402,11 +342,7 @@
           "shared": "START"
         }
       ],
-      "rel": [
-        "ocean-buoys",
-        "polar-stations",
-        "pipelines"
-      ]
+      "rel": ["ocean-buoys", "polar-stations", "pipelines"]
     },
     {
       "slug": "polar-stations",
@@ -419,11 +355,7 @@
       "hook": "No access for months of the year.",
       "intro": "Automatic weather stations and sensor networks in Antarctica and the Arctic run through winters when no aircraft can reach them. Parts fail in the cold, and the record has to keep going.",
       "stats": [],
-      "fails": [
-        "compute",
-        "power",
-        "link"
-      ],
+      "fails": ["compute", "power", "link"],
       "last": "keeps the record through winter",
       "fit": {
         "power": "Solar, wind and batteries",
@@ -443,11 +375,7 @@
           "shared": "START"
         }
       ],
-      "rel": [
-        "satellite-iot",
-        "volcano-seismic",
-        "long-term-archives"
-      ]
+      "rel": ["satellite-iot", "volcano-seismic", "long-term-archives"]
     },
     {
       "slug": "nuclear-monitoring",
@@ -460,11 +388,7 @@
       "hook": "Access limited by dose. Parts age under radiation.",
       "intro": "Monitoring computers in nuclear facilities work where access is limited and parts age under radiation. They need to keep reporting as they degrade.",
       "stats": [],
-      "fails": [
-        "compute",
-        "memory",
-        "alone"
-      ],
+      "fails": ["compute", "memory", "alone"],
       "last": "keeps reporting",
       "fit": {
         "power": "Site power",
@@ -484,11 +408,7 @@
           "shared": "START"
         }
       ],
-      "rel": [
-        "nuclear-waste",
-        "remote-energy",
-        "long-term-archives"
-      ]
+      "rel": ["nuclear-waste", "remote-energy", "long-term-archives"]
     },
     {
       "slug": "nuclear-waste",
@@ -501,11 +421,7 @@
       "hook": "Monitoring that must run for decades, then far longer.",
       "intro": "Deep geological repositories are sealed for thousands of years. The monitoring before closure, and the markers after it, face the longest maintenance gap anyone has planned for.",
       "stats": [],
-      "fails": [
-        "memory",
-        "power",
-        "alone"
-      ],
+      "fails": ["memory", "power", "alone"],
       "last": "keeps the watch",
       "fit": {
         "power": "Site power, then none",
@@ -525,11 +441,7 @@
           "shared": "START"
         }
       ],
-      "rel": [
-        "nuclear-monitoring",
-        "long-term-archives",
-        "polar-stations"
-      ]
+      "rel": ["nuclear-monitoring", "long-term-archives", "polar-stations"]
     },
     {
       "slug": "long-term-archives",
@@ -542,11 +454,7 @@
       "hook": "Storage media decay faster than the records must last.",
       "intro": "Storage decays. When not everything can be kept, something has to choose. The whitepaper calls this knowledge triage: keep what matters on the most durable medium, and check it.",
       "stats": [],
-      "fails": [
-        "memory",
-        "alone",
-        "power"
-      ],
+      "fails": ["memory", "alone", "power"],
       "last": "keeps what matters most",
       "fit": {
         "power": "Varies",
@@ -566,11 +474,7 @@
           "shared": "START"
         }
       ],
-      "rel": [
-        "nuclear-waste",
-        "polar-stations",
-        "satellite-iot"
-      ]
+      "rel": ["nuclear-waste", "polar-stations", "satellite-iot"]
     },
     {
       "slug": "volcano-seismic",
@@ -583,11 +487,7 @@
       "hook": "Stations matter most when access is hardest.",
       "intro": "Seismic and volcano stations sit on remote slopes and islands, on solar power, often far from roads. Islands like the Azores, on the junction of three tectonic plates, depend on them.",
       "stats": [],
-      "fails": [
-        "compute",
-        "power",
-        "link"
-      ],
+      "fails": ["compute", "power", "link"],
       "last": "keeps listening",
       "fit": {
         "power": "Solar and batteries",
@@ -607,11 +507,7 @@
           "shared": "START"
         }
       ],
-      "rel": [
-        "polar-stations",
-        "satellite-iot",
-        "remote-telecom"
-      ]
+      "rel": ["polar-stations", "satellite-iot", "remote-telecom"]
     },
     {
       "slug": "pipelines",
@@ -624,11 +520,7 @@
       "hook": "Hundreds of kilometres of remote stations.",
       "intro": "Pipelines cross deserts, permafrost and the sea floor. The valve stations and monitoring points along them are remote, numerous and costly to visit.",
       "stats": [],
-      "fails": [
-        "compute",
-        "link",
-        "alone"
-      ],
+      "fails": ["compute", "link", "alone"],
       "last": "keeps the station reporting",
       "fit": {
         "power": "Solar or line power",
@@ -648,11 +540,7 @@
           "shared": "START"
         }
       ],
-      "rel": [
-        "remote-energy",
-        "satellite-iot",
-        "rail-trackside"
-      ]
+      "rel": ["remote-energy", "satellite-iot", "rail-trackside"]
     },
     {
       "slug": "rail-trackside",
@@ -665,11 +553,7 @@
       "hook": "Trackside equipment far from depots, serviced in short windows.",
       "intro": "Remote lines depend on trackside condition monitoring: hot-box detectors, weather stations, slope sensors. Many sit far from depots, and each failure is a trip.",
       "stats": [],
-      "fails": [
-        "compute",
-        "alone",
-        "power"
-      ],
+      "fails": ["compute", "alone", "power"],
       "last": "keeps watching the line",
       "fit": {
         "power": "Line or solar",
@@ -689,11 +573,7 @@
           "shared": "START"
         }
       ],
-      "rel": [
-        "remote-telecom",
-        "pipelines",
-        "remote-energy"
-      ]
+      "rel": ["remote-telecom", "pipelines", "remote-energy"]
     }
   ],
   "index": [

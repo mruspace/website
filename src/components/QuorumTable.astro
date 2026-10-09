@@ -6,19 +6,23 @@ interface Props {
 const { class: cls } = Astro.props;
 ---
 
-<div class:list={['tbl-box', cls]}>
+<div class:list={['tbl-box', cls]} tabindex="0">
   <table class="tbl" style="font-size: 18px">
-    <thead><tr><th>Computers left</th><th>Today (fixed TMR)</th><th>Mru</th></tr></thead>
+    <thead>
+      <tr>
+        <th>Computers left</th>
+        <th>Today (fixed TMR)</th>
+        <th>Mru</th>
+      </tr>
+    </thead>
     <tbody>
-      {
-        TABLE.map((r) => (
-          <tr class={r.hl ? 'hl' : undefined}>
-            <td class="m">{r.left}</td>
-            <td style={r.hl ? 'color: var(--ink-faint)' : undefined}>{r.tmr}</td>
-            <td>{r.mru}</td>
-          </tr>
-        ))
-      }
+      {TABLE.map((r) => (
+        <tr class={r.hl ? 'hl' : undefined}>
+          <td class="m">{r.left}</td>
+          <td style={r.hl ? 'color: var(--ink-faint)' : undefined}>{r.tmr}</td>
+          <td>{r.mru}</td>
+        </tr>
+      ))}
     </tbody>
   </table>
 </div>

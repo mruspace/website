@@ -15,7 +15,12 @@ const DIST = path.resolve('dist');
 const meta = JSON.parse(await readFile(path.resolve(config.metadata), 'utf8'));
 const pages = meta.filter((m) => !m.schema.includes('noindex'));
 
-const td = new TurndownService({ headingStyle: 'atx', codeBlockStyle: 'fenced', bulletListMarker: '-', emDelimiter: '*' });
+const td = new TurndownService({
+  headingStyle: 'atx',
+  codeBlockStyle: 'fenced',
+  bulletListMarker: '-',
+  emDelimiter: '*',
+});
 td.use([tables, strikethrough]);
 // Code blocks keep their text exactly (the highlighting spans are dropped).
 td.addRule('pre', {
@@ -74,7 +79,8 @@ function clean(doc, pageUrl) {
   }
   for (const el of main.querySelectorAll('[style]')) el.removeAttribute('style');
   // Margin-note and callout labels: "Note 3: …", "Status: …".
-  for (const el of main.querySelectorAll('.note > .tiny, .callout > .tiny')) el.textContent = `${el.textContent.trim()}:`;
+  for (const el of main.querySelectorAll('.note > .tiny, .callout > .tiny'))
+    el.textContent = `${el.textContent.trim()}:`;
   // Flex rows put elements side by side with no space between them in the
   // source. Keep a space, so "Mru Field · Earth" and "Core TRL 3" stay apart.
   for (const el of [...main.querySelectorAll('*')]) {
@@ -116,7 +122,14 @@ for (const m of pages) {
   const { document } = parseHTML(html);
   const main = clean(document, m.url);
   const body = tidy(td.turndown(main.innerHTML));
-  const head = ['---', `title: ${JSON.stringify(m.ogTitle)}`, `url: ${m.url}`, `description: ${JSON.stringify(m.description)}`, '---', ''].join('\n');
+  const head = [
+    '---',
+    `title: ${JSON.stringify(m.ogTitle)}`,
+    `url: ${m.url}`,
+    `description: ${JSON.stringify(m.description)}`,
+    '---',
+    '',
+  ].join('\n');
   const md = `${head}\n${body}\n`;
   await writeFile(path.join(DIST, route, 'index.md'), md);
   twins.push({ m, route, md });
@@ -141,7 +154,17 @@ await writeFile(path.join(DIST, 'llms.txt'), lines.join('\n'));
 
 // llms-full.txt: every twin, in nav order, each under its title and URL.
 const full = [`# ${config.title}`, '', `> ${config.summary}`, ''];
-for (const t of twins) full.push('---', '', `# ${name(t.m)}`, '', `URL: ${t.m.url}`, '', t.md.replace(/^---\n[\s\S]*?\n---\n/, '').trim(), '');
+for (const t of twins)
+  full.push(
+    '---',
+    '',
+    `# ${name(t.m)}`,
+    '',
+    `URL: ${t.m.url}`,
+    '',
+    t.md.replace(/^---\n[\s\S]*?\n---\n/, '').trim(),
+    '',
+  );
 await writeFile(path.join(DIST, 'llms-full.txt'), full.join('\n'));
 
 console.log(`postbuild: ${twins.length} Markdown twins, llms.txt, llms-full.txt`);

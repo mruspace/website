@@ -14,7 +14,7 @@
     "SENT_URL": "https://mru.space/contact/sent/",
     "FORM_URL": "https://mru.space/contact/",
     "MAIL_FROM": "Mru website <request@mail.mru.space>",
-    "MAIL_TO": "contact@mru.space"
+    "MAIL_TO": "contact@mru.space",
   },
-  "observability": { "enabled": true }
+  "observability": { "enabled": true },
 }

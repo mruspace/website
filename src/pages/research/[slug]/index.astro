@@ -43,32 +43,40 @@ const ld = {
       <Breadcrumbs items={crumbs} />
       <div class="article" style="margin-top: 40px">
         <div class="stack-m">
-          <p class="eyebrow"><span class="n">№ {d.number}</span> · {d.kind}</p>
+          <p class="eyebrow">
+            <span class="n">№ {d.number}</span> · {d.kind}
+          </p>
           <h1 class="h1">{d.title}</h1>
           {d.lede && <p class="lede">{d.lede}</p>}
         </div>
       </div>
       <div class="byline" style="margin-top: 32px">
-        <span>By <b>{d.author}</b></span>
-        <span>Published <b>{formatDate(d.date)}</b></span>
-        {d.updated && <span>Updated <b>{formatDate(d.updated)}</b></span>}
+        <span>
+          By <b>{d.author}</b>
+        </span>
+        <span>
+          Published <b>{formatDate(d.date)}</b>
+        </span>
+        {d.updated && (
+          <span>
+            Updated <b>{formatDate(d.updated)}</b>
+          </span>
+        )}
         <span>{d.readingTime} read</span>
-        {
-          d.byline.map((b) =>
-            b.href ? (
-              <span>
-                {b.label}{' '}
-                <a href={b.href}>
-                  <b>{b.text}</b>
-                </a>
-              </span>
-            ) : (
-              <span>
-                {b.label} <b>{b.text}</b>
-              </span>
-            ),
-          )
-        }
+        {d.byline.map((b) =>
+          b.href ? (
+            <span>
+              {b.label}{' '}
+              <a href={b.href}>
+                <b>{b.text}</b>
+              </a>
+            </span>
+          ) : (
+            <span>
+              {b.label} <b>{b.text}</b>
+            </span>
+          ),
+        )}
       </div>
     </header>
 
@@ -76,69 +84,63 @@ const ld = {
       <Content />
 
       <div class="article" style="margin-top: 48px">
-        {
-          d.bibtex ? (
-            <div class="stack-m">
-              <div class="cite">
-                <p class="eyebrow" style="margin-bottom: 12px">
-                  Cite this
-                </p>
-                <pre class="pre" style="background: transparent; border: 0; padding: 0">{d.bibtex}</pre>
-              </div>
-              {d.sources.length > 0 && (
-                <div>
-                  <p class="eyebrow" style="margin-bottom: 12px">
-                    Sources
-                  </p>
-                  <ol class="small soft" style="padding-left: 20px; margin: 0">
-                    {d.sources.map((s) => (
-                      <li>{s}</li>
-                    ))}
-                  </ol>
-                </div>
-              )}
-            </div>
-          ) : (
+        {d.bibtex ? (
+          <div class="stack-m">
             <div class="cite">
               <p class="eyebrow" style="margin-bottom: 12px">
                 Cite this
               </p>
-              <p class="small" style="margin: 0" set:html={d.citeText} />
+              <pre class="pre" tabindex="0" style="background: transparent; border: 0; padding: 0">{d.bibtex}</pre>
             </div>
-          )
-        }
+            {d.sources.length > 0 && (
+              <div>
+                <p class="eyebrow" style="margin-bottom: 12px">
+                  Sources
+                </p>
+                <ol class="small soft" style="padding-left: 20px; margin: 0">
+                  {d.sources.map((s) => (
+                    <li>{s}</li>
+                  ))}
+                </ol>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div class="cite">
+            <p class="eyebrow" style="margin-bottom: 12px">
+              Cite this
+            </p>
+            <p class="small" style="margin: 0" set:html={d.citeText} />
+          </div>
+        )}
       </div>
 
       <nav class="prevnext" aria-label="More entries" style="margin: 64px 0 96px">
-        {
-          older ? (
-            <a href={hrefOf(older)}>
-              <span class="tiny">Previous · № {older.data.number}</span>
-              <span class="h4" style="display: block; font-family: var(--display)">
-                {older.data.shortTitle}
-              </span>
-            </a>
-          ) : (
-            <span />
-          )
-        }
-        {
-          newer ? (
-            <a href={hrefOf(newer)} style="text-align: right">
-              <span class="tiny">Next · № {newer.data.number}</span>
-              <span class="h4" style="display: block; font-family: var(--display)">
-                {newer.data.shortTitle}
-              </span>
-            </a>
-          ) : (
-            <a href="/research/" style="text-align: right">
-              <span class="tiny">Back to</span>
-              <span class="h4" style="display: block; font-family: var(--display)">
-                The log
-              </span>
-            </a>
-          )
-        }
+        {older ? (
+          <a href={hrefOf(older)}>
+            <span class="tiny">Previous · № {older.data.number}</span>
+            <span class="h4" style="display: block; font-family: var(--display)">
+              {older.data.shortTitle}
+            </span>
+          </a>
+        ) : (
+          <span />
+        )}
+        {newer ? (
+          <a href={hrefOf(newer)} style="text-align: right">
+            <span class="tiny">Next · № {newer.data.number}</span>
+            <span class="h4" style="display: block; font-family: var(--display)">
+              {newer.data.shortTitle}
+            </span>
+          </a>
+        ) : (
+          <a href="/research/" style="text-align: right">
+            <span class="tiny">Back to</span>
+            <span class="h4" style="display: block; font-family: var(--display)">
+              The log
+            </span>
+          </a>
+        )}
       </nav>
     </div>
   </article>

@@ -1,72 +1,261 @@
 /* Site-only rules, loaded after mru.css. Nothing here changes a canvas rule
    except where noted. */
 
-html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--bg); color: var(--ink); }
+html {
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+}
 
 /* Skip link: off screen until focused. */
 .skip {
-  position: absolute; left: -9999px; top: 0; z-index: 10;
-  background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 4px;
-  font-family: var(--display); font-size: 16px; text-decoration: none;
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 10;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-family: var(--display);
+  font-size: 16px;
+  text-decoration: none;
 }
-.skip:focus { left: 16px; top: 16px; }
+.skip:focus {
+  left: 16px;
+  top: 16px;
+}
 
 /* Visually hidden, still read by screen readers. */
 .sr-only {
-  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Canvas fix: the quorum cell carries the class "mru" for its ochre bar, which
    also gave it the page wrapper's min-height of 100vh. */
-.qcell.mru { min-height: 0; }
+.qcell.mru {
+  min-height: 0;
+}
 
 /* Theme toggle, in the beacon row of the footer. The buttons draw at 26 px so
    the row keeps its canvas height; a transparent ::after extends each hit
    area to 44 px. */
-.theme-switch:not([hidden]) { display: flex; gap: 6px; margin-left: auto; flex-wrap: wrap; }
+.theme-switch:not([hidden]) {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
 .theme-switch button {
   position: relative;
-  font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; line-height: 1;
-  height: 26px; min-width: 44px; padding: 0 12px; border-radius: 999px; cursor: pointer;
-  border: 1px solid var(--rule-strong); background: transparent; color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  height: 26px;
+  min-width: 44px;
+  padding: 0 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  border: 1px solid var(--rule-strong);
+  background: transparent;
+  color: var(--ink-soft);
 }
-.theme-switch button::after { content: ""; position: absolute; inset: -9px -3px; }
-.theme-switch button:hover { border-color: var(--ink); color: var(--ink); }
-.theme-switch button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.theme-switch button::after {
+  content: '';
+  position: absolute;
+  inset: -9px -3px;
+}
+.theme-switch button:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.theme-switch button[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
 
 /* Astro's <picture> wraps each plate image. display: contents keeps the
    canvas sizing rules (.plate img, .tile img) working on the <img>. */
-.plate picture, .tile picture { display: contents; }
+.plate picture,
+.tile picture {
+  display: contents;
+}
 
 /* Request form: messages in plain language under the field they belong to.
    No error colour exists in the palette (ochre means "alive"), so errors use
    ink and a heavier border. */
-.field-error { font-family: var(--mono); font-size: 12.5px; line-height: 1.5; color: var(--ink); margin: 0; }
-.field-error::before { content: "! "; }
-.field input[aria-invalid="true"], .field textarea[aria-invalid="true"] { border-color: var(--ink); border-width: 2px; padding: 11px 13px; }
-.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-.sent:focus { outline: none; }
-.sent:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.field-error {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink);
+  margin: 0;
+}
+.field-error::before {
+  content: '! ';
+}
+.field input[aria-invalid='true'],
+.field textarea[aria-invalid='true'] {
+  border-color: var(--ink);
+  border-width: 2px;
+  padding: 11px 13px;
+}
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.sent:focus {
+  outline: none;
+}
+.sent:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
 
 /* Quorum demo: shown only when JS runs; otherwise the 3 / 2 / 1 table. */
-html:not(.js) [data-quorum] { display: none; }
-html.js .quorum-fallback { display: none; }
+html:not(.js) [data-quorum] {
+  display: none;
+}
+html.js .quorum-fallback {
+  display: none;
+}
 
 /* Terms: long-form legal text in the article measure. */
-.legal-text { max-width: 720px; font-size: 18px; line-height: 1.7; }
-.legal-text h2 { font-size: 28px; margin: 56px 0 14px; display: flex; gap: 14px; align-items: baseline; }
-.legal-text h2:first-child { margin-top: 0; }
-.legal-text h2 .num { font-family: var(--mono); font-size: 13px; color: var(--signal); }
-.legal-text p { margin-bottom: 1em; }
-.legal-text ul { padding-left: 1.25em; margin: 0 0 1em; }
-.legal-text li { margin-bottom: .5em; }
-.legal-text a { color: var(--accent); }
-.legal-text .callout { margin: 24px 0; display: block; }
-.legal-text .callout p:last-child { margin-bottom: 0; }
+.legal-text {
+  max-width: 720px;
+  font-size: 18px;
+  line-height: 1.7;
+}
+.legal-text h2 {
+  font-size: 28px;
+  margin: 56px 0 14px;
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+}
+.legal-text h2:first-child {
+  margin-top: 0;
+}
+.legal-text h2 .num {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--signal);
+}
+.legal-text p {
+  margin-bottom: 1em;
+}
+.legal-text ul {
+  padding-left: 1.25em;
+  margin: 0 0 1em;
+}
+.legal-text li {
+  margin-bottom: 0.5em;
+}
+.legal-text a {
+  color: var(--accent);
+}
+.legal-text .callout {
+  margin: 24px 0;
+  display: block;
+}
+.legal-text .callout p:last-child {
+  margin-bottom: 0;
+}
 
 /* Research log filter: hidden rows must win over .log a.entry { display: grid }. */
-.log a.entry[hidden] { display: none; }
+.log a.entry[hidden] {
+  display: none;
+}
 /* First section of a research entry: its heading sits on the top rule. */
-.entry-body > .article:first-child .body > h2:first-child { margin-top: 0; }
+.entry-body > .article:first-child .body > h2:first-child {
+  margin-top: 0;
+}
+
+/* Tablets (no canvas artboard): from 641 to 920 px the seven nav links and the
+   button do not fit, so the header uses the phone menu, as below 640 px. */
+@container (min-width: 641px) and (max-width: 920px) {
+  .site-header .nav,
+  .site-header .cta {
+    display: none;
+  }
+  .site-header .menu-toggle {
+    display: block;
+    margin-left: auto;
+  }
+  .site-header .bar {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .site-header .menu-toggle[open] {
+    width: 100%;
+    order: 3;
+    margin-left: 0;
+  }
+  .site-header .menu-toggle[open] summary {
+    margin-left: auto;
+    position: absolute;
+    right: var(--gut);
+    top: 14px;
+  }
+}
+
+/* WCAG AA (4.5:1) in light mode, two places where the canvas palette falls
+   just short: ochre text on the ochre-tinted stratum (4.28:1) and faint ink on
+   the grey request band, cite box and code blocks (4.43:1). Each gets a slightly darker shade there only. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) .stratum.base {
+    --signal: #81600a;
+  }
+  :root:not([data-theme='dark']) .reqinfo,
+  :root:not([data-theme='dark']) .sunk,
+  :root:not([data-theme='dark']) .cite,
+  :root:not([data-theme='dark']) .pre {
+    --ink-faint: #6c6c75;
+  }
+}
+:root[data-theme='light'] .stratum.base {
+  --signal: #81600a;
+}
+:root[data-theme='light'] .reqinfo,
+:root[data-theme='light'] .sunk,
+:root[data-theme='light'] .cite,
+:root[data-theme='light'] .pre {
+  --ink-faint: #6c6c75;
+}
+
+/* Without JS the mark GIFs never start (see Mark.astro): show the static mark. */
+html:not(.js) .mark-anim {
+  display: none;
+}
+html:not(.js) .mark-static {
+  display: block;
+}
+
+/* Footer column titles are h2 (the canvas used h4, which skipped heading
+   levels after the page's h2s). Same look as .foot-grid h4. */
+.foot-grid .foot-h {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+  margin-bottom: 14px;
+}

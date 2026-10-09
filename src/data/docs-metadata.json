@@ -5,10 +5,7 @@
     "description": "Reference for Mru's open core: the quorum decision crate, the fault-injection demo, the Dusk simulator and Mru 2049. Apache 2.0.",
     "ogTitle": "Mru documentation",
     "cardLabel": "Docs",
-    "schema": [
-      "WebSite",
-      "TechArticle"
-    ]
+    "schema": ["WebSite", "TechArticle"]
   },
   {
     "url": "https://docs.mru.space/concepts/shrinking-quorum/",
@@ -16,10 +13,7 @@
     "description": "Vote on three replicas, compare on two, self-check on one. The rule, its Kani-proved guarantees, its cost, and how replicas are diagnosed.",
     "ogTitle": "Shrinking quorum",
     "cardLabel": "Docs · Concepts",
-    "schema": [
-      "TechArticle",
-      "BreadcrumbList"
-    ]
+    "schema": ["TechArticle", "BreadcrumbList"]
   },
   {
     "url": "https://docs.mru.space/core/quorum-crate/",
@@ -27,11 +21,7 @@
     "description": "API reference for the quorum crate: Policy, Mode, Reply, Outcome, Verdict, decide(), Health. no_std, no allocation, four Kani proofs.",
     "ogTitle": "The quorum crate",
     "cardLabel": "Docs · Core runtime",
-    "schema": [
-      "TechArticle",
-      "SoftwareSourceCode",
-      "BreadcrumbList"
-    ]
+    "schema": ["TechArticle", "SoftwareSourceCode", "BreadcrumbList"]
   },
   {
     "url": "https://docs.mru.space/core/quorum-cli/",
@@ -39,10 +29,7 @@
     "description": "Options for the quorum demo: policy, fault injection (kill, hang, stuck, bit flips), resource limits, radiation sensor and logging.",
     "ogTitle": "The quorum program",
     "cardLabel": "Docs · Core runtime",
-    "schema": [
-      "TechArticle",
-      "BreadcrumbList"
-    ]
+    "schema": ["TechArticle", "BreadcrumbList"]
   },
   {
     "url": "https://docs.mru.space/simulation/dusk/",
@@ -50,11 +37,7 @@
     "description": "Run Dusk, the Monte Carlo of redundancy policies: options and defaults, the fault model, default results, sweeps and what it does not claim.",
     "ogTitle": "Dusk",
     "cardLabel": "Docs · Simulation",
-    "schema": [
-      "TechArticle",
-      "SoftwareSourceCode",
-      "BreadcrumbList"
-    ]
+    "schema": ["TechArticle", "SoftwareSourceCode", "BreadcrumbList"]
   },
   {
     "url": "https://docs.mru.space/lab/2049/",
@@ -62,10 +45,6 @@
     "description": "A browser flight simulator on real astronomical data: controls, URL switches, architecture and the Float64 floating-origin coordinate system.",
     "ogTitle": "Mru 2049",
     "cardLabel": "Docs · Lab",
-    "schema": [
-      "TechArticle",
-      "SoftwareSourceCode",
-      "BreadcrumbList"
-    ]
+    "schema": ["TechArticle", "SoftwareSourceCode", "BreadcrumbList"]
   }
 ]

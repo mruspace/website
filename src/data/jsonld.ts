@@ -19,7 +19,6 @@ import type {
   TechArticle,
   WebPage,
   WebSite,
-  WithContext,
   Graph,
 } from 'schema-dts';
 import type { PageMeta } from './metadata';
@@ -116,7 +115,7 @@ export interface GraphInput {
   ld?: PageLd;
 }
 
-export function buildGraph({ meta, crumbs, faq, ld = {} }: GraphInput): WithContext<Graph> | null {
+export function buildGraph({ meta, crumbs, faq, ld = {} }: GraphInput): Graph | null {
   if (meta.schema.includes('noindex')) return null;
   const url = meta.url;
   const nodes: Graph['@graph'][number][] = [organization(), website()];

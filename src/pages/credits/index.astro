@@ -4,54 +4,69 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import PlateImage from '../../components/PlateImage.astro';
 import { PHOTOS } from '../../data/images';
 
-const crumbs = [{ label: "Mru", href: '/' }, { label: "Company", href: '/company/' }, { label: "Image credits" }];
+const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Company', href: '/company/' }, { label: 'Image credits' }];
 ---
 
-<Base crumbs={crumbs} >
+<Base crumbs={crumbs}>
   <section class="wrap hero" style="padding-bottom: 48px">
     <Breadcrumbs items={crumbs} />
     <div class="hero-grid" style="margin-top: 40px">
       <h1 class="h1">Image credits</h1>
       <div class="stack-m">
-        <p class="lede">Every photo on this site comes from Wikimedia Commons, under a free licence or in the public domain. Thank you to the people who took them.</p>
-        <p class="soft small">Changes: all photos are cropped and shown in greyscale, blended into the page. Adaptations of CC BY-SA photos are shared under the same licence. Charts are our own.</p>
+        <p class="lede">
+          Every photo on this site comes from Wikimedia Commons, under a free licence or in the public domain. Thank you
+          to the people who took them.
+        </p>
+        <p class="soft small">
+          Changes: all photos are cropped and shown in greyscale, blended into the page. Adaptations of CC BY-SA photos
+          are shared under the same licence. Charts are our own.
+        </p>
       </div>
     </div>
   </section>
 
   <section class="wrap section" style="padding-top: 0">
-    <div class="tbl-box">
+    <div class="tbl-box" tabindex="0">
       <table class="tbl">
-        <thead><tr><th>Plate</th><th>Photo</th><th>Author</th><th>Licence</th><th>Source</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Plate</th>
+            <th>Photo</th>
+            <th>Author</th>
+            <th>Licence</th>
+            <th>Source</th>
+          </tr>
+        </thead>
         <tbody>
-          {
-            PHOTOS.map((r) => (
-              <tr>
-                <td class="m" style="width: 80px">PL. {r.plate}</td>
-                <td style="min-width: 320px">
-                  <div style="display: flex; gap: 16px; align-items: center">
-                    <span class="plate" style="width: 96px; flex: none"
-                      ><span class="ph" style="display: block; aspect-ratio: 3 / 2"
-                        ><PlateImage photo={r} alt="" sizes="96px" /></span
-                      ></span
-                    >
-                    <span>{r.caption}</span>
-                  </div>
-                </td>
-                <td>{r.author}</td>
-                <td class="m">
-                  <a href={r.licenceUrl}>{r.licence}</a>
-                </td>
-                <td class="m">
-                  <a href={r.source}>Commons &#8599;</a>
-                </td>
-              </tr>
-            ))
-          }
+          {PHOTOS.map((r) => (
+            <tr>
+              <td class="m" style="width: 80px">
+                PL. {r.plate}
+              </td>
+              <td style="min-width: 320px">
+                <div style="display: flex; gap: 16px; align-items: center">
+                  <span class="plate" style="width: 96px; flex: none">
+                    <span class="ph" style="display: block; aspect-ratio: 3 / 2">
+                      <PlateImage photo={r} alt="" sizes="96px" />
+                    </span>
+                  </span>
+                  <span>{r.caption}</span>
+                </div>
+              </td>
+              <td>{r.author}</td>
+              <td class="m">
+                <a href={r.licenceUrl}>{r.licence}</a>
+              </td>
+              <td class="m">
+                <a href={r.source}>Commons &#8599;</a>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
-    <p class="tiny" style="margin-top: 32px">The Mru name and the Mru mark are trademarks of Binns Pte. Ltd. They are not covered by these licences.</p>
+    <p class="tiny" style="margin-top: 32px">
+      The Mru name and the Mru mark are trademarks of Binns Pte. Ltd. They are not covered by these licences.
+    </p>
   </section>
-
 </Base>

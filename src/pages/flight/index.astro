@@ -7,89 +7,181 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Faq from '../../components/Faq.astro';
 import { photo, creditLine } from '../../data/images';
 
-const crumbs = [{ label: "Mru", href: '/' }, { label: "Mru Flight" }];
+const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Mru Flight' }];
 const faq = [
   {
-    "q": "Do we need new flight hardware?",
-    "a": "No. Mru Flight is software for the processors you already fly, starting with F´."
+    q: 'Do we need new flight hardware?',
+    a: 'No. Mru Flight is software for the processors you already fly, starting with F´.',
   },
   {
-    "q": "What does it cost us in throughput?",
-    "a": "Nothing while three or two computers are alive. On the last one, self-check runs at half speed, because it does every computation twice."
+    q: 'What does it cost us in throughput?',
+    a: 'Nothing while three or two computers are alive. On the last one, self-check runs at half speed, because it does every computation twice.',
   },
   {
-    "q": "What is the risk?",
-    "a": "On one computer, a stuck fault is caught by a periodic known-answer test. Until then, a few wrong results can get out. We measure and publish that trade."
+    q: 'What is the risk?',
+    a: 'On one computer, a stuck fault is caught by a periodic known-answer test. Until then, a few wrong results can get out. We measure and publish that trade.',
   },
   {
-    "q": "How is it priced?",
-    "a": "Per mission, with support and qualification evidence. We discuss terms once we know the mission and its hardware."
-  }
+    q: 'How is it priced?',
+    a: 'Per mission, with support and qualification evidence. We discuss terms once we know the mission and its hardware.',
+  },
 ];
 ---
 
 <Base
   crumbs={crumbs}
   faq={faq}
-  ld={{ software: { name: 'Mru Flight', operatingSystem: 'Linux; bare-metal ARM Cortex-M (no_std)', category: 'Onboard flight software' } }} active="flight" request={{"interest": "flight", "heading": "Tell us about your mission."}}>
+  ld={{
+    software: {
+      name: 'Mru Flight',
+      operatingSystem: 'Linux; bare-metal ARM Cortex-M (no_std)',
+      category: 'Onboard flight software',
+    },
+  }}
+  active="flight"
+  request={{ interest: 'flight', heading: 'Tell us about your mission.' }}
+>
   <section class="wrap hero" style="padding-bottom: 56px">
     <Breadcrumbs items={crumbs} />
     <div class="hero-grid" style="margin-top: 40px">
       <div class="stack-m">
-        <div class="row" style="gap: 10px"><span class="eyebrow">Mru Flight · Space</span><span class="pill">Prototype · TRL 3</span></div>
+        <div class="row" style="gap: 10px">
+          <span class="eyebrow">Mru Flight · Space</span>
+          <span class="pill">Prototype · TRL 3</span>
+        </div>
         <h1 class="h1">Keep a spacecraft working as its computers fail.</h1>
       </div>
       <div class="stack-m">
-        <p class="lede">Onboard software for the processors you already fly. A small Rust decision core, checked with the Kani model checker, to be wrapped as components for NASA JPL&#8217;s F&#180; framework.</p>
-        <div class="row"><a class="btn" href="#request">Request information</a><a class="btn ghost" href="/research/flight-prototype/">Read the release</a></div>
+        <p class="lede">
+          Onboard software for the processors you already fly. A small Rust decision core, checked with the Kani model
+          checker, to be wrapped as components for NASA JPL&#8217;s F&#180; framework.
+        </p>
+        <div class="row">
+          <a class="btn" href="#request">
+            Request information
+          </a>
+          <a class="btn ghost" href="/research/flight-prototype/">
+            Read the release
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="wrap">
     <figure class="plate">
-      <div class="ph wide"><span class="no">PL. 16</span><PlateImage photo={photo('16')} alt="Two CubeSats released from the International Space Station above Earth" /></div>
-      <figcaption><span class="cap">Two CubeSats released from the ISS above Earth&#8217;s limb</span><span class="cr">{creditLine(photo('16'))}</span></figcaption>
+      <div class="ph wide">
+        <span class="no">PL. 16</span>
+        <PlateImage photo={photo('16')} alt="Two CubeSats released from the International Space Station above Earth" />
+      </div>
+      <figcaption>
+        <span class="cap">Two CubeSats released from the ISS above Earth&#8217;s limb</span>
+        <span class="cr">{creditLine(photo('16'))}</span>
+      </figcaption>
     </figure>
   </section>
 
   <section class="wrap section">
     <div class="split">
-      <div class="stack-m"><p class="eyebrow"><span class="n">01</span> · The problem</p><h2 class="h2">Triple redundancy stops at the second failure.</h2></div>
       <div class="stack-m">
-        <p class="lede">Classic TMR votes on three computers and stops when it can no longer form a majority. On a mission no one can service, that throws away the last computer&#8217;s whole remaining life.</p>
-        <p class="soft">Mru Flight keeps going: vote on three, compare on two, self-check on one. Until TMR stops, it decides exactly as TMR would. After that, it keeps working.</p>
+        <p class="eyebrow">
+          <span class="n">01</span> · The problem
+        </p>
+        <h2 class="h2">Triple redundancy stops at the second failure.</h2>
+      </div>
+      <div class="stack-m">
+        <p class="lede">
+          Classic TMR votes on three computers and stops when it can no longer form a majority. On a mission no one can
+          service, that throws away the last computer&#8217;s whole remaining life.
+        </p>
+        <p class="soft">
+          Mru Flight keeps going: vote on three, compare on two, self-check on one. Until TMR stops, it decides exactly
+          as TMR would. After that, it keeps working.
+        </p>
       </div>
     </div>
   </section>
 
   <section class="wrap">
     <figure class="figure" style="margin: 0">
-      <Chart name="flight-correct" alt="Correct results over 20,000 ticks. Fixed TMR stops at 8,993. The shrinking quorum reaches 14,490." />
-      <figcaption class="cap">One run, same seed and faults: one replica stuck at tick 4,000, another dead at 9,000. Fixed TMR: 8,993 correct results. Mru Flight: 14,490.</figcaption>
+      <Chart
+        name="flight-correct"
+        alt="Correct results over 20,000 ticks. Fixed TMR stops at 8,993. The shrinking quorum reaches 14,490."
+      />
+      <figcaption class="cap">
+        One run, same seed and faults: one replica stuck at tick 4,000, another dead at 9,000. Fixed TMR: 8,993 correct
+        results. Mru Flight: 14,490.
+      </figcaption>
     </figure>
   </section>
 
   <section class="wrap section">
     <div class="cards">
-      <div class="stack-s" style="border-top: 1px solid var(--signal); padding-top: 16px"><p class="tiny" style="margin: 0">Proved</p><h3 class="h3">Never less than TMR</h3><p class="soft small">While TMR can run, both decide the same. A Kani proof covers every possible input.</p></div>
-      <div class="stack-s" style="border-top: 1px solid var(--rule-strong); padding-top: 16px"><p class="tiny" style="margin: 0">Proved</p><h3 class="h3">Only agreed results</h3><p class="soft small">Two votes, or a clean self-check on the last computer. Nothing else is delivered.</p></div>
-      <div class="stack-s" style="border-top: 1px solid var(--rule-strong); padding-top: 16px"><p class="tiny" style="margin: 0">Measured</p><h3 class="h3">Small enough to fly</h3><p class="soft small">About 1.5 MB per process on ARM64. The core is <code>no_std</code>, allocates nothing and has no dependencies.</p></div>
+      <div class="stack-s" style="border-top: 1px solid var(--signal); padding-top: 16px">
+        <p class="tiny" style="margin: 0">
+          Proved
+        </p>
+        <h3 class="h3">Never less than TMR</h3>
+        <p class="soft small">While TMR can run, both decide the same. A Kani proof covers every possible input.</p>
+      </div>
+      <div class="stack-s" style="border-top: 1px solid var(--rule-strong); padding-top: 16px">
+        <p class="tiny" style="margin: 0">
+          Proved
+        </p>
+        <h3 class="h3">Only agreed results</h3>
+        <p class="soft small">Two votes, or a clean self-check on the last computer. Nothing else is delivered.</p>
+      </div>
+      <div class="stack-s" style="border-top: 1px solid var(--rule-strong); padding-top: 16px">
+        <p class="tiny" style="margin: 0">
+          Measured
+        </p>
+        <h3 class="h3">Small enough to fly</h3>
+        <p class="soft small">
+          About 1.5 MB per process on ARM64. The core is <code>no_std</code>, allocates nothing and has no dependencies.
+        </p>
+      </div>
     </div>
   </section>
 
   <section class="wrap section" style="padding-top: 0">
     <div class="split">
-      <div class="stack-m"><p class="eyebrow">Requirements and limits</p><h2 class="h2">What it needs, and what it does not do.</h2></div>
-      <div class="tbl-box">
+      <div class="stack-m">
+        <p class="eyebrow">Requirements and limits</p>
+        <h2 class="h2">What it needs, and what it does not do.</h2>
+      </div>
+      <div class="tbl-box" tabindex="0">
         <table class="tbl">
           <tbody>
-            <tr><td style="width: 32%">Processors</td><td>Three replicas of the same task. Continues on two, then one.</td></tr>
-            <tr><td>Targets today</td><td>Decision core: bare-metal ARM Cortex-M, <code>no_std</code>. Demo: static Linux binaries for 64-bit and 32-bit ARM, tested under emulation.</td></tr>
-            <tr><td>Framework</td><td>F&#180; components designed, not yet built: RedundancyManager, HealthRegistry, ReplicaHost.</td></tr>
-            <tr><td>Throughput cost</td><td>None with two or three replicas alive. Half rate on the last one.</td></tr>
-            <tr><td>Known limit</td><td>On the last replica, a stuck fault is caught only by the periodic known-answer test, every 64 ticks by default. In one test run, 24 wrong results got out first.</td></tr>
-            <tr><td>Flight heritage</td><td>None yet.</td></tr>
+            <tr>
+              <td style="width: 32%">Processors</td>
+              <td>Three replicas of the same task. Continues on two, then one.</td>
+            </tr>
+            <tr>
+              <td>Targets today</td>
+              <td>
+                Decision core: bare-metal ARM Cortex-M, <code>no_std</code>. Demo: static Linux binaries for 64-bit and
+                32-bit ARM, tested under emulation.
+              </td>
+            </tr>
+            <tr>
+              <td>Framework</td>
+              <td>F&#180; components designed, not yet built: RedundancyManager, HealthRegistry, ReplicaHost.</td>
+            </tr>
+            <tr>
+              <td>Throughput cost</td>
+              <td>None with two or three replicas alive. Half rate on the last one.</td>
+            </tr>
+            <tr>
+              <td>Known limit</td>
+              <td>
+                On the last replica, a stuck fault is caught only by the periodic known-answer test, every 64 ticks by
+                default. In one test run, 24 wrong results got out first.
+              </td>
+            </tr>
+            <tr>
+              <td>Flight heritage</td>
+              <td>None yet.</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -100,20 +192,44 @@ const faq = [
 
   <section class="wrap section stack-l">
     <div class="split">
-      <div class="stack-m"><p class="eyebrow"><span class="n">02</span> · The road to orbit</p><h2 class="h2">What exists, and what comes next.</h2></div>
+      <div class="stack-m">
+        <p class="eyebrow">
+          <span class="n">02</span> · The road to orbit
+        </p>
+        <h2 class="h2">What exists, and what comes next.</h2>
+      </div>
       <p class="lede">Mru Flight follows Mru Field. Field data on Earth comes first, then orbit.</p>
     </div>
     <div class="strata">
-      <div class="stratum"><span class="lv">Now</span><h3>Decision core and demo</h3><p>Rust core with Kani proofs, a demo on real processes with injected faults, static ARM builds. v0.1.1.</p></div>
-      <div class="stratum"><span class="lv">Next</span><h3>F&#180; components</h3><p>RedundancyManager, HealthRegistry and ReplicaHost as thin C++ shells around the Rust core.</p></div>
-      <div class="stratum"><span class="lv">Bench</span><h3>Hardware in the loop</h3><p>Real boards with injected faults: bit flips, resets, power cuts.</p></div>
-      <div class="stratum base"><span class="lv">Orbit</span><h3>In orbit</h3><p>A flight experiment, logging real radiation upsets next to the satellite&#8217;s own dosimetry.</p></div>
+      <div class="stratum">
+        <span class="lv">Now</span>
+        <h3>Decision core and demo</h3>
+        <p>Rust core with Kani proofs, a demo on real processes with injected faults, static ARM builds. v0.1.1.</p>
+      </div>
+      <div class="stratum">
+        <span class="lv">Next</span>
+        <h3>F&#180; components</h3>
+        <p>RedundancyManager, HealthRegistry and ReplicaHost as thin C++ shells around the Rust core.</p>
+      </div>
+      <div class="stratum">
+        <span class="lv">Bench</span>
+        <h3>Hardware in the loop</h3>
+        <p>Real boards with injected faults: bit flips, resets, power cuts.</p>
+      </div>
+      <div class="stratum base">
+        <span class="lv">Orbit</span>
+        <h3>In orbit</h3>
+        <p>A flight experiment, logging real radiation upsets next to the satellite&#8217;s own dosimetry.</p>
+      </div>
     </div>
   </section>
 
   <section class="wrap section" style="padding-top: 0">
     <div class="split">
-      <div class="stack-m"><p class="eyebrow">For</p><h2 class="h2">Mission teams who can&#8217;t send a technician.</h2></div>
+      <div class="stack-m">
+        <p class="eyebrow">For</p>
+        <h2 class="h2">Mission teams who can&#8217;t send a technician.</h2>
+      </div>
       <ul class="sig-list" style="font-size: 19px">
         <li>Smallsat and constellation operators</li>
         <li>Lunar and deep-space mission teams</li>
@@ -128,5 +244,4 @@ const faq = [
       <Faq items={faq} />
     </div>
   </section>
-
 </Base>

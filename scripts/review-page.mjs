@@ -5,7 +5,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 
 const dir = process.argv[2] ?? 'shots/cmp';
 const notes = JSON.parse(await readFile(process.argv[3] ?? 'scripts/review-notes.json', 'utf8').catch(() => '{}'));
-const prefix = `${dir.split("/").pop()}/`;
+const prefix = `${dir.split('/').pop()}/`;
 const rows = JSON.parse(await readFile(`${dir}/summary.json`, 'utf8'));
 const byName = new Map();
 for (const r of rows) {

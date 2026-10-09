@@ -21,8 +21,16 @@ const filters = [
 ---
 
 <Base
-  ld={{ blogPosts: all.map((e) => ({ headline: e.data.title, url: new URL(hrefOf(e), SITE.url).href, datePublished: e.data.date })) }}
-  active="research" request={{ interest: 'research', heading: 'Questions about this work, or want to test it?' }}>
+  ld={{
+    blogPosts: all.map((e) => ({
+      headline: e.data.title,
+      url: new URL(hrefOf(e), SITE.url).href,
+      datePublished: e.data.date,
+    })),
+  }}
+  active="research"
+  request={{ interest: 'research', heading: 'Questions about this work, or want to test it?' }}
+>
   <section class="wrap hero" style="padding-bottom: 64px">
     <div class="hero-grid">
       <div class="stack-m">
@@ -34,10 +42,15 @@ const filters = [
           Papers, results and releases, newest first. All of it is open: papers under CC BY 4.0, code under Apache 2.0.
         </p>
         <div class="row">
-          <a class="link-more" href="/research/feed.xml">RSS feed</a><a
-            class="link-more"
-            href="https://zenodo.org/records/20579438">Zenodo</a
-          ><a class="link-more" href="https://github.com/mruspace">GitHub</a>
+          <a class="link-more" href="/research/feed.xml">
+            RSS feed
+          </a>
+          <a class="link-more" href="https://zenodo.org/records/20579438">
+            Zenodo
+          </a>
+          <a class="link-more" href="https://github.com/mruspace">
+            GitHub
+          </a>
         </div>
       </div>
     </div>
@@ -53,8 +66,12 @@ const filters = [
         <Chart name={f.chart} alt={f.chartAlt} />
       </figure>
       <div class="stack-m">
-        <p class="eyebrow"><span class="n">№ {latest.data.number}</span> · {latest.data.kind} · Latest</p>
-        <h2 id="latest" class="h2">{f.title}</h2>
+        <p class="eyebrow">
+          <span class="n">№ {latest.data.number}</span> · {latest.data.kind} · Latest
+        </p>
+        <h2 id="latest" class="h2">
+          {f.title}
+        </h2>
         <p class="soft">{f.summary}</p>
         <p class="tiny">{f.line}</p>
       </div>
@@ -64,45 +81,45 @@ const filters = [
   <section class="wrap section" aria-label="All entries" style="padding-top: 96px">
     <div class="row" style="justify-content: space-between; margin-bottom: 24px">
       <nav class="filters" aria-label="Filter by kind" data-filters>
-        {
-          filters.map((x) => (
-            <a
-              class={x.slug === '' ? 'on' : undefined}
-              href={x.slug ? `/research/?kind=${x.slug}` : '/research/'}
-              data-kind={x.slug}
-              aria-current={x.slug === '' ? 'true' : undefined}
-            >
-              {x.label}
-            </a>
-          ))
-        }
+        {filters.map((x) => (
+          <a
+            class={x.slug === '' ? 'on' : undefined}
+            href={x.slug ? `/research/?kind=${x.slug}` : '/research/'}
+            data-kind={x.slug}
+            aria-current={x.slug === '' ? 'true' : undefined}
+          >
+            {x.label}
+          </a>
+        ))}
       </nav>
-      <span class="tiny" data-count>{all.length} entries since {dateLabel(oldest).replace(/^\d+ /, '')}</span>
+      <span class="tiny" data-count>
+        {all.length} entries since {dateLabel(oldest).replace(/^\d+ /, '')}
+      </span>
     </div>
     <div class="log" data-log>
-      {
-        all.map((e) => (
-          <a class="entry" href={hrefOf(e)} data-kind={KIND_SLUGS[e.data.kind]}>
-            <span class="no">№ {e.data.number}</span>
-            <span class="kind">{e.data.kind}</span>
-            <div>
-              <p class="t" style="margin: 0">
-                {e.data.title}
-              </p>
-              <p class="sum" style="margin-bottom: 0">
-                {e.data.summary}
-              </p>
-            </div>
-            <span class="meta">
-              {dateLabel(e)}
-              <br />
-              {e.data.metaLabel ?? e.data.readingTime}
-            </span>
-          </a>
-        ))
-      }
+      {all.map((e) => (
+        <a class="entry" href={hrefOf(e)} data-kind={KIND_SLUGS[e.data.kind]}>
+          <span class="no">№ {e.data.number}</span>
+          <span class="kind">{e.data.kind}</span>
+          <div>
+            <p class="t" style="margin: 0">
+              {e.data.title}
+            </p>
+            <p class="sum" style="margin-bottom: 0">
+              {e.data.summary}
+            </p>
+          </div>
+          <span class="meta">
+            {dateLabel(e)}
+            <br />
+            {e.data.metaLabel ?? e.data.readingTime}
+          </span>
+        </a>
+      ))}
     </div>
-    <p class="soft small" data-empty hidden>Nothing of this kind yet. The log above lists every entry.</p>
+    <p class="soft small" data-empty hidden>
+      Nothing of this kind yet. The log above lists every entry.
+    </p>
   </section>
 
   <section class="wrap section tight sunk" style="max-width: none">
@@ -114,7 +131,7 @@ const filters = [
         </h2>
         <p class="tiny">doi:{paper.data.doi} · CC BY 4.0</p>
       </div>
-      <pre class="pre">{paper.data.bibtex}</pre>
+      <pre class="pre" tabindex="0">{paper.data.bibtex}</pre>
     </div>
   </section>
 </Base>

@@ -6,62 +6,132 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Faq from '../../components/Faq.astro';
 import { photo, creditLine } from '../../data/images';
 
-const crumbs = [{ label: "Mru", href: '/' }, { label: "Mru Field" }];
+const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Mru Field' }];
 const faq = [
   {
-    "q": "Is it open source?",
-    "a": "The decision core and the simulator are open source under Apache 2.0, and the design is published. Mru Field adds integration, support and qualification for your site."
+    q: 'Is it open source?',
+    a: 'The decision core and the simulator are open source under Apache 2.0, and the design is published. Mru Field adds integration, support and qualification for your site.',
   },
   {
-    "q": "What evidence is there today?",
-    "a": "Simulation over 10,000 missions, a fault-injection demo on real processes, and four Kani proofs. No unattended field deployment yet. The 2027 pilot is that step."
+    q: 'What evidence is there today?',
+    a: 'Simulation over 10,000 missions, a fault-injection demo on real processes, and four Kani proofs. No unattended field deployment yet. The 2027 pilot is that step.',
   },
   {
-    "q": "How is it priced?",
-    "a": "An annual licence per site or per fleet, with support. We discuss terms once we know the hardware and the deployment."
+    q: 'How is it priced?',
+    a: 'An annual licence per site or per fleet, with support. We discuss terms once we know the hardware and the deployment.',
   },
   {
-    "q": "Do we need to change our code?",
-    "a": "Your task runs on each processor as it does now. Mru Field needs a defined result per cycle to compare, and a known-answer test for that task."
-  }
+    q: 'Do we need to change our code?',
+    a: 'Your task runs on each processor as it does now. Mru Field needs a defined result per cycle to compare, and a known-answer test for that task.',
+  },
 ];
 ---
 
 <Base
   crumbs={crumbs}
   faq={faq}
-  ld={{ software: { name: 'Mru Field', operatingSystem: 'Linux on ARM64, 32-bit ARM and x86_64', category: 'Fault-tolerance software for remote equipment' } }} active="field" request={{"interest": "field", "heading": "Tell us what you run, and where."}}>
+  ld={{
+    software: {
+      name: 'Mru Field',
+      operatingSystem: 'Linux on ARM64, 32-bit ARM and x86_64',
+      category: 'Fault-tolerance software for remote equipment',
+    },
+  }}
+  active="field"
+  request={{ interest: 'field', heading: 'Tell us what you run, and where.' }}
+>
   <section class="wrap hero" style="padding-bottom: 56px">
     <Breadcrumbs items={crumbs} />
     <div class="hero-grid" style="margin-top: 40px">
       <div class="stack-m">
-        <div class="row" style="gap: 10px"><span class="eyebrow">Mru Field · Earth</span><span class="pill">Core TRL 3 · field pilot planned 2027</span></div>
+        <div class="row" style="gap: 10px">
+          <span class="eyebrow">Mru Field · Earth</span>
+          <span class="pill">Core TRL 3 · field pilot planned 2027</span>
+        </div>
         <h1 class="h1">Mru Field: fault tolerance for equipment you cannot repair in time.</h1>
       </div>
       <div class="stack-m">
-        <p class="lede">Mru Field runs on the two or three processors already in your enclosure. Each cycle it decides which results to trust. As processors fail, it moves from voting to comparing to self-checking, and keeps delivering checked results until none are left.</p>
-        <div class="row"><a class="btn" href="#request">Request information</a><a class="btn ghost" href="/use-cases/">Use cases</a></div>
+        <p class="lede">
+          Mru Field runs on the two or three processors already in your enclosure. Each cycle it decides which results
+          to trust. As processors fail, it moves from voting to comparing to self-checking, and keeps delivering checked
+          results until none are left.
+        </p>
+        <div class="row">
+          <a class="btn" href="#request">
+            Request information
+          </a>
+          <a class="btn ghost" href="/use-cases/">
+            Use cases
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="wrap">
     <figure class="plate">
-      <div class="ph wide"><span class="no">PL. 02</span><PlateImage photo={photo('02')} alt="A spar buoy in rough open ocean" /></div>
-      <figcaption><span class="cap">Air-sea interaction spar buoy deployed in rough open ocean</span><span class="cr">{creditLine(photo('02'))}</span></figcaption>
+      <div class="ph wide">
+        <span class="no">PL. 02</span>
+        <PlateImage photo={photo('02')} alt="A spar buoy in rough open ocean" />
+      </div>
+      <figcaption>
+        <span class="cap">Air-sea interaction spar buoy deployed in rough open ocean</span>
+        <span class="cr">{creditLine(photo('02'))}</span>
+      </figcaption>
     </figure>
   </section>
 
   <section class="wrap section">
     <div class="split" style="margin-bottom: 56px">
-      <div class="stack-m"><p class="eyebrow"><span class="n">01</span> · What it does</p><h2 class="h2">Four things, and nothing else.</h2></div>
-      <p class="lede">Fixed triple redundancy stops at the second processor failure. Mru Field continues with what is left, and tells your operators which mode it is in.</p>
+      <div class="stack-m">
+        <p class="eyebrow">
+          <span class="n">01</span> · What it does
+        </p>
+        <h2 class="h2">Four things, and nothing else.</h2>
+      </div>
+      <p class="lede">
+        Fixed triple redundancy stops at the second processor failure. Mru Field continues with what is left, and tells
+        your operators which mode it is in.
+      </p>
     </div>
     <div class="cards four">
-      <div class="stack-s" style="border-top: 1px solid var(--signal); padding-top: 16px"><p class="tiny" style="margin: 0">01</p><h3 class="h3">Steps down instead of stopping</h3><p class="soft small">Vote on three, compare on two, self-check on one. It halts only when no processor is left.</p></div>
-      <div class="stack-s" style="border-top: 1px solid var(--rule-strong); padding-top: 16px"><p class="tiny" style="margin: 0">02</p><h3 class="h3">Delivers only checked results</h3><p class="soft small">A result leaves only if two processors agree, or the last one gets the same answer twice. Proved with Kani for every input.</p></div>
-      <div class="stack-s" style="border-top: 1px solid var(--rule-strong); padding-top: 16px"><p class="tiny" style="margin: 0">03</p><h3 class="h3">Diagnoses before it retires</h3><p class="soft small">A processor outvoted 3 times in 200 cycles gets a known-answer test. It is retired only if it fails.</p></div>
-      <div class="stack-s" style="border-top: 1px solid var(--rule-strong); padding-top: 16px"><p class="tiny" style="margin: 0">04</p><h3 class="h3">Logs every decision</h3><p class="soft small">Mode changes, retirements, detected and delivered results, and memory bit flips, for your telemetry.</p></div>
+      <div class="stack-s" style="border-top: 1px solid var(--signal); padding-top: 16px">
+        <p class="tiny" style="margin: 0">
+          01
+        </p>
+        <h3 class="h3">Steps down instead of stopping</h3>
+        <p class="soft small">
+          Vote on three, compare on two, self-check on one. It halts only when no processor is left.
+        </p>
+      </div>
+      <div class="stack-s" style="border-top: 1px solid var(--rule-strong); padding-top: 16px">
+        <p class="tiny" style="margin: 0">
+          02
+        </p>
+        <h3 class="h3">Delivers only checked results</h3>
+        <p class="soft small">
+          A result leaves only if two processors agree, or the last one gets the same answer twice. Proved with Kani for
+          every input.
+        </p>
+      </div>
+      <div class="stack-s" style="border-top: 1px solid var(--rule-strong); padding-top: 16px">
+        <p class="tiny" style="margin: 0">
+          03
+        </p>
+        <h3 class="h3">Diagnoses before it retires</h3>
+        <p class="soft small">
+          A processor outvoted 3 times in 200 cycles gets a known-answer test. It is retired only if it fails.
+        </p>
+      </div>
+      <div class="stack-s" style="border-top: 1px solid var(--rule-strong); padding-top: 16px">
+        <p class="tiny" style="margin: 0">
+          04
+        </p>
+        <h3 class="h3">Logs every decision</h3>
+        <p class="soft small">
+          Mode changes, retirements, detected and delivered results, and memory bit flips, for your telemetry.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -69,39 +139,144 @@ const faq = [
 
   <section class="wrap section stack-l">
     <div class="split">
-      <div class="stack-m"><p class="eyebrow"><span class="n">02</span> · Requirements and limits</p><h2 class="h2">What it needs, and what it does not do.</h2></div>
-      <p class="lede">Your instrument and control code stays as it is. Mru Field sits between that code and your processors.</p>
+      <div class="stack-m">
+        <p class="eyebrow">
+          <span class="n">02</span> · Requirements and limits
+        </p>
+        <h2 class="h2">What it needs, and what it does not do.</h2>
+      </div>
+      <p class="lede">
+        Your instrument and control code stays as it is. Mru Field sits between that code and your processors.
+      </p>
     </div>
-    <div class="tbl-box">
+    <div class="tbl-box" tabindex="0">
       <table class="tbl">
         <tbody>
-          <tr><td style="width: 30%">Processors</td><td>Two or three running the same task. One still works, in self-check mode.</td></tr>
-          <tr><td>Platforms today</td><td>Linux on ARM64, 32-bit ARM and x86_64. Decision core also builds bare-metal for ARM Cortex-M.</td></tr>
-          <tr><td>Footprint</td><td>About 1.5 MB of memory per process on ARM64, measured in CI. Binary about 0.5 MB.</td></tr>
-          <tr><td>Throughput cost</td><td>None with two or three processors alive. Half rate on the last one, because it computes twice.</td></tr>
-          <tr><td>Known limit</td><td>On the last processor, a stuck fault is caught only by a periodic known-answer test. A few wrong results can get out before it. The period is configurable.</td></tr>
-          <tr><td>Not for</td><td>Certified safety functions. Protection systems keep their own certification.</td></tr>
+          <tr>
+            <td style="width: 30%">Processors</td>
+            <td>Two or three running the same task. One still works, in self-check mode.</td>
+          </tr>
+          <tr>
+            <td>Platforms today</td>
+            <td>Linux on ARM64, 32-bit ARM and x86_64. Decision core also builds bare-metal for ARM Cortex-M.</td>
+          </tr>
+          <tr>
+            <td>Footprint</td>
+            <td>About 1.5 MB of memory per process on ARM64, measured in CI. Binary about 0.5 MB.</td>
+          </tr>
+          <tr>
+            <td>Throughput cost</td>
+            <td>None with two or three processors alive. Half rate on the last one, because it computes twice.</td>
+          </tr>
+          <tr>
+            <td>Known limit</td>
+            <td>
+              On the last processor, a stuck fault is caught only by a periodic known-answer test. A few wrong results
+              can get out before it. The period is configurable.
+            </td>
+          </tr>
+          <tr>
+            <td>Not for</td>
+            <td>Certified safety functions. Protection systems keep their own certification.</td>
+          </tr>
         </tbody>
       </table>
     </div>
     <div class="strata">
-      <div class="stratum"><span class="lv">Yours</span><h3>Instrument and control code</h3><p>Sampling, logging, telemetry. Unchanged.</p></div>
-      <div class="stratum base"><span class="lv">Mru</span><h3>Mru Field</h3><p>Shrinking quorum, health record, known-answer tests, memory checks, decision log.</p></div>
-      <div class="stratum"><span class="lv">Yours</span><h3>Two or three processors</h3><p>The hardware already in the enclosure. No new boards.</p></div>
+      <div class="stratum">
+        <span class="lv">Yours</span>
+        <h3>Instrument and control code</h3>
+        <p>Sampling, logging, telemetry. Unchanged.</p>
+      </div>
+      <div class="stratum base">
+        <span class="lv">Mru</span>
+        <h3>Mru Field</h3>
+        <p>Shrinking quorum, health record, known-answer tests, memory checks, decision log.</p>
+      </div>
+      <div class="stratum">
+        <span class="lv">Yours</span>
+        <h3>Two or three processors</h3>
+        <p>The hardware already in the enclosure. No new boards.</p>
+      </div>
     </div>
   </section>
 
   <Seam life={64} label="Where it applies" />
 
   <section class="wrap section">
-    <div class="row" style="justify-content: space-between; margin-bottom: 32px"><h2 class="h2">Where it applies</h2><a class="link-more" href="/use-cases/">All fifteen settings</a></div>
+    <div class="row" style="justify-content: space-between; margin-bottom: 32px">
+      <h2 class="h2">Where it applies</h2>
+      <a class="link-more" href="/use-cases/">
+        All fifteen settings
+      </a>
+    </div>
     <div class="cards" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))">
-      <a class="tile" href="/use-cases/deep-sea-observatories/"><div class="ph"><PlateImage photo={photo('01')} alt="" /></div><span class="k"><span>Ocean</span><span>PL. 01</span></span><h3>Deep-sea observatories</h3><p>Batteries, a cable, and one service visit a year.</p></a>
-      <a class="tile" href="/use-cases/ocean-buoys/"><div class="ph"><PlateImage photo={photo('02')} alt="" /></div><span class="k"><span>Ocean</span><span>PL. 02</span></span><h3>Ocean buoys and moorings</h3><p>Years at sea between services, on solar power.</p></a>
-      <a class="tile" href="/use-cases/profiling-floats/"><div class="ph"><PlateImage photo={photo('03')} alt="" /></div><span class="k"><span>Ocean</span><span>PL. 03</span></span><h3>Profiling floats and gliders</h3><p>Deployed once, rarely recovered.</p></a>
-      <a class="tile" href="/use-cases/offshore-wind/"><div class="ph"><PlateImage photo={photo('05')} alt="" /></div><span class="k"><span>Energy</span><span>PL. 05</span></span><h3>Offshore wind</h3><p>Every repair needs a vessel and a weather window.</p></a>
-      <a class="tile" href="/use-cases/polar-stations/"><div class="ph"><PlateImage photo={photo('09')} alt="" /></div><span class="k"><span>Research</span><span>PL. 09</span></span><h3>Polar stations</h3><p>No access for months of the year.</p></a>
-      <a class="tile" href="/use-cases/satellite-iot/"><div class="ph"><PlateImage photo={photo('08')} alt="" /></div><span class="k"><span>Infrastructure</span><span>PL. 08</span></span><h3>Satellite-linked devices</h3><p>Small power budgets, links measured in bytes.</p></a>
+      <a class="tile" href="/use-cases/deep-sea-observatories/">
+        <div class="ph">
+          <PlateImage photo={photo('01')} alt="" />
+        </div>
+        <span class="k">
+          <span>Ocean</span>
+          <span>PL. 01</span>
+        </span>
+        <h3>Deep-sea observatories</h3>
+        <p>Batteries, a cable, and one service visit a year.</p>
+      </a>
+      <a class="tile" href="/use-cases/ocean-buoys/">
+        <div class="ph">
+          <PlateImage photo={photo('02')} alt="" />
+        </div>
+        <span class="k">
+          <span>Ocean</span>
+          <span>PL. 02</span>
+        </span>
+        <h3>Ocean buoys and moorings</h3>
+        <p>Years at sea between services, on solar power.</p>
+      </a>
+      <a class="tile" href="/use-cases/profiling-floats/">
+        <div class="ph">
+          <PlateImage photo={photo('03')} alt="" />
+        </div>
+        <span class="k">
+          <span>Ocean</span>
+          <span>PL. 03</span>
+        </span>
+        <h3>Profiling floats and gliders</h3>
+        <p>Deployed once, rarely recovered.</p>
+      </a>
+      <a class="tile" href="/use-cases/offshore-wind/">
+        <div class="ph">
+          <PlateImage photo={photo('05')} alt="" />
+        </div>
+        <span class="k">
+          <span>Energy</span>
+          <span>PL. 05</span>
+        </span>
+        <h3>Offshore wind</h3>
+        <p>Every repair needs a vessel and a weather window.</p>
+      </a>
+      <a class="tile" href="/use-cases/polar-stations/">
+        <div class="ph">
+          <PlateImage photo={photo('09')} alt="" />
+        </div>
+        <span class="k">
+          <span>Research</span>
+          <span>PL. 09</span>
+        </span>
+        <h3>Polar stations</h3>
+        <p>No access for months of the year.</p>
+      </a>
+      <a class="tile" href="/use-cases/satellite-iot/">
+        <div class="ph">
+          <PlateImage photo={photo('08')} alt="" />
+        </div>
+        <span class="k">
+          <span>Infrastructure</span>
+          <span>PL. 08</span>
+        </span>
+        <h3>Satellite-linked devices</h3>
+        <p>Small power budgets, links measured in bytes.</p>
+      </a>
     </div>
   </section>
 
@@ -109,13 +284,40 @@ const faq = [
 
   <section class="wrap section stack-l">
     <div class="split">
-      <div class="stack-m"><p class="eyebrow"><span class="n">03</span> · How we work with you</p><h2 class="h2">Simulate. Pilot. Then the fleet.</h2></div>
-      <p class="lede">Each step is small enough to stop after. We are looking for a few first pilot partners for 2027.</p>
+      <div class="stack-m">
+        <p class="eyebrow">
+          <span class="n">03</span> · How we work with you
+        </p>
+        <h2 class="h2">Simulate. Pilot. Then the fleet.</h2>
+      </div>
+      <p class="lede">
+        Each step is small enough to stop after. We are looking for a few first pilot partners for 2027.
+      </p>
     </div>
     <div class="path">
-      <div class="stack-s"><p class="n">1 · Simulate</p><h3 class="h3">Your hardware, modelled</h3><p class="soft small">We model your processors, failure rates and deployment length, and show what each redundancy design returns over the whole life. You get the model and the data.</p></div>
-      <div class="stack-s"><p class="n">2 · Pilot</p><h3 class="h3">One site, months unattended</h3><p class="soft small">Mru Field on your own equipment, with the decision log in your telemetry. A pilot in the Azores is planned to reach TRL 6.</p></div>
-      <div class="stack-s"><p class="n">3 · Fleet</p><h3 class="h3">Licence and support</h3><p class="soft small">Annual licence per site or fleet, with support and qualification evidence for your sector.</p></div>
+      <div class="stack-s">
+        <p class="n">1 · Simulate</p>
+        <h3 class="h3">Your hardware, modelled</h3>
+        <p class="soft small">
+          We model your processors, failure rates and deployment length, and show what each redundancy design returns
+          over the whole life. You get the model and the data.
+        </p>
+      </div>
+      <div class="stack-s">
+        <p class="n">2 · Pilot</p>
+        <h3 class="h3">One site, months unattended</h3>
+        <p class="soft small">
+          Mru Field on your own equipment, with the decision log in your telemetry. A pilot in the Azores is planned to
+          reach TRL 6.
+        </p>
+      </div>
+      <div class="stack-s">
+        <p class="n">3 · Fleet</p>
+        <h3 class="h3">Licence and support</h3>
+        <p class="soft small">
+          Annual licence per site or fleet, with support and qualification evidence for your sector.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -125,5 +327,4 @@ const faq = [
       <Faq items={faq} />
     </div>
   </section>
-
 </Base>

@@ -25,7 +25,9 @@ const crumbs = [
 <Base
   crumbs={crumbs}
   faq={c.faq}
-  ld={{ service: { name: `Mru Field for ${c.lower}`, serviceType: 'Fault-tolerant software for unattended equipment' } }}
+  ld={{
+    service: { name: `Mru Field for ${c.lower}`, serviceType: 'Fault-tolerant software for unattended equipment' },
+  }}
   active="usecases"
   request={{ interest: 'field', topic: c.name, heading: `Is Mru Field a fit for your ${c.lower}?` }}
 >
@@ -34,59 +36,63 @@ const crumbs = [
     <div class="hero-grid" style="margin-top: 40px; align-items: end">
       <div class="stack-m">
         <div class="row" style="gap: 10px">
-          <span class="eyebrow">{c.kicker}</span><span class={c.status === 'Exploring' ? 'pill' : 'pill sig'}
-            ><span class="dot"></span>{c.status}</span
-          >
+          <span class="eyebrow">{c.kicker}</span>
+          <span class={c.status === 'Exploring' ? 'pill' : 'pill sig'}>
+            <span class="dot"></span>
+            {c.status}
+          </span>
         </div>
         <h1 class="h1">{c.name}</h1>
       </div>
-      <p class="h2" style="font-family: var(--display); margin: 0; color: var(--ink-soft); text-wrap: balance">{c.hook}</p>
+      <p class="h2" style="font-family: var(--display); margin: 0; color: var(--ink-soft); text-wrap: balance">
+        {c.hook}
+      </p>
     </div>
   </section>
 
   <section class="wrap" style="margin-top: 48px">
     <figure class="plate">
       <div class="ph wide">
-        <span class="no">PL. {c.plate}</span><PlateImage
-          photo={c.photo}
-          alt={c.cap}
-          loading="eager"
-          sizes="(max-width: 1296px) 100vw, 1216px"
-        />
+        <span class="no">PL. {c.plate}</span>
+        <PlateImage photo={c.photo} alt={c.cap} loading="eager" sizes="(max-width: 1296px) 100vw, 1216px" />
       </div>
-      <figcaption><span class="cap">{c.cap}</span><span class="cr">{creditLine(c.photo)}</span></figcaption>
+      <figcaption>
+        <span class="cap">{c.cap}</span>
+        <span class="cr">{creditLine(c.photo)}</span>
+      </figcaption>
     </figure>
   </section>
 
   <section class="wrap section">
     <div class="split">
       <div class="stack-l">
-        {
-          c.stats.map((s) => (
-            <div class="stat sigtop">
-              <div class="v">{s.v}<small>{s.u}</small></div>
-              <p class="l">{s.l}</p>
-              <p class="src">{s.src}</p>
+        {c.stats.map((s) => (
+          <div class="stat sigtop">
+            <div class="v">
+              {s.v}
+              <small>{s.u}</small>
             </div>
-          ))
-        }
-        {
-          c.stats.length === 0 && (
-            <div class="stack-s">
-              <p class="quote" style="font-size: 26px">
-                &#8220;Capability is a depleting resource to be spent, not a fixed budget to be defended.&#8221;
-              </p>
-              <p class="quote-by">Whitepaper, §5</p>
-            </div>
-          )
-        }
+            <p class="l">{s.l}</p>
+            <p class="src">{s.src}</p>
+          </div>
+        ))}
+        {c.stats.length === 0 && (
+          <div class="stack-s">
+            <p class="quote" style="font-size: 26px">
+              &#8220;Capability is a depleting resource to be spent, not a fixed budget to be defended.&#8221;
+            </p>
+            <p class="quote-by">Whitepaper, §5</p>
+          </div>
+        )}
       </div>
       <div class="stack-m">
-        <p class="lede" style="color: var(--ink)">{c.intro}</p>
+        <p class="lede" style="color: var(--ink)">
+          {c.intro}
+        </p>
         <p class="soft">
           Mru Field runs on the processors already in the equipment. When one fails and nobody can come, it continues on
-          the ones left and delivers only results it can check. Status: decision core at TRL 3; first field pilot planned
-          for 2027.
+          the ones left and delivers only results it can check. Status: decision core at TRL 3; first field pilot
+          planned for 2027.
         </p>
       </div>
     </div>
@@ -96,17 +102,15 @@ const crumbs = [
 
   <section class="wrap section">
     <div class="cards" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))">
-      {
-        c.failures.map((f) => (
-          <div class="stack-s" style="border-top: 1px solid var(--rule-strong); padding-top: 16px">
-            <p class="tiny" style="margin: 0">
-              {f.n}
-            </p>
-            <h2 class="h3">{f.t}</h2>
-            <p class="soft small">{f.d}</p>
-          </div>
-        ))
-      }
+      {c.failures.map((f) => (
+        <div class="stack-s" style="border-top: 1px solid var(--rule-strong); padding-top: 16px">
+          <p class="tiny" style="margin: 0">
+            {f.n}
+          </p>
+          <h2 class="h3">{f.t}</h2>
+          <p class="soft small">{f.d}</p>
+        </div>
+      ))}
     </div>
   </section>
 
@@ -124,35 +128,66 @@ const crumbs = [
       <div class="stack-s">
         <p class="n">3 alive · vote</p>
         <div class="row" style="gap: 8px; margin: 12px 0">
-          <span class="proc"><span class="lamp"></span>A</span><span class="proc"><span class="lamp"></span>B</span><span
-            class="proc"><span class="lamp"></span>C</span
-          >
+          <span class="proc">
+            <span class="lamp"></span>A
+          </span>
+          <span class="proc">
+            <span class="lamp"></span>B
+          </span>
+          <span class="proc">
+            <span class="lamp"></span>C
+          </span>
         </div>
         <p>Three computers vote. One bad result is outvoted.</p>
       </div>
       <div class="stack-s">
         <p class="n">2 alive · compare</p>
         <div class="row" style="gap: 8px; margin: 12px 0">
-          <span class="proc"><span class="lamp"></span>A</span><span class="proc"><span class="lamp"></span>B</span><span
-            class="proc dead"><span class="lamp"></span>C</span
-          >
+          <span class="proc">
+            <span class="lamp"></span>A
+          </span>
+          <span class="proc">
+            <span class="lamp"></span>B
+          </span>
+          <span class="proc dead">
+            <span class="lamp"></span>C
+          </span>
         </div>
         <p>Two compare. A known-answer test finds the faulty one.</p>
       </div>
       <div class="stack-s">
         <p class="n">1 alive · self-check</p>
         <div class="row" style="gap: 8px; margin: 12px 0">
-          <span class="proc"><span class="lamp"></span>A</span><span class="proc dead"><span class="lamp"></span>B</span
-          ><span class="proc dead"><span class="lamp"></span>C</span>
+          <span class="proc">
+            <span class="lamp"></span>A
+          </span>
+          <span class="proc dead">
+            <span class="lamp"></span>B
+          </span>
+          <span class="proc dead">
+            <span class="lamp"></span>C
+          </span>
         </div>
         <p>The last one checks its own work and {c.last}, at half speed.</p>
       </div>
     </div>
     <div class="fit">
-      <div><p class="k">Power</p><p class="v">{c.fit.power}</p></div>
-      <div><p class="k">Link</p><p class="v">{c.fit.link}</p></div>
-      <div><p class="k">Visits</p><p class="v">{c.fit.visit}</p></div>
-      <div><p class="k">Service life</p><p class="v">{c.fit.life}</p></div>
+      <div>
+        <p class="k">Power</p>
+        <p class="v">{c.fit.power}</p>
+      </div>
+      <div>
+        <p class="k">Link</p>
+        <p class="v">{c.fit.link}</p>
+      </div>
+      <div>
+        <p class="k">Visits</p>
+        <p class="v">{c.fit.visit}</p>
+      </div>
+      <div>
+        <p class="k">Service life</p>
+        <p class="v">{c.fit.life}</p>
+      </div>
     </div>
   </section>
 
@@ -165,10 +200,15 @@ const crumbs = [
 
   <section class="wrap section tight">
     <div class="row" style="justify-content: space-between; margin-bottom: 24px">
-      <h2 class="h3">Related settings</h2><a class="link-more" href="/use-cases/">All use cases</a>
+      <h2 class="h3">Related settings</h2>
+      <a class="link-more" href="/use-cases/">
+        All use cases
+      </a>
     </div>
     <div class="cards">
-      {rel.map((r) => <Tile href={r.href} photo={r.photo} kicker={r.kicker} name={r.name} />)}
+      {rel.map((r) => (
+        <Tile href={r.href} photo={r.photo} kicker={r.kicker} name={r.name} />
+      ))}
     </div>
   </section>
 </Base>

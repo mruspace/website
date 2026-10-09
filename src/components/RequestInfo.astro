@@ -18,8 +18,12 @@ const page = new URL(Astro.url.pathname, SITE.url).href;
   <div class="wrap section tight">
     <div class="split">
       <div class="stack-m">
-        <p class="eyebrow"><span class="n">→</span> Request information</p>
-        <h2 id="req-h" class="h2">{heading}</h2>
+        <p class="eyebrow">
+          <span class="n">→</span> Request information
+        </p>
+        <h2 id="req-h" class="h2">
+          {heading}
+        </h2>
         <p class="soft">
           A few lines are enough: the hardware, where it is, and how long it must run without a visit. We will tell you
           plainly whether Mru fits, including when it does not.
@@ -29,7 +33,9 @@ const page = new URL(Astro.url.pathname, SITE.url).href;
           <li>We reply by email. If a call helps, we suggest one.</li>
           <li>Technical questions are welcome. The docs and code are public.</li>
         </ul>
-        <p class="tiny">Or write to <a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+        <p class="tiny">
+          Or write to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        </p>
       </div>
       <div data-req>
         <div class="sent stack-m" role="status" tabindex="-1" data-req-sent hidden>
@@ -37,19 +43,33 @@ const page = new URL(Astro.url.pathname, SITE.url).href;
             <span class="dot" style="margin-right: 8px"></span>Request sent
           </p>
           <h3 class="h3">Thank you. It is on its way to {SITE.email}.</h3>
-          <p class="soft small">We reply by email. In the meantime, the whitepaper, the results and the code are all public.</p>
+          <p class="soft small">
+            We reply by email. In the meantime, the whitepaper, the results and the code are all public.
+          </p>
           <div class="row">
-            <a class="link-more" href="/research/">Research</a><a class="link-more" href={`${SITE.docsUrl}/`}>Docs</a
-            ><button class="qbtn" type="button" data-req-again>Send another</button>
+            <a class="link-more" href="/research/">
+              Research
+            </a>
+            <a class="link-more" href={`${SITE.docsUrl}/`}>
+              Docs
+            </a>
+            <button class="qbtn" type="button" data-req-again>
+              Send another
+            </button>
           </div>
         </div>
         <form class="form" method="post" action={FORM.action} data-req-form>
-          {topic && <p class="pill sig" style="justify-self: start; margin: 0">About: {topic}</p>}
+          {topic && (
+            <p class="pill sig" style="justify-self: start; margin: 0">
+              About: {topic}
+            </p>
+          )}
           <input type="hidden" name="topic" value={topic} />
           <input type="hidden" name="page" value={page} />
           <div class="form-row two">
-            <label class="field"
-              ><span>Name</span><input
+            <label class="field">
+              <span>Name</span>
+              <input
                 type="text"
                 name="name"
                 autocomplete="name"
@@ -58,8 +78,9 @@ const page = new URL(Astro.url.pathname, SITE.url).href;
               />
               <span class="field-error" id="req-err-name" hidden></span>
             </label>
-            <label class="field"
-              ><span>Work email</span><input
+            <label class="field">
+              <span>Work email</span>
+              <input
                 type="email"
                 name="email"
                 autocomplete="email"
@@ -71,8 +92,9 @@ const page = new URL(Astro.url.pathname, SITE.url).href;
             </label>
           </div>
           <div class="form-row two">
-            <label class="field"
-              ><span>Organisation</span><input
+            <label class="field">
+              <span>Organisation</span>
+              <input
                 type="text"
                 name="organisation"
                 autocomplete="organization"
@@ -81,28 +103,29 @@ const page = new URL(Astro.url.pathname, SITE.url).href;
               />
               <span class="field-error" id="req-err-organisation" hidden></span>
             </label>
-            <label class="field"
-              ><span>Your role</span>
+            <label class="field">
+              <span>Your role</span>
               <select name="role">
-                {ROLES.map((r) => <option>{r}</option>)}
+                {ROLES.map((r) => (
+                  <option>{r}</option>
+                ))}
               </select>
             </label>
           </div>
           <fieldset class="field">
             <legend>Interested in</legend>
             <div class="choices">
-              {
-                INTERESTS.map((c) => (
-                  <label class="choice">
-                    <input type="radio" name="interest" value={c.id} checked={c.id === interest} />
-                    <span>{c.label}</span>
-                  </label>
-                ))
-              }
+              {INTERESTS.map((c) => (
+                <label class="choice">
+                  <input type="radio" name="interest" value={c.id} checked={c.id === interest} />
+                  <span>{c.label}</span>
+                </label>
+              ))}
             </div>
           </fieldset>
-          <label class="field"
-            ><span>What do you run, and what do you need?</span><textarea
+          <label class="field">
+            <span>What do you run, and what do you need?</span>
+            <textarea
               name="message"
               rows="5"
               maxlength={LIMITS.message}
@@ -112,17 +135,23 @@ const page = new URL(Astro.url.pathname, SITE.url).href;
             <span class="field-error" id="req-err-message" hidden></span>
           </label>
           <div class="hp" aria-hidden="true">
-            <label>Leave this field empty <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+            <label>
+              Leave this field empty <input type="text" name="website" tabindex="-1" autocomplete="off" />
+            </label>
           </div>
           <p class="field-error" data-req-error role="alert" hidden></p>
           <div class="row" style="justify-content: space-between">
-            <p class="tiny" style="margin: 0; max-width: 32ch">We use these details only to reply. No mailing list.</p>
+            <p class="tiny" style="margin: 0; max-width: 32ch">
+              We use these details only to reply. No mailing list.
+            </p>
             {
               /* Turnstile (interaction-only): empty for most visitors, so it sits in this flex row,
                  where an empty box changes nothing. */
               FORM.turnstileSiteKey && <div class="turnstile" data-turnstile={FORM.turnstileSiteKey} />
             }
-            <button class="btn" type="submit">Send request</button>
+            <button class="btn" type="submit">
+              Send request
+            </button>
           </div>
         </form>
       </div>

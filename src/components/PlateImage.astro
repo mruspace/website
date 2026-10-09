@@ -11,8 +11,13 @@ interface Props {
   loading?: 'lazy' | 'eager';
   style?: string;
 }
-const { photo, alt, sizes = '(max-width: 640px) 100vw, (max-width: 1080px) 50vw, 600px', loading = 'lazy', style } =
-  Astro.props;
+const {
+  photo,
+  alt,
+  sizes = '(max-width: 640px) 100vw, (max-width: 1080px) 50vw, 600px',
+  loading = 'lazy',
+  style,
+} = Astro.props;
 ---
 
 <Picture

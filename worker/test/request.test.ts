@@ -61,8 +61,7 @@ beforeEach(() => {
   vi.stubGlobal(
     'fetch',
     vi.fn(async (url: string, init?: RequestInit) => {
-      if (String(url).startsWith('https://challenges.cloudflare.com/'))
-        return Response.json({ success: turnstileOk });
+      if (String(url).startsWith('https://challenges.cloudflare.com/')) return Response.json({ success: turnstileOk });
       if (String(url) === 'https://api.resend.com/emails') {
         expect((init?.headers as Record<string, string>).Authorization).toBe('Bearer re_test');
         if (!resendOk) return Response.json({ message: 'down' }, { status: 500 });
@@ -87,7 +86,15 @@ describe('valid requests', () => {
     expect(last().reply_to).toBe('ada@example.org');
     expect(last().subject).toBe('Request information: Mru Field · Earth · Ocean Lab');
     const text = last().text;
-    for (const s of ['Ada Ops', 'ada@example.org', 'Ocean Lab', 'Operations', 'Ocean buoys and moorings', 'One visit a year.', 'Time (UTC)'])
+    for (const s of [
+      'Ada Ops',
+      'ada@example.org',
+      'Ocean Lab',
+      'Operations',
+      'Ocean buoys and moorings',
+      'One visit a year.',
+      'Time (UTC)',
+    ])
       expect(text).toContain(s);
     expect(text).toContain('https://mru.space/use-cases/ocean-buoys/');
   });
@@ -173,7 +180,11 @@ describe('invalid input', () => {
   });
 
   it('enforces the field lengths', async () => {
-    for (const [field, n] of [['name', 201], ['organisation', 201], ['message', 5001]] as const) {
+    for (const [field, n] of [
+      ['name', 201],
+      ['organisation', 201],
+      ['message', 5001],
+    ] as const) {
       const res = await worker.fetch(post(form({ [field]: 'x'.repeat(n) })), testEnv());
       expect(res.status).toBe(400);
       expect(((await res.json()) as { field: string }).field).toBe(field);
@@ -197,7 +208,10 @@ describe('invalid input', () => {
 describe('routing', () => {
   it('answers the CORS preflight for mru.space only', async () => {
     const pre = (origin: string) =>
-      worker.fetch(new Request('https://api.mru.space/request', { method: 'OPTIONS', headers: { Origin: origin } }), testEnv());
+      worker.fetch(
+        new Request('https://api.mru.space/request', { method: 'OPTIONS', headers: { Origin: origin } }),
+        testEnv(),
+      );
     const ok = await pre(ORIGIN);
     expect(ok.status).toBe(204);
     expect(ok.headers.get('Access-Control-Allow-Origin')).toBe(ORIGIN);
@@ -206,6 +220,8 @@ describe('routing', () => {
 
   it('allows only POST /request', async () => {
     expect((await worker.fetch(new Request('https://api.mru.space/request'), testEnv())).status).toBe(405);
-    expect((await worker.fetch(new Request('https://api.mru.space/other', { method: 'POST' }), testEnv())).status).toBe(404);
+    expect((await worker.fetch(new Request('https://api.mru.space/other', { method: 'POST' }), testEnv())).status).toBe(
+      404,
+    );
   });
 });

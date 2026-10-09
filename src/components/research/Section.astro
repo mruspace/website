@@ -11,15 +11,17 @@ const hasNote = Astro.slots.has('note');
 ---
 
 <div class="article" style={style}>
-  <div class="body"><slot /></div>
-  <aside class="note-col">
-    {
-      hasNote && (
-        <p class="note">
-          <span class="tiny">{label}</span>
-          <slot name="note" />
-        </p>
-      )
-    }
-  </aside>
+  <div class="body">
+    <slot />
+  </div>
+  {hasNote ? (
+    <aside class="note-col" aria-label={label ?? 'Note'}>
+      <p class="note">
+        <span class="tiny">{label}</span>
+        <slot name="note" />
+      </p>
+    </aside>
+  ) : (
+    <div class="note-col" />
+  )}
 </div>

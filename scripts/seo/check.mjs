@@ -18,7 +18,11 @@ const DIST = path.resolve('dist');
 const meta = JSON.parse(await readFile(path.resolve(config.metadata), 'utf8'));
 const errors = [];
 const err = (where, msg) => errors.push(`${where}: ${msg}`);
-const exists = (f) => stat(f).then(() => true, () => false);
+const exists = (f) =>
+  stat(f).then(
+    () => true,
+    () => false,
+  );
 
 const REQUIRED = {
   Organization: ['name', 'url', 'logo'],
@@ -74,7 +78,8 @@ for (const f of await htmlFiles(DIST)) {
   const q = (sel, attr = 'content') => document.querySelector(sel)?.getAttribute(attr);
   if (document.title !== m.title) err(route, 'title differs from metadata.json');
   if (q('meta[name="description"]') !== m.description) err(route, 'description differs from metadata.json');
-  if (document.querySelectorAll('h1').length !== 1) err(route, `${document.querySelectorAll('h1').length} h1 elements (want 1)`);
+  if (document.querySelectorAll('h1').length !== 1)
+    err(route, `${document.querySelectorAll('h1').length} h1 elements (want 1)`);
   if (noindex) {
     if (!/noindex/.test(q('meta[name="robots"]') ?? '')) err(route, 'noindex page without robots noindex');
     continue;
@@ -107,19 +112,25 @@ for (const f of await htmlFiles(DIST)) {
   const types = nodes.map((n) => n['@type']);
   for (const n of nodes) {
     if (!n['@type']) err(route, 'JSON-LD node without @type');
-    for (const k of REQUIRED[n['@type']] ?? []) if (n[k] === undefined || n[k] === '') err(route, `${n['@type']} lacks ${k}`);
+    for (const k of REQUIRED[n['@type']] ?? [])
+      if (n[k] === undefined || n[k] === '') err(route, `${n['@type']} lacks ${k}`);
   }
-  const visibleCrumbs = [...document.querySelectorAll('nav.crumbs > a, nav.crumbs > span:not([aria-hidden])')].map((e) => e.textContent.trim());
+  const visibleCrumbs = [...document.querySelectorAll('nav.crumbs > a, nav.crumbs > span:not([aria-hidden])')].map(
+    (e) => e.textContent.trim(),
+  );
   for (const t of m.schema.filter((t) => t !== 'noindex')) {
     if (t === 'BreadcrumbList' && !visibleCrumbs.length) continue; // only where the page shows breadcrumbs
-    if (!types.includes(t) && !['Organization', 'WebSite'].includes(t)) err(route, `JSON-LD lacks ${t} (Metadata board)`);
+    if (!types.includes(t) && !['Organization', 'WebSite'].includes(t))
+      err(route, `JSON-LD lacks ${t} (Metadata board)`);
   }
   for (const t of types)
-    if (!['Organization', 'WebSite'].includes(t) && !m.schema.includes(t)) err(route, `JSON-LD has ${t}, not on the Metadata board`);
+    if (!['Organization', 'WebSite'].includes(t) && !m.schema.includes(t))
+      err(route, `JSON-LD has ${t}, not on the Metadata board`);
   const bl = nodes.find((n) => n['@type'] === 'BreadcrumbList');
   if (bl) {
     const names = bl.itemListElement.map((i) => i.name);
-    if (JSON.stringify(names) !== JSON.stringify(visibleCrumbs)) err(route, `BreadcrumbList ${JSON.stringify(names)} differs from the page ${JSON.stringify(visibleCrumbs)}`);
+    if (JSON.stringify(names) !== JSON.stringify(visibleCrumbs))
+      err(route, `BreadcrumbList ${JSON.stringify(names)} differs from the page ${JSON.stringify(visibleCrumbs)}`);
     bl.itemListElement.forEach((i, k) => {
       if (i.position !== k + 1) err(route, 'BreadcrumbList positions are not 1, 2, 3…');
       if (!/^https:\/\//.test(i.item)) err(route, 'BreadcrumbList item is not an absolute URL');
@@ -129,7 +140,8 @@ for (const f of await htmlFiles(DIST)) {
   if (faq) {
     const shown = [...document.querySelectorAll('.faq summary')].map((s) => s.textContent.trim());
     const listed = faq.mainEntity.map((x) => x.name);
-    if (JSON.stringify(shown) !== JSON.stringify(listed)) err(route, 'FAQPage questions differ from the questions on the page');
+    if (JSON.stringify(shown) !== JSON.stringify(listed))
+      err(route, 'FAQPage questions differ from the questions on the page');
   }
 }
 for (const m of meta) {

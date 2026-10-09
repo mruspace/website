@@ -65,6 +65,6 @@ export function useCase(slug: string): UseCase {
 }
 
 /** The index page groups, with the short kicker and hook used on the index. */
-export const INDEX_GROUPS = (data.index as { title: string; items: { slug: string; kicker: string; hook: string }[] }[]).map(
-  (g) => ({ title: g.title, items: g.items.map((i) => ({ ...i, uc: useCase(i.slug) })) }),
-);
+export const INDEX_GROUPS = (
+  data.index as { title: string; items: { slug: string; kicker: string; hook: string }[] }[]
+).map((g) => ({ title: g.title, items: g.items.map((i) => ({ ...i, uc: useCase(i.slug) })) }));

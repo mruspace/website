@@ -10,7 +10,18 @@ export default {
   siteName: 'Mru Aerospace',
   mainSelector: 'main',
   // Interactive or decorative parts with no meaning as text.
-  drop: ['script', 'style', 'button', 'form', '.mark-anim', '.mark-static', '[data-quorum]', '.seam', '.plate .no', '.theme-switch'],
+  drop: [
+    'script',
+    'style',
+    'button',
+    'form',
+    '.mark-anim',
+    '.mark-static',
+    '[data-quorum]',
+    '.seam',
+    '.plate .no',
+    '.theme-switch',
+  ],
   title: 'Mru',
   summary:
     'Mru is fault-tolerant software for computers that cannot be repaired in time: ocean observatories, offshore and remote sites, spacecraft. When processors fail, it keeps delivering checked results on the ones left. Early: decision core at TRL 3, open source, first field pilot planned for 2027.',
@@ -23,7 +34,11 @@ export default {
     {
       title: 'Docs',
       links: [
-        { title: 'Mru docs, llms.txt', url: 'https://docs.mru.space/llms.txt', description: 'The docs site index for language models.' },
+        {
+          title: 'Mru docs, llms.txt',
+          url: 'https://docs.mru.space/llms.txt',
+          description: 'The docs site index for language models.',
+        },
         ...docs.map((d) => ({
           title: d.title.replace(/ · Mru Docs$/, ''),
           url: `${d.url.replace(/\/$/, '')}/index.md`,

@@ -7,11 +7,13 @@ interface Props {
   label?: string;
 }
 const { class: cls = '', style, label } = Astro.props;
-const a11y = label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': 'true' };
+const a11y = label ? { role: 'img' as const, 'aria-label': label } : { 'aria-hidden': 'true' as const };
 ---
 
 <svg class:list={['mark-svg', cls]} viewBox="0 0 100 100" style={style} {...a11y}>
   <circle class="ring" cx="50" cy="50" r="34"></circle>
   <ellipse class="orbit" cx="50" cy="50" rx="30" ry="14" transform="rotate(-22 50 50)"></ellipse>
-  <text class="mk" x="50" y="55.6">M</text>
+  <text class="mk" x="50" y="55.6">
+    M
+  </text>
 </svg>

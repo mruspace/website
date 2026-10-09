@@ -38,13 +38,19 @@ p{margin:0 0 16px}a{color:#3a4a5a}@media (prefers-color-scheme:dark){body{backgr
 
 function fail(req: Request, env: Env, status: number, e: FieldError | { error: string; field?: undefined }): Response {
   if (wantsJson(req))
-    return Response.json(e, { status, headers: { ...cors(env, req.headers.get('Origin')), 'Cache-Control': 'no-store' } });
+    return Response.json(e, {
+      status,
+      headers: { ...cors(env, req.headers.get('Origin')), 'Cache-Control': 'no-store' },
+    });
   return errorPage(env, status, e.error);
 }
 
 function ok(req: Request, env: Env): Response {
   if (wantsJson(req))
-    return Response.json({ ok: true }, { headers: { ...cors(env, req.headers.get('Origin')), 'Cache-Control': 'no-store' } });
+    return Response.json(
+      { ok: true },
+      { headers: { ...cors(env, req.headers.get('Origin')), 'Cache-Control': 'no-store' } },
+    );
   return new Response(null, { status: 303, headers: { Location: env.SENT_URL } });
 }
 
@@ -77,8 +83,7 @@ export default {
         },
       });
     }
-    if (req.method !== 'POST')
-      return new Response('Use POST.', { status: 405, headers: { Allow: 'POST, OPTIONS' } });
+    if (req.method !== 'POST') return new Response('Use POST.', { status: 405, headers: { Allow: 'POST, OPTIONS' } });
 
     // Browsers send Origin with every form post and fetch. Only the site may post.
     if (origin !== env.ALLOWED_ORIGIN)
@@ -114,7 +119,8 @@ export default {
     let verified = false;
     if (token) {
       verified = await verifyTurnstile(env.TURNSTILE_SECRET, token, ip);
-      if (!verified) return fail(req, env, 400, { error: 'The spam check did not pass. Reload the page and try again.' });
+      if (!verified)
+        return fail(req, env, 400, { error: 'The spam check did not pass. Reload the page and try again.' });
     } else if (!plainPost) {
       return fail(req, env, 400, { error: 'The spam check did not pass. Reload the page and try again.' });
     }

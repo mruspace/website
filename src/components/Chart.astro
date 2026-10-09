@@ -15,5 +15,13 @@ const { name, alt } = Astro.props;
 const [w, h] = SIZES[name];
 ---
 
-<img class="only-light" src={`/charts/${name}-light.svg`} alt={alt} width={w} height={h} loading="lazy" decoding="async" />
+<img
+  class="only-light"
+  src={`/charts/${name}-light.svg`}
+  alt={alt}
+  width={w}
+  height={h}
+  loading="lazy"
+  decoding="async"
+/>
 <img class="only-dark" src={`/charts/${name}-dark.svg`} alt="" width={w} height={h} loading="lazy" decoding="async" />

@@ -19,7 +19,8 @@ declare global {
 let turnstileLoad: Promise<Turnstile> | null = null;
 function loadTurnstile(): Promise<Turnstile> {
   turnstileLoad ??= new Promise((resolve, reject) => {
-    window.__mruTurnstileReady = () => (window.turnstile ? resolve(window.turnstile) : reject(new Error('no turnstile')));
+    window.__mruTurnstileReady = () =>
+      window.turnstile ? resolve(window.turnstile) : reject(new Error('no turnstile'));
     const s = document.createElement('script');
     s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=__mruTurnstileReady';
     s.async = true;
@@ -105,12 +106,15 @@ export function initRequestForms(): void {
         .catch(() => settle?.(''));
     };
     if (box) {
-      const io = new IntersectionObserver((e) => {
-        if (e.some((x) => x.isIntersecting)) {
-          io.disconnect();
-          start();
-        }
-      }, { rootMargin: '600px' });
+      const io = new IntersectionObserver(
+        (e) => {
+          if (e.some((x) => x.isIntersecting)) {
+            io.disconnect();
+            start();
+          }
+        },
+        { rootMargin: '600px' },
+      );
       io.observe(form);
       form.addEventListener('focusin', start, { once: true });
     }

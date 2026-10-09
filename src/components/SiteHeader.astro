@@ -15,29 +15,27 @@ const { active = 'none' } = Astro.props;
       <span>Mru</span>
     </a>
     <nav class="nav" aria-label="Main">
-      {
-        MAIN_NAV.map((l) => (
-          <a
-            class:list={{ on: l.id === active, ext: l.ext }}
-            href={l.href}
-            aria-current={l.id === active ? 'page' : undefined}
-          >
-            {l.label}
-          </a>
-        ))
-      }
+      {MAIN_NAV.map((l) => (
+        <a
+          class:list={{ on: l.id === active, ext: l.ext }}
+          href={l.href}
+          aria-current={l.id === active ? 'page' : undefined}
+        >
+          {l.label}
+        </a>
+      ))}
     </nav>
-    <a class="btn small cta" href="/contact/">Request information</a>
+    <a class="btn small cta" href="/contact/">
+      Request information
+    </a>
     <details class="menu-toggle">
       <summary aria-label="Open menu">Menu</summary>
       <nav class="menu-panel" aria-label="Main, small screens">
-        {
-          MAIN_NAV.map((l) => (
-            <a href={l.href} aria-current={l.id === active ? 'page' : undefined}>
-              {l.label}
-            </a>
-          ))
-        }
+        {MAIN_NAV.map((l) => (
+          <a href={l.href} aria-current={l.id === active ? 'page' : undefined}>
+            {l.label}
+          </a>
+        ))}
         <a href="/contact/">Request information</a>
       </nav>
     </details>

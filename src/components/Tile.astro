@@ -22,8 +22,13 @@ const {
 ---
 
 <a class="tile" href={href}>
-  <div class="ph"><PlateImage photo={photo} alt="" sizes={sizes} /></div>
-  <span class="k"><span>{kicker}</span><span>PL. {photo.plate}</span></span>
+  <div class="ph">
+    <PlateImage photo={photo} alt="" sizes={sizes} />
+  </div>
+  <span class="k">
+    <span>{kicker}</span>
+    <span>PL. {photo.plate}</span>
+  </span>
   <h3>{name}</h3>
   {text && <p>{text}</p>}
 </a>

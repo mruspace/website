@@ -10,7 +10,10 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Mru Field', href: '/field
 
 <Base
   crumbs={crumbs}
-  ld={{ collection: USE_CASES.map((u) => ({ name: u.name, url: new URL(u.href, SITE.url).href })) }} active="usecases" request={{ interest: 'field', heading: 'Not listed? Tell us what you run.' }}>
+  ld={{ collection: USE_CASES.map((u) => ({ name: u.name, url: new URL(u.href, SITE.url).href })) }}
+  active="usecases"
+  request={{ interest: 'field', heading: 'Not listed? Tell us what you run.' }}
+>
   <section class="wrap hero" style="padding-bottom: 80px">
     <Breadcrumbs items={crumbs} />
     <div class="hero-grid" style="margin-top: 40px">
@@ -31,32 +34,30 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Mru Field', href: '/field
     </div>
   </section>
 
-  {
-    INDEX_GROUPS.map((g) => (
-      <section class="wrap section tight">
-        <div class="seam" style="margin-bottom: 40px">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <circle class="r" cx="12" cy="12" r="8" />
-            <ellipse class="o" cx="12" cy="12" rx="11" ry="4.2" transform="rotate(-58 12 12)" />
-          </svg>
-          <span class="lab">{g.title}</span>
-        </div>
-        <div class="cards" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))">
-          {g.items.map((t) => (
-            <a class="tile" href={t.uc.href}>
-              <div class="ph">
-                <PlateImage photo={t.uc.photo} alt="" sizes="(max-width: 640px) 100vw, (max-width: 1080px) 50vw, 300px" />
-              </div>
-              <span class="k">
-                <span>{t.kicker}</span>
-                <span>PL. {t.uc.plate}</span>
-              </span>
-              <h2 style="font-size: 22px; margin-top: 8px; line-height: 1.2">{t.uc.name}</h2>
-              <p>{t.hook}</p>
-            </a>
-          ))}
-        </div>
-      </section>
-    ))
-  }
+  {INDEX_GROUPS.map((g) => (
+    <section class="wrap section tight">
+      <div class="seam" style="margin-bottom: 40px">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle class="r" cx="12" cy="12" r="8" />
+          <ellipse class="o" cx="12" cy="12" rx="11" ry="4.2" transform="rotate(-58 12 12)" />
+        </svg>
+        <span class="lab">{g.title}</span>
+      </div>
+      <div class="cards" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))">
+        {g.items.map((t) => (
+          <a class="tile" href={t.uc.href}>
+            <div class="ph">
+              <PlateImage photo={t.uc.photo} alt="" sizes="(max-width: 640px) 100vw, (max-width: 1080px) 50vw, 300px" />
+            </div>
+            <span class="k">
+              <span>{t.kicker}</span>
+              <span>PL. {t.uc.plate}</span>
+            </span>
+            <h2 style="font-size: 22px; margin-top: 8px; line-height: 1.2">{t.uc.name}</h2>
+            <p>{t.hook}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
 </Base>

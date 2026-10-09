@@ -1,0 +1,14 @@
+dist/
+.astro/
+public/
+shots/
+.cache/
+.lighthouseci/
+node_modules/
+package-lock.json
+worker/node_modules/
+worker/package-lock.json
+worker/worker-configuration.d.ts
+# Copy ported verbatim: never reflowed.
+src/content/
+*.md

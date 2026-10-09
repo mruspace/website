@@ -3,7 +3,8 @@
 // dark art screens on ink (see README). No transform, filter, opacity or
 // z-index may sit on this element or any ancestor, or the blend breaks.
 // Both images are lazy: only the one the theme shows gets a layout box, so
-// the other never downloads. Reduced motion hides both and shows the SVG.
+// the other never downloads. Reduced motion hides both and shows the SVG; so
+// does a browser without JS, because the GIFs start from a script.
 import MarkSvg from './MarkSvg.astro';
 
 interface Props {
@@ -12,6 +13,8 @@ interface Props {
   gap?: number;
   alt?: string;
 }
+// A 1x1 transparent GIF until the animation starts (valid HTML, shows nothing).
+const BLANK = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 const { size, staticSize, gap, alt = 'The Mru mark: a ring, a tilted orbit and an M' } = Astro.props;
 // Inline sizes only where a page sets them, as on the canvas; otherwise the
 // stylesheet sizes the mark (104 px, 88 px on phones).
@@ -22,7 +25,51 @@ const style = (s?: number) =>
 ---
 
 <picture class="mark-anim" style={style(size)}>
-  <img class="on-light" src="/assets/mru-light.gif" alt={alt} width="600" height="600" loading="lazy" decoding="async" />
-  <img class="on-dark" src="/assets/mru.gif" alt="" width="600" height="600" loading="lazy" decoding="async" />
+  <img
+    class="on-light"
+    src={BLANK}
+    data-src="/assets/mru-light.gif"
+    alt={alt}
+    width="600"
+    height="600"
+    loading="lazy"
+    decoding="async"
+  />
+  <img
+    class="on-dark"
+    src={BLANK}
+    data-src="/assets/mru.gif"
+    alt=""
+    width="600"
+    height="600"
+    loading="lazy"
+    decoding="async"
+  />
 </picture>
 <MarkSvg class="mark-static" style={style(staticSize ?? size)} label="Mru mark" />
+
+<script>
+  // The GIFs are about 2 MB. They start only after the page's largest paint,
+  // so they never delay it; the box keeps its size meanwhile. Both stay
+  // lazy, so the one the theme hides is never fetched.
+  const start = () => {
+    for (const img of document.querySelectorAll<HTMLImageElement>('.mark-anim img[data-src]')) {
+      img.src = img.dataset.src!;
+      img.removeAttribute('data-src');
+    }
+  };
+  // Start half a second after the largest paint (the hero heading), or after
+  // 3 s where the browser does not report it.
+  let started = false;
+  const later = () => {
+    if (started) return;
+    started = true;
+    setTimeout(start, 500);
+  };
+  try {
+    new PerformanceObserver(later).observe({ type: 'largest-contentful-paint', buffered: true });
+  } catch {
+    /* not supported: the timeout below starts the GIFs */
+  }
+  setTimeout(later, 3000);
+</script>

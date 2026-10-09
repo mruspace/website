@@ -5,10 +5,7 @@
     "description": "When processors fail and nobody can come, Mru keeps delivering checked results on the ones left. For ocean, offshore and remote equipment, and spacecraft.",
     "ogTitle": "Fault-tolerant software for hardware nobody can repair",
     "cardLabel": "Mru",
-    "schema": [
-      "Organization",
-      "WebSite"
-    ]
+    "schema": ["Organization", "WebSite"]
   },
   {
     "url": "https://mru.space/field/",
@@ -16,11 +13,7 @@
     "description": "Runs on the 2 or 3 processors already in your enclosure. Votes, compares, then self-checks as they fail. Linux on ARM and x86. Field pilot planned 2027.",
     "ogTitle": "Mru Field: fault tolerance for equipment you cannot repair in time",
     "cardLabel": "Product · Earth",
-    "schema": [
-      "SoftwareApplication",
-      "BreadcrumbList",
-      "FAQPage"
-    ]
+    "schema": ["SoftwareApplication", "BreadcrumbList", "FAQPage"]
   },
   {
     "url": "https://mru.space/flight/",
@@ -28,11 +21,7 @@
     "description": "A no_std Rust decision core with Kani proofs, to run as F´ components. Continues on two, then one processor after fixed TMR stops. Prototype, TRL 3.",
     "ogTitle": "Mru Flight: keep a spacecraft working as its computers fail",
     "cardLabel": "Product · Space",
-    "schema": [
-      "SoftwareApplication",
-      "BreadcrumbList",
-      "FAQPage"
-    ]
+    "schema": ["SoftwareApplication", "BreadcrumbList", "FAQPage"]
   },
   {
     "url": "https://mru.space/how-it-works/",
@@ -40,10 +29,7 @@
     "description": "Why triple redundancy stops at the second failure, how a shrinking quorum continues on what is left, and the six-layer architecture from the whitepaper.",
     "ogTitle": "Decline is the baseline: how Mru works",
     "cardLabel": "How it works",
-    "schema": [
-      "TechArticle",
-      "BreadcrumbList"
-    ]
+    "schema": ["TechArticle", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/use-cases/",
@@ -51,10 +37,7 @@
     "description": "Fifteen settings where equipment has two or more processors, runs unattended for months, and a repair visit is slow or costly. Ocean settings first.",
     "ogTitle": "Where Mru Field applies",
     "cardLabel": "Use cases",
-    "schema": [
-      "CollectionPage",
-      "BreadcrumbList"
-    ]
+    "schema": ["CollectionPage", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/use-cases/deep-sea-observatories/",
@@ -62,11 +45,7 @@
     "description": "Seafloor nodes run on batteries or cable with about one ship visit a year. Mru Field keeps them delivering checked data as processors fail between visits.",
     "ogTitle": "Batteries, a cable, and one service visit a year",
     "cardLabel": "Use case · Deep-sea observatories",
-    "schema": [
-      "Service",
-      "FAQPage",
-      "BreadcrumbList"
-    ]
+    "schema": ["Service", "FAQPage", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/use-cases/ocean-buoys/",
@@ -74,11 +53,7 @@
     "description": "Moored buoys run for years on solar power and a satellite link. Mru Field keeps the logger delivering checked data after a processor fails at sea.",
     "ogTitle": "Years at sea between services",
     "cardLabel": "Use case · Ocean buoys",
-    "schema": [
-      "Service",
-      "FAQPage",
-      "BreadcrumbList"
-    ]
+    "schema": ["Service", "FAQPage", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/use-cases/profiling-floats/",
@@ -86,11 +61,7 @@
     "description": "About 900 Argo floats are replaced each year. Mru Field keeps a float's last months of data trustworthy as its processors and memory fail.",
     "ogTitle": "Deployed once, rarely recovered",
     "cardLabel": "Use case · Floats and gliders",
-    "schema": [
-      "Service",
-      "FAQPage",
-      "BreadcrumbList"
-    ]
+    "schema": ["Service", "FAQPage", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/use-cases/auv/",
@@ -98,11 +69,7 @@
     "description": "AUVs work out of contact with finite power and no way to swap a board. Mru Field decides which computer to trust so the mission continues.",
     "ogTitle": "Out of contact, with no way to swap a board",
     "cardLabel": "Use case · AUVs",
-    "schema": [
-      "Service",
-      "FAQPage",
-      "BreadcrumbList"
-    ]
+    "schema": ["Service", "FAQPage", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/use-cases/offshore-wind/",
@@ -110,11 +77,7 @@
     "description": "Every offshore repair needs a vessel, a crew and a weather window. Mru Field keeps monitoring and control computers working until the next one.",
     "ogTitle": "Every repair needs a vessel and a weather window",
     "cardLabel": "Use case · Offshore wind",
-    "schema": [
-      "Service",
-      "FAQPage",
-      "BreadcrumbList"
-    ]
+    "schema": ["Service", "FAQPage", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/use-cases/remote-energy/",
@@ -122,11 +85,7 @@
     "description": "Large transformers take up to 4 years to replace, and sites are far from crews. Mru Field keeps the computers that watch them working as parts fail.",
     "ogTitle": "Replacement parts take years",
     "cardLabel": "Use case · Remote energy",
-    "schema": [
-      "Service",
-      "FAQPage",
-      "BreadcrumbList"
-    ]
+    "schema": ["Service", "FAQPage", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/use-cases/remote-telecom/",
@@ -134,11 +93,7 @@
     "description": "Relay and cell sites are placed for coverage, not access. Mru Field keeps site controllers reporting after a processor fails, without a truck roll.",
     "ogTitle": "Sites placed for coverage, not for access",
     "cardLabel": "Use case · Remote telecom",
-    "schema": [
-      "Service",
-      "FAQPage",
-      "BreadcrumbList"
-    ]
+    "schema": ["Service", "FAQPage", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/use-cases/satellite-iot/",
@@ -146,11 +101,7 @@
     "description": "32.5M devices on satellite links by 2029. Small power budgets, links in bytes. Mru Field decides on the device and sends checked results only.",
     "ogTitle": "Small power budgets, links measured in bytes",
     "cardLabel": "Use case · Satellite IoT",
-    "schema": [
-      "Service",
-      "FAQPage",
-      "BreadcrumbList"
-    ]
+    "schema": ["Service", "FAQPage", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/use-cases/polar-stations/",
@@ -158,11 +109,7 @@
     "description": "Polar stations run through winters with no access. Mru Field keeps the record going as parts fail, until the next season's visit.",
     "ogTitle": "No access for months of the year",
     "cardLabel": "Use case · Polar stations",
-    "schema": [
-      "Service",
-      "FAQPage",
-      "BreadcrumbList"
-    ]
+    "schema": ["Service", "FAQPage", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/use-cases/nuclear-monitoring/",
@@ -170,11 +117,7 @@
     "description": "Access is limited by dose and parts age under radiation. Mru Field keeps non-safety monitoring computers reporting as they degrade.",
     "ogTitle": "Access limited by dose",
     "cardLabel": "Use case · Nuclear monitoring",
-    "schema": [
-      "Service",
-      "FAQPage",
-      "BreadcrumbList"
-    ]
+    "schema": ["Service", "FAQPage", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/use-cases/nuclear-waste/",
@@ -182,11 +125,7 @@
     "description": "Repository monitoring must run for decades, then far longer. Mru Field is software designed for that gap, tested in simulation and published openly.",
     "ogTitle": "Monitoring for decades, then far longer",
     "cardLabel": "Use case · Repositories",
-    "schema": [
-      "Service",
-      "FAQPage",
-      "BreadcrumbList"
-    ]
+    "schema": ["Service", "FAQPage", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/use-cases/long-term-archives/",
@@ -194,11 +133,7 @@
     "description": "Storage decays faster than records must last. Mru Field decides what to move to durable media, and checks it, as storage fails.",
     "ogTitle": "Storage decays faster than the records must last",
     "cardLabel": "Use case · Archives",
-    "schema": [
-      "Service",
-      "FAQPage",
-      "BreadcrumbList"
-    ]
+    "schema": ["Service", "FAQPage", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/use-cases/volcano-seismic/",
@@ -206,11 +141,7 @@
     "description": "Remote stations on solar power matter most when access is hardest. Mru Field keeps them recording as processors fail between visits.",
     "ogTitle": "Stations matter most when access is hardest",
     "cardLabel": "Use case · Volcano and seismic",
-    "schema": [
-      "Service",
-      "FAQPage",
-      "BreadcrumbList"
-    ]
+    "schema": ["Service", "FAQPage", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/use-cases/pipelines/",
@@ -218,11 +149,7 @@
     "description": "Hundreds of kilometres of remote valve and monitoring stations. Mru Field keeps their computers trustworthy as they fail, between patrols.",
     "ogTitle": "Hundreds of kilometres of remote stations",
     "cardLabel": "Use case · Pipelines",
-    "schema": [
-      "Service",
-      "FAQPage",
-      "BreadcrumbList"
-    ]
+    "schema": ["Service", "FAQPage", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/use-cases/rail-trackside/",
@@ -230,11 +157,7 @@
     "description": "Trackside condition monitoring sits far from depots and is serviced in short windows. Mru Field keeps it reporting as processors fail.",
     "ogTitle": "Far from depots, serviced in short windows",
     "cardLabel": "Use case · Rail trackside",
-    "schema": [
-      "Service",
-      "FAQPage",
-      "BreadcrumbList"
-    ]
+    "schema": ["Service", "FAQPage", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/research/",
@@ -242,10 +165,7 @@
     "description": "Everything Mru publishes: the whitepaper, simulation results and software releases, each with its method, its limits and how to cite it.",
     "ogTitle": "The Mru research log",
     "cardLabel": "Research",
-    "schema": [
-      "Blog",
-      "BreadcrumbList"
-    ]
+    "schema": ["Blog", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/research/dusk-results/",
@@ -253,10 +173,7 @@
     "description": "10,000 simulated missions on processors that are never repaired. A shrinking quorum delivers 1.34× the useful work of fixed TMR, never less on any mission.",
     "ogTitle": "Same hardware, 1.34× the useful work",
     "cardLabel": "Research № 002 · Results",
-    "schema": [
-      "ScholarlyArticle",
-      "BreadcrumbList"
-    ]
+    "schema": ["ScholarlyArticle", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/research/flight-prototype/",
@@ -264,11 +181,7 @@
     "description": "A no_std Rust core with four Kani proofs and a fault-injection demo. With one replica stuck and one dead: 14,490 correct results vs 8,993 for fixed TMR.",
     "ogTitle": "Mru Flight: a first prototype",
     "cardLabel": "Research № 004 · Release",
-    "schema": [
-      "BlogPosting",
-      "SoftwareSourceCode",
-      "BreadcrumbList"
-    ]
+    "schema": ["BlogPosting", "SoftwareSourceCode", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/company/",
@@ -276,11 +189,7 @@
     "description": "Mru builds fault-tolerant software for systems that cannot be repaired in time. Open research, Earth first, then orbit. Founded by Will Binns.",
     "ogTitle": "About Mru",
     "cardLabel": "Company",
-    "schema": [
-      "AboutPage",
-      "Organization",
-      "Person"
-    ]
+    "schema": ["AboutPage", "Organization", "Person"]
   },
   {
     "url": "https://mru.space/contact/",
@@ -288,9 +197,7 @@
     "description": "Tell us what you run, where, and how long it must run unattended. Requests go to the founder. We will tell you plainly whether Mru fits.",
     "ogTitle": "Request information",
     "cardLabel": "Contact",
-    "schema": [
-      "ContactPage"
-    ]
+    "schema": ["ContactPage"]
   },
   {
     "url": "https://mru.space/credits/",
@@ -298,9 +205,7 @@
     "description": "Sources and licences for every photo on mru.space. All from Wikimedia Commons, under free licences or in the public domain.",
     "ogTitle": "Image credits",
     "cardLabel": "Credits",
-    "schema": [
-      "WebPage"
-    ]
+    "schema": ["WebPage"]
   },
   {
     "url": "https://mru.space/404/",
@@ -308,9 +213,7 @@
     "description": "This page does not exist. The rest of mru.space is where you left it.",
     "ogTitle": "Page not found",
     "cardLabel": "404",
-    "schema": [
-      "noindex"
-    ]
+    "schema": ["noindex"]
   },
   {
     "url": "https://mru.space/terms/",
@@ -318,10 +221,7 @@
     "description": "The terms for using mru.space, and what the site measures with Google Analytics 4 and Madruga, how that data is used, and how to limit it.",
     "ogTitle": "Terms of use and analytics notice",
     "cardLabel": "Terms",
-    "schema": [
-      "WebPage",
-      "BreadcrumbList"
-    ]
+    "schema": ["WebPage", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/contact/sent/",
@@ -329,8 +229,6 @@
     "description": "Your request is on its way to contact@mru.space. We reply by email. The whitepaper, the results and the code are public in the meantime.",
     "ogTitle": "Request sent",
     "cardLabel": "Contact",
-    "schema": [
-      "noindex"
-    ]
+    "schema": ["noindex"]
   }
 ]

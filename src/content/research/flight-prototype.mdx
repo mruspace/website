@@ -65,7 +65,7 @@ The **demo** runs three real replica processes and a voter built on the core. It
 
 Fixed TMR masks the stuck replica while it has three. Once another replica dies, it is left comparing a good replica with a stuck one, and every result is rejected. The shrinking quorum retired the stuck replica two ticks after it failed, then carried on with self-check on the last good one.
 
-<div class="tbl-box" style="margin: 24px 0">
+<div class="tbl-box" tabindex="0" style="margin: 24px 0">
   <table class="tbl">
     <thead><tr><th>Scenario, 20,000 ticks</th><th>Fixed TMR</th><th>Shrinking quorum</th></tr></thead>
     <tbody>
@@ -94,7 +94,7 @@ A shorter test period trades throughput for a smaller window. That is the trade 
 
 ## Small enough to fly
 
-<div class="tbl-box" style="margin: 24px 0">
+<div class="tbl-box" tabindex="0" style="margin: 24px 0">
   <table class="tbl">
     <thead><tr><th>Platform</th><th>Voter</th><th>Each replica</th><th>Binary</th></tr></thead>
     <tbody>

@@ -8,12 +8,10 @@ const { items } = Astro.props;
 ---
 
 <div class="faq">
-  {
-    items.map((q) => (
-      <details>
-        <summary>{q.q}</summary>
-        <p>{q.a}</p>
-      </details>
-    ))
-  }
+  {items.map((q) => (
+    <details>
+      <summary>{q.q}</summary>
+      <p>{q.a}</p>
+    </details>
+  ))}
 </div>

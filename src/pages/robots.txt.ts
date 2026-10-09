@@ -4,8 +4,15 @@ import type { APIRoute } from 'astro';
 import { SITE } from '../data/site';
 
 const AGENTS = [
-  'Googlebot', 'Bingbot', 'GPTBot', 'ClaudeBot', 'Claude-Web', 'PerplexityBot',
-  'Google-Extended', 'Applebot-Extended', 'CCBot',
+  'Googlebot',
+  'Bingbot',
+  'GPTBot',
+  'ClaudeBot',
+  'Claude-Web',
+  'PerplexityBot',
+  'Google-Extended',
+  'Applebot-Extended',
+  'CCBot',
 ];
 
 export const GET: APIRoute = () => {

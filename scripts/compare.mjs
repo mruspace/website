@@ -53,16 +53,16 @@ async function capture(page, url, wait, file, fix = '') {
     return [...document.querySelectorAll(sel)]
       .filter((e) => e.getBoundingClientRect().height > 0)
       .map((e) => {
-      const r = e.getBoundingClientRect();
-      return {
-        tag: e.tagName.toLowerCase(),
-        text: (e.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 40),
-        y: Math.round(r.top + scrollY),
-        x: Math.round(r.left),
-        w: Math.round(r.width),
-        h: Math.round(r.height),
-      };
-    });
+        const r = e.getBoundingClientRect();
+        return {
+          tag: e.tagName.toLowerCase(),
+          text: (e.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 40),
+          y: Math.round(r.top + scrollY),
+          x: Math.round(r.left),
+          w: Math.round(r.width),
+          h: Math.round(r.height),
+        };
+      });
   }, SEL);
   await page.screenshot({ path: file, fullPage: true });
   return boxes;
@@ -77,6 +77,11 @@ for (const pair of pairs) {
       const tag = `${pair.name}-${width}-${theme}`;
       const ctx = await browser.newContext({ viewport: { width, height: 900 }, colorScheme: theme });
       const page = await ctx.newPage();
+      // Third parties are off in local checks: Turnstile only works on mru.space,
+      // and analytics must not count test runs.
+      await ctx.route(/challenges\.cloudflare\.com|googletagmanager\.com|google-analytics\.com|madruga\.dev/, (r) =>
+        r.abort(),
+      );
       const refUrl = new URL(`_R_${pair.ref}_${theme}.dc.html`, refBase).href;
       const ra = path.join(out, `${tag}-ref.png`);
       const sa = path.join(out, `${tag}-site.png`);
@@ -102,10 +107,23 @@ for (const pair of pairs) {
       }
       const rh = Number(dims(ra));
       const sh = Number(dims(sa));
-      execFileSync('magick', [ra, sa, '-background', '#d8d8d4', '-splice', '16x0', '+append', '-resize', width > 1000 ? '40%' : '80%', path.join(out, `${tag}-side.png`)]);
+      execFileSync('magick', [
+        ra,
+        sa,
+        '-background',
+        '#d8d8d4',
+        '-splice',
+        '16x0',
+        '+append',
+        '-resize',
+        width > 1000 ? '40%' : '80%',
+        path.join(out, `${tag}-side.png`),
+      ]);
       const row = { tag, refH: rh, siteH: sh, dH: sh - rh, diff: ae, counts: [rb.length, sb.length], first };
       summary.push(row);
-      console.log(`${tag.padEnd(34)} dH=${String(sh - rh).padStart(5)} diff=${ae === null ? '?' : (ae * 100).toFixed(2) + '%'} ${first ? `first: #${first.i} ${first.ref.tag} "${first.ref.text}" y${first.ref.y}/${first.site.y} h${first.ref.h}/${first.site.h} w${first.ref.w}/${first.site.w}` : 'layout match'}`);
+      console.log(
+        `${tag.padEnd(34)} dH=${String(sh - rh).padStart(5)} diff=${ae === null ? '?' : (ae * 100).toFixed(2) + '%'} ${first ? `first: #${first.i} ${first.ref.tag} "${first.ref.text}" y${first.ref.y}/${first.site.y} h${first.ref.h}/${first.site.h} w${first.ref.w}/${first.site.w}` : 'layout match'}`,
+      );
     }
   }
 }
