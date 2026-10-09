@@ -43,10 +43,12 @@ BUILDS = [
     ("jost-400", "jost", {"wght": 400}),
     ("jost-500", "jost", {"wght": 500}),
     ("jost-600", "jost", {"wght": 600}),
-    # Source Serif 4 keeps its optical-size axis, as the canvas loaded it (opsz 8..60).
-    ("source-serif-4-400", "serif", {"wght": 400, "opsz": (8, 60)}),
-    ("source-serif-4-600", "serif", {"wght": 600, "opsz": (8, 60)}),
-    ("source-serif-4-400-italic", "serif-italic", {"wght": 400, "opsz": (8, 60)}),
+    # Source Serif 4 at a fixed optical size of 20 (body text is 18 to 19 px).
+    # The variable optical-size axis tripled the file (82 KB against 31 KB)
+    # and held back the first paint on machines without Charter.
+    ("source-serif-4-400", "serif", {"wght": 400, "opsz": 20}),
+    ("source-serif-4-600", "serif", {"wght": 600, "opsz": 20}),
+    ("source-serif-4-400-italic", "serif-italic", {"wght": 400, "opsz": 20}),
     ("ibm-plex-mono-400", "mono-400", None),
     ("ibm-plex-mono-500", "mono-500", None),
 ]
