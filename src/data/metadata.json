@@ -218,7 +218,7 @@
   {
     "url": "https://mru.space/terms/",
     "title": "Terms of use and analytics notice · Mru Aerospace",
-    "description": "The terms for using mru.space, and what the site measures with Google Analytics 4 and Madruga, how that data is used, and how to limit it.",
+    "description": "The terms for using mru.space, and what the site measures with Google Analytics 4, how that data is used, and how to limit it.",
     "ogTitle": "Terms of use and analytics notice",
     "cardLabel": "Terms",
     "schema": ["WebPage", "BreadcrumbList"]

@@ -23,7 +23,7 @@ const result = await new LinkChecker().check({
     // The live site is checked after deploy; before it, these point at the old site.
     link.startsWith(site) ||
     // Scripts and endpoints that refuse plain GETs from a checker.
-    /fonts\.googleapis|googletagmanager|madruga\.dev\/m\.js|challenges\.cloudflare|api\.mru\.space/.test(link),
+    /fonts\.googleapis|googletagmanager\/m\.js|challenges\.cloudflare|api\.mru\.space/.test(link),
 });
 
 const local = result.links.filter((l) => LOCAL.test(l.url) || !/^https?:/.test(l.url));

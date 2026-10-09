@@ -79,9 +79,7 @@ for (const pair of pairs) {
       const page = await ctx.newPage();
       // Third parties are off in local checks: Turnstile only works on mru.space,
       // and analytics must not count test runs.
-      await ctx.route(/challenges\.cloudflare\.com|googletagmanager\.com|google-analytics\.com|madruga\.dev/, (r) =>
-        r.abort(),
-      );
+      await ctx.route(/challenges\.cloudflare\.com|googletagmanager\.com|google-analytics\.com/, (r) => r.abort());
       const refUrl = new URL(`_R_${pair.ref}_${theme}.dc.html`, refBase).href;
       const ra = path.join(out, `${tag}-ref.png`);
       const sa = path.join(out, `${tag}-site.png`);

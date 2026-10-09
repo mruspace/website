@@ -14,7 +14,7 @@ export const THEMES = ['light', 'dark'] as const;
  * Turnstile is replaced by a stub that passes at once.
  */
 export async function offline(ctx: BrowserContext | Page): Promise<void> {
-  await ctx.route(/googletagmanager\.com|google-analytics\.com|madruga\.dev/, (r) => r.abort());
+  await ctx.route(/googletagmanager\.com|google-analytics\.com/, (r) => r.abort());
   await ctx.route(/challenges\.cloudflare\.com\/turnstile/, (r) =>
     r.fulfill({
       contentType: 'text/javascript',
