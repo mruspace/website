@@ -39,3 +39,34 @@ body { margin: 0; background: var(--bg); color: var(--ink); }
 /* Astro's <picture> wraps each plate image. display: contents keeps the
    canvas sizing rules (.plate img, .tile img) working on the <img>. */
 .plate picture, .tile picture { display: contents; }
+
+/* Request form: messages in plain language under the field they belong to.
+   No error colour exists in the palette (ochre means "alive"), so errors use
+   ink and a heavier border. */
+.field-error { font-family: var(--mono); font-size: 12.5px; line-height: 1.5; color: var(--ink); margin: 0; }
+.field-error::before { content: "! "; }
+.field input[aria-invalid="true"], .field textarea[aria-invalid="true"] { border-color: var(--ink); border-width: 2px; padding: 11px 13px; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.sent:focus { outline: none; }
+.sent:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* Quorum demo: shown only when JS runs; otherwise the 3 / 2 / 1 table. */
+html:not(.js) [data-quorum] { display: none; }
+html.js .quorum-fallback { display: none; }
+
+/* Terms: long-form legal text in the article measure. */
+.legal-text { max-width: 720px; font-size: 18px; line-height: 1.7; }
+.legal-text h2 { font-size: 28px; margin: 56px 0 14px; display: flex; gap: 14px; align-items: baseline; }
+.legal-text h2:first-child { margin-top: 0; }
+.legal-text h2 .num { font-family: var(--mono); font-size: 13px; color: var(--signal); }
+.legal-text p { margin-bottom: 1em; }
+.legal-text ul { padding-left: 1.25em; margin: 0 0 1em; }
+.legal-text li { margin-bottom: .5em; }
+.legal-text a { color: var(--accent); }
+.legal-text .callout { margin: 24px 0; display: block; }
+.legal-text .callout p:last-child { margin-bottom: 0; }
+
+/* Research log filter: hidden rows must win over .log a.entry { display: grid }. */
+.log a.entry[hidden] { display: none; }
+/* First section of a research entry: its heading sits on the top rule. */
+.entry-body > .article:first-child .body > h2:first-child { margin-top: 0; }

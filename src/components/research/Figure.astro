@@ -1,0 +1,13 @@
+---
+import Chart from '../Chart.astro';
+interface Props {
+  name: 'flight-correct' | 'dusk-output' | 'dusk-sensitivity';
+  alt: string;
+}
+const { name, alt } = Astro.props;
+---
+
+<figure class="figure" style="margin: 48px 0">
+  <Chart name={name} alt={alt} />
+  <figcaption class="cap"><slot /></figcaption>
+</figure>

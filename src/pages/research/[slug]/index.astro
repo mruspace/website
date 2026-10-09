@@ -1,0 +1,135 @@
+---
+// A research entry with a body (canvas ResearchDusk and ResearchFlight).
+import { render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { entries, hrefOf, formatDate, kindFilter, type Entry } from '../../../data/research';
+
+export async function getStaticPaths() {
+  const all = await entries();
+  return all.filter((e) => !e.data.external).map((e) => ({ params: { slug: e.id }, props: { entry: e } }));
+}
+
+const { entry } = Astro.props as { entry: Entry };
+const d = entry.data;
+const { Content } = await render(entry);
+const all = await entries();
+// The log runs newest first; "previous" is the older entry.
+const i = all.findIndex((e) => e.id === entry.id);
+const older = all[i + 1];
+const newer = all[i - 1];
+const kindPlural = { Paper: 'Papers', Results: 'Results', Release: 'Releases', Note: 'Notes' }[d.kind];
+---
+
+<Base active="research" request={d.request}>
+  <article>
+    <header class="wrap" style="padding-top: 64px">
+      <Breadcrumbs
+        items={[
+          { label: 'Research', href: '/research/' },
+          { label: kindPlural, href: kindFilter(d.kind) },
+          { label: `№ ${d.number}` },
+        ]}
+      />
+      <div class="article" style="margin-top: 40px">
+        <div class="stack-m">
+          <p class="eyebrow"><span class="n">№ {d.number}</span> · {d.kind}</p>
+          <h1 class="h1">{d.title}</h1>
+          {d.lede && <p class="lede">{d.lede}</p>}
+        </div>
+      </div>
+      <div class="byline" style="margin-top: 32px">
+        <span>By <b>{d.author}</b></span>
+        <span>Published <b>{formatDate(d.date)}</b></span>
+        {d.updated && <span>Updated <b>{formatDate(d.updated)}</b></span>}
+        <span>{d.readingTime} read</span>
+        {
+          d.byline.map((b) =>
+            b.href ? (
+              <span>
+                {b.label}{' '}
+                <a href={b.href}>
+                  <b>{b.text}</b>
+                </a>
+              </span>
+            ) : (
+              <span>
+                {b.label} <b>{b.text}</b>
+              </span>
+            ),
+          )
+        }
+      </div>
+    </header>
+
+    <div class="wrap entry-body" style="padding-block: 56px 0">
+      <Content />
+
+      <div class="article" style="margin-top: 48px">
+        {
+          d.bibtex ? (
+            <div class="stack-m">
+              <div class="cite">
+                <p class="eyebrow" style="margin-bottom: 12px">
+                  Cite this
+                </p>
+                <pre class="pre" style="background: transparent; border: 0; padding: 0">{d.bibtex}</pre>
+              </div>
+              {d.sources.length > 0 && (
+                <div>
+                  <p class="eyebrow" style="margin-bottom: 12px">
+                    Sources
+                  </p>
+                  <ol class="small soft" style="padding-left: 20px; margin: 0">
+                    {d.sources.map((s) => (
+                      <li>{s}</li>
+                    ))}
+                  </ol>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div class="cite">
+              <p class="eyebrow" style="margin-bottom: 12px">
+                Cite this
+              </p>
+              <p class="small" style="margin: 0" set:html={d.citeText} />
+            </div>
+          )
+        }
+      </div>
+
+      <nav class="prevnext" aria-label="More entries" style="margin: 64px 0 96px">
+        {
+          older ? (
+            <a href={hrefOf(older)}>
+              <span class="tiny">Previous · № {older.data.number}</span>
+              <span class="h4" style="display: block; font-family: var(--display)">
+                {older.data.shortTitle}
+              </span>
+            </a>
+          ) : (
+            <span />
+          )
+        }
+        {
+          newer ? (
+            <a href={hrefOf(newer)} style="text-align: right">
+              <span class="tiny">Next · № {newer.data.number}</span>
+              <span class="h4" style="display: block; font-family: var(--display)">
+                {newer.data.shortTitle}
+              </span>
+            </a>
+          ) : (
+            <a href="/research/" style="text-align: right">
+              <span class="tiny">Back to</span>
+              <span class="h4" style="display: block; font-family: var(--display)">
+                The log
+              </span>
+            </a>
+          )
+        }
+      </nav>
+    </div>
+  </article>
+</Base>

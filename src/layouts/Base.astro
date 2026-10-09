@@ -6,12 +6,18 @@ import Analytics from '../components/Analytics.astro';
 import Madruga from '../components/Madruga.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import RequestInfo from '../components/RequestInfo.astro';
 import type { NavId } from '../data/nav';
 import { SITE } from '../data/site';
+import { metaFor, isNoindex } from '../data/metadata';
+import type { Interest } from '../config/form';
 
 interface Props {
-  title: string;
-  description: string;
+  /** Internal pages only. Public pages take title and description from metadata.json. */
+  title?: string;
+  description?: string;
+  /** The request form after <main>, with its per-page settings. */
+  request?: { heading?: string; interest?: Interest; topic?: string };
   /** Extra classes on the page wrapper, e.g. "glow" on Home. */
   rootClass?: string;
   active?: NavId;
@@ -21,16 +27,11 @@ interface Props {
   mainClass?: string;
   mainStyle?: string;
 }
-const {
-  title,
-  description,
-  rootClass = '',
-  active = 'none',
-  noindex = false,
-  chrome = true,
-  mainClass,
-  mainStyle,
-} = Astro.props;
+const { rootClass = '', active = 'none', chrome = true, mainClass, mainStyle, request } = Astro.props;
+const meta = Astro.props.title ? null : metaFor(Astro.url.pathname);
+const title = Astro.props.title ?? meta!.title;
+const description = Astro.props.description ?? meta!.description;
+const noindex = Astro.props.noindex ?? (meta ? isNoindex(meta) : false);
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
 ---
 
@@ -41,6 +42,7 @@ const canonical = new URL(Astro.url.pathname, SITE.url).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script is:inline>
       (function () {
+        document.documentElement.classList.add('js');
         try {
           var t = localStorage.getItem('mru-theme');
           if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
@@ -59,6 +61,7 @@ const canonical = new URL(Astro.url.pathname, SITE.url).href;
     <link rel="icon" type="image/png" href="/assets/favicon-dark.png" media="(prefers-color-scheme: dark)" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+    <link rel="alternate" type="application/rss+xml" title="Mru research log" href="/research/feed.xml" />
     <link rel="preload" href="/fonts/jost-500.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/source-serif-4-400.woff2" as="font" type="font/woff2" crossorigin />
     <slot name="head" />
@@ -71,6 +74,7 @@ const canonical = new URL(Astro.url.pathname, SITE.url).href;
       <main id="main" class={mainClass} style={mainStyle}>
         <slot />
       </main>
+      {request && <RequestInfo {...request} />}
       <slot name="after" />
       {chrome && <SiteFooter />}
     </div>

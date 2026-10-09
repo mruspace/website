@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+import RequestInfo from '../../components/RequestInfo.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+---
+
+<Base >
+  <section class="wrap hero" style="padding-bottom: 64px">
+    <Breadcrumbs items={[{ label: "Mru", href: '/' }, { label: "Request information" }]} />
+    <div class="hero-grid" style="margin-top: 40px">
+      <h1 class="h1">Request information</h1>
+      <p class="lede">For operators, mission teams and engineers who want to know whether Mru fits their system. Tell us what you run. We will answer plainly.</p>
+    </div>
+  </section>
+  <RequestInfo interest="field" heading="Tell us what you run." />
+  <section class="wrap section">
+    <div class="cards">
+      <div class="stack-s" style="border-top: 1px solid var(--rule-strong); padding-top: 16px">
+        <p class="tiny" style="margin: 0">Checking fit</p>
+        <h2 class="h3">Mru fits when three things are true</h2>
+        <p class="soft small">The equipment has two or more processors. It must run unattended for months or longer. A repair visit is slow, costly or impossible.</p>
+        <a class="link-more" href="/use-cases/">Use cases</a>
+      </div>
+      <div class="stack-s" style="border-top: 1px solid var(--rule-strong); padding-top: 16px">
+        <p class="tiny" style="margin: 0">Engineers</p>
+        <h2 class="h3">Read the code before you write</h2>
+        <p class="soft small">The decision core, its proofs and the simulator are open source. The docs start with the shrinking quorum.</p>
+        <a class="link-more" href="https://docs.mru.space/concepts/shrinking-quorum/">Docs</a>
+      </div>
+      <div class="stack-s" style="border-top: 1px solid var(--rule-strong); padding-top: 16px">
+        <p class="tiny" style="margin: 0">Research and partners</p>
+        <h2 class="h3">Cite it, test it, challenge it</h2>
+        <p class="soft small">The whitepaper and every result are published with their limits. We welcome independent checks.</p>
+        <a class="link-more" href="/research/">Research</a>
+      </div>
+    </div>
+    <p class="tiny" style="margin-top: 48px">Email <a href="mailto:contact@mru.space">contact@mru.space</a> · Code <a href="https://github.com/mruspace">github.com/mruspace</a> · Whitepaper doi:10.5281/zenodo.20579438</p>
+  </section>
+
+</Base>

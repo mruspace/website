@@ -1,0 +1,140 @@
+---
+import Base from '../../layouts/Base.astro';
+import Seam from '../../components/Seam.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+---
+
+<Base active="how" request={{"interest": "field", "heading": "Questions about the design? Ask the person who wrote it."}}>
+  <section class="wrap hero" style="padding-bottom: 96px">
+    <Breadcrumbs items={[{ label: "Mru", href: '/' }, { label: "How it works" }]} />
+    <div class="hero-grid" style="margin-top: 40px">
+      <h1 class="h-hero">Decline is the baseline.</h1>
+      <div class="stack-m">
+        <p class="lede">Every system we build assumes someone will fix it. Mru starts from the opposite end: parts will fail, nobody will come, and the software has to keep doing useful work with whatever is left.</p>
+        <div class="row"><a class="btn" href="/research/">Read the whitepaper</a><a class="link-more" href="https://docs.mru.space/concepts/shrinking-quorum/">Technical docs</a></div>
+      </div>
+    </div>
+  </section>
+
+  <Seam life={88} label="01 · The assumption" />
+
+  <section class="wrap section">
+    <div class="split">
+      <div class="stack-m">
+        <p class="eyebrow">The intervention assumption</p>
+        <h2 class="h2">Every long-lived system is a maintained system.</h2>
+      </div>
+      <div class="stack-m">
+        <p>Voyager has flown for 49 years, but a team on Earth still nurses it. Its power drops about 4 watts a year, and people decide what to switch off next. COBOL systems have run for about 60 years because people kept patching them.</p>
+        <p class="soft">Take the people away and almost every system fails at its first serious fault. That is the problem Mru works on, on Earth and in space.</p>
+        <div class="cards" style="margin-top: 32px">
+          <div class="stat"><div class="v">49<small>years</small></div><p class="l">Voyager in flight, with a ground team the whole time.</p><p class="src">NASA JPL</p></div>
+          <div class="stat"><div class="v">~4<small>W / year</small></div><p class="l">Voyager&#39;s power loss. Instruments go dark one by one.</p><p class="src">NASA JPL, 2025</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Seam life={76} label="02 · The principle" />
+
+  <section class="wrap section">
+    <div class="split rev">
+      <div class="stack-m">
+        <p class="eyebrow">The Degradation-First Principle</p>
+        <p class="quote">&#8220;Capability is a depleting resource to be spent, not a fixed budget to be defended.&#8221;</p>
+        <p class="quote-by">Whitepaper, §5 · Corollary</p>
+      </div>
+      <div class="stack-m">
+        <p>Most fault-tolerant designs treat a failure as an exception: detect it, mask it, get back to normal. On a system nobody can repair, there is no normal to get back to.</p>
+        <p>So Mru treats its own decay, of power, computing, memory and heat, as the governing condition. The goal is not to keep full function. The goal is the most useful work across the whole descent, from full capability to silence.</p>
+      </div>
+    </div>
+  </section>
+
+  <Seam life={64} label="03 · The quorum" />
+
+  <section class="wrap section stack-l">
+    <div class="split">
+      <div class="stack-m">
+        <p class="eyebrow">The shrinking quorum</p>
+        <h2 class="h2">Same hardware. Two designs.</h2>
+      </div>
+      <p class="lede">Classic triple redundancy votes on three computers and stops when it can no longer form a majority. Mru keeps going: vote on three, compare on two, check its own work on one.</p>
+    </div>
+    <div class="tbl-box">
+      <table class="tbl" style="font-size: 18px">
+        <thead><tr><th>Computers left</th><th>Today (fixed TMR)</th><th>Mru</th></tr></thead>
+        <tbody>
+          <tr><td class="m">3</td><td>Vote. One bad result is outvoted.</td><td>Vote. One bad result is outvoted.</td></tr>
+          <tr><td class="m">2</td><td>Compare. A mismatch loses the result.</td><td>Compare. A known-answer test finds the bad one.</td></tr>
+          <tr class="hl"><td class="m">1</td><td style="color: var(--ink-faint)">Stopped, for good.</td><td>Still working, at half speed. It computes twice and checks itself.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tiny">Mru decides exactly like fixed TMR while TMR can still run, so it can never deliver less. This is proved with Kani for every possible input.</p>
+  </section>
+
+  <Seam life={52} label="04 · The architecture" />
+
+  <section class="wrap section stack-l">
+    <div class="split">
+      <div class="stack-m">
+        <p class="eyebrow">Six layers</p>
+        <h2 class="h2">Six layers. The lower the layer, the smaller and more verified.</h2>
+      </div>
+      <div class="stack-m">
+        <p>The whitepaper resolves a paradox: a system must be simple enough to be correct, and complex enough to decide things alone. The answer is layers. The lower the layer, the smaller and more verified it is.</p>
+        <p class="soft small">This is the full architecture from the whitepaper. Today&#39;s software implements the Layer 1 quorum. The rest is the road ahead.</p>
+      </div>
+    </div>
+    <div class="strata">
+      <div class="stratum"><span class="lv">L5</span><h3>Bounded self-change</h3><p>A constitution in read-only memory. Rules can adapt how the mission is pursued, never what the mission is. Every change can roll back.</p></div>
+      <div class="stratum"><span class="lv">L4</span><h3>Communication</h3><p>Coding that adapts as power falls, from kilobits per second to bits per hour, and at the end a beacon.</p></div>
+      <div class="stratum"><span class="lv">L3</span><h3>Science and knowledge triage</h3><p>Rule-based, not neural networks: legible and bounded. Decides what is worth keeping as storage decays.</p></div>
+      <div class="stratum"><span class="lv">L2</span><h3>Navigation</h3><p>Star tracking with a fallback to dead reckoning.</p></div>
+      <div class="stratum base"><span class="lv">L1</span><h3>Hardware consensus and health <span class="pill sig" style="margin-left: 8px; vertical-align: middle"><span class="dot"></span>Built</span></h3><p>The shrinking quorum, memory scrubbing, a health registry, and a power accountant. This is the core that Mru Field and Mru Flight are built on.</p></div>
+      <div class="stratum"><span class="lv">L0</span><h3>Survival kernel</h3><p>About 200 to 500 instructions, under 10,000 lines of verified code, under half a watt in hibernation. It keeps the system alive.</p></div>
+    </div>
+  </section>
+
+  <Seam life={40} label="05 · The descent" />
+
+  <section class="wrap section stack-l">
+    <div class="split">
+      <div class="stack-m">
+        <p class="eyebrow">Six phases</p>
+        <h2 class="h2">Defined behaviour at each power level.</h2>
+      </div>
+      <p class="lede">Power draw spans nearly three orders of magnitude. The system knows which phase it is in and spends what is left on purpose.</p>
+    </div>
+    <div class="tbl-box">
+      <table class="tbl">
+        <thead><tr><th>Phase</th><th>Power</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>Full operations</td><td class="m">50–200 W</td><td>Everything runs. Full voting.</td></tr>
+          <tr><td>Reduced</td><td class="m">20–80 W</td><td>Fewer instruments, less often.</td></tr>
+          <tr><td>Core operations</td><td class="m">5–20 W</td><td>Only the essential job.</td></tr>
+          <tr><td>Survival</td><td class="m">1–5 W</td><td>Stay alive. Wake rarely.</td></tr>
+          <tr class="hl"><td>Beacon</td><td class="m">&lt;1 W</td><td>A last signal that says: I am still here.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tiny">Phases from the whitepaper, §13. A probe adds a Transit phase (&lt;1 W) before arrival.</p>
+  </section>
+
+  <Seam life={28} label="06 · The proof" />
+
+  <section class="wrap section">
+    <div class="split">
+      <div class="stack-m">
+        <p class="quote">&#8220;A claim about a thousand years cannot be tested by waiting.&#8221;</p>
+        <p class="quote-by">Whitepaper, §14</p>
+      </div>
+      <div class="stack-m">
+        <p>So we test it in simulation, in the open, and then in the field. Dusk ran 10,000 missions on hardware that only ever decays. The shrinking quorum delivered 1.34× the useful work of fixed TMR, and never less on any single mission.</p>
+        <div class="row"><a class="btn" href="/research/dusk-results/">See the results</a><a class="link-more" href="/field/">Mru Field</a></div>
+      </div>
+    </div>
+  </section>
+
+</Base>

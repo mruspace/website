@@ -1,0 +1,28 @@
+---
+// Where the Worker sends a plain form post (JS off). It reuses the
+// "Request sent" card from the form, inside the Contact page hero.
+import Base from '../../../layouts/Base.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { SITE } from '../../../data/site';
+---
+
+<Base>
+  <section class="wrap hero" style="padding-bottom: 128px">
+    <Breadcrumbs items={[{ label: 'Mru', href: '/' }, { label: 'Request information', href: '/contact/' }, { label: 'Request sent' }]} />
+    <div class="hero-grid" style="margin-top: 40px">
+      <h1 class="h1">Request sent</h1>
+      <div class="sent stack-m" role="status">
+        <p class="eyebrow" style="color: var(--signal)"><span class="dot" style="margin-right: 8px"></span>Request sent</p>
+        <h2 class="h3">Thank you. It is on its way to {SITE.email}.</h2>
+        <p class="soft small">We reply by email. In the meantime, the whitepaper, the results and the code are all public.</p>
+        <div class="row">
+          <a class="link-more" href="/research/">Research</a><a class="link-more" href={`${SITE.docsUrl}/`}>Docs</a><a
+            class="qbtn"
+            href="/contact/"
+            style="display: inline-flex; align-items: center; text-decoration: none">Send another</a
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
