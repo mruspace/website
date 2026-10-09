@@ -259,3 +259,41 @@ html:not(.js) .mark-static {
   font-weight: 500;
   margin-bottom: 14px;
 }
+
+/* The animated mark's box is a span around the <picture> (Mark.astro). Until
+   the GIF has loaded, the static mark stands in, at the size of the mark in
+   the GIF frame (its ring is 62.8% of the frame; the SVG's is 70.4%). No
+   transform, filter, opacity or z-index here: the GIF blend must not break. */
+.mark-anim {
+  position: relative;
+}
+.mark-anim picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.mark-anim .mark-wait {
+  position: absolute;
+  inset: 5.4%;
+  width: 89.2%;
+  height: 89.2%;
+  color: var(--ink);
+}
+.mark-anim.playing .mark-wait {
+  display: none;
+}
+
+/* Wide screens: the canvas widened only the header, form and footer to 1480 px
+   (each is its own container), so their edges sat outside the 1216 px content.
+   Keep them on the content's width. */
+@container (min-width: 1700px) {
+  .mru.part {
+    --maxw: 1216px;
+  }
+}
+/* Hide the GIF images until one has loaded, so a slow or failed load shows
+   the static mark, never a broken-image icon. (visibility, not opacity: the
+   blend must keep working.) */
+.mark-anim:not(.playing) img {
+  visibility: hidden;
+}

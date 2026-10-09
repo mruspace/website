@@ -24,36 +24,41 @@ const style = (s?: number) =>
     .join('; ') || undefined;
 ---
 
-<picture class="mark-anim" style={style(size)}>
-  <img
-    class="on-light"
-    src={BLANK}
-    data-src="/assets/mru-light.gif"
-    alt={alt}
-    width="600"
-    height="600"
-    loading="lazy"
-    decoding="async"
-  />
-  <img
-    class="on-dark"
-    src={BLANK}
-    data-src="/assets/mru.gif"
-    alt=""
-    width="600"
-    height="600"
-    loading="lazy"
-    decoding="async"
-  />
-</picture>
+<span class="mark-anim" style={style(size)}>
+  <picture>
+    <img
+      class="on-light"
+      src={BLANK}
+      data-src="/assets/mru-light.gif"
+      alt={alt}
+      width="600"
+      height="600"
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      class="on-dark"
+      src={BLANK}
+      data-src="/assets/mru.gif"
+      alt=""
+      width="600"
+      height="600"
+      loading="lazy"
+      decoding="async"
+    />
+  </picture>
+  <MarkSvg class="mark-wait" />
+</span>
 <MarkSvg class="mark-static" style={style(staticSize ?? size)} label="Mru mark" />
 
 <script>
   // The GIFs are about 2 MB. They start only after the page's largest paint,
-  // so they never delay it; the box keeps its size meanwhile. Both stay
-  // lazy, so the one the theme hides is never fetched.
+  // so they never delay it. Until one has loaded, the static mark stands in
+  // at the same place (.mark-wait). Both stay lazy, so the one the theme
+  // hides is never fetched.
   const start = () => {
     for (const img of document.querySelectorAll<HTMLImageElement>('.mark-anim img[data-src]')) {
+      img.addEventListener('load', () => img.closest('.mark-anim')?.classList.add('playing'), { once: true });
       img.src = img.dataset.src!;
       img.removeAttribute('data-src');
     }
