@@ -7,6 +7,8 @@ export interface PageMeta {
   title: string;
   description: string;
   ogTitle: string;
+  /** Open Graph and Twitter description, where it differs from the meta description. */
+  ogDescription?: string;
   cardLabel: string;
   schema: string[];
 }

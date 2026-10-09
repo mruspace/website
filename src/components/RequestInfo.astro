@@ -19,7 +19,7 @@ const page = new URL(Astro.url.pathname, SITE.url).href;
     <div class="split">
       <div class="stack-m">
         <p class="eyebrow">
-          <span class="n">→</span> Request information
+          <span class="n">→</span> Get in touch
         </p>
         <h2 id="req-h" class="h2">
           {heading}
@@ -29,13 +29,10 @@ const page = new URL(Astro.url.pathname, SITE.url).href;
           plainly whether Mru fits, including when it does not.
         </p>
         <ul class="sig-list small">
-          <li>Requests go to the founder, not a sales team.</li>
+          <li>We'll review your setup.</li>
           <li>We reply by email. If a call helps, we suggest one.</li>
           <li>Technical questions are welcome. The docs and code are public.</li>
         </ul>
-        <p class="tiny">
-          Or write to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
-        </p>
       </div>
       <div data-req>
         <div class="sent stack-m" role="status" tabindex="-1" data-req-sent hidden>

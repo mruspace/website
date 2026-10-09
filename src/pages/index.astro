@@ -2,7 +2,6 @@
 import Base from '../layouts/Base.astro';
 import Seam from '../components/Seam.astro';
 import PlateImage from '../components/PlateImage.astro';
-import Mark from '../components/Mark.astro';
 import Descent from '../components/Descent.astro';
 import QuorumDemo from '../components/QuorumDemo.astro';
 import { photo } from '../data/images';
@@ -20,16 +19,15 @@ const TILES = [
 ];
 ---
 
-<Base rootClass="glow" request={{ interest: 'field', heading: 'Is Mru worth a conversation? Tell us what you run.' }}>
+<Base rootClass="glow" request={{ interest: 'field' }}>
   <!-- 1 · Hero -->
   <section class="wrap hero" aria-labelledby="h-hero">
-    <Mark size={128} staticSize={112} gap={40} />
-    <h1 id="h-hero" class="h-hero" style="max-width: 15ch">
+    <h1 id="h-hero" class="h-hero" style="max-width: 22ch">
       Systems that still run a thousand years after we&#39;re gone
     </h1>
     <div class="hero-grid" style="margin-top: 48px; align-items: start">
       <p class="eyebrow" style="padding-top: 8px">
-        Fault-tolerant software · Earth and space
+        Fault-tolerant systems · Earth and space
       </p>
       <div class="stack-m">
         <p class="lede" style="color: var(--ink)">
@@ -38,10 +36,10 @@ const TILES = [
         </p>
         <div class="row">
           <a class="btn" href="/contact/">
-            Request information
+            Get in touch
           </a>
           <a class="btn ghost" href="/how-it-works/">
-            How it works
+            Learn more<span class="sr-only"> about how Mru works</span>
           </a>
         </div>
       </div>
@@ -53,9 +51,7 @@ const TILES = [
   <section class="wrap section" aria-labelledby="h-problem">
     <div class="split" style="margin-bottom: 56px">
       <div class="stack-m">
-        <p class="eyebrow">
-          <span class="n">01</span> · The problem
-        </p>
+        <p class="eyebrow">The problem</p>
         <h2 id="h-problem" class="h2">
           Redundancy assumes a repair crew.
         </h2>
@@ -102,9 +98,9 @@ const TILES = [
         </div>
         <div class="stat" style="margin-top: 16px">
           <div class="v">
-            ~900<small>/ year</small>
+            900<small>/ year</small>
           </div>
-          <p class="l">Argo floats replaced, about $40,000 each.</p>
+          <p class="l">About this many Argo floats are replaced each year, at about $40,000 each.</p>
           <p class="src">Argo Program · Photo Ifremer, CC BY 4.0</p>
         </div>
       </figure>
@@ -115,9 +111,9 @@ const TILES = [
         </div>
         <div class="stat" style="margin-top: 16px">
           <div class="v">
-            ~$40k<small>/ day</small>
+            $40k<small>/ day</small>
           </div>
-          <p class="l">For the vessel that services an offshore wind farm.</p>
+          <p class="l">About the day rate for the vessel that services an offshore wind farm.</p>
           <p class="src">£30k · BVG Associates, 2025 · Photo US DOE, PD</p>
         </div>
       </figure>
@@ -130,9 +126,7 @@ const TILES = [
   <section class="wrap section" aria-labelledby="h-how">
     <div class="split">
       <div class="stack-m">
-        <p class="eyebrow">
-          <span class="n">02</span> · Mechanism
-        </p>
+        <p class="eyebrow">Mechanism</p>
         <h2 id="h-how" class="h2">
           Vote on three. Compare on two. Self-check on one.
         </h2>
@@ -155,9 +149,7 @@ const TILES = [
   <section class="wrap section" aria-labelledby="h-proof">
     <div class="split">
       <div class="stack-m">
-        <p class="eyebrow">
-          <span class="n">03</span> · Evidence
-        </p>
+        <p class="eyebrow">Evidence</p>
         <h2 id="h-proof" class="h2">
           1.34× the useful work of fixed TMR, on the same hardware.
         </h2>
@@ -225,7 +217,7 @@ const TILES = [
         </div>
         <p class="tiny">
           Limits: parameters are illustrative, not calibrated to flight data. Power and thermal limits are not modelled.
-          Field data is the next step. <a href="/research/dusk-results/">Full results and method</a>
+          <a href="/research/dusk-results/">Full results and method</a>
         </p>
       </div>
     </div>
@@ -237,11 +229,9 @@ const TILES = [
   <section class="wrap section" aria-labelledby="h-where">
     <div class="split" style="margin-bottom: 56px">
       <div class="stack-m">
-        <p class="eyebrow">
-          <span class="n">04</span> · Where it applies
-        </p>
+        <p class="eyebrow">Where it applies</p>
         <h2 id="h-where" class="h2">
-          Unattended equipment on Earth, first.
+          Hard-to-reach equipment on Earth.
         </h2>
       </div>
       <div class="stack-m">
@@ -250,7 +240,7 @@ const TILES = [
           months or longer, and a repair visit is slow, costly or impossible.
         </p>
         <a class="link-more" href="/use-cases/">
-          All fifteen settings
+          See all use cases
         </a>
       </div>
     </div>
@@ -266,7 +256,6 @@ const TILES = [
           </div>
           <span class="k">
             <span>{t.kicker}</span>
-            <span>PL. {t.plate}</span>
           </span>
           <h3>{t.name}</h3>
         </a>
@@ -274,100 +263,18 @@ const TILES = [
     </div>
   </section>
 
-  <Seam life={42} label="Maturity" />
-
-  <!-- 6 · What exists today -->
-  <section class="wrap section stack-l" aria-labelledby="h-today">
-    <div class="split">
-      <div class="stack-m">
-        <p class="eyebrow">
-          <span class="n">05</span> · Maturity
-        </p>
-        <h2 id="h-today" class="h2">
-          What exists today, and what does not.
-        </h2>
-      </div>
-      <p class="lede">
-        Everything below is public. Nothing has run unattended in the field yet. That is the next step.
-      </p>
-    </div>
-    <div class="tbl-box" tabindex="0">
-      <table class="tbl">
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>What it is</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <a href="/research/">Whitepaper</a>
-            </td>
-            <td>Architecture and the Degradation-First Principle. doi:10.5281/zenodo.20579438</td>
-            <td class="m">Published · May 2026</td>
-          </tr>
-          <tr>
-            <td>
-              <a href="/research/dusk-results/">Dusk</a>
-            </td>
-            <td>Monte Carlo of redundancy policies, 10,000 missions</td>
-            <td class="m">Open source · TRL 3–4</td>
-          </tr>
-          <tr>
-            <td>
-              <a href="https://docs.mru.space/core/quorum-crate/">Decision core</a>
-            </td>
-            <td>
-              Rust, <code>no_std</code>, no allocation, 4 Kani proofs, Cortex-M build
-            </td>
-            <td class="m">Open source · TRL 3</td>
-          </tr>
-          <tr>
-            <td>
-              <a href="https://docs.mru.space/core/quorum-cli/">Fault-injection demo</a>
-            </td>
-            <td>Three real processes; kill, hang, stuck and bit-flip faults; static ARM binaries</td>
-            <td class="m">Open source · v0.1.1</td>
-          </tr>
-          <tr>
-            <td>F&#180; components</td>
-            <td>The core wrapped for NASA JPL's flight software framework</td>
-            <td class="m">Designed · next</td>
-          </tr>
-          <tr>
-            <td>OPS-SAT experiment</td>
-            <td>Real radiation upsets on an ESA satellite</td>
-            <td class="m">Next</td>
-          </tr>
-          <tr class="hl">
-            <td>Mru Field pilot</td>
-            <td>Months unattended on ocean equipment in the Azores</td>
-            <td class="m">Planned 2027 · TRL 6 goal</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <Seam life={28} label="Products" />
+  <Seam life={42} label="Products" />
 
   <!-- 7 · Products and path -->
   <section class="wrap section stack-l" aria-labelledby="h-path">
     <div class="split">
       <div class="stack-m">
-        <p class="eyebrow">
-          <span class="n">06</span> · Products
-        </p>
+        <p class="eyebrow">Products</p>
         <h2 id="h-path" class="h2">
-          Ship on Earth. Prove it. Then fly.
+          Ship on Earth. Fly in the sky.
         </h2>
       </div>
-      <p class="lede">
-        The same core runs in both products. Field data on Earth comes first, because it is the evidence a flight
-        programme will ask for.
-      </p>
+      <p class="lede">The same core runs in both products.</p>
     </div>
     <div class="cards two">
       <a class="card lead" href="/field/" style="text-decoration: none">
@@ -378,8 +285,8 @@ const TILES = [
           Mru Field
         </h3>
         <p class="soft" style="margin-top: 12px">
-          For unattended equipment on Earth: ocean observatories, buoys, offshore and remote sites. Annual licence per
-          site or fleet, with support.
+          For hard-to-reach equipment on Earth: ocean observatories, buoys, offshore and remote sites. Annual licence
+          per site or fleet, with support.
         </p>
         <span class="link-more">Mru Field</span>
       </a>

@@ -1,11 +1,11 @@
 ---
-// A figure plate: plate number, photo, caption and credit in mono.
+// A figure plate: photo, optional corner label, caption and credit in mono.
 import PlateImage from './PlateImage.astro';
 import { creditLine, type Photo } from '../data/images';
 
 interface Props {
   photo: Photo;
-  /** Label in the corner. Defaults to "PL. <n>". */
+  /** Label in the corner. None by default. */
   no?: string | false;
   alt?: string;
   caption?: string | false;
@@ -32,7 +32,7 @@ const {
   phStyle,
   imgStyle,
 } = Astro.props;
-const label = no === false ? null : (no ?? `PL. ${photo.plate}`);
+const label = no || null;
 const cap = caption === false ? null : (caption ?? photo.caption);
 const cr = credit === false ? null : (credit ?? creditLine(photo));
 ---

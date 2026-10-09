@@ -3,7 +3,8 @@
     "url": "https://mru.space/",
     "title": "Fault-tolerant software for unrepairable hardware · Mru Aerospace",
     "description": "When processors fail and nobody can come, Mru keeps delivering checked results on the ones left. For ocean, offshore and remote equipment, and spacecraft.",
-    "ogTitle": "Fault-tolerant software for hardware nobody can repair",
+    "ogTitle": "Systems that still run a thousand years after we're gone",
+    "ogDescription": "Mru is software for computers that cannot be repaired in time: ocean observatories, offshore and remote sites, spacecraft. When processors fail, it keeps delivering checked results with the ones left, instead of stopping.",
     "cardLabel": "Mru",
     "schema": ["Organization", "WebSite"]
   },
@@ -11,7 +12,7 @@
     "url": "https://mru.space/field/",
     "title": "Mru Field: fault tolerance for remote equipment · Mru Aerospace",
     "description": "Runs on the 2 or 3 processors already in your enclosure. Votes, compares, then self-checks as they fail. Linux on ARM and x86. Field pilot planned 2027.",
-    "ogTitle": "Mru Field: fault tolerance for equipment you cannot repair in time",
+    "ogTitle": "Mru Field: fault tolerance for hard-to-reach systems",
     "cardLabel": "Product · Earth",
     "schema": ["SoftwareApplication", "BreadcrumbList", "FAQPage"]
   },
@@ -19,7 +20,7 @@
     "url": "https://mru.space/flight/",
     "title": "Mru Flight: onboard fault tolerance · Mru Aerospace",
     "description": "A no_std Rust decision core with Kani proofs, to run as F´ components. Continues on two, then one processor after fixed TMR stops. Prototype, TRL 3.",
-    "ogTitle": "Mru Flight: keep a spacecraft working as its computers fail",
+    "ogTitle": "Mru Flight: fault tolerance for spacecraft out of reach",
     "cardLabel": "Product · Space",
     "schema": ["SoftwareApplication", "BreadcrumbList", "FAQPage"]
   },
@@ -193,17 +194,17 @@
   },
   {
     "url": "https://mru.space/contact/",
-    "title": "Request information · Mru Aerospace",
-    "description": "Tell us what you run, where, and how long it must run unattended. Requests go to the founder. We will tell you plainly whether Mru fits.",
-    "ogTitle": "Request information",
+    "title": "Get in touch · Mru Aerospace",
+    "description": "Tell us what you run, where, and how long it must run unattended. We'll review your setup and tell you plainly whether Mru fits.",
+    "ogTitle": "Get in touch",
     "cardLabel": "Contact",
     "schema": ["ContactPage"]
   },
   {
     "url": "https://mru.space/credits/",
-    "title": "Image credits · Mru Aerospace",
-    "description": "Sources and licences for every photo on mru.space. All from Wikimedia Commons, under free licences or in the public domain.",
-    "ogTitle": "Image credits",
+    "title": "Credits · Mru Aerospace",
+    "description": "Sources and licences for every photo on mru.space. Each one is used under a free licence or is in the public domain.",
+    "ogTitle": "Credits",
     "cardLabel": "Credits",
     "schema": ["WebPage"]
   },

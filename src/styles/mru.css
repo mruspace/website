@@ -213,15 +213,15 @@
   color: var(--signal);
 }
 .h-hero {
-  font-size: clamp(56px, 9.2cqi, 132px);
+  font-size: clamp(36px, 4.6cqi, 66px);
   line-height: 0.96;
   letter-spacing: -0.01em;
 }
 .h1 {
-  font-size: clamp(39px, 5.4cqi, 81px);
+  font-size: clamp(32px, 3.6cqi, 48px);
 }
 .h2 {
-  font-size: clamp(31px, 3.6cqi, 50px);
+  font-size: clamp(26px, 2.6cqi, 36px);
 }
 .h3 {
   font-size: var(--s2);
@@ -318,11 +318,6 @@
 }
 .nav a.on {
   box-shadow: inset 0 -2px 0 var(--signal);
-}
-.nav .ext::after {
-  content: ' \2197';
-  font-size: 0.8em;
-  color: var(--ink-faint);
 }
 .menu-toggle {
   display: none;
@@ -635,6 +630,7 @@
 }
 .plate .no {
   position: absolute;
+  z-index: 1;
   left: 12px;
   top: 10px;
   font-family: var(--mono);

@@ -80,7 +80,7 @@ const canonical = new URL(Astro.url.pathname, SITE.url).href;
         <meta property="og:type" content={isArticle ? 'article' : 'website'} />
         <meta property="og:site_name" content={SITE.siteName} />
         <meta property="og:title" content={meta.ogTitle} />
-        <meta property="og:description" content={meta.description} />
+        <meta property="og:description" content={meta.ogDescription ?? meta.description} />
         <meta property="og:url" content={canonical} />
         <meta property="og:image" content={ogImage} />
         <meta property="og:image:width" content="1200" />
@@ -91,7 +91,7 @@ const canonical = new URL(Astro.url.pathname, SITE.url).href;
         <meta name="twitter:site" content="@mruspace" />
         <meta name="twitter:creator" content="@mruspace" />
         <meta name="twitter:title" content={meta.ogTitle} />
-        <meta name="twitter:description" content={meta.description} />
+        <meta name="twitter:description" content={meta.ogDescription ?? meta.description} />
         <meta name="twitter:image" content={ogImage} />
         <meta name="twitter:image:alt" content={meta.ogTitle} />
       </>
