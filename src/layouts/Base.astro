@@ -3,7 +3,6 @@ import '../styles/fonts.css';
 import '../styles/mru.css';
 import '../styles/site.css';
 import Analytics from '../components/Analytics.astro';
-import Madruga from '../components/Madruga.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import RequestInfo from '../components/RequestInfo.astro';
@@ -116,6 +115,5 @@ const canonical = new URL(Astro.url.pathname, SITE.url).href;
       <slot name="after" />
       {chrome && <SiteFooter />}
     </div>
-    {chrome && <Madruga />}
   </body>
 </html>
