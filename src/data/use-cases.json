@@ -41,7 +41,7 @@
       "cap": "TEMPO deep-sea observatory module on a hydrothermal vent",
       "status": "Pilot planned",
       "hook": "Batteries, a cable, and one service visit a year.",
-      "intro": "Seafloor observatories run science nodes on batteries and cables, far below anyone’s reach. When a computer fails between visits, the data stops until the next ship.",
+      "intro": "Seafloor observatories run science nodes on batteries and cables, far below anyone's reach. When a computer fails between visits, the data stops until the next ship.",
       "stats": [
         {
           "v": "1",
@@ -103,7 +103,7 @@
           "shared": "HW"
         },
         {
-          "q": "Can it run on a buoy’s power budget?",
+          "q": "Can it run on a buoy's power budget?",
           "a": "The core is small: about 1.5 MB of memory per process on ARM64 in our tests. It adds work only where it checks results."
         },
         {
