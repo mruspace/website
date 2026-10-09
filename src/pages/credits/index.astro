@@ -3,11 +3,13 @@ import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import PlateImage from '../../components/PlateImage.astro';
 import { PHOTOS } from '../../data/images';
+
+const crumbs = [{ label: "Mru", href: '/' }, { label: "Company", href: '/company/' }, { label: "Image credits" }];
 ---
 
-<Base >
+<Base crumbs={crumbs} >
   <section class="wrap hero" style="padding-bottom: 48px">
-    <Breadcrumbs items={[{ label: "Mru", href: '/' }, { label: "Company", href: '/company/' }, { label: "Image credits" }]} />
+    <Breadcrumbs items={crumbs} />
     <div class="hero-grid" style="margin-top: 40px">
       <h1 class="h1">Image credits</h1>
       <div class="stack-m">

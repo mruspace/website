@@ -4,6 +4,7 @@
 import Base from '../../layouts/Base.astro';
 import Chart from '../../components/Chart.astro';
 import { entries, hrefOf, dateLabel, KIND_SLUGS } from '../../data/research';
+import { SITE } from '../../data/site';
 
 const all = await entries();
 const latest = all.find((e) => e.data.featured)!;
@@ -19,7 +20,9 @@ const filters = [
 ];
 ---
 
-<Base active="research" request={{ interest: 'research', heading: 'Questions about this work, or want to test it?' }}>
+<Base
+  ld={{ blogPosts: all.map((e) => ({ headline: e.data.title, url: new URL(hrefOf(e), SITE.url).href, datePublished: e.data.date })) }}
+  active="research" request={{ interest: 'research', heading: 'Questions about this work, or want to test it?' }}>
   <section class="wrap hero" style="padding-bottom: 64px">
     <div class="hero-grid">
       <div class="stack-m">

@@ -14,21 +14,23 @@ export function getStaticPaths() {
 }
 const c = useCase(Astro.params.slug);
 const rel = c.rel.map(useCase);
+const crumbs = [
+  { label: 'Mru', href: '/' },
+  { label: 'Mru Field', href: '/field/' },
+  { label: 'Use cases', href: '/use-cases/' },
+  { label: c.name },
+];
 ---
 
 <Base
+  crumbs={crumbs}
+  faq={c.faq}
+  ld={{ service: { name: `Mru Field for ${c.lower}`, serviceType: 'Fault-tolerant software for unattended equipment' } }}
   active="usecases"
   request={{ interest: 'field', topic: c.name, heading: `Is Mru Field a fit for your ${c.lower}?` }}
 >
   <section class="wrap" style="padding-top: 48px">
-    <Breadcrumbs
-      items={[
-        { label: 'Mru', href: '/' },
-        { label: 'Mru Field', href: '/field/' },
-        { label: 'Use cases', href: '/use-cases/' },
-        { label: c.name },
-      ]}
-    />
+    <Breadcrumbs items={crumbs} />
     <div class="hero-grid" style="margin-top: 40px; align-items: end">
       <div class="stack-m">
         <div class="row" style="gap: 10px">

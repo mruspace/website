@@ -2,11 +2,13 @@
 import Base from '../../layouts/Base.astro';
 import Seam from '../../components/Seam.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+
+const crumbs = [{ label: "Mru", href: '/' }, { label: "How it works" }];
 ---
 
-<Base active="how" request={{"interest": "field", "heading": "Questions about the design? Ask the person who wrote it."}}>
+<Base crumbs={crumbs} active="how" request={{"interest": "field", "heading": "Questions about the design? Ask the person who wrote it."}}>
   <section class="wrap hero" style="padding-bottom: 96px">
-    <Breadcrumbs items={[{ label: "Mru", href: '/' }, { label: "How it works" }]} />
+    <Breadcrumbs items={crumbs} />
     <div class="hero-grid" style="margin-top: 40px">
       <h1 class="h-hero">Decline is the baseline.</h1>
       <div class="stack-m">

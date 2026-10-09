@@ -2,12 +2,17 @@
 import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import PlateImage from '../../components/PlateImage.astro';
-import { INDEX_GROUPS } from '../../data/use-cases';
+import { INDEX_GROUPS, USE_CASES } from '../../data/use-cases';
+import { SITE } from '../../data/site';
+
+const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Mru Field', href: '/field/' }, { label: 'Use cases' }];
 ---
 
-<Base active="usecases" request={{ interest: 'field', heading: 'Not listed? Tell us what you run.' }}>
+<Base
+  crumbs={crumbs}
+  ld={{ collection: USE_CASES.map((u) => ({ name: u.name, url: new URL(u.href, SITE.url).href })) }} active="usecases" request={{ interest: 'field', heading: 'Not listed? Tell us what you run.' }}>
   <section class="wrap hero" style="padding-bottom: 80px">
-    <Breadcrumbs items={[{ label: 'Mru', href: '/' }, { label: 'Mru Field', href: '/field/' }, { label: 'Use cases' }]} />
+    <Breadcrumbs items={crumbs} />
     <div class="hero-grid" style="margin-top: 40px">
       <div class="stack-m">
         <p class="eyebrow">Mru Field · Use cases</p>

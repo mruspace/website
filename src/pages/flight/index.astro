@@ -4,12 +4,36 @@ import Chart from '../../components/Chart.astro';
 import Seam from '../../components/Seam.astro';
 import PlateImage from '../../components/PlateImage.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Faq from '../../components/Faq.astro';
 import { photo, creditLine } from '../../data/images';
+
+const crumbs = [{ label: "Mru", href: '/' }, { label: "Mru Flight" }];
+const faq = [
+  {
+    "q": "Do we need new flight hardware?",
+    "a": "No. Mru Flight is software for the processors you already fly, starting with F´."
+  },
+  {
+    "q": "What does it cost us in throughput?",
+    "a": "Nothing while three or two computers are alive. On the last one, self-check runs at half speed, because it does every computation twice."
+  },
+  {
+    "q": "What is the risk?",
+    "a": "On one computer, a stuck fault is caught by a periodic known-answer test. Until then, a few wrong results can get out. We measure and publish that trade."
+  },
+  {
+    "q": "How is it priced?",
+    "a": "Per mission, with support and qualification evidence. We discuss terms once we know the mission and its hardware."
+  }
+];
 ---
 
-<Base active="flight" request={{"interest": "flight", "heading": "Tell us about your mission."}}>
+<Base
+  crumbs={crumbs}
+  faq={faq}
+  ld={{ software: { name: 'Mru Flight', operatingSystem: 'Linux; bare-metal ARM Cortex-M (no_std)', category: 'Onboard flight software' } }} active="flight" request={{"interest": "flight", "heading": "Tell us about your mission."}}>
   <section class="wrap hero" style="padding-bottom: 56px">
-    <Breadcrumbs items={[{ label: "Mru", href: '/' }, { label: "Mru Flight" }]} />
+    <Breadcrumbs items={crumbs} />
     <div class="hero-grid" style="margin-top: 40px">
       <div class="stack-m">
         <div class="row" style="gap: 10px"><span class="eyebrow">Mru Flight · Space</span><span class="pill">Prototype · TRL 3</span></div>
@@ -101,12 +125,7 @@ import { photo, creditLine } from '../../data/images';
   <section class="wrap section" style="padding-top: 0">
     <div class="split">
       <h2 class="h2">Questions</h2>
-      <div class="faq">
-        <details><summary>Do we need new flight hardware?</summary><p>No. Mru Flight is software for the processors you already fly, starting with F&#180;.</p></details>
-        <details><summary>What does it cost us in throughput?</summary><p>Nothing while three or two computers are alive. On the last one, self-check runs at half speed, because it does every computation twice.</p></details>
-        <details><summary>What is the risk?</summary><p>On one computer, a stuck fault is caught by a periodic known-answer test. Until then, a few wrong results can get out. We measure and publish that trade.</p></details>
-        <details><summary>How is it priced?</summary><p>Per mission, with support and qualification evidence. We discuss terms once we know the mission and its hardware.</p></details>
-      </div>
+      <Faq items={faq} />
     </div>
   </section>
 

@@ -4,11 +4,13 @@
 import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import terms from '../../content/terms.html?raw';
+
+const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Terms' }];
 ---
 
-<Base>
+<Base crumbs={crumbs}>
   <section class="wrap hero" style="padding-bottom: 48px">
-    <Breadcrumbs items={[{ label: 'Mru', href: '/' }, { label: 'Terms' }]} />
+    <Breadcrumbs items={crumbs} />
     <div class="hero-grid" style="margin-top: 40px">
       <div class="stack-m">
         <p class="eyebrow">Legal</p>

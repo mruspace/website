@@ -4,11 +4,13 @@ import Seam from '../../components/Seam.astro';
 import PlateImage from '../../components/PlateImage.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { photo, creditLine } from '../../data/images';
+
+const crumbs = [{ label: "Mru", href: '/' }, { label: "Company" }];
 ---
 
-<Base active="company" request={{"interest": "other", "heading": "Operators, mission teams, partners: write to us."}}>
+<Base crumbs={crumbs} active="company" request={{"interest": "other", "heading": "Operators, mission teams, partners: write to us."}}>
   <section class="wrap hero" style="padding-bottom: 64px">
-    <Breadcrumbs items={[{ label: "Mru", href: '/' }, { label: "Company" }]} />
+    <Breadcrumbs items={crumbs} />
     <div class="hero-grid" style="margin-top: 40px">
       <h1 class="h1">Mru builds fault-tolerant software for systems that cannot be repaired in time.</h1>
       <p class="lede">The long-term goal is software that runs for a thousand years. The work is paid for along the way by equipment that needs it now, on Earth first, then in orbit.</p>

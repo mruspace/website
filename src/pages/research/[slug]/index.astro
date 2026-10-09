@@ -19,18 +19,28 @@ const i = all.findIndex((e) => e.id === entry.id);
 const older = all[i + 1];
 const newer = all[i - 1];
 const kindPlural = { Paper: 'Papers', Results: 'Results', Release: 'Releases', Note: 'Notes' }[d.kind];
+const crumbs = [
+  { label: 'Research', href: '/research/' },
+  { label: kindPlural, href: kindFilter(d.kind) },
+  { label: `№ ${d.number}` },
+];
+const ld = {
+  article: {
+    headline: d.title,
+    datePublished: d.date,
+    dateModified: d.updated,
+    author: d.author,
+    doi: d.doi,
+    citation: d.sources,
+    code: d.code,
+  },
+};
 ---
 
-<Base active="research" request={d.request}>
+<Base active="research" request={d.request} crumbs={crumbs} ld={ld}>
   <article>
     <header class="wrap" style="padding-top: 64px">
-      <Breadcrumbs
-        items={[
-          { label: 'Research', href: '/research/' },
-          { label: kindPlural, href: kindFilter(d.kind) },
-          { label: `№ ${d.number}` },
-        ]}
-      />
+      <Breadcrumbs items={crumbs} />
       <div class="article" style="margin-top: 40px">
         <div class="stack-m">
           <p class="eyebrow"><span class="n">№ {d.number}</span> · {d.kind}</p>

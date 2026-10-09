@@ -3,12 +3,36 @@ import Base from '../../layouts/Base.astro';
 import Seam from '../../components/Seam.astro';
 import PlateImage from '../../components/PlateImage.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Faq from '../../components/Faq.astro';
 import { photo, creditLine } from '../../data/images';
+
+const crumbs = [{ label: "Mru", href: '/' }, { label: "Mru Field" }];
+const faq = [
+  {
+    "q": "Is it open source?",
+    "a": "The decision core and the simulator are open source under Apache 2.0, and the design is published. Mru Field adds integration, support and qualification for your site."
+  },
+  {
+    "q": "What evidence is there today?",
+    "a": "Simulation over 10,000 missions, a fault-injection demo on real processes, and four Kani proofs. No unattended field deployment yet. The 2027 pilot is that step."
+  },
+  {
+    "q": "How is it priced?",
+    "a": "An annual licence per site or per fleet, with support. We discuss terms once we know the hardware and the deployment."
+  },
+  {
+    "q": "Do we need to change our code?",
+    "a": "Your task runs on each processor as it does now. Mru Field needs a defined result per cycle to compare, and a known-answer test for that task."
+  }
+];
 ---
 
-<Base active="field" request={{"interest": "field", "heading": "Tell us what you run, and where."}}>
+<Base
+  crumbs={crumbs}
+  faq={faq}
+  ld={{ software: { name: 'Mru Field', operatingSystem: 'Linux on ARM64, 32-bit ARM and x86_64', category: 'Fault-tolerance software for remote equipment' } }} active="field" request={{"interest": "field", "heading": "Tell us what you run, and where."}}>
   <section class="wrap hero" style="padding-bottom: 56px">
-    <Breadcrumbs items={[{ label: "Mru", href: '/' }, { label: "Mru Field" }]} />
+    <Breadcrumbs items={crumbs} />
     <div class="hero-grid" style="margin-top: 40px">
       <div class="stack-m">
         <div class="row" style="gap: 10px"><span class="eyebrow">Mru Field · Earth</span><span class="pill">Core TRL 3 · field pilot planned 2027</span></div>
@@ -98,12 +122,7 @@ import { photo, creditLine } from '../../data/images';
   <section class="wrap section" style="padding-top: 0">
     <div class="split">
       <h2 class="h2">Questions</h2>
-      <div class="faq">
-        <details><summary>Is it open source?</summary><p>The decision core and the simulator are open source under Apache 2.0, and the design is published. Mru Field adds integration, support and qualification for your site.</p></details>
-        <details><summary>What evidence is there today?</summary><p>Simulation over 10,000 missions, a fault-injection demo on real processes, and four Kani proofs. No unattended field deployment yet. The 2027 pilot is that step.</p></details>
-        <details><summary>How is it priced?</summary><p>An annual licence per site or per fleet, with support. We discuss terms once we know the hardware and the deployment.</p></details>
-        <details><summary>Do we need to change our code?</summary><p>Your task runs on each processor as it does now. Mru Field needs a defined result per cycle to compare, and a known-answer test for that task.</p></details>
-      </div>
+      <Faq items={faq} />
     </div>
   </section>
 
