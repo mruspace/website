@@ -6,18 +6,14 @@ export interface NavItem {
   id: NavId;
   label: string;
   href: string;
-  ext?: boolean;
 }
 
 // Order and labels from the SiteHeader artboard.
 export const MAIN_NAV: NavItem[] = [
   { id: 'field', label: 'Mru Field', href: '/field/' },
-  { id: 'usecases', label: 'Use cases', href: '/use-cases/' },
   { id: 'flight', label: 'Mru Flight', href: '/flight/' },
-  { id: 'how', label: 'How it works', href: '/how-it-works/' },
   { id: 'research', label: 'Research', href: '/research/' },
-  { id: 'docs', label: 'Docs', href: `${SITE.docsUrl}/`, ext: true },
-  { id: 'company', label: 'Company', href: '/company/' },
+  { id: 'docs', label: 'Docs', href: `${SITE.docsUrl}/` },
 ];
 
 // Footer columns from the SiteFooter artboard.
@@ -38,7 +34,7 @@ export const FOOTER_COLUMNS: { title: string; links: { label: string; href: stri
       { label: 'Ocean buoys', href: '/use-cases/ocean-buoys/' },
       { label: 'Offshore wind', href: '/use-cases/offshore-wind/' },
       { label: 'Polar stations', href: '/use-cases/polar-stations/' },
-      { label: 'All fifteen', href: '/use-cases/' },
+      { label: 'All use cases', href: '/use-cases/' },
     ],
   },
   {
@@ -54,8 +50,8 @@ export const FOOTER_COLUMNS: { title: string; links: { label: string; href: stri
     title: 'Company',
     links: [
       { label: 'About', href: '/company/' },
-      { label: 'Request information', href: '/contact/' },
-      { label: 'Image credits', href: '/credits/' },
+      { label: 'Get in touch', href: '/contact/' },
+      { label: 'Credits', href: '/credits/' },
       { label: 'Terms', href: '/terms/' },
       { label: 'GitHub', href: SITE.github },
       { label: 'X', href: SITE.x },

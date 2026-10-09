@@ -30,7 +30,7 @@ export function photo(id: string): Photo {
   return p;
 }
 
-/** The credit line under a plate, as on the canvas: "Author · Licence · Wikimedia Commons". */
+/** The credit line under a plate: "Author · Licence". */
 export function creditLine(p: Photo): string {
-  return `${p.author} · ${p.licence} · Wikimedia Commons`;
+  return `${p.author} · ${p.licence}`;
 }

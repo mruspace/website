@@ -266,6 +266,16 @@ html:not(.js) .mark-static {
 .mark-anim.playing .mark-wait {
   display: none;
 }
+/* The mark in the header and footer brand: the GIF's ring is 62.8% of its
+   frame, the SVG's 70.4%, so a 48 px GIF matches a 43 px static mark. */
+.brand .mark-anim {
+  width: 48px;
+  height: 48px;
+}
+.brand .mark-static {
+  width: 43px;
+  height: 43px;
+}
 
 /* Wide screens: the canvas widened only the header, form and footer to 1480 px
    (each is its own container), so their edges sat outside the 1216 px content.

@@ -1,5 +1,5 @@
 ---
-// A use-case tile: plate photo, kicker, plate number, name, optional line.
+// A use-case tile: plate photo, kicker, name, optional line.
 import PlateImage from './PlateImage.astro';
 import type { Photo } from '../data/images';
 
@@ -27,7 +27,6 @@ const {
   </div>
   <span class="k">
     <span>{kicker}</span>
-    <span>PL. {photo.plate}</span>
   </span>
   <h3>{name}</h3>
   {text && <p>{text}</p>}

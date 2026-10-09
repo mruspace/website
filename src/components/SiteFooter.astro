@@ -1,5 +1,5 @@
 ---
-import MarkSvg from './MarkSvg.astro';
+import Mark from './Mark.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import { FOOTER_COLUMNS } from '../data/nav';
 import { SITE } from '../data/site';
@@ -10,7 +10,7 @@ import { SITE } from '../data/site';
     <div class="foot-grid">
       <div class="stack-m">
         <a class="brand" href="/" aria-label="Mru home">
-          <MarkSvg />
+          <Mark alt="" />
           <span>Mru</span>
         </a>
         <p class="soft" style="max-width: 30ch">
@@ -18,10 +18,7 @@ import { SITE } from '../data/site';
         </p>
         <div class="row">
           <a class="btn small" href="/contact/">
-            Request information
-          </a>
-          <a class="small" href={`mailto:${SITE.email}`}>
-            {SITE.email}
+            Get in touch
           </a>
         </div>
       </div>
