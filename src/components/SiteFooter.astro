@@ -3,6 +3,10 @@ import Mark from './Mark.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import { FOOTER_COLUMNS } from '../data/nav';
 import { SITE } from '../data/site';
+
+// Mission elapsed time starts at the first prompt of the Mru whitepaper,
+// then called Meridian. The script below repeats this time.
+const MET_T0 = '2026-05-30T10:20:56Z';
 ---
 
 <footer class="mru part site-footer">
@@ -37,7 +41,14 @@ import { SITE } from '../data/site';
     </div>
     <div class="beacon">
       <span class="b" aria-hidden="true"></span>
-      <span class="msg">Running since 2026.</span>
+      <span class="msg">
+        <span data-met aria-hidden="true">
+          MET from {MET_T0.replace('T', ' ').replace('Z', ' UTC')}
+        </span>
+        <span class="sr-only">
+          Mission elapsed time, counted from <time datetime={MET_T0}>30 May 2026, 10:20:56 UTC</time>
+        </span>
+      </span>
     </div>
     <div class="legal">
       <span>&#169; {SITE.legal}</span>
@@ -61,3 +72,32 @@ import { SITE } from '../data/site';
     </div>
   </div>
 </footer>
+
+<script>
+  // The MET counter: years of 365.25 days, then days, then hh:mm:ss, in UTC.
+  // Without JS the footer shows the start time instead.
+  const T0 = Date.UTC(2026, 4, 30, 10, 20, 56);
+  const YEAR = 31_557_600;
+  const pad = (n: number, w = 2) => String(n).padStart(w, '0');
+  const met = (now: number) => {
+    let s = Math.max(0, Math.floor((now - T0) / 1000));
+    const y = Math.floor(s / YEAR);
+    s -= y * YEAR;
+    const d = Math.floor(s / 86_400);
+    s -= d * 86_400;
+    return `MET ${pad(y, 4)}y ${pad(d, 3)}d ${pad(Math.floor(s / 3600))}:${pad(Math.floor(s / 60) % 60)}:${pad(s % 60)}`;
+  };
+  const els = document.querySelectorAll<HTMLElement>('[data-met]');
+  const tick = () => {
+    const now = Date.now();
+    for (const el of els) el.textContent = met(now);
+    setTimeout(tick, 1000 - (now % 1000));
+  };
+  if (els.length) {
+    tick();
+    // Start each beacon flash on a tick (the flash lasts 0.5 s).
+    for (const b of document.querySelectorAll<HTMLElement>('.beacon .b')) {
+      b.style.animationDelay = `-${Date.now() % 500}ms`;
+    }
+  }
+</script>
