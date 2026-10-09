@@ -2,11 +2,13 @@
 // - JSON reply for fetch() (Accept: application/json), 303 to the "sent"
 //   page for a plain form post, plain 4xx messages otherwise.
 // - Checks: origin, rate limit, honeypot, Turnstile, fields.
-// - Sends one plain-text email to contact@mru.space with Reply-To set to the
-//   requester.
-import { EmailMessage } from 'cloudflare:email';
+// - Sends one plain-text email to contact@mru.space through Resend, with
+//   Reply-To set to the requester.
+// - Turnstile needs JavaScript. A plain form post (JS off) without a token is
+//   still accepted, behind the honeypot, origin check and rate limit, and its
+//   subject is marked "[Unverified, no JS]". A fetch() without a token fails.
 import { parse, type FieldError } from './validate';
-import { body, rawMessage, subject } from './mail';
+import { body, send, subject } from './mail';
 
 const MAX_BODY = 32 * 1024;
 
@@ -105,28 +107,33 @@ export default {
     // Honeypot: people never see this field. Answer as if it worked, send nothing.
     if (String(form.get('website') ?? '').trim() !== '') return ok(req, env);
 
-    if (!env.TURNSTILE_SECRET) return fail(req, env, 503, { error: `The form is not available right now. Write to ${env.MAIL_TO}.` });
+    if (!env.TURNSTILE_SECRET || !env.RESEND_API_KEY)
+      return fail(req, env, 503, { error: `The form is not available right now. Write to ${env.MAIL_TO}.` });
     const token = String(form.get('cf-turnstile-response') ?? '');
-    if (!token || !(await verifyTurnstile(env.TURNSTILE_SECRET, token, ip)))
+    const plainPost = !wantsJson(req);
+    let verified = false;
+    if (token) {
+      verified = await verifyTurnstile(env.TURNSTILE_SECRET, token, ip);
+      if (!verified) return fail(req, env, 400, { error: 'The spam check did not pass. Reload the page and try again.' });
+    } else if (!plainPost) {
       return fail(req, env, 400, { error: 'The spam check did not pass. Reload the page and try again.' });
+    }
 
     const fields = parse(form);
     if ('error' in fields) return fail(req, env, 400, fields);
 
     const now = new Date();
     const referer = req.headers.get('Referer') ?? '';
-    const raw = rawMessage({
-      from: env.MAIL_FROM,
-      to: env.MAIL_TO,
-      replyTo: fields.email,
-      subject: subject(fields),
-      text: body(fields, referer, now),
-      now,
-    });
     try {
-      await env.MAIL.send(new EmailMessage(env.MAIL_FROM, env.MAIL_TO, raw));
+      await send(env.RESEND_API_KEY, {
+        from: env.MAIL_FROM,
+        to: env.MAIL_TO,
+        replyTo: fields.email,
+        subject: subject(fields, verified),
+        text: body(fields, referer, now),
+      });
     } catch (e) {
-      console.error('send_email failed', e);
+      console.error('send failed', e);
       return fail(req, env, 502, { error: `The request did not send. Try again, or write to ${env.MAIL_TO}.` });
     }
     return ok(req, env);

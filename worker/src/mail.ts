@@ -1,25 +1,10 @@
-// The plain-text email to contact@mru.space, as a raw RFC 5322 message for
-// the send_email binding. Header values are checked for line breaks before
-// they get here; the body is base64, so any text is safe.
+// The plain-text email to contact@mru.space. Field values have no line
+// breaks or control characters by the time they get here (validate.ts).
 import { INTERESTS, type RequestFields } from './validate';
 
-/** RFC 2047 encoded-word for non-ASCII header text. */
-function header(v: string): string {
-  // eslint-disable-next-line no-control-regex
-  if (/^[\x20-\x7e]*$/.test(v)) return v;
-  const b64 = btoa(String.fromCharCode(...new TextEncoder().encode(v)));
-  return `=?UTF-8?B?${b64}?=`;
-}
-
-function base64Lines(s: string): string {
-  const bytes = new TextEncoder().encode(s);
-  let bin = '';
-  for (const b of bytes) bin += String.fromCharCode(b);
-  return (btoa(bin).match(/.{1,76}/g) ?? []).join('\r\n');
-}
-
-export function subject(f: RequestFields): string {
-  return `Request information: ${INTERESTS[f.interest]} · ${f.organisation || f.name || f.email}`;
+export function subject(f: RequestFields, verified = true): string {
+  const s = `Request information: ${INTERESTS[f.interest]} · ${f.organisation || f.name || f.email}`;
+  return verified ? s : `[Unverified, no JS] ${s}`;
 }
 
 export function body(f: RequestFields, referer: string, now: Date): string {
@@ -45,20 +30,17 @@ export function body(f: RequestFields, referer: string, now: Date): string {
   ].join('\n');
 }
 
-export function rawMessage(opts: { from: string; to: string; replyTo: string; subject: string; text: string; now: Date }): string {
-  const id = `<${crypto.randomUUID()}@mru.space>`;
-  return [
-    `From: Mru website <${opts.from}>`,
-    `To: <${opts.to}>`,
-    `Reply-To: <${opts.replyTo}>`,
-    `Subject: ${header(opts.subject)}`,
-    `Date: ${opts.now.toUTCString()}`,
-    `Message-ID: ${id}`,
-    'MIME-Version: 1.0',
-    'Content-Type: text/plain; charset=UTF-8',
-    'Content-Transfer-Encoding: base64',
-    '',
-    base64Lines(opts.text),
-    '',
-  ].join('\r\n');
+/** Send with the Resend API. Returns Resend's message id. */
+export async function send(
+  key: string,
+  msg: { from: string; to: string; replyTo: string; subject: string; text: string },
+): Promise<string> {
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ from: msg.from, to: [msg.to], reply_to: msg.replyTo, subject: msg.subject, text: msg.text }),
+  });
+  const data = (await res.json().catch(() => ({}))) as { id?: string; message?: string };
+  if (!res.ok || !data.id) throw new Error(`Resend ${res.status}: ${data.message ?? 'no id'}`);
+  return data.id;
 }

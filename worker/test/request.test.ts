@@ -2,33 +2,24 @@ import { env } from 'cloudflare:test';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import worker from '../src/index';
 
-// The runtime's EmailMessage does not give the raw message back; a plain
-// class lets the tests read what would be sent.
-vi.mock('cloudflare:email', () => ({
-  EmailMessage: class {
-    constructor(
-      public from: string,
-      public to: string,
-      public raw: string,
-    ) {}
-  },
-}));
-
 const ORIGIN = 'https://mru.space';
-const sent: { from: string; to: string; raw: string }[] = [];
+interface Sent {
+  from: string;
+  to: string[];
+  reply_to: string;
+  subject: string;
+  text: string;
+}
+const sent: Sent[] = [];
 let allow = true;
 let turnstileOk = true;
+let resendOk = true;
 
 function testEnv(): Env {
   return {
     ...env,
     TURNSTILE_SECRET: 'test-secret',
-    MAIL: {
-      send: vi.fn(async (m: { from: string; to: string; raw: ReadableStream | string }) => {
-        const raw = typeof m.raw === 'string' ? m.raw : await new Response(m.raw).text();
-        sent.push({ from: m.from, to: m.to, raw });
-      }),
-    } as unknown as SendEmail,
+    RESEND_API_KEY: 're_test',
     RATE_LIMIT: { limit: vi.fn(async () => ({ success: allow })) } as unknown as RateLimit,
   };
 }
@@ -60,23 +51,24 @@ function post(body: URLSearchParams, opts: { json?: boolean; origin?: string | n
   return new Request('https://api.mru.space/request', { method: 'POST', headers, body });
 }
 
-/** The decoded text body of the last email. */
-function lastText(): string {
-  const raw = sent.at(-1)!.raw;
-  const b64 = raw.split('\r\n\r\n')[1]!.replace(/\r\n/g, '');
-  return new TextDecoder().decode(Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)));
-}
-const lastHeaders = () => sent.at(-1)!.raw.split('\r\n\r\n')[0]!;
+const last = () => sent.at(-1)!;
 
 beforeEach(() => {
   sent.length = 0;
   allow = true;
   turnstileOk = true;
+  resendOk = true;
   vi.stubGlobal(
     'fetch',
-    vi.fn(async (url: string) => {
+    vi.fn(async (url: string, init?: RequestInit) => {
       if (String(url).startsWith('https://challenges.cloudflare.com/'))
         return Response.json({ success: turnstileOk });
+      if (String(url) === 'https://api.resend.com/emails') {
+        expect((init?.headers as Record<string, string>).Authorization).toBe('Bearer re_test');
+        if (!resendOk) return Response.json({ message: 'down' }, { status: 500 });
+        sent.push(JSON.parse(String(init?.body)) as Sent);
+        return Response.json({ id: 'msg_1' });
+      }
       throw new Error(`unexpected fetch ${url}`);
     }),
   );
@@ -90,15 +82,11 @@ describe('valid requests', () => {
     expect(await res.json()).toEqual({ ok: true });
     expect(res.headers.get('Access-Control-Allow-Origin')).toBe(ORIGIN);
     expect(sent).toHaveLength(1);
-    expect(sent[0]!.to).toBe('contact@mru.space');
-    const h = lastHeaders();
-    expect(h).toContain('Reply-To: <ada@example.org>');
-    // "Request information: Mru Field · Earth · Ocean Lab", RFC 2047-encoded (non-ASCII).
-    const subj = h.match(/^Subject: =\?UTF-8\?B\?(.+)\?=$/m)![1]!;
-    expect(new TextDecoder().decode(Uint8Array.from(atob(subj), (c) => c.charCodeAt(0)))).toBe(
-      'Request information: Mru Field · Earth · Ocean Lab',
-    );
-    const text = lastText();
+    expect(last().to).toEqual(['contact@mru.space']);
+    expect(last().from).toBe('Mru website <request@mail.mru.space>');
+    expect(last().reply_to).toBe('ada@example.org');
+    expect(last().subject).toBe('Request information: Mru Field · Earth · Ocean Lab');
+    const text = last().text;
     for (const s of ['Ada Ops', 'ada@example.org', 'Ocean Lab', 'Operations', 'Ocean buoys and moorings', 'One visit a year.', 'Time (UTC)'])
       expect(text).toContain(s);
     expect(text).toContain('https://mru.space/use-cases/ocean-buoys/');
@@ -113,8 +101,8 @@ describe('valid requests', () => {
 
   it('falls back to the name, then the email, in the subject', async () => {
     await worker.fetch(post(form({ organisation: '', interest: 'research' })), testEnv());
-    expect(lastHeaders()).toMatch(/^Subject: /m);
-    expect(lastText()).toContain('Research or partnership');
+    expect(last().subject).toBe('Request information: Research or partnership · Ada Ops');
+    expect(last().text).toContain('Research or partnership');
   });
 });
 
@@ -133,10 +121,16 @@ describe('spam', () => {
     expect(sent).toHaveLength(0);
   });
 
-  it('rejects a missing Turnstile token', async () => {
+  it('rejects a fetch() without a Turnstile token', async () => {
     const res = await worker.fetch(post(form({ 'cf-turnstile-response': '' })), testEnv());
     expect(res.status).toBe(400);
     expect(sent).toHaveLength(0);
+  });
+
+  it('accepts a plain form post without a token (JS off), marked unverified', async () => {
+    const res = await worker.fetch(post(form({ 'cf-turnstile-response': '' }), { json: false }), testEnv());
+    expect(res.status).toBe(303);
+    expect(last().subject).toBe('[Unverified, no JS] Request information: Mru Field · Earth · Ocean Lab');
   });
 
   it('rate-limits by IP', async () => {
@@ -152,10 +146,17 @@ describe('spam', () => {
     expect(sent).toHaveLength(0);
   });
 
-  it('keeps line breaks out of the headers', async () => {
+  it('keeps line breaks out of the subject and reply-to', async () => {
     await worker.fetch(post(form({ organisation: 'Lab\r\nBcc: victim@example.org' })), testEnv());
-    expect(lastHeaders()).not.toMatch(/^Bcc:/m);
-    expect(lastHeaders().split('\r\n').every((l) => !l.includes('\n'))).toBe(true);
+    expect(last().subject).not.toMatch(/[\r\n]/);
+    expect(last().reply_to).toBe('ada@example.org');
+  });
+
+  it('reports a failed send plainly', async () => {
+    resendOk = false;
+    const res = await worker.fetch(post(form()), testEnv());
+    expect(res.status).toBe(502);
+    expect(((await res.json()) as { error: string }).error).toMatch(/did not send/);
   });
 });
 

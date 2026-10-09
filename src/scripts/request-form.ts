@@ -2,10 +2,31 @@
 // script the form still posts, and the Worker redirects to /contact/sent/.
 import { LIMITS } from '../config/form';
 
+interface Turnstile {
+  render: (el: Element, opts: Record<string, unknown>) => string;
+  reset: (id?: string) => void;
+}
 declare global {
   interface Window {
-    turnstile?: { reset: (el?: Element | string) => void };
+    turnstile?: Turnstile;
+    __mruTurnstileReady?: () => void;
   }
+}
+
+// Turnstile loads only when a form comes near the screen, and runs in
+// "interaction-only" mode: most visitors never see it. The token lands in a
+// hidden cf-turnstile-response field inside the form.
+let turnstileLoad: Promise<Turnstile> | null = null;
+function loadTurnstile(): Promise<Turnstile> {
+  turnstileLoad ??= new Promise((resolve, reject) => {
+    window.__mruTurnstileReady = () => (window.turnstile ? resolve(window.turnstile) : reject(new Error('no turnstile')));
+    const s = document.createElement('script');
+    s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=__mruTurnstileReady';
+    s.async = true;
+    s.onerror = () => reject(new Error('turnstile failed to load'));
+    document.head.append(s);
+  });
+  return turnstileLoad;
 }
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -60,12 +81,57 @@ export function initRequestForms(): void {
     form.noValidate = true;
     const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
 
+    const box = form.querySelector<HTMLElement>('[data-turnstile]');
+    let widget: string | undefined;
+    let token: Promise<string> | null = null;
+    let settle: ((t: string) => void) | null = null;
+    const arm = () => {
+      token = new Promise((r) => (settle = r));
+    };
+    arm();
+    const start = () => {
+      if (!box || widget !== undefined) return;
+      widget = '';
+      loadTurnstile()
+        .then((ts) => {
+          widget = ts.render(box, {
+            sitekey: box.dataset.turnstile,
+            appearance: 'interaction-only',
+            theme: 'auto',
+            size: 'flexible',
+            callback: (t: string) => settle?.(t),
+          });
+        })
+        .catch(() => settle?.(''));
+    };
+    if (box) {
+      const io = new IntersectionObserver((e) => {
+        if (e.some((x) => x.isIntersecting)) {
+          io.disconnect();
+          start();
+        }
+      }, { rootMargin: '600px' });
+      io.observe(form);
+      form.addEventListener('focusin', start, { once: true });
+    }
+
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       setStatus(form, null);
       const data = new FormData(form);
       if (showErrors(form, validate(data))) return;
       if (submit) submit.disabled = true;
+      if (box) {
+        start();
+        // Wait for the spam check, at most 15 s.
+        const t = await Promise.race([token!, new Promise<string>((r) => setTimeout(() => r(''), 15000))]);
+        if (!t) {
+          setStatus(form, `The spam check did not load. Reload the page and try again, or write to ${CONTACT}.`);
+          if (submit) submit.disabled = false;
+          return;
+        }
+        data.set('cf-turnstile-response', t);
+      }
       try {
         const res = await fetch(form.action, {
           method: 'POST',
@@ -88,7 +154,11 @@ export function initRequestForms(): void {
         setStatus(form, `The request did not send. Check your connection and try again, or write to ${CONTACT}.`);
       } finally {
         if (submit) submit.disabled = false;
-        window.turnstile?.reset(form.querySelector('.cf-turnstile') ?? undefined);
+        // A token is good for one use: get a fresh one for "Send another".
+        if (widget) {
+          arm();
+          window.turnstile?.reset(widget);
+        }
       }
     });
 

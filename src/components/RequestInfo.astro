@@ -114,14 +114,14 @@ const page = new URL(Astro.url.pathname, SITE.url).href;
           <div class="hp" aria-hidden="true">
             <label>Leave this field empty <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
           </div>
-          {
-            FORM.turnstileSiteKey && (
-              <div class="cf-turnstile" data-sitekey={FORM.turnstileSiteKey} data-theme="auto" data-size="flexible" />
-            )
-          }
           <p class="field-error" data-req-error role="alert" hidden></p>
           <div class="row" style="justify-content: space-between">
             <p class="tiny" style="margin: 0; max-width: 32ch">We use these details only to reply. No mailing list.</p>
+            {
+              /* Turnstile (interaction-only): empty for most visitors, so it sits in this flex row,
+                 where an empty box changes nothing. */
+              FORM.turnstileSiteKey && <div class="turnstile" data-turnstile={FORM.turnstileSiteKey} />
+            }
             <button class="btn" type="submit">Send request</button>
           </div>
         </form>
@@ -129,12 +129,6 @@ const page = new URL(Astro.url.pathname, SITE.url).href;
     </div>
   </div>
 </section>
-
-{
-  FORM.turnstileSiteKey && (
-    <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />
-  )
-}
 
 <script>
   import { initRequestForms } from '../scripts/request-form';

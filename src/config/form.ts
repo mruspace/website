@@ -5,7 +5,7 @@ export const FORM = {
   action: 'https://api.mru.space/request',
   sentPath: '/contact/sent/',
   /** Set once the Turnstile widget exists. Empty: no widget is rendered. */
-  turnstileSiteKey: '',
+  turnstileSiteKey: '0x4AAAAAAFSTnXowuNbrNuJ8',
 } as const;
 
 export type Interest = 'field' | 'flight' | 'research' | 'other';

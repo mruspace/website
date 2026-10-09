@@ -1,21 +1,19 @@
-// Request-information Worker for mru.space. No secrets here: the Turnstile
-// secret is set with `wrangler secret put TURNSTILE_SECRET`, and the account
-// comes from `wrangler login` or CLOUDFLARE_ACCOUNT_ID in CI.
+// Request-information Worker for mru.space. No secrets here: TURNSTILE_SECRET
+// and RESEND_API_KEY are set with `wrangler secret put`, and the account comes
+// from `wrangler login` or CLOUDFLARE_ACCOUNT_ID in CI.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "mru-request",
   "main": "src/index.ts",
   "compatibility_date": "2026-08-20",
   "routes": [{ "pattern": "api.mru.space", "custom_domain": true }],
-  // Cloudflare Email Routing: sends only to this verified destination.
-  "send_email": [{ "name": "MAIL", "destination_address": "contact@mru.space" }],
   // A simple per-IP limit: 5 requests a minute.
   "ratelimits": [{ "name": "RATE_LIMIT", "namespace_id": "1001", "simple": { "limit": 5, "period": 60 } }],
   "vars": {
     "ALLOWED_ORIGIN": "https://mru.space",
     "SENT_URL": "https://mru.space/contact/sent/",
     "FORM_URL": "https://mru.space/contact/",
-    "MAIL_FROM": "request@mru.space",
+    "MAIL_FROM": "Mru website <request@mail.mru.space>",
     "MAIL_TO": "contact@mru.space"
   },
   "observability": { "enabled": true }
