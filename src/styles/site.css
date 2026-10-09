@@ -48,44 +48,28 @@ body {
   min-height: 0;
 }
 
-/* Theme toggle, in the beacon row of the footer. The buttons draw at 26 px so
-   the row keeps its canvas height; a transparent ::after extends each hit
-   area to 44 px. */
-.theme-switch:not([hidden]) {
-  display: flex;
-  gap: 6px;
-  margin-left: auto;
-  flex-wrap: wrap;
-}
-.theme-switch button {
+/* Theme toggle: "Theme: Auto" in the footer's legal line. It looks like the
+   legal links; a transparent ::after extends the hit area to 44 px without
+   changing the line height. */
+.theme-cycle {
   position: relative;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  line-height: 1;
-  height: 26px;
-  min-width: 44px;
-  padding: 0 12px;
-  border-radius: 999px;
+  font: inherit;
+  color: var(--ink-faint);
+  background: none;
+  border: 0;
+  padding: 0;
   cursor: pointer;
-  border: 1px solid var(--rule-strong);
-  background: transparent;
-  color: var(--ink-soft);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
 }
-.theme-switch button::after {
+.theme-cycle::after {
   content: '';
   position: absolute;
-  inset: -9px -3px;
+  inset: -14px -6px;
 }
-.theme-switch button:hover {
-  border-color: var(--ink);
+.theme-cycle:hover {
   color: var(--ink);
-}
-.theme-switch button[aria-pressed='true'] {
-  background: var(--ink);
-  color: var(--bg);
-  border-color: var(--ink);
 }
 
 /* Astro's <picture> wraps each plate image. display: contents keeps the

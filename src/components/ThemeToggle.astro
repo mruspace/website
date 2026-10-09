@@ -1,19 +1,12 @@
 ---
-// Light / dark / auto. Hidden until the script runs: with JS off, the page
-// follows prefers-color-scheme and shows no control that cannot work.
+// "Theme: Auto", a quiet text button in the footer's legal line (and the
+// docs nav foot). Each press cycles Auto → Light → Dark. Hidden until the
+// script runs: with JS off the page follows prefers-color-scheme.
 ---
 
-<div class="theme-switch" role="group" aria-label="Colour theme" hidden>
-  <button type="button" data-theme-set="light" aria-pressed="false">
-    Light
-  </button>
-  <button type="button" data-theme-set="dark" aria-pressed="false">
-    Dark
-  </button>
-  <button type="button" data-theme-set="auto" aria-pressed="true">
-    Auto
-  </button>
-</div>
+<button type="button" class="theme-cycle" data-theme-cycle hidden>
+  Theme: <span data-theme-label>Auto</span>
+</button>
 
 <script>
   import { initThemeToggle } from '../scripts/theme';

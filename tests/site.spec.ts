@@ -113,15 +113,24 @@ test.describe('interactive', () => {
     await ctx.close();
   });
 
-  test('the theme toggle sets, keeps and clears the theme', async ({ page }) => {
+  test('the theme button cycles Auto → Light → Dark, keeps the choice, and returns to Auto', async ({ page }) => {
     await offline(page);
     await page.goto('/');
-    await page.click('[data-theme-set="dark"]');
-    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    const button = page.locator('.site-footer [data-theme-cycle]');
+    const html = page.locator('html');
+    await expect(button).toHaveText('Theme: Auto');
+    await button.click();
+    await expect(button).toHaveText('Theme: Light');
+    await expect(html).toHaveAttribute('data-theme', 'light');
+    await button.click();
+    await expect(button).toHaveText('Theme: Dark');
+    await expect(html).toHaveAttribute('data-theme', 'dark');
     await page.reload();
-    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-    await page.click('[data-theme-set="auto"]');
-    await expect(page.locator('html')).not.toHaveAttribute('data-theme', /.+/);
+    await expect(html).toHaveAttribute('data-theme', 'dark');
+    await expect(button).toHaveText('Theme: Dark');
+    await button.click();
+    await expect(button).toHaveText('Theme: Auto');
+    await expect(html).not.toHaveAttribute('data-theme', /.+/);
   });
 
   test('stable URLs resolve', async ({ request }) => {

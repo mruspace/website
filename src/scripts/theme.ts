@@ -29,21 +29,29 @@ export function applyTheme(choice: ThemeChoice): void {
   else root.setAttribute('data-theme', choice);
 }
 
+const ORDER: ThemeChoice[] = ['auto', 'light', 'dark'];
+const LABEL: Record<ThemeChoice, string> = { auto: 'Auto', light: 'Light', dark: 'Dark' };
+
 export function initThemeToggle(): void {
-  for (const group of document.querySelectorAll<HTMLElement>('.theme-switch')) {
-    const buttons = [...group.querySelectorAll<HTMLButtonElement>('[data-theme-set]')];
-    const sync = (choice: ThemeChoice) => {
-      for (const b of buttons) b.setAttribute('aria-pressed', String(b.dataset.themeSet === choice));
+  for (const button of document.querySelectorAll<HTMLButtonElement>('[data-theme-cycle]')) {
+    if (button.dataset.ready) continue;
+    button.dataset.ready = '1';
+    const label = button.querySelector<HTMLElement>('[data-theme-label]');
+    let choice = readTheme();
+    const show = () => {
+      if (label) label.textContent = LABEL[choice];
+      button.setAttribute('aria-label', `Theme: ${LABEL[choice]}. Change theme`);
     };
-    sync(readTheme());
-    for (const b of buttons) {
-      b.addEventListener('click', () => {
-        const choice = (b.dataset.themeSet as ThemeChoice) ?? 'auto';
-        writeTheme(choice);
-        applyTheme(choice);
-        sync(choice);
-      });
-    }
-    group.hidden = false;
+    show();
+    button.addEventListener('click', () => {
+      choice = ORDER[(ORDER.indexOf(choice) + 1) % ORDER.length]!;
+      writeTheme(choice);
+      applyTheme(choice);
+      // Keep every copy of the button (footer, docs menu) in step.
+      for (const other of document.querySelectorAll<HTMLElement>('[data-theme-label]'))
+        other.textContent = LABEL[choice];
+      show();
+    });
+    button.hidden = false;
   }
 }
