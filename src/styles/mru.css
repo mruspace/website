@@ -1317,12 +1317,14 @@
   border-radius: 50%;
   background: var(--signal);
   box-shadow: 0 0 0 0 var(--signal-soft);
-  animation: beacon 6s ease-in-out infinite;
+  animation: beacon 0.5s ease-out infinite;
   flex: none;
 }
 .beacon .msg {
-  font-family: var(--serif);
-  font-style: italic;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
   color: var(--ink-soft);
 }
 .legal {
@@ -1337,16 +1339,19 @@
 .legal a {
   color: var(--ink-faint);
 }
+/* Two flashes a second: each starts on a tick of the MET counter (the
+   footer script sets the delay), then fades. */
 @keyframes beacon {
-  0%,
-  88%,
-  100% {
-    opacity: 0.35;
+  0% {
+    opacity: 1;
     box-shadow: 0 0 0 0 var(--signal-soft);
   }
-  92% {
-    opacity: 1;
-    box-shadow: 0 0 0 10px var(--signal-soft);
+  40% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+  40%,
+  100% {
+    opacity: 0.35;
   }
 }
 
