@@ -1,0 +1,676 @@
+{
+  "failures": {
+    "compute": {
+      "t": "Computers fail one by one",
+      "d": "Radiation, heat and age take out processors and memory. Nothing is replaced until the next visit."
+    },
+    "memory": {
+      "t": "Stored data decays",
+      "d": "Flash wears out and bits flip. Logs and settings drift unless something checks them."
+    },
+    "alone": {
+      "t": "No one to ask",
+      "d": "When two computers disagree, there is no operator to say which one is right."
+    },
+    "link": {
+      "t": "The link is thin",
+      "d": "Bytes per message, or nothing until the next window. Problems have to be solved on site."
+    },
+    "power": {
+      "t": "Power runs down",
+      "d": "Batteries fade and panels foul. The system has to do less, on purpose, and keep the important part going."
+    }
+  },
+  "shared": {
+    "HW": {
+      "q": "Does Mru Field need new hardware?",
+      "a": "No. It is software for the processors you already deploy. It runs beside your control code and decides which computer to trust as parts fail."
+    },
+    "START": {
+      "q": "How do we start?",
+      "a": "Use the form below. We first model your hardware and show what each redundancy design returns over its whole life. Then we plan a pilot on your own equipment."
+    }
+  },
+  "entries": [
+    {
+      "slug": "deep-sea-observatories",
+      "key": "deep-sea",
+      "name": "Deep-sea observatories",
+      "kicker": "Ocean · Seafloor",
+      "plate": "01",
+      "cap": "TEMPO deep-sea observatory module on a hydrothermal vent",
+      "status": "Pilot planned",
+      "hook": "Batteries, a cable, and one service visit a year.",
+      "intro": "Seafloor observatories run science nodes on batteries and cables, far below anyone's reach. When a computer fails between visits, the data stops until the next ship.",
+      "stats": [
+        {
+          "v": "1",
+          "u": "visit / year",
+          "l": "EMSO-Azores runs on batteries 1,700 m down. A ship comes about once a year.",
+          "src": "EMSO ERIC · EMSO-Azores"
+        }
+      ],
+      "fails": ["compute", "power", "alone"],
+      "last": "keeps logging until the ship comes",
+      "fit": {
+        "power": "Batteries or seafloor cable",
+        "link": "Cable or acoustic, intermittent",
+        "visit": "About once a year",
+        "life": "Years per deployment"
+      },
+      "faq": [
+        {
+          "shared": "HW"
+        },
+        {
+          "q": "Is there a test site?",
+          "a": "We plan a pilot in the Azores in 2027."
+        },
+        {
+          "shared": "START"
+        }
+      ],
+      "rel": ["ocean-buoys", "profiling-floats", "auv"]
+    },
+    {
+      "slug": "ocean-buoys",
+      "key": "buoys",
+      "name": "Ocean buoys and moorings",
+      "kicker": "Ocean · Surface",
+      "plate": "02",
+      "cap": "Air-sea interaction spar buoy deployed in rough open ocean",
+      "status": "Priority",
+      "hook": "Years at sea between services, on solar power and a satellite link.",
+      "intro": "Moored buoys measure the ocean for years at a time, in some of the hardest places on Earth. A failed logger leaves a gap in a record that can never be filled.",
+      "stats": [
+        {
+          "v": "$8.0B",
+          "u": "",
+          "l": "Spent on ocean-observation instruments in 2024, growing about 7% a year.",
+          "src": "Credence Research"
+        }
+      ],
+      "fails": ["compute", "link", "power"],
+      "last": "keeps the record going",
+      "fit": {
+        "power": "Solar and batteries",
+        "link": "Iridium or cellular",
+        "visit": "Months to years",
+        "life": "Years"
+      },
+      "faq": [
+        {
+          "shared": "HW"
+        },
+        {
+          "q": "Can it run on a buoy's power budget?",
+          "a": "The core is small: about 1.5 MB of memory per process on ARM64 in our tests. It adds work only where it checks results."
+        },
+        {
+          "shared": "START"
+        }
+      ],
+      "rel": ["deep-sea-observatories", "profiling-floats", "satellite-iot"]
+    },
+    {
+      "slug": "profiling-floats",
+      "key": "floats",
+      "name": "Profiling floats and gliders",
+      "kicker": "Ocean · Autonomous",
+      "plate": "03",
+      "cap": "Argo Arvor profiling float drifting at the sea surface",
+      "status": "Priority",
+      "hook": "Deployed once, rarely recovered. The battery sets the mission length.",
+      "intro": "Profiling floats dive and surface on their own for years, until their batteries run out. Gliders fly for months between recoveries. Every extra month of good data counts.",
+      "stats": [
+        {
+          "v": "~900",
+          "u": "/ year",
+          "l": "Argo floats replaced each year, at about $40,000 each.",
+          "src": "Argo Program"
+        }
+      ],
+      "fails": ["power", "compute", "link"],
+      "last": "keeps profiling until the battery ends",
+      "fit": {
+        "power": "Batteries only",
+        "link": "Iridium, at the surface",
+        "visit": "Usually never",
+        "life": "Until the battery ends"
+      },
+      "faq": [
+        {
+          "shared": "HW"
+        },
+        {
+          "q": "Floats are rarely recovered. Why does decay matter?",
+          "a": "Because the last months still produce data. Mru keeps checking results as processors and memory fail, so that data stays trustworthy."
+        },
+        {
+          "shared": "START"
+        }
+      ],
+      "rel": ["ocean-buoys", "auv", "deep-sea-observatories"]
+    },
+    {
+      "slug": "auv",
+      "key": "auv",
+      "name": "Autonomous underwater vehicles",
+      "kicker": "Ocean · Vehicles",
+      "plate": "04",
+      "cap": "MARUM-SEAL autonomous underwater vehicle craned off a research ship",
+      "status": "Exploring",
+      "hook": "Out of contact for hours to months, with no way to swap a board.",
+      "intro": "An AUV works with finite power, ageing hardware and almost no communication until it surfaces. The whitepaper names it as one of the closest cousins of a deep-space probe.",
+      "stats": [],
+      "fails": ["alone", "link", "compute"],
+      "last": "brings the mission home",
+      "fit": {
+        "power": "Batteries",
+        "link": "Acoustic, or none until it surfaces",
+        "visit": "At each recovery",
+        "life": "Days to months per mission"
+      },
+      "faq": [
+        {
+          "shared": "HW"
+        },
+        {
+          "q": "Does it replace our autonomy stack?",
+          "a": "No. It sits underneath. It decides which computer to trust, so your autonomy keeps running when one of them fails."
+        },
+        {
+          "shared": "START"
+        }
+      ],
+      "rel": ["profiling-floats", "deep-sea-observatories", "polar-stations"]
+    },
+    {
+      "slug": "offshore-wind",
+      "key": "offshore-wind",
+      "name": "Offshore wind",
+      "kicker": "Energy · Offshore",
+      "plate": "05",
+      "cap": "Heavy seas break around Block Island Wind Farm turbines",
+      "status": "Exploring",
+      "hook": "Every repair needs a vessel, a crew and a weather window.",
+      "intro": "Turbines, substations and met masts carry controllers and sensors far from shore. Every failure that needs a person means a vessel, a crew and the right weather.",
+      "stats": [
+        {
+          "v": "$59.7B",
+          "u": "/ year",
+          "l": "Wind turbine operations and maintenance spending by 2030.",
+          "src": "MarketsandMarkets"
+        },
+        {
+          "v": "628,000",
+          "u": "",
+          "l": "Wind technicians the industry needs by 2030.",
+          "src": "GWO / GWEC"
+        }
+      ],
+      "fails": ["compute", "alone", "memory"],
+      "last": "keeps monitoring until the next window",
+      "fit": {
+        "power": "Grid, with backup",
+        "link": "Fibre or radio",
+        "visit": "Weather-limited",
+        "life": "Decades"
+      },
+      "faq": [
+        {
+          "shared": "HW"
+        },
+        {
+          "q": "Is this for safety systems?",
+          "a": "No. Safety systems keep their own certified protection. Mru Field is for the monitoring and control computers whose failure costs a trip."
+        },
+        {
+          "shared": "START"
+        }
+      ],
+      "rel": ["remote-energy", "remote-telecom", "satellite-iot"]
+    },
+    {
+      "slug": "remote-energy",
+      "key": "energy",
+      "name": "Remote energy and grid equipment",
+      "kicker": "Energy · Grid",
+      "plate": "06",
+      "cap": "Glen Canyon high-voltage substation on a sandstone cliff, Arizona",
+      "status": "Exploring",
+      "hook": "Replacement parts take years. Sites are far from crews.",
+      "intro": "Remote substations, solar sites and microgrids run on equipment that is slow to replace and far from crews. The computers that watch them should outlast the wait.",
+      "stats": [
+        {
+          "v": "4",
+          "u": "years",
+          "l": "Up to this long to get a large power transformer. Lead times almost doubled since 2021.",
+          "src": "IEA, 2025"
+        }
+      ],
+      "fails": ["compute", "alone", "link"],
+      "last": "keeps watching the site",
+      "fit": {
+        "power": "On site",
+        "link": "Cellular, radio or satellite",
+        "visit": "Weeks to months",
+        "life": "Decades"
+      },
+      "faq": [
+        {
+          "shared": "HW"
+        },
+        {
+          "q": "Does it touch protection relays?",
+          "a": "No. It runs on monitoring and control computers, not on certified protection."
+        },
+        {
+          "shared": "START"
+        }
+      ],
+      "rel": ["offshore-wind", "remote-telecom", "pipelines"]
+    },
+    {
+      "slug": "remote-telecom",
+      "key": "telecom",
+      "name": "Remote telecom sites",
+      "kicker": "Infrastructure · Telecom",
+      "plate": "07",
+      "cap": "Microwave relay tower on Crowsnest Ridge, Canadian Rockies",
+      "status": "Exploring",
+      "hook": "Sites placed for coverage, not for access.",
+      "intro": "Relay and cell sites sit where coverage is needed, not where technicians live. A failed controller can mean a truck roll, or a helicopter.",
+      "stats": [],
+      "fails": ["compute", "power", "alone"],
+      "last": "keeps the site reporting",
+      "fit": {
+        "power": "Grid, solar or generator",
+        "link": "Its own backhaul",
+        "visit": "Truck roll or helicopter",
+        "life": "Years"
+      },
+      "faq": [
+        {
+          "shared": "HW"
+        },
+        {
+          "q": "Can it run beside existing site controllers?",
+          "a": "Yes. It decides which of several computers to trust. Your site logic stays the same."
+        },
+        {
+          "shared": "START"
+        }
+      ],
+      "rel": ["remote-energy", "satellite-iot", "rail-trackside"]
+    },
+    {
+      "slug": "satellite-iot",
+      "key": "sat-iot",
+      "name": "Satellite-linked remote devices",
+      "kicker": "Infrastructure · Satellite IoT",
+      "plate": "08",
+      "cap": "Solar-powered GPS monitoring station on a lava field, Iceland",
+      "status": "Exploring",
+      "hook": "Small power budgets, links measured in bytes, nobody nearby.",
+      "intro": "Sensors on pipelines, farms, rivers and stations report over satellite links measured in bytes. When something goes wrong there, it has to be handled there.",
+      "stats": [
+        {
+          "v": "32.5M",
+          "u": "by 2029",
+          "l": "Remote devices on satellite links, up from 5.8 million.",
+          "src": "Berg Insight"
+        }
+      ],
+      "fails": ["link", "alone", "power"],
+      "last": "keeps sending checked results",
+      "fit": {
+        "power": "Solar and batteries",
+        "link": "Satellite, bytes per message",
+        "visit": "Rare",
+        "life": "Years"
+      },
+      "faq": [
+        {
+          "shared": "HW"
+        },
+        {
+          "q": "Does it need a lot of bandwidth?",
+          "a": "No. It decides on the device and sends results, not raw votes."
+        },
+        {
+          "shared": "START"
+        }
+      ],
+      "rel": ["ocean-buoys", "polar-stations", "pipelines"]
+    },
+    {
+      "slug": "polar-stations",
+      "key": "polar",
+      "name": "Polar stations and sensor networks",
+      "kicker": "Research · Polar",
+      "plate": "09",
+      "cap": "Summit Station research building on stilts, Greenland ice sheet",
+      "status": "Exploring",
+      "hook": "No access for months of the year.",
+      "intro": "Automatic weather stations and sensor networks in Antarctica and the Arctic run through winters when no aircraft can reach them. Parts fail in the cold, and the record has to keep going.",
+      "stats": [],
+      "fails": ["compute", "power", "link"],
+      "last": "keeps the record through winter",
+      "fit": {
+        "power": "Solar, wind and batteries",
+        "link": "Iridium, or none",
+        "visit": "Once a season",
+        "life": "Years"
+      },
+      "faq": [
+        {
+          "shared": "HW"
+        },
+        {
+          "q": "What about the cold?",
+          "a": "Cold is a hardware problem. Mru handles what it causes: parts that fail and are not replaced until next season."
+        },
+        {
+          "shared": "START"
+        }
+      ],
+      "rel": ["satellite-iot", "volcano-seismic", "long-term-archives"]
+    },
+    {
+      "slug": "nuclear-monitoring",
+      "key": "nuclear",
+      "name": "Nuclear facility monitoring",
+      "kicker": "Energy · Nuclear",
+      "plate": "10",
+      "cap": "Watts Bar Nuclear Plant cooling towers on the Tennessee River",
+      "status": "Exploring",
+      "hook": "Access limited by dose. Parts age under radiation.",
+      "intro": "Monitoring computers in nuclear facilities work where access is limited and parts age under radiation. They need to keep reporting as they degrade.",
+      "stats": [],
+      "fails": ["compute", "memory", "alone"],
+      "last": "keeps reporting",
+      "fit": {
+        "power": "Site power",
+        "link": "Site network",
+        "visit": "Limited by dose and access",
+        "life": "Decades"
+      },
+      "faq": [
+        {
+          "shared": "HW"
+        },
+        {
+          "q": "Is Mru Field safety-certified?",
+          "a": "Not today. It is for monitoring and non-safety control. Certification would come with a partner."
+        },
+        {
+          "shared": "START"
+        }
+      ],
+      "rel": ["nuclear-waste", "remote-energy", "long-term-archives"]
+    },
+    {
+      "slug": "nuclear-waste",
+      "key": "nuclear-waste",
+      "name": "Nuclear-waste repositories",
+      "kicker": "Energy · Long-term",
+      "plate": "11",
+      "cap": "Mining vehicle in a salt drift deep underground at WIPP",
+      "status": "Exploring",
+      "hook": "Monitoring that must run for decades, then far longer.",
+      "intro": "Deep geological repositories are sealed for thousands of years. The monitoring before closure, and the markers after it, face the longest maintenance gap anyone has planned for.",
+      "stats": [],
+      "fails": ["memory", "power", "alone"],
+      "last": "keeps the watch",
+      "fit": {
+        "power": "Site power, then none",
+        "link": "Wired, from depth",
+        "visit": "Restricted",
+        "life": "Centuries and more"
+      },
+      "faq": [
+        {
+          "shared": "HW"
+        },
+        {
+          "q": "Does Mru work for centuries today?",
+          "a": "No one can claim that yet. Our software is built for it and tested in simulation, and we publish all of it."
+        },
+        {
+          "shared": "START"
+        }
+      ],
+      "rel": ["nuclear-monitoring", "long-term-archives", "polar-stations"]
+    },
+    {
+      "slug": "long-term-archives",
+      "key": "archives",
+      "name": "Long-term archives",
+      "kicker": "Memory · Preservation",
+      "plate": "12",
+      "cap": "Svalbard Global Seed Vault entrance in winter snow",
+      "status": "Exploring",
+      "hook": "Storage media decay faster than the records must last.",
+      "intro": "Storage decays. When not everything can be kept, something has to choose. The whitepaper calls this knowledge triage: keep what matters on the most durable medium, and check it.",
+      "stats": [],
+      "fails": ["memory", "alone", "power"],
+      "last": "keeps what matters most",
+      "fit": {
+        "power": "Varies",
+        "link": "Varies",
+        "visit": "Rare, by design",
+        "life": "Centuries"
+      },
+      "faq": [
+        {
+          "shared": "HW"
+        },
+        {
+          "q": "Is this a storage product?",
+          "a": "No. It is software that decides what to move to more durable media, and checks it, as storage fails."
+        },
+        {
+          "shared": "START"
+        }
+      ],
+      "rel": ["nuclear-waste", "polar-stations", "satellite-iot"]
+    },
+    {
+      "slug": "volcano-seismic",
+      "key": "volcano",
+      "name": "Volcano and seismic stations",
+      "kicker": "Research · Geophysics",
+      "plate": "13",
+      "cap": "The volcanic cone of Mount Pico, Pico Island, Azores",
+      "status": "Exploring",
+      "hook": "Stations matter most when access is hardest.",
+      "intro": "Seismic and volcano stations sit on remote slopes and islands, on solar power, often far from roads. Islands like the Azores, on the junction of three tectonic plates, depend on them.",
+      "stats": [],
+      "fails": ["compute", "power", "link"],
+      "last": "keeps listening",
+      "fit": {
+        "power": "Solar and batteries",
+        "link": "Radio, cellular or satellite",
+        "visit": "Weeks to months",
+        "life": "Years"
+      },
+      "faq": [
+        {
+          "shared": "HW"
+        },
+        {
+          "q": "Will it miss an event while it checks itself?",
+          "a": "With two or more computers it runs at full speed. Only the last computer runs at half speed, and that beats stopping."
+        },
+        {
+          "shared": "START"
+        }
+      ],
+      "rel": ["polar-stations", "satellite-iot", "remote-telecom"]
+    },
+    {
+      "slug": "pipelines",
+      "key": "pipelines",
+      "name": "Pipelines",
+      "kicker": "Infrastructure · Pipelines",
+      "plate": "14",
+      "cap": "Trans-Alaska Pipeline crossing tundra in the northern Brooks Range",
+      "status": "Exploring",
+      "hook": "Hundreds of kilometres of remote stations.",
+      "intro": "Pipelines cross deserts, permafrost and the sea floor. The valve stations and monitoring points along them are remote, numerous and costly to visit.",
+      "stats": [],
+      "fails": ["compute", "link", "alone"],
+      "last": "keeps the station reporting",
+      "fit": {
+        "power": "Solar or line power",
+        "link": "SCADA radio or satellite",
+        "visit": "Patrols, weeks apart",
+        "life": "Decades"
+      },
+      "faq": [
+        {
+          "shared": "HW"
+        },
+        {
+          "q": "Does it replace SCADA?",
+          "a": "No. It runs on the remote computers SCADA talks to, and keeps them trustworthy as they fail."
+        },
+        {
+          "shared": "START"
+        }
+      ],
+      "rel": ["remote-energy", "satellite-iot", "rail-trackside"]
+    },
+    {
+      "slug": "rail-trackside",
+      "key": "rail",
+      "name": "Rail trackside equipment",
+      "kicker": "Infrastructure · Rail",
+      "plate": "15",
+      "cap": "Union Pacific freight passes a searchlight signal at a desert siding",
+      "status": "Exploring",
+      "hook": "Trackside equipment far from depots, serviced in short windows.",
+      "intro": "Remote lines depend on trackside condition monitoring: hot-box detectors, weather stations, slope sensors. Many sit far from depots, and each failure is a trip.",
+      "stats": [],
+      "fails": ["compute", "alone", "power"],
+      "last": "keeps watching the line",
+      "fit": {
+        "power": "Line or solar",
+        "link": "Radio or cellular",
+        "visit": "In possession windows",
+        "life": "Decades"
+      },
+      "faq": [
+        {
+          "shared": "HW"
+        },
+        {
+          "q": "Is this for signalling?",
+          "a": "No. Signalling keeps its own certified safety systems. Mru Field is for condition monitoring."
+        },
+        {
+          "shared": "START"
+        }
+      ],
+      "rel": ["remote-telecom", "pipelines", "remote-energy"]
+    }
+  ],
+  "index": [
+    {
+      "title": "Ocean",
+      "items": [
+        {
+          "slug": "deep-sea-observatories",
+          "kicker": "Seafloor",
+          "hook": "Batteries, a cable, and one service visit a year."
+        },
+        {
+          "slug": "ocean-buoys",
+          "kicker": "Surface",
+          "hook": "Years at sea between services, on solar power."
+        },
+        {
+          "slug": "profiling-floats",
+          "kicker": "Autonomous",
+          "hook": "Deployed once, rarely recovered."
+        },
+        {
+          "slug": "auv",
+          "kicker": "Vehicles",
+          "hook": "Out of contact, with no way to swap a board."
+        }
+      ]
+    },
+    {
+      "title": "Energy",
+      "items": [
+        {
+          "slug": "offshore-wind",
+          "kicker": "Offshore",
+          "hook": "Every repair needs a vessel and a weather window."
+        },
+        {
+          "slug": "remote-energy",
+          "kicker": "Grid",
+          "hook": "Replacement parts take years. Sites are far from crews."
+        },
+        {
+          "slug": "nuclear-monitoring",
+          "kicker": "Nuclear",
+          "hook": "Access limited by dose. Parts age under radiation."
+        },
+        {
+          "slug": "nuclear-waste",
+          "kicker": "Long-term",
+          "hook": "Monitoring for decades, then far longer."
+        }
+      ]
+    },
+    {
+      "title": "Infrastructure",
+      "items": [
+        {
+          "slug": "remote-telecom",
+          "kicker": "Telecom",
+          "hook": "Sites placed for coverage, not for access."
+        },
+        {
+          "slug": "satellite-iot",
+          "kicker": "Satellite IoT",
+          "hook": "Small power budgets, links measured in bytes."
+        },
+        {
+          "slug": "pipelines",
+          "kicker": "Pipelines",
+          "hook": "Hundreds of kilometres of remote stations."
+        },
+        {
+          "slug": "rail-trackside",
+          "kicker": "Rail",
+          "hook": "Far from depots, serviced in short windows."
+        }
+      ]
+    },
+    {
+      "title": "Research and memory",
+      "items": [
+        {
+          "slug": "polar-stations",
+          "kicker": "Polar",
+          "hook": "No access for months of the year."
+        },
+        {
+          "slug": "volcano-seismic",
+          "kicker": "Geophysics",
+          "hook": "Stations matter most when access is hardest."
+        },
+        {
+          "slug": "long-term-archives",
+          "kicker": "Preservation",
+          "hook": "Storage decays faster than the records must last."
+        }
+      ]
+    }
+  ]
+}

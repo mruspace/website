@@ -1,0 +1,33 @@
+---
+// A plate photo: AVIF and WebP at four widths, JPEG fallback. The greyscale
+// and blend come from CSS (--plate-filter, --plate-blend, --plate-op).
+import { Picture } from 'astro:assets';
+import type { Photo } from '../data/images';
+
+interface Props {
+  photo: Photo;
+  alt?: string;
+  sizes?: string;
+  loading?: 'lazy' | 'eager';
+  style?: string;
+}
+const {
+  photo,
+  alt,
+  sizes = '(max-width: 640px) 100vw, (max-width: 1080px) 50vw, 600px',
+  loading = 'lazy',
+  style,
+} = Astro.props;
+---
+
+<Picture
+  src={photo.src}
+  alt={alt ?? photo.alt}
+  widths={[480, 800, 1200, 1600]}
+  sizes={sizes}
+  formats={['avif', 'webp']}
+  fallbackFormat="jpg"
+  loading={loading}
+  decoding="async"
+  style={style}
+/>

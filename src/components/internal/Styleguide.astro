@@ -1,0 +1,453 @@
+---
+// The Direction board ("Long Exposure"), ported from the canvas Main artboard.
+import Mark from '../Mark.astro';
+import MarkSvg from '../MarkSvg.astro';
+import Seam from '../Seam.astro';
+import Descent from '../Descent.astro';
+import Plate from '../Plate.astro';
+import PlateImage from '../PlateImage.astro';
+import { photo } from '../../data/images';
+
+const summit = photo('09');
+const swatchesLight = [
+  ['#16161a', 'ink', '#16161a'],
+  ['#44444c', 'ink-soft', '#44444c'],
+  ['#6f6f78', 'ink-faint', '#6f6f78'],
+  ['#fafaf8', 'paper', '#fafaf8'],
+  ['#e3e3dd', 'rule', '#e3e3dd'],
+  ['#3a4a5a', 'accent · links', '#3a4a5a'],
+  ['#87650a', 'signal · alive', '#87650a · 5.2:1'],
+];
+const swatchesDark = [
+  ['#ecece8', 'ink', '#ecece8'],
+  ['#c0c0bc', 'ink-soft', '#c0c0bc'],
+  ['#8f8f8a', 'ink-faint', '#8f8f8a'],
+  ['#121214', 'night', '#121214'],
+  ['#1c1c1f', 'card', '#1c1c1f'],
+  ['#9fb4cb', 'accent · links', '#9fb4cb'],
+  ['#d8a54a', 'signal · alive', '#d8a54a · 8.4:1'],
+];
+---
+
+<div class="wrap section tight">
+  <div class="split" style="align-items: end">
+    <div class="stack-m">
+      <Mark alt="Mru mark, animated" />
+      <p class="eyebrow">
+        Design direction <span class="n">· 01</span>
+      </p>
+      <h1 class="h1">Long Exposure</h1>
+    </div>
+    <div class="stack-m">
+      <p class="lede">
+        A site that looks like an instrument left running. Paper and ink, one warm signal, and a single line that keeps
+        going after everything else stops.
+      </p>
+      <p class="soft small">
+        For mru.space and docs.mru.space. Futura and Charter carry over from today&#39;s site. The animated mark stays
+        the centre of gravity. Everything new is built from six rules below.
+      </p>
+    </div>
+  </div>
+</div>
+
+<Seam life={72} label="Rules" />
+
+<div class="wrap section tight">
+  <div class="cards">
+    <div class="card flat">
+      <p class="k">Rule 1 · Grid</p>
+      <h3 class="h3">12 columns, 8 px base</h3>
+      <p class="small soft" style="margin-top: 12px">
+        Every spacing value is a multiple of 8. The homepage has exactly eight sections.
+      </p>
+    </div>
+    <div class="card flat">
+      <p class="k">Rule 2 · Proportion</p>
+      <h3 class="h3">21 : 34</h3>
+      <p class="small soft" style="margin-top: 12px">
+        Two-column layouts split on consecutive Fibonacci numbers: a golden split, never 50 : 50.
+      </p>
+    </div>
+    <div class="card flat">
+      <p class="k">Rule 3 · Scale</p>
+      <h3 class="h3">Steps of √φ = 1.272</h3>
+      <p class="small soft" style="margin-top: 12px">
+        19 · 24 · 31 · 39 · 50 · 63 · 81 · 103 px. Fluid between phone and widescreen.
+      </p>
+    </div>
+    <div class="card flat">
+      <p class="k">Rule 4 · Never 100</p>
+      <h3 class="h3">Decline is the baseline</h3>
+      <p class="small soft" style="margin-top: 12px">
+        No full meters, no &quot;100%&quot;. Every gauge shows a system part-way down its descent, still working.
+      </p>
+    </div>
+    <div class="card flat">
+      <p class="k">Rule 5 · Signal</p>
+      <h3 class="h3">Ochre means alive</h3>
+      <p class="small soft" style="margin-top: 12px">
+        One warm colour, used for one meaning: still working. Orbit glyphs tilt 58°, the mark keeps its own −22°.
+      </p>
+    </div>
+    <div class="card flat">
+      <p class="k">Rule 6 · Three beats</p>
+      <h3 class="h3">3 → 2 → 1</h3>
+      <p class="small soft" style="margin-top: 12px">
+        Vote, compare, self-check. Lists, steps and diagrams come in threes, then thin out. Layers stack as strata.
+      </p>
+    </div>
+  </div>
+</div>
+
+<Seam life={68} label="Voice" />
+
+<div class="wrap section tight stack-l">
+  <div class="split">
+    <h2 class="h2">Two readers. One voice.</h2>
+    <p class="lede">
+      Every page speaks to the person who decides whether Mru is worth an hour, and to the engineer who will check every
+      claim. Both are short of time. Neither wants a pitch.
+    </p>
+  </div>
+  <div class="cards two">
+    <div class="card">
+      <p class="k">Reader 1 · The decision maker</p>
+      <h3 class="h3">Programme and mission leads, heads of operations</h3>
+      <p class="small soft" style="margin-top: 12px">
+        At ESA, NASA and operators of costly remote hardware. Needs, in order: the problem in their terms, what changes,
+        how mature it is, what a first step costs them, and who to ask.
+      </p>
+    </div>
+    <div class="card">
+      <p class="k">Reader 2 · The engineer</p>
+      <h3 class="h3">Systems, software and reliability engineers</h3>
+      <p class="small soft" style="margin-top: 12px">
+        Interested in the solution, allergic to marketing. Needs: the mechanism, the guarantees, the assumptions, the
+        footprint, the evidence and the limits.
+      </p>
+    </div>
+  </div>
+  <div class="split">
+    <ul class="sig-list">
+      <li>Say what it does, on what hardware, under what assumptions.</li>
+      <li>Every number has a source and a scope.</li>
+      <li>State maturity and limits next to the claim, not in a footnote.</li>
+      <li>No untestable adjectives: robust, seamless, cutting-edge, institutional-grade.</li>
+      <li>Facts in headings. A metaphor only when it is also literally true.</li>
+      <li>One call to action, on every page: Request information.</li>
+    </ul>
+    <div class="tbl-box" tabindex="0">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Not this</th>
+            <th>This</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="voice-dont">Institutional-grade software that keeps your mission alive.</td>
+            <td class="voice-do">
+              Software for two or three processors. When one fails, it keeps delivering checked results.
+            </td>
+          </tr>
+          <tr>
+            <td class="voice-dont">Software that lasts the gap.</td>
+            <td class="voice-do">Batteries, a cable, and one service visit a year.</td>
+          </tr>
+          <tr>
+            <td class="voice-dont">Proven reliability.</td>
+            <td class="voice-do">
+              1.34× the useful work of fixed TMR in 10,000 simulated missions. Parameters illustrative.
+            </td>
+          </tr>
+          <tr>
+            <td class="voice-dont">Talk to us!</td>
+            <td class="voice-do">Request information</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<Seam life={64} label="The descent line" />
+
+<div class="wrap section tight stack-m">
+  <div class="split">
+    <h2 class="h2">One line runs through every page.</h2>
+    <p class="soft">
+      It starts in the hero as three strands. A grey line, today&#39;s design, stops at the second failure. The ochre
+      line drops to two strands, then one, and keeps going. Below each section it returns as the divider, a little more
+      spent each time. The footer ends on a beacon.
+    </p>
+  </div>
+  <Descent
+    tmrLabel="Today: stops at failure two"
+    mruLabel="Mru: keeps going"
+    label="Three strands drop to one and continue. A grey line stops at the second failure."
+  />
+</div>
+
+<Seam life={56} label="Type" />
+
+<div class="wrap section tight">
+  <div class="split">
+    <div class="stack-s">
+      <p class="eyebrow">Display · Futura, then Jost</p>
+      <p style="font-family: var(--display); font-size: 103px; line-height: 1; margin: 0">Mru</p>
+      <p class="eyebrow" style="margin-top: 32px">
+        Body · Charter, then Source Serif 4
+      </p>
+      <p style="font-size: 31px; line-height: 1.3; margin: 0">Aa Bb Cc 0123</p>
+      <p class="eyebrow" style="margin-top: 32px">
+        Labels · IBM Plex Mono
+      </p>
+      <p class="mono" style="font-size: 19px; margin: 0">
+        PL. 07 · 1.34× · TRL 3
+      </p>
+    </div>
+    <div class="stack-m">
+      <h2 class="h-hero" style="font-size: 81px">
+        Systems that still run a thousand years after we&#39;re gone
+      </h2>
+      <p class="lede">Fault-tolerant software for hard-to-reach systems on Earth and in space.</p>
+      <p>
+        Body copy is Charter at 19 px with a 1.66 line height. Sentences stay short. Every number carries its source
+        underneath, in mono, in the faint ink.
+      </p>
+      <p class="quote">&#8220;There is no nominal baseline to return to. Decline is the baseline.&#8221;</p>
+      <p class="quote-by">Whitepaper, §5</p>
+    </div>
+  </div>
+</div>
+
+<Seam life={48} label="Colour" />
+
+<div class="wrap section tight stack-m">
+  <p class="eyebrow">Paper (light, default)</p>
+  <div class="cards" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr))">
+    {swatchesLight.map(([c, name, val]) => (
+      <div class="swatch">
+        <div class="chip" style={`background: ${c}`} />
+        <div class="lab">
+          {name}
+          <br />
+          {val}
+        </div>
+      </div>
+    ))}
+  </div>
+  <p class="eyebrow" style="margin-top: 40px">
+    Ink (dark)
+  </p>
+  <div class="cards" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr))">
+    {swatchesDark.map(([c, name, val]) => (
+      <div class="swatch">
+        <div class="chip" style={`background: ${c}`} />
+        <div class="lab">
+          {name}
+          <br />
+          {val}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<Seam life={40} label="Mark" />
+
+<div class="wrap section tight">
+  <div class="cards four">
+    <div class="card" style="display: grid; place-items: center; gap: 16px; background: #fafaf8; color: #16161a">
+      <img
+        src="/assets/mru-light.gif"
+        alt="Animated mark on paper"
+        width="600"
+        height="600"
+        loading="lazy"
+        decoding="async"
+        style="width: 160px; height: 160px; mix-blend-mode: multiply"
+      />
+      <p class="tiny" style="margin: 0">
+        Animated · paper · multiply
+      </p>
+    </div>
+    <div class="card" style="display: grid; place-items: center; gap: 16px; background: #121214; border-color: #2a2a2e">
+      <img
+        src="/assets/mru.gif"
+        alt="Animated mark on ink"
+        width="600"
+        height="600"
+        loading="lazy"
+        decoding="async"
+        style="width: 160px; height: 160px; mix-blend-mode: screen"
+      />
+      <p class="tiny" style="margin: 0; color: #8f8f8a">
+        Animated · ink · screen
+      </p>
+    </div>
+    <div class="card" style="display: grid; place-items: center; gap: 16px">
+      <MarkSvg style="width: 140px; height: 140px" label="Mru mark" />
+      <p class="tiny" style="margin: 0">
+        Static · reduced motion, header, favicon
+      </p>
+    </div>
+    <div class="card" style="display: grid; place-items: center; gap: 16px">
+      <svg viewBox="0 0 24 24" style="width: 96px; height: 96px; color: var(--ink-faint)" aria-hidden="true">
+        <circle cx="12" cy="12" r="8" style="fill: none; stroke: currentColor; stroke-width: 1"></circle>
+        <ellipse
+          cx="12"
+          cy="12"
+          rx="11"
+          ry="4.2"
+          transform="rotate(-58 12 12)"
+          style="fill: none; stroke: var(--signal); stroke-width: .8"
+        ></ellipse>
+      </svg>
+      <p class="tiny" style="margin: 0">
+        Orbit glyph · 58° · section seams
+      </p>
+    </div>
+  </div>
+</div>
+
+<Seam life={32} label="Components" />
+
+<div class="wrap section tight stack-l">
+  <div class="row">
+    <a class="btn arrow" href="/field/">
+      Mru Field{' '}
+    </a>
+    <a class="btn ghost" href="/research/">
+      Read the whitepaper
+    </a>
+    <a class="btn small" href="/contact/">
+      Request information
+    </a>
+    <span class="pill sig">
+      <span class="dot"></span>Still working
+    </span>
+    <span class="pill">
+      <span class="dot dead"></span>Stopped
+    </span>
+    <span class="pill">TRL 3</span>
+    <a class="link-more" href="/how-it-works/">
+      How it works
+    </a>
+  </div>
+  <div class="cards">
+    <div class="stat">
+      <div class="v">$1.4T</div>
+      <p class="l">Lost every year to unplanned downtime by the 500 largest companies.</p>
+      <p class="src">Siemens, 2024</p>
+    </div>
+    <div class="stat sigtop">
+      <div class="v">1.34×</div>
+      <p class="l">Useful work over fixed TMR, same hardware, 10,000 missions.</p>
+      <p class="src">Dusk, Sep 2026 · 95% CI 1.33–1.35×</p>
+    </div>
+    <div class="stat">
+      <div class="v">
+        1<small>visit / year</small>
+      </div>
+      <p class="l">EMSO-Azores runs on batteries 1,700 m down.</p>
+      <p class="src">EMSO ERIC</p>
+    </div>
+  </div>
+  <div class="split">
+    <div class="log">
+      <a class="entry" href="/research/dusk-results/" style="grid-template-columns: 100px 1fr">
+        <span class="no">№ 002</span>
+        <div>
+          <span class="kind">Results</span>
+          <p class="t" style="margin: 4px 0 0">
+            Same hardware, 1.34× the useful work
+          </p>
+        </div>
+      </a>
+    </div>
+    <pre class="pre" tabindex="0"><span class="c">// one call decides the mode</span>
+<span class="k">let</span> v = quorum::decide(Policy::Shrink, &amp;replies);
+<span class="k">if let</span> <span class="s">Outcome::Deliver</span>(x) = v.outcome {'{'} send(x) {'}'}</pre>
+  </div>
+</div>
+
+<Seam life={28} label="Plates" />
+
+<div class="wrap section tight stack-m">
+  <div class="split">
+    <h2 class="h2">Every photo becomes a plate.</h2>
+    <p class="soft">
+      Wikimedia photos differ in colour and quality. Each one is cropped, turned to greyscale and blended into the
+      paper, the same trick the animated mark uses. Each carries a plate number, a caption and its credit in mono.
+    </p>
+  </div>
+  <div class="cards">
+    <Plate
+      photo={summit}
+      no={false}
+      alt="Summit Station, untreated"
+      caption="Source photo"
+      credit="Peter West, NSF · Public domain"
+      phStyle="aspect-ratio: 3 / 2; overflow: hidden"
+      imgStyle="width: 100%; height: 100%; object-fit: cover"
+    />
+    <Plate
+      photo={summit}
+      alt="Summit Station as a plate"
+      caption="Plate · on paper · multiply"
+      credit="Peter West, NSF · Public domain"
+    />
+    <figure class="plate" style="background: #121214; padding: 12px; border-radius: 4px">
+      <div class="ph" style="background: #121214">
+        <span class="no" style="background: #121214; color: #ecece8">
+          PL. 09
+        </span>
+        <PlateImage
+          photo={summit}
+          alt="Summit Station as a plate on ink"
+          style="filter: grayscale(1) contrast(1.15) brightness(.9); mix-blend-mode: screen; opacity: .82"
+        />
+      </div>
+      <figcaption>
+        <span class="cap" style="color: #c0c0bc">
+          Plate · on ink · screen
+        </span>
+        <span class="cr" style="color: #8f8f8a">
+          Peter West, NSF · Public domain
+        </span>
+      </figcaption>
+    </figure>
+  </div>
+</div>
+
+<Seam life={24} label="Share card" />
+
+<div class="wrap section tight">
+  <div class="split rev" style="align-items: center">
+    <div style="aspect-ratio: 1200 / 630; background: #121214; color: #ecece8; border-radius: 4px; padding: 6%; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden">
+      <div style="display: flex; align-items: center; gap: 14px; font-family: var(--display); font-size: 28px">
+        <MarkSvg style="width: 44px; height: 44px" />
+        Mru
+      </div>
+      <div>
+        <p style="font-family: var(--mono); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: #d8a54a; margin: 0 0 12px">
+          Use case · Deep-sea observatories
+        </p>
+        <p style="font-family: var(--display); font-size: 46px; line-height: 1.05; margin: 0; max-width: 16ch">
+          Batteries, a cable, and one service visit a year.
+        </p>
+      </div>
+      <div style="height: 2px; background: linear-gradient(90deg, #d8a54a 0 78%, transparent 78%); opacity: .9"></div>
+    </div>
+    <div class="stack-m">
+      <h2 class="h2">One card per page</h2>
+      <p class="soft">
+        1200 × 630, always on ink. The kind of page in signal ochre, the page title in Futura, the descent line along
+        the foot. Text is real text in the page; the card is generated from it.
+      </p>
+    </div>
+  </div>
+</div>

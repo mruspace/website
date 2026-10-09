@@ -1,0 +1,63 @@
+---
+// "Fail a processor" / "Reset": 3 -> 2 -> 1. Progressive enhancement: the
+// static HTML is the 3-processor state, and without JS the page shows the
+// 3 / 2 / 1 table instead (html.js is set by the inline script in <head>).
+import QuorumTable from './QuorumTable.astro';
+import { MRU, TMR } from '../data/quorum';
+
+const states = { tmr: TMR, mru: MRU };
+---
+
+<div class="quorum" data-quorum data-states={JSON.stringify(states)}>
+  <div class="procs">
+    {['A', 'B', 'C'].map((label) => (
+      <span class="proc" data-proc>
+        <span class="lamp" />
+        {label}
+      </span>
+    ))}
+    <span style="flex: 1"></span>
+    <button class="qbtn primary" type="button" data-q-break>
+      Fail a processor
+    </button>
+    <button class="qbtn" type="button" data-q-reset>
+      Reset
+    </button>
+  </div>
+  <div class="qrow" aria-live="polite">
+    <div class="qcell" data-q="tmr">
+      <p class="tiny" style="margin: 0">
+        Fixed TMR
+      </p>
+      <p class="mode" style="margin: 0" data-q-mode>
+        {TMR[3].mode}
+      </p>
+      <div class="bar">
+        <i style={`width: ${TMR[3].width}`} data-q-bar></i>
+      </div>
+      <p class="small soft" style="margin: 12px 0 0" data-q-note>
+        {TMR[3].note}
+      </p>
+    </div>
+    <div class="qcell mru" data-q="mru">
+      <p class="tiny" style="margin: 0; color: var(--signal)">
+        Mru · shrinking quorum
+      </p>
+      <p class="mode" style="margin: 0" data-q-mode>
+        {MRU[3].mode}
+      </p>
+      <div class="bar">
+        <i style={`width: ${MRU[3].width}`} data-q-bar></i>
+      </div>
+      <p class="small soft" style="margin: 12px 0 0" data-q-note>
+        {MRU[3].note}
+      </p>
+    </div>
+  </div>
+</div>
+<QuorumTable class="quorum-fallback" />
+
+<script>
+  import { initQuorum } from '../scripts/quorum';
+  initQuorum();
+</script>

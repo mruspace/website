@@ -1,0 +1,64 @@
+---
+// The descent line. "three": three strands drop to one and keep going, while
+// the grey fixed-TMR line stops at the second failure. "strands": the 404
+// version, where one strand ends and two continue.
+interface Props {
+  variant?: 'three' | 'strands';
+  tmrLabel?: string;
+  mruLabel?: string;
+  endLabel?: string;
+  label?: string;
+  style?: string;
+}
+const {
+  variant = 'three',
+  tmrLabel = 'Fixed TMR: stops at failure two',
+  mruLabel = 'Mru: continues on one processor',
+  endLabel = 'this page',
+  label,
+  style,
+} = Astro.props;
+const aria =
+  label ??
+  (variant === 'three'
+    ? 'Three strands drop to one and continue. A grey line, fixed triple redundancy, stops at the second failure.'
+    : 'One strand ends, two continue.');
+---
+
+{variant === 'three' ? (
+  <svg class="descent" viewBox="0 0 1200 150" style={style} role="img" aria-label={aria}>
+    <line class="tick" x1="456" y1="8" x2="456" y2="132" />
+    <line class="tick" x1="744" y1="8" x2="744" y2="132" />
+    <text class="lbl ta-mid" x="456" y="148">
+      failure 1
+    </text>
+    <text class="lbl ta-mid" x="744" y="148">
+      failure 2
+    </text>
+    <line class="t sw2" x1="0" y1="30" x2="744" y2="30" />
+    <rect class="end-t" x="739" y="25" width="10" height="10" />
+    <text class="lbl" x="0" y="18">
+      {tmrLabel}
+    </text>
+    <line class="glowline" x1="0" y1="78" x2="1200" y2="78" />
+    <line class="s sw2" x1="0" y1="66" x2="456" y2="66" />
+    <line class="s sw2" x1="0" y1="78" x2="744" y2="78" />
+    <line class="s sw2" x1="0" y1="90" x2="1080" y2="90" />
+    <circle class="end-s" cx="456" cy="66" r="4" />
+    <circle class="end-s" cx="744" cy="78" r="4" />
+    <line class="s sw2 dash" x1="1080" y1="90" x2="1200" y2="90" />
+    <text class="lbl sig ta-end" x="1200" y="118">
+      {mruLabel}
+    </text>
+  </svg>
+) : (
+  <svg class="descent" viewBox="0 0 1200 80" style={style} role="img" aria-label={aria}>
+    <line class="s sw2" x1="0" y1="24" x2="520" y2="24" />
+    <circle class="end-s" cx="520" cy="24" r="4" />
+    <text class="lbl ta-mid" x="520" y="10">
+      {endLabel}
+    </text>
+    <line class="s sw2" x1="0" y1="40" x2="1200" y2="40" />
+    <line class="s sw2" x1="0" y1="56" x2="1200" y2="56" />
+  </svg>
+)}

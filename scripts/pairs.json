@@ -1,0 +1,137 @@
+[
+  {
+    "name": "home",
+    "site": "/",
+    "ref": "Home"
+  },
+  {
+    "name": "field",
+    "site": "/field/",
+    "ref": "Field"
+  },
+  {
+    "name": "flight",
+    "site": "/flight/",
+    "ref": "Flight"
+  },
+  {
+    "name": "how",
+    "site": "/how-it-works/",
+    "ref": "HowItWorks"
+  },
+  {
+    "name": "company",
+    "site": "/company/",
+    "ref": "Company"
+  },
+  {
+    "name": "contact",
+    "site": "/contact/",
+    "ref": "Contact"
+  },
+  {
+    "name": "credits",
+    "site": "/credits/",
+    "ref": "Credits"
+  },
+  {
+    "name": "404",
+    "site": "/404.html",
+    "ref": "NotFound"
+  },
+  {
+    "name": "usecases",
+    "site": "/use-cases/",
+    "ref": "UseCases"
+  },
+  {
+    "name": "uc-deep-sea-observatories",
+    "site": "/use-cases/deep-sea-observatories/",
+    "ref": "UseCase"
+  },
+  {
+    "name": "uc-ocean-buoys",
+    "site": "/use-cases/ocean-buoys/",
+    "ref": "UcBuoys"
+  },
+  {
+    "name": "uc-profiling-floats",
+    "site": "/use-cases/profiling-floats/",
+    "ref": "UcFloats"
+  },
+  {
+    "name": "uc-auv",
+    "site": "/use-cases/auv/",
+    "ref": "UcAuv"
+  },
+  {
+    "name": "uc-offshore-wind",
+    "site": "/use-cases/offshore-wind/",
+    "ref": "UcOffshoreWind"
+  },
+  {
+    "name": "uc-remote-energy",
+    "site": "/use-cases/remote-energy/",
+    "ref": "UcEnergy"
+  },
+  {
+    "name": "uc-remote-telecom",
+    "site": "/use-cases/remote-telecom/",
+    "ref": "UcTelecom"
+  },
+  {
+    "name": "uc-satellite-iot",
+    "site": "/use-cases/satellite-iot/",
+    "ref": "UcSatIot"
+  },
+  {
+    "name": "uc-polar-stations",
+    "site": "/use-cases/polar-stations/",
+    "ref": "UcPolar"
+  },
+  {
+    "name": "uc-nuclear-monitoring",
+    "site": "/use-cases/nuclear-monitoring/",
+    "ref": "UcNuclear"
+  },
+  {
+    "name": "uc-nuclear-waste",
+    "site": "/use-cases/nuclear-waste/",
+    "ref": "UcNuclearWaste"
+  },
+  {
+    "name": "uc-long-term-archives",
+    "site": "/use-cases/long-term-archives/",
+    "ref": "UcArchives"
+  },
+  {
+    "name": "uc-volcano-seismic",
+    "site": "/use-cases/volcano-seismic/",
+    "ref": "UcVolcano"
+  },
+  {
+    "name": "uc-pipelines",
+    "site": "/use-cases/pipelines/",
+    "ref": "UcPipelines"
+  },
+  {
+    "name": "uc-rail-trackside",
+    "site": "/use-cases/rail-trackside/",
+    "ref": "UcRail"
+  },
+  {
+    "name": "research",
+    "site": "/research/",
+    "ref": "Research"
+  },
+  {
+    "name": "r-dusk",
+    "site": "/research/dusk-results/",
+    "ref": "ResearchDusk"
+  },
+  {
+    "name": "r-flight",
+    "site": "/research/flight-prototype/",
+    "ref": "ResearchFlight"
+  }
+]

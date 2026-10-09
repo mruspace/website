@@ -1,0 +1,22 @@
+{
+  "name": "mru-request-worker",
+  "private": true,
+  "type": "module",
+  "description": "Request-information form handler for mru.space (api.mru.space/request)",
+  "license": "Apache-2.0",
+  "scripts": {
+    "dev": "wrangler dev",
+    "types": "wrangler types",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "0.22.0",
+    "@vitest/runner": "4.1.11",
+    "@vitest/snapshot": "4.1.11",
+    "typescript": "6.0.3",
+    "vitest": "4.1.11",
+    "wrangler": "4.139.0"
+  }
+}

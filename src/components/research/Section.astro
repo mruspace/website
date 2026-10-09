@@ -1,0 +1,27 @@
+---
+// One section of a research entry: the body on the left, an optional
+// margin note on the right (inline on phones, by the stylesheet).
+interface Props {
+  /** Label above the note, e.g. "Note 1" or "Status". */
+  label?: string;
+  style?: string;
+}
+const { label, style } = Astro.props;
+const hasNote = Astro.slots.has('note');
+---
+
+<div class="article" style={style}>
+  <div class="body">
+    <slot />
+  </div>
+  {hasNote ? (
+    <aside class="note-col" aria-label={label ?? 'Note'}>
+      <p class="note">
+        <span class="tiny">{label}</span>
+        <slot name="note" />
+      </p>
+    </aside>
+  ) : (
+    <div class="note-col" />
+  )}
+</div>

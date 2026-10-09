@@ -1,0 +1,63 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PlateImage from '../../components/PlateImage.astro';
+import { INDEX_GROUPS, USE_CASES } from '../../data/use-cases';
+import { SITE } from '../../data/site';
+
+const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Mru Field', href: '/field/' }, { label: 'Use cases' }];
+---
+
+<Base
+  crumbs={crumbs}
+  ld={{ collection: USE_CASES.map((u) => ({ name: u.name, url: new URL(u.href, SITE.url).href })) }}
+  active="usecases"
+  request={{ interest: 'field', heading: 'Not listed? Tell us what you run.' }}
+>
+  <section class="wrap hero" style="padding-bottom: 80px">
+    <Breadcrumbs items={crumbs} />
+    <div class="hero-grid" style="margin-top: 40px">
+      <div class="stack-m">
+        <p class="eyebrow">Mru Field · Use cases</p>
+        <h1 class="h-hero">Where Mru Field runs</h1>
+      </div>
+      <div class="stack-m">
+        <p class="lede">
+          Anywhere a computer has to keep working after its parts fail, and a repair visit is slow, costly or
+          impossible.
+        </p>
+        <p class="soft small">
+          Mru fits when the equipment has two or more processors, must run unattended for months or longer, and a repair
+          visit is slow, costly or impossible. Ocean settings are our first priority.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {INDEX_GROUPS.map((g) => (
+    <section class="wrap section tight">
+      <div class="seam" style="margin-bottom: 40px">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle class="r" cx="12" cy="12" r="8" />
+          <ellipse class="o" cx="12" cy="12" rx="11" ry="4.2" transform="rotate(-58 12 12)" />
+        </svg>
+        <span class="lab">{g.title}</span>
+      </div>
+      <div class="cards" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))">
+        {g.items.map((t) => (
+          <a class="tile" href={t.uc.href}>
+            <div class="ph">
+              <PlateImage photo={t.uc.photo} alt="" sizes="(max-width: 640px) 100vw, (max-width: 1080px) 50vw, 300px" />
+            </div>
+            <span class="k">
+              <span>{t.kicker}</span>
+              <span>PL. {t.uc.plate}</span>
+            </span>
+            <h2 style="font-size: 22px; margin-top: 8px; line-height: 1.2">{t.uc.name}</h2>
+            <p>{t.hook}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+</Base>

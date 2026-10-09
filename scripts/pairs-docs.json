@@ -1,0 +1,8 @@
+[
+  { "name": "docs-home", "site": "/", "ref": "DocsHome" },
+  { "name": "docs-quorum", "site": "/concepts/shrinking-quorum/", "ref": "DocsQuorum" },
+  { "name": "docs-crate", "site": "/core/quorum-crate/", "ref": "DocsCrate" },
+  { "name": "docs-cli", "site": "/core/quorum-cli/", "ref": "DocsCli" },
+  { "name": "docs-dusk", "site": "/simulation/dusk/", "ref": "DocsDusk" },
+  { "name": "docs-2049", "site": "/lab/2049/", "ref": "Docs2049" }
+]

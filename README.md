@@ -1,141 +1,139 @@
 <p align="center">
   <a href="https://mru.space">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="assets/readme/mru-github-dark.gif">
-      <img src="assets/readme/mru-github-light.gif" alt="Mru" width="120" height="120">
+      <source media="(prefers-color-scheme: dark)" srcset="public/assets/readme/mru-github-dark.gif">
+      <img src="public/assets/readme/mru-github-light.gif" alt="Mru" width="120" height="120">
     </picture>
   </a>
 </p>
 
 # mru.space
 
-The landing page for **Mru** — *A Fault-Tolerant Operating System for
-Thousand-Year Autonomous Operation*. A minimal, single-page static site served
-via GitHub Pages at [`https://mru.space`](https://mru.space).
+The website for **Mru**: fault-tolerant software for computers that cannot be
+repaired in time, on Earth and in space. Static HTML built with
+[Astro](https://astro.build), served by GitHub Pages at
+[`https://mru.space`](https://mru.space). The documentation is a separate site,
+[docs.mru.space](https://docs.mru.space), from
+[mruspace/docs](https://github.com/mruspace/docs).
 
 > Systems that still run a thousand years after we're gone.
 
-## About this repository
+Questions, typos, ideas: [contact@mru.space](mailto:contact@mru.space).
 
-This is the source for [`mru.space`](https://mru.space), shared openly so
-you can see exactly how the site is built. Feel free to read it, learn from it,
-and borrow ideas — that's why it's here.
+## Build and check
 
-Got a question, spotted a typo, or want to help out? Email
-[contact@mru.space](mailto:contact@mru.space). We'd love to hear from you.
+Needs Node 22.12 or later.
 
-The code is Apache-2.0 (see [License](#license)); the **Mru** name and logo are
-trademarks — see [TRADEMARK.md](./TRADEMARK.md).
+```sh
+npm ci
+npm run dev          # http://localhost:4321
+npm run build        # dist/: pages, share cards, Markdown twins, llms.txt, sitemap
+npm run check        # everything CI runs (below)
+```
 
-## Structure
+`npm run check` runs, in order: `astro check`, ESLint and Prettier, the build
+(which fails on bad metadata or JSON-LD), html-validate on every page, the link
+checker, Playwright (every route at 390, 768, 1440 and 1920 px, light and
+dark, plus axe-core, the form and the quorum demo), Lighthouse CI, and the
+Worker's tests. Playwright needs `npx playwright install chromium` once.
+
+## Layout
 
 ```
-index.html          # the single page (all CSS + the "Mru" font subset inlined)
-404.html            # custom not-found page
-terms/index.html    # Terms of Use + analytics/consent notice (served at /terms/)
-mru-whitepaper.pdf  # the whitepaper (served at a permanent /mru-whitepaper.pdf URL)
-favicon.svg         # the orbit-M mark
-apple-touch-icon.png
-site.webmanifest    # PWA manifest
-robots.txt
-sitemap.xml
-CNAME               # custom domain (mru.space)
-.nojekyll           # serve files as-is, no Jekyll processing
-LICENSE             # Apache License 2.0 (the code)
-TRADEMARK.md        # trademark notice (the Mru name/logo)
-assets/
-  mru.gif           # the animated mark on the homepage (dark theme)
-  mru-light.gif     # the same mark, light theme
-  mru.mp4           # video cuts of the same loop, for use off the site
-  mru-light.mp4
-  og-image.png      # 1200×630 social/link-preview image
-  og-source.svg     # editable source for the OG image
-  favicon-light.png # light/dark favicon variants
-  favicon-dark.png
-  icon-192.png      # PWA icons
-  icon-512.png
-  jost.ttf          # font source for the inlined "Mru" subset
-  _gen_icons.sh     # regenerate favicons/icons
-  _gen_og.py        # regenerate the OG image
-  _gen_logo_anim.py # regenerate the animated mark
-  _gen_readme_gifs.sh # README-sized copies of the mark, for GitHub
-  readme/           # those copies: 240px, tuned to GitHub's page colours
+src/pages/        routes (one folder per URL)
+src/components/   header, footer, form, plates, seams, descent line, quorum demo
+src/layouts/      the page shell: head tags, JSON-LD, analytics
+src/data/         one source per fact: metadata.json (titles, descriptions,
+                  JSON-LD types), use-cases.json, images.json, nav, quorum states
+src/content/      research entries (MDX) and the Terms text (kept verbatim)
+src/styles/       mru.css (the design system), fonts.css, site.css
+public/           files served as-is at stable URLs (see below)
+scripts/          share cards, Markdown twins and llms files, checks, fonts
+tests/            Playwright and axe-core
+worker/           the request-information Worker (api.mru.space/request)
 ```
+
+Page copy is final and ported verbatim from the approved design. Content that
+repeats (use cases, photos, metadata, the quorum demo) lives in `src/data/`, so
+the pages, the Markdown twins, `llms.txt`, JSON-LD and the share cards all read
+the same source.
+
+## Stable URLs
+
+These must keep working, byte for byte where they are files. They live in
+`public/` and are copied unchanged:
+
+- `/mru-whitepaper.pdf`: the PDF hard-codes `https://mru.space`. Replace the
+  file in place to update it.
+- `/assets/readme/mru-github-dark.gif` and `-light.gif`: used by every mruspace
+  README.
+- `/favicon.ico`, `/favicon.svg`, `/assets/favicon-light.png`,
+  `/assets/favicon-dark.png`, `/apple-touch-icon.png`, `/site.webmanifest`,
+  `/assets/og-image.png`
+- `/assets/mru.gif`, `/assets/mru-light.gif`, `/assets/mru.mp4`,
+  `/assets/mru-light.mp4`
+- `/terms/`, `CNAME` (`mru.space`), `.nojekyll`
 
 ### The animated mark
 
 GIF has no alpha channel, so each frame ships on a flat backdrop and the page
-blends that backdrop away: the light art sits on white and multiplies, the dark
-art sits on black and screens. That is why there are two files, and why the
-frame edge does not show over the glow behind the hero. The static SVG mark
-stays in `index.html` and is what shows under `prefers-reduced-motion: reduce`.
+blends it away: the light art multiplies on paper, the dark art screens on ink.
+Anything that gives `.mark-anim`, or an element above it, its own stacking
+context (`transform`, `filter`, `opacity`, `z-index`) breaks the blend. The
+GIFs start after the page's largest paint; with reduced motion or without
+JavaScript, the static SVG mark shows instead.
 
-Anything that gives `.maru-anim`, or an element above it, its own stacking
-context (`transform`, `filter`, `opacity`, `z-index`) stops the blend and turns
-the mark back into an opaque square.
+## Search and AI crawlers
 
-Everything is inlined into `index.html` (CSS and a base64 font subset of just
-the letters "Mru"), so the page is fully self-contained and renders with no
-external requests beyond Google Analytics (GA4) and the Madruga attribution
-snippet. There is no cookie banner — use of the site is consent, per
-[/terms/](https://mru.space/terms/).
+Every page has a title, description, canonical, Open Graph and Twitter tags,
+a share card (`/og/<route>.png`) and one JSON-LD graph, all from
+`src/data/metadata.json`. Every indexable page has a Markdown twin at
+`<route>/index.md`; `/llms.txt` and `/llms-full.txt` list and join them.
+`robots.txt` allows search engines and AI crawlers.
 
-## ⚠️ Keep the whitepaper URL stable
+## The request form
 
-The "Paper" button links to `/mru-whitepaper.pdf`. Keep this path **stable
-forever** — the PDF itself hard-codes `https://mru.space` as its home. To
-update the paper, replace the file in place:
-
-```sh
-cp ../mru/mru.pdf ./mru-whitepaper.pdf
-git add mru-whitepaper.pdf && git commit -m "Update whitepaper PDF" && git push
-```
-
-## Local preview
-
-```sh
-python3 -m http.server 8000
-# open http://localhost:8000
-```
-
-## Deployment
-
-> Maintainers only — the official site auto-deploys.
-
-Merges to `main` publish automatically to `mru.space` via GitHub Pages (the
-`CNAME` file pins the custom domain; **Enforce HTTPS** is on). DNS, the
-`www` → apex redirect, and `contact@mru.space` email routing are configured
-out of band. None of this is needed just to read the code or preview it locally.
+The form posts to the Worker in `worker/`, which checks the request (origin,
+rate limit, honeypot, Cloudflare Turnstile, fields) and emails
+contact@mru.space through Resend. Without JavaScript the form still posts and
+the Worker redirects to `/contact/sent/`. See `worker/README.md`. No secrets
+are in this repository.
 
 ## Regenerating assets
 
 ```sh
-# OG image (from assets/og-source.svg)
-magick -background none assets/og-source.svg assets/og-image.png
+# Fonts (WOFF2 subsets in public/fonts/; needs fonttools and brotli)
+python3 scripts/fonts/build_fonts.py
 
-# favicons / PWA icons
+# From public/: favicons and PWA icons, the OG image, the animated mark,
+# README copies of the mark (needs ImageMagick, ffmpeg, gifsicle)
+cd public
 ./assets/_gen_icons.sh
-
-# the animated mark, both themes (needs ImageMagick and ffmpeg; takes a few minutes)
+magick -background none assets/og-source.svg assets/og-image.png
 ./assets/_gen_logo_anim.py trace both
-
-# README copies of the mark, used by every mruspace repo (needs gifsicle)
 (cd assets && ./_gen_readme_gifs.sh)
 ```
 
+## Visual review
+
+`scripts/compare.mjs` captures each page next to its design artboard at 390,
+1440 and 1920 px in both themes, and `scripts/review-page.mjs` builds a
+side-by-side review page from the results.
+
+## Deployment
+
+Merges to `main` build and publish to GitHub Pages with
+`.github/workflows/deploy.yml`. Pull requests run `npm run check`. The Worker
+deploys separately with `npx wrangler deploy` from `worker/`.
+
 ## License
 
-This repository is **dual-licensed**:
-
-- **Site code** (`index.html`, `404.html`, styles, scripts, build helpers):
-  [Apache License 2.0](./LICENSE).
-- **Content** (the whitepaper `mru-whitepaper.pdf` and site copy):
-  [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-
-The `mru` reference implementation lives in its own repository and is also
-licensed under **Apache License 2.0**.
-
-The **Mru** name, logo, and `mru.space` are trademarks of Binns Pte. Ltd. and
-are **not** covered by the code license — see [TRADEMARK.md](./TRADEMARK.md).
+- Site code: [Apache License 2.0](./LICENSE).
+- Content (the whitepaper and site copy): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- Photos: their own free licences, listed on [/credits/](https://mru.space/credits/)
+  and in `src/data/images.json`.
+- Fonts in `public/fonts/`: SIL Open Font License 1.1 (licence files alongside).
+- The **Mru** name, logo and `mru.space` are trademarks of Binns Pte. Ltd. and
+  are not covered by these licences. See [TRADEMARK.md](./TRADEMARK.md).
 
 © Binns Pte. Ltd.
