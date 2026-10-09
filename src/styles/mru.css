@@ -522,6 +522,28 @@
 .descent .tick {
   stroke: var(--rule-strong);
 }
+/* One "three" descent per width (Descent.astro): l above 1040 px, m on
+   tablets, s on phones. */
+.descent.m,
+.descent.s {
+  display: none;
+}
+@container (max-width: 1040px) {
+  .descent.l {
+    display: none;
+  }
+  .descent.m {
+    display: block;
+  }
+}
+@container (max-width: 520px) {
+  .descent.m {
+    display: none;
+  }
+  .descent.s {
+    display: block;
+  }
+}
 
 /* Seams: the orbit glyph on a rule, tilted 58 degrees */
 .seam {

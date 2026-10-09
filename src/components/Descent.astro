@@ -23,34 +23,45 @@ const aria =
   (variant === 'three'
     ? 'Three strands drop to one and continue. A grey line, fixed triple redundancy, stops at the second failure.'
     : 'One strand ends, two continue.');
+// The "three" drawing at three widths, so its 12-unit labels stay readable:
+// the stylesheet shows one per screen width (l: wide, m: tablets, s: phones).
+// On m and s the Mru label drops below the failure labels, and the ticks
+// start under the TMR label, so no line crosses text.
+const SIZES = [
+  { cls: 'l', w: 1200, h: 150, f1: 456, f2: 744, end: 1080, top: 8, mruY: 118 },
+  { cls: 'm', w: 640, h: 182, f1: 230, f2: 400, end: 576, top: 24, mruY: 178 },
+  { cls: 's', w: 360, h: 182, f1: 122, f2: 223, end: 320, top: 24, mruY: 178 },
+];
 ---
 
 {variant === 'three' ? (
-  <svg class="descent" viewBox="0 0 1200 150" style={style} role="img" aria-label={aria}>
-    <line class="tick" x1="456" y1="8" x2="456" y2="132" />
-    <line class="tick" x1="744" y1="8" x2="744" y2="132" />
-    <text class="lbl ta-mid" x="456" y="148">
-      failure 1
-    </text>
-    <text class="lbl ta-mid" x="744" y="148">
-      failure 2
-    </text>
-    <line class="t sw2" x1="0" y1="30" x2="744" y2="30" />
-    <rect class="end-t" x="739" y="25" width="10" height="10" />
-    <text class="lbl" x="0" y="18">
-      {tmrLabel}
-    </text>
-    <line class="glowline" x1="0" y1="78" x2="1200" y2="78" />
-    <line class="s sw2" x1="0" y1="66" x2="456" y2="66" />
-    <line class="s sw2" x1="0" y1="78" x2="744" y2="78" />
-    <line class="s sw2" x1="0" y1="90" x2="1080" y2="90" />
-    <circle class="end-s" cx="456" cy="66" r="4" />
-    <circle class="end-s" cx="744" cy="78" r="4" />
-    <line class="s sw2 dash" x1="1080" y1="90" x2="1200" y2="90" />
-    <text class="lbl sig ta-end" x="1200" y="118">
-      {mruLabel}
-    </text>
-  </svg>
+  SIZES.map((z) => (
+    <svg class={`descent ${z.cls}`} viewBox={`0 0 ${z.w} ${z.h}`} style={style} role="img" aria-label={aria}>
+      <line class="tick" x1={z.f1} y1={z.top} x2={z.f1} y2="132" />
+      <line class="tick" x1={z.f2} y1={z.top} x2={z.f2} y2="132" />
+      <text class="lbl ta-mid" x={z.f1} y="148">
+        failure 1
+      </text>
+      <text class="lbl ta-mid" x={z.f2} y="148">
+        failure 2
+      </text>
+      <line class="t sw2" x1="0" y1="30" x2={z.f2} y2="30" />
+      <rect class="end-t" x={z.f2 - 5} y="25" width="10" height="10" />
+      <text class="lbl" x="0" y="18">
+        {tmrLabel}
+      </text>
+      <line class="glowline" x1="0" y1="78" x2={z.w} y2="78" />
+      <line class="s sw2" x1="0" y1="66" x2={z.f1} y2="66" />
+      <line class="s sw2" x1="0" y1="78" x2={z.f2} y2="78" />
+      <line class="s sw2" x1="0" y1="90" x2={z.end} y2="90" />
+      <circle class="end-s" cx={z.f1} cy="66" r="4" />
+      <circle class="end-s" cx={z.f2} cy="78" r="4" />
+      <line class="s sw2 dash" x1={z.end} y1="90" x2={z.w} y2="90" />
+      <text class="lbl sig ta-end" x={z.w} y={z.mruY}>
+        {mruLabel}
+      </text>
+    </svg>
+  ))
 ) : (
   <svg class="descent" viewBox="0 0 1200 80" style={style} role="img" aria-label={aria}>
     <line class="s sw2" x1="0" y1="24" x2="520" y2="24" />
