@@ -1,0 +1,122 @@
+---
+number: '004'
+kind: Release
+title: 'Mru Flight: a first prototype'
+shortTitle: 'Mru Flight: a first prototype'
+summary: Onboard software that keeps a spacecraft working as its computers fail.
+lede: Onboard software that keeps a spacecraft doing useful work as its computers fail. A small, verified Rust core, and a demo on real processes with faults injected.
+date: 2026-10-07
+readingTime: 9 min
+byline:
+  - { label: Release, text: v0.1.1 }
+  - { label: Code, text: mruspace/flight, href: 'https://github.com/mruspace/flight' }
+citeText: 'W. Binns, <em>Mru Flight</em>, version 0.1.0, 2026. github.com/mruspace/flight. See CITATION.cff.'
+related: [dusk-results]
+request:
+  interest: flight
+  topic: № 004 · Mru Flight prototype
+  heading: Questions about this release?
+featured:
+  title: 'Mru Flight: onboard software that keeps working as its computers fail'
+  summary: A small, verified Rust core and a demo on real processes with faults injected. With one replica stuck and another dead, it delivered 14,490 correct results where fixed TMR delivered 8,993.
+  line: 7 Oct 2026 · 9 min read · v0.1.1
+  chart: flight-correct
+  chartAlt: Correct results over 20,000 ticks. Fixed TMR stops at 8,993. The shrinking quorum reaches 14,490.
+code: { repo: 'https://github.com/mruspace/flight', language: Rust, license: Apache-2.0 }
+---
+
+import Section from '../../components/research/Section.astro';
+import Figure from '../../components/research/Figure.astro';
+
+<Section label="Status">
+<Fragment slot="note">Early prototype, TRL 3. The F´ components come next.</Fragment>
+
+## What it is
+
+Dusk showed what a shrinking quorum is worth in simulation. This is where the policy becomes flight software. It has two parts.
+
+The **decision core** is a Rust crate that decides, each tick, whether to vote, compare or self-check, and keeps the health record of each replica. It has no dependencies and allocates nothing, so the same code can run on flight hardware and be checked by a model checker.
+
+The **demo** runs three real replica processes and a voter built on the core. It injects faults: kill, hang, stuck, and bit flips in working memory, the way radiation would.
+
+</Section>
+
+<Section label="Note 1">
+<Fragment slot="note">Kani is a model checker for Rust from AWS. Four proofs, listed in the <a href="https://docs.mru.space/core/quorum-crate/#proofs">docs</a>.</Fragment>
+
+## What the core guarantees
+
+<ul class="sig-list">
+  <li><strong>Never less than fixed TMR.</strong> While TMR can still run, both policies decide the same.</li>
+  <li><strong>It stops only with nothing left.</strong> Fixed TMR stops below two replicas.</li>
+  <li><strong>Only agreed results go out.</strong> Two votes, or a clean self-check on the last replica.</li>
+</ul>
+
+<p style="margin-top: 16px">Unit tests check every combination of a small value domain. Kani checks every possible input, in CI, on every change.</p>
+
+</Section>
+
+<Figure name="flight-correct" alt="Correct results over 20,000 ticks. Both lines match until tick 9,000. Then fixed TMR stops at 8,993 correct results. The shrinking quorum reaches 14,490.">Fig. 1 · Same seed, same faults: random upsets, replica 1 stuck from tick 4,000, replica 0 dead at tick 9,000.</Figure>
+
+<Section label="Note 2">
+<Fragment slot="note">Illustrative scenarios, not a reliability estimate. For statistics over thousands of missions, see <a href="/research/dusk-results/">№ 002</a>.</Fragment>
+
+## One run, two designs
+
+Fixed TMR masks the stuck replica while it has three. Once another replica dies, it is left comparing a good replica with a stuck one, and every result is rejected. The shrinking quorum retired the stuck replica two ticks after it failed, then carried on with self-check on the last good one.
+
+<div class="tbl-box" tabindex="0" style="margin: 24px 0">
+  <table class="tbl">
+    <thead><tr><th>Scenario, 20,000 ticks</th><th>Fixed TMR</th><th>Shrinking quorum</th></tr></thead>
+    <tbody>
+      <tr><td>Random upsets only</td><td class="m">20,000</td><td class="m">20,000</td></tr>
+      <tr><td>Replicas die at 5,000 and 10,000</td><td class="m">9,990, halts</td><td class="m sig">14,989</td></tr>
+      <tr><td>One dies, one stuck</td><td class="m">9,990, stuck</td><td class="m sig">14,988</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</Section>
+
+<Section label="Note 3">
+<Fragment slot="note">The tests also caught a real flaw: health scoring once retired healthy replicas after random upsets. Diagnosing before retiring fixed it.</Fragment>
+
+## The honest cost
+
+On one replica, a stuck fault is caught only by the periodic known-answer test, every 64 ticks. In one run, the demo delivered 24 wrong results before the test caught the fault and the system stopped. Fixed TMR would have stopped long before and delivered none.
+
+A shorter test period trades throughput for a smaller window. That is the trade the whitepaper and Dusk put numbers on.
+
+</Section>
+
+<Section label="Note 4">
+<Fragment slot="note">Measured in CI on every change, over 20,000 results.</Fragment>
+
+## Small enough to fly
+
+<div class="tbl-box" tabindex="0" style="margin: 24px 0">
+  <table class="tbl">
+    <thead><tr><th>Platform</th><th>Voter</th><th>Each replica</th><th>Binary</th></tr></thead>
+    <tbody>
+      <tr><td>Linux ARM64</td><td class="m">~1.5 MB</td><td class="m">~1.5 MB</td><td class="m">~0.5 MB</td></tr>
+      <tr><td>Linux x86_64</td><td class="m">~2.0 MB</td><td class="m">~2.0 MB</td><td class="m">~0.5 MB</td></tr>
+      <tr><td>macOS, Apple silicon</td><td class="m">~1.5 MB</td><td class="m">~1.4 MB</td><td class="m">~0.5 MB</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</Section>
+
+<Section>
+
+## What comes next
+
+<div class="strata" style="margin-top: 24px">
+  <div class="stratum" style="grid-template-columns: 48px 1fr"><span class="lv">1</span><p style="color: var(--ink)">F´ components around the Rust core: RedundancyManager, HealthRegistry, ReplicaHost.</p></div>
+  <div class="stratum" style="grid-template-columns: 48px 1fr"><span class="lv">2</span><p style="color: var(--ink)">Measurements on representative processors.</p></div>
+  <div class="stratum" style="grid-template-columns: 48px 1fr"><span class="lv">3</span><p style="color: var(--ink)">A hardware-in-the-loop bench with real boards and injected faults.</p></div>
+  <div class="stratum" style="grid-template-columns: 48px 1fr"><span class="lv">4</span><p style="color: var(--ink)">In orbit: a flight experiment on a real satellite.</p></div>
+  <div class="stratum base" style="grid-template-columns: 48px 1fr"><span class="lv">5</span><p style="color: var(--ink)">On Earth: the same software on an unattended ocean node. <a href="/field/">Mru Field</a></p></div>
+</div>
+
+</Section>

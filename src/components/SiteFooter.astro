@@ -1,0 +1,66 @@
+---
+import MarkSvg from './MarkSvg.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import { FOOTER_COLUMNS } from '../data/nav';
+import { SITE } from '../data/site';
+---
+
+<footer class="mru part site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="stack-m">
+        <a class="brand" href="/" aria-label="Mru home">
+          <MarkSvg />
+          <span>Mru</span>
+        </a>
+        <p class="soft" style="max-width: 30ch">
+          Systems that still run a thousand years after we&#39;re gone.
+        </p>
+        <div class="row">
+          <a class="btn small" href="/contact/">
+            Request information
+          </a>
+          <a class="small" href={`mailto:${SITE.email}`}>
+            {SITE.email}
+          </a>
+        </div>
+      </div>
+      {FOOTER_COLUMNS.map((col) => (
+        <div>
+          <h2 class="foot-h">{col.title}</h2>
+          <ul>
+            {col.links.map((l) => (
+              <li>
+                <a href={l.href}>{l.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+    <div class="beacon">
+      <span class="b" aria-hidden="true"></span>
+      <span class="msg">Running since 2026.</span>
+    </div>
+    <div class="legal">
+      <span>&#169; {SITE.legal}</span>
+      <span>
+        Paper{' '}
+        <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">
+          CC BY 4.0
+        </a>{' '}
+        · Code{' '}
+        <a href="https://www.apache.org/licenses/LICENSE-2.0" rel="license">
+          Apache 2.0
+        </a>
+      </span>
+      <span>Mru&#8482; and the Mru logo are our trademarks</span>
+      <span>
+        <a href="/terms/">Terms &amp; analytics notice</a>
+      </span>
+      <span>
+        <ThemeToggle />
+      </span>
+    </div>
+  </div>
+</footer>

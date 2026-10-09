@@ -1,1 +1,18 @@
 .DS_Store
+node_modules/
+dist/
+.astro/
+.cache/
+.venv*/
+__pycache__/
+# Test and audit output
+test-results/
+playwright-report/
+.lighthouseci/
+shots/
+# Secrets never go in this public repo
+.env
+.env.*
+.dev.vars
+.dev.vars.*
+.wrangler/

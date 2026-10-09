@@ -1,0 +1,30 @@
+---
+// Terms of Use and analytics notice. The text is kept verbatim from the
+// previous /terms/ page (src/content/terms.html); only the styling is new.
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import terms from '../../content/terms.html?raw';
+
+const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Terms' }];
+---
+
+<Base crumbs={crumbs}>
+  <section class="wrap hero" style="padding-bottom: 48px">
+    <Breadcrumbs items={crumbs} />
+    <div class="hero-grid" style="margin-top: 40px">
+      <div class="stack-m">
+        <p class="eyebrow">Legal</p>
+        <h1 class="h1">Terms of Use</h1>
+      </div>
+      <p class="byline" style="align-self: end">
+        <span>
+          Effective <b>24 August 2026</b>
+        </span>
+        <span>Binns Pte. Ltd. (Singapore)</span>
+      </p>
+    </div>
+  </section>
+  <section class="wrap section" style="padding-top: 0">
+    <div class="legal-text" set:html={terms} />
+  </section>
+</Base>

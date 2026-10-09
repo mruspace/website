@@ -1,0 +1,8 @@
+{
+  "home": "Form: the canvas draws each interest option as a pill inside a pill (renderer artefact); the site draws one pill, so the form is 4 to 60 px shorter. Canvas quorum cell bug (full-screen height, white in dark) fixed on the site.",
+  "company": "Approved claim edits: \"Early and public.\" and the Long Now card removed.",
+  "r-flight": "Approved claim edits in \"What comes next\" (steps 4 and 5) make the list shorter.",
+  "uc-volcano-seismic": "Approved photo change: Mount Pico (plate 13). Its longer credit wraps one more line on phones.",
+  "credits": "Plate 13 row: new photo, caption and author.",
+  "_all": "Every page with the form shows the same pill difference."
+}

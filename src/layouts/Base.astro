@@ -1,0 +1,121 @@
+---
+import '../styles/fonts.css';
+import '../styles/mru.css';
+import '../styles/site.css';
+import Analytics from '../components/Analytics.astro';
+import Madruga from '../components/Madruga.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import RequestInfo from '../components/RequestInfo.astro';
+import type { NavId } from '../data/nav';
+import { SITE } from '../data/site';
+import { metaFor, isNoindex } from '../data/metadata';
+import type { Interest } from '../config/form';
+import { buildGraph, type Crumb, type Qa, type PageLd } from '../data/jsonld';
+import { cardPath } from '../../scripts/og/card.mjs';
+
+interface Props {
+  /** Internal pages only. Public pages take title and description from metadata.json. */
+  title?: string;
+  description?: string;
+  /** The request form after <main>, with its per-page settings. */
+  request?: { heading?: string; interest?: Interest; topic?: string };
+  /** The visible breadcrumbs, for BreadcrumbList. */
+  crumbs?: Crumb[];
+  /** The visible questions, for FAQPage. */
+  faq?: Qa[];
+  /** Page data for the other JSON-LD types. */
+  ld?: PageLd;
+  /** Extra classes on the page wrapper, e.g. "glow" on Home. */
+  rootClass?: string;
+  active?: NavId;
+  noindex?: boolean;
+  /** false: no site header, footer or analytics (internal pages such as the style guide). */
+  chrome?: boolean;
+  mainClass?: string;
+  mainStyle?: string;
+}
+const { rootClass = '', active = 'none', chrome = true, mainClass, mainStyle, request, crumbs, faq, ld } = Astro.props;
+const meta = Astro.props.title ? null : metaFor(Astro.url.pathname);
+const title = Astro.props.title ?? meta!.title;
+const description = Astro.props.description ?? meta!.description;
+const noindex = Astro.props.noindex ?? (meta ? isNoindex(meta) : false);
+const path = Astro.url.pathname;
+const isArticle = !!meta?.schema.some((t) => t === 'ScholarlyArticle' || t === 'BlogPosting');
+const ogImage = meta ? new URL(cardPath(path === '/404.html' ? '/404/' : path), SITE.url).href : null;
+const graph = meta ? buildGraph({ meta, crumbs, faq, ld }) : null;
+const twin = meta && !noindex ? `${path}index.md` : null;
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      (function () {
+        document.documentElement.classList.add('js');
+        try {
+          var t = localStorage.getItem('mru-theme');
+          if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {}
+      })();
+    </script>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
+    <meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121214" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" type="image/png" href="/assets/favicon-light.png" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/png" href="/assets/favicon-dark.png" media="(prefers-color-scheme: dark)" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="alternate" type="application/rss+xml" title="Mru research log" href="/research/feed.xml" />
+    {twin && <link rel="alternate" type="text/markdown" href={twin} />}
+    {meta && ogImage && (
+      <>
+        <meta property="og:type" content={isArticle ? 'article' : 'website'} />
+        <meta property="og:site_name" content={SITE.siteName} />
+        <meta property="og:title" content={meta.ogTitle} />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={meta.ogTitle} />
+        <meta property="og:locale" content="en_GB" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@mruspace" />
+        <meta name="twitter:creator" content="@mruspace" />
+        <meta name="twitter:title" content={meta.ogTitle} />
+        <meta name="twitter:description" content={meta.description} />
+        <meta name="twitter:image" content={ogImage} />
+        <meta name="twitter:image:alt" content={meta.ogTitle} />
+      </>
+    )}
+    {graph && <script type="application/ld+json" set:html={JSON.stringify(graph).replace(/</g, '\\u003c')} />}
+    <link rel="preload" href="/fonts/jost-500.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/source-serif-4-400.woff2" as="font" type="font/woff2" crossorigin />
+    <slot name="head" />
+    {chrome && <Analytics />}
+  </head>
+  <body>
+    <a class="skip" href="#main">
+      Skip to content
+    </a>
+    <div class:list={['mru', rootClass]}>
+      {chrome && <SiteHeader active={active} />}
+      <main id="main" class={mainClass} style={mainStyle}>
+        <slot />
+      </main>
+      {request && <RequestInfo {...request} />}
+      <slot name="after" />
+      {chrome && <SiteFooter />}
+    </div>
+    {chrome && <Madruga />}
+  </body>
+</html>

@@ -1,0 +1,14 @@
+---
+// "Theme: Auto", a quiet text button in the footer's legal line (and the
+// docs nav foot). Each press cycles Auto → Light → Dark. Hidden until the
+// script runs: with JS off the page follows prefers-color-scheme.
+---
+
+<button type="button" class="theme-cycle" data-theme-cycle hidden>
+  Theme: <span data-theme-label>Auto</span>
+</button>
+
+<script>
+  import { initThemeToggle } from '../scripts/theme';
+  initThemeToggle();
+</script>

@@ -1,0 +1,20 @@
+---
+// Section seam: the orbit glyph on a rule. The ochre part of the rule is how
+// much "life" is left at this point of the page.
+interface Props {
+  life: string | number;
+  label: string;
+}
+const { life, label } = Astro.props;
+const pct = typeof life === 'number' ? `${life}%` : life;
+---
+
+<div class="wrap">
+  <div class="seam" style={`--life: ${pct}`}>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle class="r" cx="12" cy="12" r="8"></circle>
+      <ellipse class="o" cx="12" cy="12" rx="11" ry="4.2" transform="rotate(-58 12 12)"></ellipse>
+    </svg>
+    <span class="lab">{label}</span>
+  </div>
+</div>
