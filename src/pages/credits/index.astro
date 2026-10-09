@@ -4,19 +4,16 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import PlateImage from '../../components/PlateImage.astro';
 import { PHOTOS } from '../../data/images';
 
-const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Company', href: '/company/' }, { label: 'Image credits' }];
+const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Company', href: '/company/' }, { label: 'Credits' }];
 ---
 
 <Base crumbs={crumbs}>
   <section class="wrap hero" style="padding-bottom: 48px">
     <Breadcrumbs items={crumbs} />
     <div class="hero-grid" style="margin-top: 40px">
-      <h1 class="h1">Image credits</h1>
+      <h1 class="h1">Credits</h1>
       <div class="stack-m">
-        <p class="lede">
-          Every photo on this site comes from Wikimedia Commons, under a free licence or in the public domain. Thank you
-          to the people who took them.
-        </p>
+        <p class="lede">Sources and licences for the photos on this site.</p>
         <p class="soft small">
           Changes: all photos are cropped and shown in greyscale, blended into the page. Adaptations of CC BY-SA photos
           are shared under the same licence. Charts are our own.
@@ -30,7 +27,6 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Company', href: '/company
       <table class="tbl">
         <thead>
           <tr>
-            <th>Plate</th>
             <th>Photo</th>
             <th>Author</th>
             <th>Licence</th>
@@ -40,9 +36,6 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Company', href: '/company
         <tbody>
           {PHOTOS.map((r) => (
             <tr>
-              <td class="m" style="width: 80px">
-                PL. {r.plate}
-              </td>
               <td style="min-width: 320px">
                 <div style="display: flex; gap: 16px; align-items: center">
                   <span class="plate" style="width: 96px; flex: none">
@@ -58,7 +51,7 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Company', href: '/company
                 <a href={r.licenceUrl}>{r.licence}</a>
               </td>
               <td class="m">
-                <a href={r.source}>Commons &#8599;</a>
+                <a href={r.source}>Source &#8599;</a>
               </td>
             </tr>
           ))}

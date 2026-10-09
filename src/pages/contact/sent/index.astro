@@ -5,11 +5,7 @@ import Base from '../../../layouts/Base.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { SITE } from '../../../data/site';
 
-const crumbs = [
-  { label: 'Mru', href: '/' },
-  { label: 'Request information', href: '/contact/' },
-  { label: 'Request sent' },
-];
+const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Get in touch', href: '/contact/' }, { label: 'Request sent' }];
 ---
 
 <Base crumbs={crumbs}>

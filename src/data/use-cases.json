@@ -124,9 +124,9 @@
       "intro": "Profiling floats dive and surface on their own for years, until their batteries run out. Gliders fly for months between recoveries. Every extra month of good data counts.",
       "stats": [
         {
-          "v": "~900",
+          "v": "900",
           "u": "/ year",
-          "l": "Argo floats replaced each year, at about $40,000 each.",
+          "l": "About this many Argo floats are replaced each year, at about $40,000 each.",
           "src": "Argo Program"
         }
       ],
