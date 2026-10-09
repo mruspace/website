@@ -4,7 +4,7 @@
     "title": "Fault-tolerant software for unrepairable hardware · Mru Aerospace",
     "description": "When processors fail and nobody can come, Mru keeps delivering checked results on the ones left. For ocean, offshore and remote equipment, and spacecraft.",
     "ogTitle": "Systems that still run a thousand years after we're gone",
-    "ogDescription": "Mru is software for computers that cannot be repaired in time: ocean observatories, offshore and remote sites, spacecraft. When processors fail, it keeps delivering checked results with the ones left, instead of stopping.",
+    "ogDescription": "Mru is software for computers that cannot be easily repaired: ocean observatories, offshore and remote sites, spacecraft. When processors fail, it keeps delivering checked results with the ones left, instead of stopping.",
     "cardLabel": "Mru",
     "schema": ["Organization", "WebSite"]
   },
