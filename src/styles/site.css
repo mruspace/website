@@ -183,25 +183,31 @@ html.js .quorum-fallback {
     display: block;
     margin-left: auto;
   }
+  /* As on phones (mru.css), a grid with a fixed first row, here 72 px. */
   .site-header .bar {
-    gap: 12px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 72px;
+    gap: 0 12px;
     padding-top: 0;
   }
   /* No nav on this line: centre the word, and the mark with it. */
   .site-header .brand {
     align-self: center;
+    justify-self: start;
   }
   .site-header .menu-toggle[open] {
     width: 100%;
-    order: 3;
+    grid-row: 2;
+    grid-column: 1 / -1;
     margin-left: 0;
   }
   .site-header .menu-toggle[open] summary {
     margin-left: auto;
     position: absolute;
     right: var(--gut);
-    top: 14px;
+    top: 36px;
+    translate: 0 -50%;
   }
 }
 
