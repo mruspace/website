@@ -229,14 +229,6 @@ html.js .quorum-fallback {
   --ink-faint: #6c6c75;
 }
 
-/* Without JS the mark GIFs never start (see Mark.astro): show the static mark. */
-html:not(.js) .mark-anim {
-  display: none;
-}
-html:not(.js) .mark-static {
-  display: block;
-}
-
 /* Footer column titles are h2 (the canvas used h4, which skipped heading
    levels after the page's h2s). Same look as .foot-grid h4. */
 .foot-grid .foot-h {
@@ -249,27 +241,12 @@ html:not(.js) .mark-static {
   margin-bottom: 14px;
 }
 
-/* The animated mark's box is a span around the <picture> (Mark.astro). Until
-   the GIF has loaded, the static mark stands in, at the size of the mark in
-   the GIF frame (its ring is 62.8% of the frame; the SVG's is 70.4%). No
+/* The animated mark's box is a span around the <picture> (Mark.astro). No
    transform, filter, opacity or z-index here: the GIF blend must not break. */
-.mark-anim {
-  position: relative;
-}
 .mark-anim picture {
   display: block;
   width: 100%;
   height: 100%;
-}
-.mark-anim .mark-wait {
-  position: absolute;
-  inset: 5.4%;
-  width: 89.2%;
-  height: 89.2%;
-  color: var(--ink);
-}
-.mark-anim.playing .mark-wait {
-  display: none;
 }
 /* The mark in the header and footer brand: the GIF's ring is 62.8% of its
    frame, the SVG's 70.4%, so a 48 px GIF matches a 43 px static mark. */
@@ -291,8 +268,8 @@ html:not(.js) .mark-static {
   }
 }
 /* Hide the GIF images until one has loaded, so a slow or failed load shows
-   the static mark, never a broken-image icon. (visibility, not opacity: the
-   blend must keep working.) */
-.mark-anim:not(.playing) img {
+   an empty space, never a broken-image icon. Without JS the GIF shows as it
+   loads. (visibility, not opacity: the blend must keep working.) */
+html.js .mark-anim:not(.playing) img {
   visibility: hidden;
 }
