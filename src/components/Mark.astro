@@ -5,6 +5,8 @@
 // Both images are lazy: only the one the theme shows gets a layout box, so
 // the other never downloads. Reduced motion hides both and shows the SVG; so
 // does a browser without JS, because the GIFs start from a script.
+// With `now`, the GIF loads at once and nothing stands in for it: for a page
+// that shows the animation itself (the brand kit), not the site's chrome.
 import MarkSvg from './MarkSvg.astro';
 
 interface Props {
@@ -12,10 +14,13 @@ interface Props {
   staticSize?: number;
   gap?: number;
   alt?: string;
+  now?: boolean;
 }
 // A 1x1 transparent GIF until the animation starts (valid HTML, shows nothing).
 const BLANK = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-const { size, staticSize, gap, alt = 'The Mru mark: a ring, a tilted orbit and an M' } = Astro.props;
+const { size, staticSize, gap, alt = 'The Mru mark: a ring, a tilted orbit and an M', now = false } = Astro.props;
+const LIGHT = '/assets/mru-light.gif';
+const DARK = '/assets/mru.gif';
 // Inline sizes only where a page sets them, as on the canvas; otherwise the
 // stylesheet sizes the mark (104 px, 88 px on phones).
 const style = (s?: number) =>
@@ -24,12 +29,12 @@ const style = (s?: number) =>
     .join('; ') || undefined;
 ---
 
-<span class="mark-anim" style={style(size)}>
+<span class="mark-anim" data-now={now ? '' : undefined} style={style(size)}>
   <picture>
     <img
       class="on-light"
-      src={BLANK}
-      data-src="/assets/mru-light.gif"
+      src={now ? LIGHT : BLANK}
+      data-src={now ? undefined : LIGHT}
       alt={alt}
       width="600"
       height="600"
@@ -38,8 +43,8 @@ const style = (s?: number) =>
     />
     <img
       class="on-dark"
-      src={BLANK}
-      data-src="/assets/mru.gif"
+      src={now ? DARK : BLANK}
+      data-src={now ? undefined : DARK}
       alt=""
       width="600"
       height="600"
@@ -47,7 +52,7 @@ const style = (s?: number) =>
       decoding="async"
     />
   </picture>
-  <MarkSvg class="mark-wait" />
+  {!now && <MarkSvg class="mark-wait" />}
 </span>
 <MarkSvg class="mark-static" style={style(staticSize ?? size)} label="Mru mark" />
 
@@ -56,6 +61,12 @@ const style = (s?: number) =>
   // so they never delay it. Until one has loaded, the static mark stands in
   // at the same place (.mark-wait). Both stay lazy, so the one the theme
   // hides is never fetched.
+  // A `now` mark's GIF is already loading: show it once it has loaded.
+  for (const img of document.querySelectorAll<HTMLImageElement>('.mark-anim[data-now] img')) {
+    const play = () => img.closest('.mark-anim')?.classList.add('playing');
+    if (img.complete && img.naturalWidth > 1) play();
+    else img.addEventListener('load', play, { once: true });
+  }
   const start = () => {
     for (const img of document.querySelectorAll<HTMLImageElement>('.mark-anim img[data-src]')) {
       img.addEventListener('load', () => img.closest('.mark-anim')?.classList.add('playing'), { once: true });
