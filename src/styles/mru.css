@@ -256,6 +256,12 @@
   line-height: 1.5;
   color: var(--ink-faint);
 }
+/* A note under a table or a group of cards is its caption: 10px, as
+   .figure .cap. .mru p outranks the stack rules, so without this the note
+   sits flush against the box. */
+.mru :is(.tbl-box, .cards) + p.tiny {
+  margin-top: 10px;
+}
 .quote {
   font-family: var(--serif);
   font-style: italic;
