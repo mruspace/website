@@ -186,6 +186,11 @@ html.js .quorum-fallback {
   .site-header .bar {
     gap: 12px;
     flex-wrap: wrap;
+    padding-top: 0;
+  }
+  /* No nav on this line: centre the word, and the mark with it. */
+  .site-header .brand {
+    align-self: center;
   }
   .site-header .menu-toggle[open] {
     width: 100%;

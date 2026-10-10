@@ -281,7 +281,12 @@
 }
 /* The word "Mru" (24 px) and the nav links (16 px) share one baseline. A
    baseline row sits at the top of a flex line, so the bar wraps and centres
-   its line instead. The mark, the button and the menu stay centred. */
+   its line instead. The button and the menu stay centred.
+   The mark sits outside the flow, centred on the word. The word's box is
+   trimmed to its capital height, so the mark lines up with the letters, not
+   with the line box (browsers without text-box trimming centre it on the line
+   box, about 1 px off). The 48 px slot holds the 48 px GIF or the 43 px
+   static mark, centred, as before. */
 .site-header .bar {
   display: flex;
   flex-wrap: wrap;
@@ -289,17 +294,34 @@
   align-items: baseline;
   gap: 32px;
   min-height: 72px;
+  /* The nav links' padded boxes set the line; this moves the mark and the
+     word down onto the bar's centre line. */
+  padding-top: 6px;
 }
 .site-header .bar > .cta,
 .site-header .bar > .menu-toggle {
   align-self: center;
 }
-.site-header .brand {
-  align-items: baseline;
+.site-header .bar > .cta {
+  margin-top: -6px;
 }
-.site-header .brand > .mark-anim,
+.site-header .brand {
+  position: relative;
+  align-items: baseline;
+  padding-left: 58px;
+}
+.site-header .brand > :last-child {
+  text-box: trim-both cap alphabetic;
+}
+.site-header .brand > .mark-anim {
+  position: absolute;
+  left: 0;
+  top: calc(50% - 24px);
+}
 .site-header .brand > .mark-static {
-  align-self: center;
+  position: absolute;
+  left: 2.5px;
+  top: calc(50% - 21.5px);
 }
 .brand {
   display: inline-flex;
@@ -1688,6 +1710,11 @@
     gap: 12px;
     min-height: 64px;
     flex-wrap: wrap;
+    padding-top: 0;
+  }
+  /* No nav on this line: centre the word, and the mark with it. */
+  .site-header .brand {
+    align-self: center;
   }
   .menu-toggle[open] {
     width: 100%;
