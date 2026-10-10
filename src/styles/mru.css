@@ -1706,26 +1706,35 @@
     display: block;
     margin-left: auto;
   }
+  /* A grid with a fixed 64 px first row: the open menu takes the row below,
+     and the brand stays centred on its row. (In a wrapping flex bar, the
+     row shrank to the brand's trimmed box and pushed the mark off the top.) */
   .site-header .bar {
-    gap: 12px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 64px;
+    gap: 0 12px;
     min-height: 64px;
-    flex-wrap: wrap;
     padding-top: 0;
   }
   /* No nav on this line: centre the word, and the mark with it. */
   .site-header .brand {
     align-self: center;
+    justify-self: start;
   }
   .menu-toggle[open] {
     width: 100%;
-    order: 3;
+    grid-row: 2;
+    grid-column: 1 / -1;
     margin-left: 0;
   }
+  /* Open, the button leaves the row; it stays centred where it sat closed. */
   .menu-toggle[open] summary {
     margin-left: auto;
     position: absolute;
     right: var(--gut);
-    top: 10px;
+    top: 32px;
+    translate: 0 -50%;
   }
   .hero {
     padding-top: 48px;
