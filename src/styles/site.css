@@ -212,20 +212,11 @@ html.js .quorum-fallback {
 }
 
 /* Home hero: from 921 px the header's Get in touch is on screen, so the hero
-   drops its own and Learn more becomes the solid button. The width matches
-   the header's: below it, the header button is in the menu. */
+   drops its own. The width matches the header's: below it, the header button
+   is in the menu. */
 @container (min-width: 921px) {
   .hero .hero-contact {
     display: none;
-  }
-  .hero .btn.ghost.hero-more {
-    background: var(--ink);
-    color: var(--bg) !important;
-    border-color: var(--ink);
-  }
-  .hero .btn.ghost.hero-more:hover {
-    background: var(--accent);
-    border-color: var(--accent);
   }
 }
 
