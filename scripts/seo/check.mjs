@@ -3,7 +3,8 @@
 // - a page in metadata.json with no built page, or a built page with no entry
 //   (redirects from old URLs excepted)
 // - titles over 65 characters, descriptions outside 70 to 160 (noindex pages
-//   are exempt from the minimum)
+//   are exempt from the minimum; an entry with "lengthExempt": true is
+//   exempt from all three limits, by choice)
 // - missing title, description, canonical, Open Graph or Twitter tags
 // - invalid JSON-LD: not exactly one block, bad JSON, wrong context, a node
 //   without @type, missing required properties, types that differ from the
@@ -73,9 +74,9 @@ for (const f of await htmlFiles(DIST)) {
     continue;
   }
   const noindex = m.schema.includes('noindex');
-  if (m.title.length > 65) err(route, `title is ${m.title.length} characters (max 65)`);
+  if (m.title.length > 65 && !m.lengthExempt) err(route, `title is ${m.title.length} characters (max 65)`);
   const d = m.description.length;
-  if (d > 160 || (d < 70 && !noindex)) err(route, `description is ${d} characters (70 to 160)`);
+  if (!m.lengthExempt && (d > 160 || (d < 70 && !noindex))) err(route, `description is ${d} characters (70 to 160)`);
 
   const { document } = parseHTML(await readFile(f, 'utf8'));
   const q = (sel, attr = 'content') => document.querySelector(sel)?.getAttribute(attr);
