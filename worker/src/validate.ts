@@ -11,13 +11,16 @@ export const INTERESTS = {
 export type Interest = keyof typeof INTERESTS;
 
 export const ROLES = [
-  'Programme or mission lead',
+  'Program or mission lead',
   'Engineering',
   'Operations',
   'Business or procurement',
   'Research',
   'Other',
 ] as const;
+
+/** Old role labels from pages a browser may still have cached, mapped to the current label. */
+const LEGACY_ROLES: Record<string, string> = { 'Programme or mission lead': 'Program or mission lead' };
 
 export interface RequestFields {
   name: string;
@@ -50,6 +53,8 @@ const text = (v: string) =>
     .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, '')
     .trim();
 
+const legacyRole = (r: string) => LEGACY_ROLES[r] ?? r;
+
 export function parse(form: FormData): RequestFields | FieldError {
   const get = (k: string) => {
     const v = form.get(k);
@@ -59,7 +64,7 @@ export function parse(form: FormData): RequestFields | FieldError {
     name: line(get('name')),
     email: line(get('email')),
     organisation: line(get('organisation')),
-    role: line(get('role')),
+    role: legacyRole(line(get('role'))),
     interest: line(get('interest')) as Interest,
     message: text(get('message')),
     topic: line(get('topic')),
@@ -71,7 +76,7 @@ export function parse(form: FormData): RequestFields | FieldError {
   if (f.name.length > LIMITS.name)
     return { field: 'name', error: `Keep the name to ${LIMITS.name} characters or fewer.` };
   if (f.organisation.length > LIMITS.organisation)
-    return { field: 'organisation', error: `Keep the organisation to ${LIMITS.organisation} characters or fewer.` };
+    return { field: 'organisation', error: `Keep the organization to ${LIMITS.organisation} characters or fewer.` };
   if (f.message.length > LIMITS.message)
     return {
       field: 'message',

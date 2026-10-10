@@ -44,7 +44,7 @@ function validate(data: FormData): Partial<Record<FieldName, string>> {
     errors.email = 'This email address looks incomplete. Check it and try again.';
   if (get('name').length > LIMITS.name) errors.name = `Keep the name to ${LIMITS.name} characters or fewer.`;
   if (get('organisation').length > LIMITS.organisation)
-    errors.organisation = `Keep the organisation to ${LIMITS.organisation} characters or fewer.`;
+    errors.organisation = `Keep the organization to ${LIMITS.organisation} characters or fewer.`;
   if (get('message').length > LIMITS.message)
     errors.message = `Keep the message to ${LIMITS.message.toLocaleString('en')} characters or fewer.`;
   return errors;
@@ -77,7 +77,6 @@ export function initRequestForms(): void {
   for (const root of document.querySelectorAll<HTMLElement>('[data-req]')) {
     const form = root.querySelector<HTMLFormElement>('[data-req-form]');
     const sent = root.querySelector<HTMLElement>('[data-req-sent]');
-    const again = root.querySelector<HTMLButtonElement>('[data-req-again]');
     if (!form || !sent) continue;
     form.noValidate = true;
     const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
@@ -158,20 +157,12 @@ export function initRequestForms(): void {
         setStatus(form, `The request did not send. Check your connection and try again, or write to ${CONTACT}.`);
       } finally {
         if (submit) submit.disabled = false;
-        // A token is good for one use: get a fresh one for "Send another".
+        // A token is good for one use: get a fresh one for a retry.
         if (widget) {
           arm();
           window.turnstile?.reset(widget);
         }
       }
-    });
-
-    again?.addEventListener('click', () => {
-      form.reset();
-      showErrors(form, {});
-      sent.hidden = true;
-      form.hidden = false;
-      (form.elements.namedItem('name') as HTMLInputElement | null)?.focus();
     });
   }
 }

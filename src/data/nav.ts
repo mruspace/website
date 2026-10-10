@@ -23,7 +23,7 @@ export const FOOTER_COLUMNS: { title: string; links: { label: string; href: stri
     links: [
       { label: 'Mru Field', href: '/field/' },
       { label: 'Mru Flight', href: '/flight/' },
-      { label: 'How it works', href: '/how-it-works/' },
+      { label: 'Architecture', href: '/architecture/' },
       { label: 'Docs', href: `${SITE.docsUrl}/` },
     ],
   },
@@ -34,13 +34,13 @@ export const FOOTER_COLUMNS: { title: string; links: { label: string; href: stri
       { label: 'Ocean buoys', href: '/use-cases/ocean-buoys/' },
       { label: 'Offshore wind', href: '/use-cases/offshore-wind/' },
       { label: 'Polar stations', href: '/use-cases/polar-stations/' },
-      { label: 'All use cases', href: '/use-cases/' },
+      { label: 'More use cases', href: '/use-cases/' },
     ],
   },
   {
     title: 'Research',
     links: [
-      { label: 'The log', href: '/research/' },
+      { label: 'Log', href: '/research/' },
       { label: 'Whitepaper', href: '/research/' },
       { label: 'Dusk', href: '/research/dusk-results/' },
       { label: 'Flight prototype', href: '/research/flight-prototype/' },
@@ -52,6 +52,7 @@ export const FOOTER_COLUMNS: { title: string; links: { label: string; href: stri
       { label: 'About', href: '/company/' },
       { label: 'Get in touch', href: '/contact/' },
       { label: 'Credits', href: '/credits/' },
+      { label: 'Brand', href: '/brand/' },
       { label: 'Terms', href: '/terms/' },
       { label: 'GitHub', href: SITE.github },
       { label: 'X', href: SITE.x },

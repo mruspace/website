@@ -24,11 +24,11 @@ export default {
   ],
   title: 'Mru',
   summary:
-    'Mru is fault-tolerant software for computers that cannot be repaired in time: ocean observatories, offshore and remote sites, spacecraft. When processors fail, it keeps delivering checked results on the ones left. Early: decision core at TRL 3, open source, first field pilot planned for 2027.',
+    'Mru is fault-tolerant software for systems that cannot be easily maintained or repaired: ocean observatories, offshore and remote sites, spacecraft. When processors fail, it keeps delivering checked results on the ones left. The decision core is open source.',
   intro:
-    'Two products share one open core: Mru Field for hard-to-reach equipment on Earth, and Mru Flight for spacecraft. Dusk and Mru 2049 are research. Every number on the site has a source; limits are stated next to claims. Contact: contact@mru.space or https://mru.space/contact/.',
+    'Two products share one open core: Mru Field for hard-to-reach systems on Earth, and Mru Flight for spacecraft. Dusk and Mru 2049 are research. Every number on the site has a source; limits are stated next to claims. Contact: contact@mru.space or https://mru.space/contact/.',
   sections: [
-    { title: 'Products', match: (p) => ['/', '/field/', '/flight/', '/how-it-works/'].includes(p) },
+    { title: 'Products', match: (p) => ['/', '/field/', '/flight/', '/architecture/'].includes(p) },
     { title: 'Use cases', match: (p) => p.startsWith('/use-cases/') },
     { title: 'Research', match: (p) => p.startsWith('/research/') },
     {
@@ -46,6 +46,6 @@ export default {
         })),
       ],
     },
-    { title: 'Company', match: (p) => ['/company/', '/contact/', '/credits/', '/terms/'].includes(p) },
+    { title: 'Company', match: (p) => ['/company/', '/contact/', '/credits/', '/brand/', '/terms/'].includes(p) },
   ],
 };

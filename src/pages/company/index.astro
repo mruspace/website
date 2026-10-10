@@ -1,6 +1,5 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Seam from '../../components/Seam.astro';
 import PlateImage from '../../components/PlateImage.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { photo, creditLine } from '../../data/images';
@@ -18,8 +17,8 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Company' }];
     <div class="hero-grid" style="margin-top: 40px">
       <h1 class="h1">Fault-tolerant software for hard-to-reach systems.</h1>
       <p class="lede">
-        The long-term goal is software that runs for a thousand years. The work is paid for along the way by equipment
-        that needs it now, on Earth first, then in orbit.
+        The long-term goal is software that runs for a thousand years. The work is paid for along the way by systems
+        that need it now, on Earth and in orbit.
       </p>
     </div>
   </section>
@@ -63,77 +62,6 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Company' }];
     </div>
   </section>
 
-  <Seam life={72} label="Where we are" />
-
-  <section class="wrap section stack-l">
-    <div class="split">
-      <div class="stack-m">
-        <p class="eyebrow">Where we are</p>
-        <h2 class="h2">Early and public.</h2>
-      </div>
-      <p class="lede">Everything we have built so far is open. The next step is unattended field data, then orbit.</p>
-    </div>
-    <div class="tbl-box" tabindex="0">
-      <table class="tbl">
-        <thead>
-          <tr>
-            <th>When</th>
-            <th>What</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="m">May 2026</td>
-            <td>Whitepaper: a fault-tolerant operating system for thousand-year autonomous operation</td>
-            <td class="m">Published · DOI</td>
-          </tr>
-          <tr>
-            <td class="m">Sep 2026</td>
-            <td>Dusk: 10,000-mission simulator, 1.34× the useful work of TMR</td>
-            <td class="m">Open source</td>
-          </tr>
-          <tr>
-            <td class="m">Sep 2026</td>
-            <td>Mru 2049: browser flight simulator on real astronomical data</td>
-            <td class="m">Open source</td>
-          </tr>
-          <tr>
-            <td class="m">Oct 2026</td>
-            <td>Mru Flight prototype: verified Rust core and fault-injection demo</td>
-            <td class="m">Open source · TRL 3</td>
-          </tr>
-          <tr class="hl">
-            <td class="m">2027</td>
-            <td>Mru Field pilot in the Azores, months unattended</td>
-            <td class="m">Planned · TRL 6 goal</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <Seam life={56} label="Founder" />
-
-  <section class="wrap section">
-    <div class="split">
-      <div class="stack-m">
-        <p class="eyebrow">Founder</p>
-        <h2 class="h2">Will Binns</h2>
-        <p class="lede">Has spent years running systems that must not fail when parts of them do.</p>
-      </div>
-      <ul class="sig-list" style="font-size: 19px">
-        <li>Ran bitcoin.org</li>
-        <li>Led teams at Coinbase</li>
-        <li>
-          Editor of <em>Mastering Bitcoin</em> and <em>Mastering Ethereum</em>
-        </li>
-        <li>Helped run Stanford's Bitcoin Engineering course</li>
-        <li>Open source at NASA JPL and the ESA Advanced Concepts Team</li>
-      </ul>
-    </div>
-  </section>
-
   <section class="wrap section" style="padding-top: 0">
     <div class="split rev" style="align-items: end">
       <figure class="plate">
@@ -149,8 +77,8 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Company' }];
         <p class="eyebrow">Where</p>
         <h2 class="h2">In the middle of the Atlantic.</h2>
         <p class="soft">
-          We plan to work from Horta, in the Azores: close to deep-sea observatories, open ocean and the people who run
-          them.
+          We work from Horta, in the Azores, close to deep-sea observatories, open ocean and the people who run them. We
+          work with operators around the world.
         </p>
       </div>
     </div>

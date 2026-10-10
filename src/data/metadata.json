@@ -4,14 +4,14 @@
     "title": "Fault-tolerant software for unrepairable hardware · Mru Aerospace",
     "description": "When processors fail and nobody can come, Mru keeps delivering checked results on the ones left. For ocean, offshore and remote equipment, and spacecraft.",
     "ogTitle": "Systems that still run a thousand years after we're gone",
-    "ogDescription": "Mru is software for computers that cannot be easily repaired: ocean observatories, offshore and remote sites, spacecraft. When processors fail, it keeps delivering checked results with the ones left, instead of stopping.",
+    "ogDescription": "Mru is software for systems that cannot be easily maintained or repaired: ocean observatories, offshore and remote sites, spacecraft. When processors fail, it keeps delivering checked results with the ones left, instead of stopping.",
     "cardLabel": "Mru",
     "schema": ["Organization", "WebSite"]
   },
   {
     "url": "https://mru.space/field/",
     "title": "Mru Field: fault tolerance for remote equipment · Mru Aerospace",
-    "description": "Runs on the 2 or 3 processors already in your enclosure. Votes, compares, then self-checks as they fail. Linux on ARM and x86. Field pilot planned 2027.",
+    "description": "Runs on the processors already in your enclosure. Votes, compares, then self-checks as they fail, instead of stopping. Linux on ARM and x86.",
     "ogTitle": "Mru Field: fault tolerance for hard-to-reach systems",
     "cardLabel": "Product · Earth",
     "schema": ["SoftwareApplication", "BreadcrumbList", "FAQPage"]
@@ -19,17 +19,17 @@
   {
     "url": "https://mru.space/flight/",
     "title": "Mru Flight: onboard fault tolerance · Mru Aerospace",
-    "description": "A no_std Rust decision core with Kani proofs, to run as F´ components. Continues on two, then one processor after fixed TMR stops. Prototype, TRL 3.",
+    "description": "A no_std Rust decision core with Kani proofs, to run as F´ components. Continues on two, then one processor after fixed TMR stops.",
     "ogTitle": "Mru Flight: fault tolerance for spacecraft out of reach",
     "cardLabel": "Product · Space",
     "schema": ["SoftwareApplication", "BreadcrumbList", "FAQPage"]
   },
   {
-    "url": "https://mru.space/how-it-works/",
-    "title": "How Mru works: the shrinking quorum · Mru Aerospace",
+    "url": "https://mru.space/architecture/",
+    "title": "Mru architecture: the shrinking quorum · Mru Aerospace",
     "description": "Why triple redundancy stops at the second failure, how a shrinking quorum continues on what is left, and the six-layer architecture from the whitepaper.",
-    "ogTitle": "Decline is the baseline: how Mru works",
-    "cardLabel": "How it works",
+    "ogTitle": "Decline is the baseline: the Mru architecture",
+    "cardLabel": "Architecture",
     "schema": ["TechArticle", "BreadcrumbList"]
   },
   {
@@ -162,9 +162,9 @@
   },
   {
     "url": "https://mru.space/research/",
-    "title": "Research log: papers, results, releases · Mru Aerospace",
+    "title": "Log: papers, results, releases · Mru Aerospace",
     "description": "Everything Mru publishes: the whitepaper, simulation results and software releases, each with its method, its limits and how to cite it.",
-    "ogTitle": "The Mru research log",
+    "ogTitle": "Log",
     "cardLabel": "Research",
     "schema": ["Blog", "BreadcrumbList"]
   },
@@ -187,7 +187,7 @@
   {
     "url": "https://mru.space/company/",
     "title": "About Mru · Mru Aerospace",
-    "description": "Mru builds fault-tolerant software for systems that cannot be repaired in time. Open research, Earth first, then orbit. Founded by Will Binns.",
+    "description": "Mru builds fault-tolerant software for systems that cannot be easily maintained or repaired, on Earth and in orbit. Open research, from Horta, Azores.",
     "ogTitle": "About Mru",
     "cardLabel": "Company",
     "schema": ["AboutPage", "Organization", "Person"]
@@ -202,11 +202,19 @@
   },
   {
     "url": "https://mru.space/credits/",
-    "title": "Credits · Mru Aerospace",
-    "description": "Sources and licences for every photo on mru.space. Each one is used under a free licence or is in the public domain.",
-    "ogTitle": "Credits",
+    "title": "Credits and licenses · Mru Aerospace",
+    "description": "Sources and licenses for the photos, fonts and software on mru.space, and the licenses of our own code and papers.",
+    "ogTitle": "Credits and licenses",
     "cardLabel": "Credits",
     "schema": ["WebPage"]
+  },
+  {
+    "url": "https://mru.space/brand/",
+    "title": "Brand kit · Mru Aerospace",
+    "description": "The Mru mark, lockup, colors and type, with download files and the rules for using the Mru name and logo.",
+    "ogTitle": "Brand kit",
+    "cardLabel": "Brand",
+    "schema": ["WebPage", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/404/",
@@ -227,7 +235,7 @@
   {
     "url": "https://mru.space/contact/sent/",
     "title": "Request sent · Mru Aerospace",
-    "description": "Your request is on its way to contact@mru.space. We reply by email. The whitepaper, the results and the code are public in the meantime.",
+    "description": "Thank you. We reply by email and will be in touch soon.",
     "ogTitle": "Request sent",
     "cardLabel": "Contact",
     "schema": ["noindex"]

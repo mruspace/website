@@ -96,8 +96,7 @@ test.describe('interactive', () => {
     expect(posted).toContain('email=ops%40example.org');
     expect(posted).toContain('topic=Ocean+buoys+and+moorings');
     expect(posted).toContain('cf-turnstile-response=test-token');
-    await page.click('[data-req-again]');
-    await expect(page.locator('[data-req-form]')).toBeVisible();
+    await expect(page.locator('[data-req-form]')).toBeHidden();
   });
 
   test('without JS, the form posts to the Worker and the quorum table shows', async ({ browser }) => {
@@ -149,6 +148,7 @@ test.describe('interactive', () => {
       '/assets/mru-light.gif',
       '/assets/mru.mp4',
       '/assets/mru-light.mp4',
+      '/how-it-works/',
       '/terms/',
       '/CNAME',
       '/.nojekyll',

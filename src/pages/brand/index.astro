@@ -1,0 +1,297 @@
+---
+// The brand kit. The files live in github.com/mruspace/brand; this page shows
+// them with the site's own mark components and links to the downloads.
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Seam from '../../components/Seam.astro';
+import Mark from '../../components/Mark.astro';
+import MarkSvg from '../../components/MarkSvg.astro';
+import { SITE } from '../../data/site';
+
+const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Company', href: '/company/' }, { label: 'Brand' }];
+
+const REPO = `${SITE.github}/brand`;
+const file = (path: string) => `${REPO}/raw/main/${path}`;
+const ZIP = `${REPO}/archive/refs/heads/main.zip`;
+
+const COLORS = [
+  { name: 'Ink', light: '#16161a', dark: '#ecece8', use: 'Text and the mark' },
+  { name: 'Paper', light: '#fafaf8', dark: '#121214', use: 'Backgrounds' },
+  { name: 'Signal', light: '#87650a', dark: '#d8a54a', use: 'One meaning only: still working' },
+  { name: 'Accent', light: '#3a4a5a', dark: '#9fb4cb', use: 'Links' },
+];
+const TYPE = [
+  { role: 'Headings and the word "Mru"', face: 'Futura, medium', open: 'Jost 500', cls: 'h3' },
+  { role: 'Body text', face: 'Charter', open: 'Source Serif 4', cls: 'lede' },
+  { role: 'Labels, numbers and code', face: 'IBM Plex Mono', open: 'IBM Plex Mono', cls: 'tiny' },
+];
+const DOWNLOADS = [
+  { label: 'Mark, SVG, for light backgrounds', path: 'mark/mru-mark-on-light.svg' },
+  { label: 'Mark, SVG, for dark backgrounds', path: 'mark/mru-mark-on-dark.svg' },
+  { label: 'Mark, PNG 1024 px, for light backgrounds', path: 'mark/mru-mark-on-light-1024.png' },
+  { label: 'Mark, PNG 1024 px, for dark backgrounds', path: 'mark/mru-mark-on-dark-1024.png' },
+  { label: 'Lockup, SVG, for light backgrounds', path: 'lockup/mru-lockup-on-light.svg' },
+  { label: 'Lockup, SVG, for dark backgrounds', path: 'lockup/mru-lockup-on-dark.svg' },
+  { label: 'Animated mark, MP4, for dark backgrounds', path: 'motion/mru.mp4' },
+  { label: 'Animated mark, MP4, for light backgrounds', path: 'motion/mru-light.mp4' },
+];
+---
+
+<Base crumbs={crumbs} request={{ interest: 'other', heading: 'Writing about Mru? Ask us.' }}>
+  <section class="wrap hero" style="padding-bottom: 64px">
+    <Breadcrumbs items={crumbs} />
+    <div class="hero-grid" style="margin-top: 40px">
+      <h1 class="h1">Brand kit</h1>
+      <div class="stack-m">
+        <p class="lede">The Mru mark, the lockup, the colors and the type, with files to download.</p>
+        <div class="row">
+          <a class="btn" href={ZIP}>
+            Download the kit
+          </a>
+          <a class="link-more" href={REPO}>
+            mruspace/brand on GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section" style="padding-top: 0" aria-labelledby="h-mark">
+    <div class="split" style="margin-bottom: 48px">
+      <div class="stack-m">
+        <p class="eyebrow">The mark</p>
+        <h2 id="h-mark" class="h2">
+          A circle, with an orbit through it.
+        </h2>
+      </div>
+      <p class="lede">
+        The circle comes from <em>maru</em>, the suffix of seagoing ships. The orbit tilts at 22 degrees. The mark is
+        the same on Earth and in space.
+      </p>
+    </div>
+    <div class="cards">
+      <div class="card brand-tile" style="background: #fafaf8; color: #16161a; border-color: #e3e3dd">
+        <MarkSvg class="brand-art" label="Mru mark on a light background" />
+        <p class="tiny" style="margin: 0; color: #6c6c75">
+          On light
+        </p>
+      </div>
+      <div class="card brand-tile" style="background: #121214; color: #ecece8; border-color: #2a2a2e">
+        <MarkSvg class="brand-art" label="Mru mark on a dark background" />
+        <p class="tiny" style="margin: 0; color: #8f8f8a">
+          On dark
+        </p>
+      </div>
+      <div class="card brand-tile">
+        <Mark alt="The Mru mark, animated" size={140} />
+        <p class="tiny" style="margin: 0">
+          Animated
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Seam life={80} label="Lockup" />
+
+  <section class="wrap section" aria-labelledby="h-lockup">
+    <div class="split">
+      <div class="stack-m">
+        <p class="eyebrow">Lockup</p>
+        <h2 id="h-lockup" class="h2">
+          The mark and the name.
+        </h2>
+        <p class="soft">
+          The word is set in Futura, medium. In the files, every letter is an outline, so they look the same without the
+          font.
+        </p>
+      </div>
+      <div class="card brand-tile" style="min-height: 220px">
+        <span class="brand brand-lockup" role="img" aria-label="Mru lockup">
+          <MarkSvg />
+          <span aria-hidden="true">Mru</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <Seam life={64} label="Colors" />
+
+  <section class="wrap section stack-l" aria-labelledby="h-colors">
+    <div class="split">
+      <div class="stack-m">
+        <p class="eyebrow">Colors</p>
+        <h2 id="h-colors" class="h2">
+          Ink, paper and one warm signal.
+        </h2>
+      </div>
+      <p class="lede">
+        The site follows the reader's light or dark setting. Ochre means one thing only: something is still working.
+      </p>
+    </div>
+    <div class="tbl-box" tabindex="0">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Color</th>
+            <th>Light</th>
+            <th>Dark</th>
+            <th>Used for</th>
+          </tr>
+        </thead>
+        <tbody>
+          {COLORS.map((c) => (
+            <tr>
+              <td>{c.name}</td>
+              <td class="m">
+                <span class="chip-dot" style={`background: ${c.light}`} />
+                {c.light}
+              </td>
+              <td class="m">
+                <span class="chip-dot" style={`background: ${c.dark}`} />
+                {c.dark}
+              </td>
+              <td>{c.use}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="tiny">
+      All values: <a href={file('colors.json')}>colors.json</a>.
+    </p>
+  </section>
+
+  <Seam life={48} label="Type" />
+
+  <section class="wrap section stack-l" aria-labelledby="h-type">
+    <div class="split">
+      <div class="stack-m">
+        <p class="eyebrow">Type</p>
+        <h2 id="h-type" class="h2">
+          Three typefaces, each with one job.
+        </h2>
+      </div>
+      <p class="lede">Where a reader does not have Futura or Charter, the site uses an open font in its place.</p>
+    </div>
+    <div class="tbl-box" tabindex="0">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Typeface</th>
+            <th>Open fallback</th>
+          </tr>
+        </thead>
+        <tbody>
+          {TYPE.map((t) => (
+            <tr>
+              <td>{t.role}</td>
+              <td>
+                <span class={t.cls} style="margin: 0">
+                  {t.face}
+                </span>
+              </td>
+              <td class="m">{t.open}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <Seam life={32} label="Use" />
+
+  <section class="wrap section" aria-labelledby="h-use">
+    <div class="split">
+      <div class="stack-m">
+        <p class="eyebrow">Use</p>
+        <h2 id="h-use" class="h2">
+          Use the files as they are.
+        </h2>
+        <p class="soft">
+          You can use the mark to refer to Mru honestly, for example in an article, a talk or a list of tools that work
+          with it. Do not use it in a way that suggests we made or endorse your work. The full terms are in the{' '}
+          <a href={`${REPO}/blob/main/TRADEMARK.md`}>trademark notice</a>.
+        </p>
+      </div>
+      <ul class="sig-list">
+        <li>Keep clear space around the mark of at least half the ring's diameter.</li>
+        <li>Use the mark at 16 px or larger, and the lockup at 24 px tall or larger.</li>
+        <li>Use dark ink on light backgrounds and light ink on dark ones.</li>
+        <li>Do not recolor, rotate, stretch or outline the mark, or add effects to it.</li>
+        <li>Do not set "Mru" in another typeface.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap section stack-l" style="padding-top: 0" aria-labelledby="h-files">
+    <div class="split">
+      <h2 id="h-files" class="h2">
+        Files
+      </h2>
+      <p class="soft small">
+        Every file is also in the <a href={ZIP}>kit download</a>, with PNGs at 512 px and the GIFs.
+      </p>
+    </div>
+    <div class="tbl-box" tabindex="0">
+      <table class="tbl">
+        <tbody>
+          {DOWNLOADS.map((d) => (
+            <tr>
+              <td>{d.label}</td>
+              <td class="m" style="text-align: right">
+                <a href={file(d.path)}>Download</a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="tiny">
+      The Mru name and the Mru mark are trademarks of {SITE.legal}. They are not covered by the open-source licenses of
+      our code.
+    </p>
+  </section>
+</Base>
+
+<style>
+  .brand-tile {
+    display: grid;
+    place-items: center;
+    gap: 16px;
+    min-height: 260px;
+  }
+  .brand-tile :global(.brand-art) {
+    width: 140px;
+    height: 140px;
+  }
+  /* The lockup at four times the header size: a 172 px mark, a 40 px gap, 96 px type. */
+  .brand-lockup {
+    gap: 40px;
+    font-size: 96px;
+    line-height: 1;
+  }
+  .brand-lockup :global(svg) {
+    width: 172px;
+    height: 172px;
+  }
+  .chip-dot {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+    vertical-align: -2px;
+    border: 1px solid var(--rule-strong);
+    border-radius: 50%;
+  }
+  @media (max-width: 640px) {
+    .brand-lockup {
+      gap: 20px;
+      font-size: 48px;
+    }
+    .brand-lockup :global(svg) {
+      width: 86px;
+      height: 86px;
+    }
+  }
+</style>

@@ -14,7 +14,7 @@ export function body(f: RequestFields, referer: string, now: Date): string {
     '',
     row('Name', f.name),
     row('Work email', f.email),
-    row('Organisation', f.organisation),
+    row('Organization', f.organisation),
     row('Role', f.role),
     row('Interested in', INTERESTS[f.interest]),
     row('About', f.topic),

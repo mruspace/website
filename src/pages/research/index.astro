@@ -10,7 +10,6 @@ const all = await entries();
 const latest = all.find((e) => e.data.featured)!;
 const f = latest.data.featured!;
 const oldest = all[all.length - 1]!;
-const paper = all.find((e) => e.data.kind === 'Paper' && e.data.bibtex)!;
 const filters = [
   { label: 'All', slug: '' },
   { label: 'Papers', slug: KIND_SLUGS.Paper },
@@ -35,7 +34,7 @@ const filters = [
     <div class="hero-grid">
       <div class="stack-m">
         <p class="eyebrow">Research</p>
-        <h1 class="h-hero">The log</h1>
+        <h1 class="h-hero">Log</h1>
       </div>
       <div class="stack-m">
         <p class="lede">
@@ -118,21 +117,8 @@ const filters = [
       ))}
     </div>
     <p class="soft small" data-empty hidden>
-      Nothing of this kind yet. The log above lists every entry.
+      Nothing of this kind yet. The full list is above.
     </p>
-  </section>
-
-  <section class="wrap section tight sunk" style="max-width: none">
-    <div class="wrap split" style="padding-inline: 0">
-      <div class="stack-m">
-        <p class="eyebrow">Cite the whitepaper</p>
-        <h2 class="h3">
-          W. Binns, <em>Mru: A Fault-Tolerant Operating System for Thousand-Year Autonomous Operation</em>, 2026.
-        </h2>
-        <p class="tiny">doi:{paper.data.doi} · CC BY 4.0</p>
-      </div>
-      <pre class="pre" tabindex="0">{paper.data.bibtex}</pre>
-    </div>
   </section>
 </Base>
 

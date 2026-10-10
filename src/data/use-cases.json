@@ -1,7 +1,7 @@
 {
   "failures": {
     "compute": {
-      "t": "Computers fail one by one",
+      "t": "Parts fail one by one",
       "d": "Radiation, heat and age take out processors and memory. Nothing is replaced until the next visit."
     },
     "memory": {
@@ -39,7 +39,6 @@
       "kicker": "Ocean · Seafloor",
       "plate": "01",
       "cap": "TEMPO deep-sea observatory module on a hydrothermal vent",
-      "status": "Pilot planned",
       "hook": "Batteries, a cable, and one service visit a year.",
       "intro": "Seafloor observatories run science nodes on batteries and cables, far below anyone's reach. When a computer fails between visits, the data stops until the next ship.",
       "stats": [
@@ -79,7 +78,6 @@
       "kicker": "Ocean · Surface",
       "plate": "02",
       "cap": "Air-sea interaction spar buoy deployed in rough open ocean",
-      "status": "Priority",
       "hook": "Years at sea between services, on solar power and a satellite link.",
       "intro": "Moored buoys measure the ocean for years at a time, in some of the hardest places on Earth. A failed logger leaves a gap in a record that can never be filled.",
       "stats": [
@@ -119,7 +117,6 @@
       "kicker": "Ocean · Autonomous",
       "plate": "03",
       "cap": "Argo Arvor profiling float drifting at the sea surface",
-      "status": "Priority",
       "hook": "Deployed once, rarely recovered. The battery sets the mission length.",
       "intro": "Profiling floats dive and surface on their own for years, until their batteries run out. Gliders fly for months between recoveries. Every extra month of good data counts.",
       "stats": [
@@ -159,7 +156,6 @@
       "kicker": "Ocean · Vehicles",
       "plate": "04",
       "cap": "MARUM-SEAL autonomous underwater vehicle craned off a research ship",
-      "status": "Exploring",
       "hook": "Out of contact for hours to months, with no way to swap a board.",
       "intro": "An AUV works with finite power, ageing hardware and almost no communication until it surfaces. The whitepaper names it as one of the closest cousins of a deep-space probe.",
       "stats": [],
@@ -192,7 +188,6 @@
       "kicker": "Energy · Offshore",
       "plate": "05",
       "cap": "Heavy seas break around Block Island Wind Farm turbines",
-      "status": "Exploring",
       "hook": "Every repair needs a vessel, a crew and a weather window.",
       "intro": "Turbines, substations and met masts carry controllers and sensors far from shore. Every failure that needs a person means a vessel, a crew and the right weather.",
       "stats": [
@@ -238,7 +233,6 @@
       "kicker": "Energy · Grid",
       "plate": "06",
       "cap": "Glen Canyon high-voltage substation on a sandstone cliff, Arizona",
-      "status": "Exploring",
       "hook": "Replacement parts take years. Sites are far from crews.",
       "intro": "Remote substations, solar sites and microgrids run on equipment that is slow to replace and far from crews. The computers that watch them should outlast the wait.",
       "stats": [
@@ -278,7 +272,6 @@
       "kicker": "Infrastructure · Telecom",
       "plate": "07",
       "cap": "Microwave relay tower on Crowsnest Ridge, Canadian Rockies",
-      "status": "Exploring",
       "hook": "Sites placed for coverage, not for access.",
       "intro": "Relay and cell sites sit where coverage is needed, not where technicians live. A failed controller can mean a truck roll, or a helicopter.",
       "stats": [],
@@ -311,7 +304,6 @@
       "kicker": "Infrastructure · Satellite IoT",
       "plate": "08",
       "cap": "Solar-powered GPS monitoring station on a lava field, Iceland",
-      "status": "Exploring",
       "hook": "Small power budgets, links measured in bytes, nobody nearby.",
       "intro": "Sensors on pipelines, farms, rivers and stations report over satellite links measured in bytes. When something goes wrong there, it has to be handled there.",
       "stats": [
@@ -351,7 +343,6 @@
       "kicker": "Research · Polar",
       "plate": "09",
       "cap": "Summit Station research building on stilts, Greenland ice sheet",
-      "status": "Exploring",
       "hook": "No access for months of the year.",
       "intro": "Automatic weather stations and sensor networks in Antarctica and the Arctic run through winters when no aircraft can reach them. Parts fail in the cold, and the record has to keep going.",
       "stats": [],
@@ -384,7 +375,6 @@
       "kicker": "Energy · Nuclear",
       "plate": "10",
       "cap": "Watts Bar Nuclear Plant cooling towers on the Tennessee River",
-      "status": "Exploring",
       "hook": "Access limited by dose. Parts age under radiation.",
       "intro": "Monitoring computers in nuclear facilities work where access is limited and parts age under radiation. They need to keep reporting as they degrade.",
       "stats": [],
@@ -417,7 +407,6 @@
       "kicker": "Energy · Long-term",
       "plate": "11",
       "cap": "Mining vehicle in a salt drift deep underground at WIPP",
-      "status": "Exploring",
       "hook": "Monitoring that must run for decades, then far longer.",
       "intro": "Deep geological repositories are sealed for thousands of years. The monitoring before closure, and the markers after it, face the longest maintenance gap anyone has planned for.",
       "stats": [],
@@ -450,7 +439,6 @@
       "kicker": "Memory · Preservation",
       "plate": "12",
       "cap": "Svalbard Global Seed Vault entrance in winter snow",
-      "status": "Exploring",
       "hook": "Storage media decay faster than the records must last.",
       "intro": "Storage decays. When not everything can be kept, something has to choose. The whitepaper calls this knowledge triage: keep what matters on the most durable medium, and check it.",
       "stats": [],
@@ -483,7 +471,6 @@
       "kicker": "Research · Geophysics",
       "plate": "13",
       "cap": "The volcanic cone of Mount Pico, Pico Island, Azores",
-      "status": "Exploring",
       "hook": "Stations matter most when access is hardest.",
       "intro": "Seismic and volcano stations sit on remote slopes and islands, on solar power, often far from roads. Islands like the Azores, on the junction of three tectonic plates, depend on them.",
       "stats": [],
@@ -516,7 +503,6 @@
       "kicker": "Infrastructure · Pipelines",
       "plate": "14",
       "cap": "Trans-Alaska Pipeline crossing tundra in the northern Brooks Range",
-      "status": "Exploring",
       "hook": "Hundreds of kilometres of remote stations.",
       "intro": "Pipelines cross deserts, permafrost and the sea floor. The valve stations and monitoring points along them are remote, numerous and costly to visit.",
       "stats": [],
@@ -549,7 +535,6 @@
       "kicker": "Infrastructure · Rail",
       "plate": "15",
       "cap": "Union Pacific freight passes a searchlight signal at a desert siding",
-      "status": "Exploring",
       "hook": "Trackside equipment far from depots, serviced in short windows.",
       "intro": "Remote lines depend on trackside condition monitoring: hot-box detectors, weather stations, slope sensors. Many sit far from depots, and each failure is a trip.",
       "stats": [],
