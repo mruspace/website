@@ -4,8 +4,9 @@
 // z-index may sit on this element or any ancestor, or the blend breaks.
 // Both images are lazy: only the one the theme shows gets a layout box, so
 // the other never downloads. Nothing stands in while the GIF loads: the
-// space stays empty, then the animation shows. Reduced motion hides both and
-// shows the SVG.
+// space stays empty, then the animation shows. The GIFs are about 2 MB, so
+// they fetch at low priority: the fonts and the hero text paint first.
+// Reduced motion hides both and shows the SVG.
 import MarkSvg from './MarkSvg.astro';
 
 interface Props {
@@ -33,8 +34,18 @@ const style = (s?: number) =>
       height="600"
       loading="lazy"
       decoding="async"
+      fetchpriority="low"
     />
-    <img class="on-dark" src="/assets/mru.gif" alt="" width="600" height="600" loading="lazy" decoding="async" />
+    <img
+      class="on-dark"
+      src="/assets/mru.gif"
+      alt=""
+      width="600"
+      height="600"
+      loading="lazy"
+      decoding="async"
+      fetchpriority="low"
+    />
   </picture>
 </span>
 <MarkSvg class="mark-static" style={style(staticSize ?? size)} label="Mru mark" />
