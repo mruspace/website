@@ -8,11 +8,11 @@ export interface Photo {
   caption: string;
   alt: string;
   author: string;
-  licence: string;
-  licenceUrl: string;
+  license: string;
+  licenseUrl: string;
   source: string;
-  /** CC BY-SA: adaptations are shared under the same licence. */
-  sameLicence: boolean;
+  /** CC BY-SA: adaptations are shared under the same license. */
+  sameLicense: boolean;
   src: ImageMetadata;
 }
 
@@ -30,7 +30,7 @@ export function photo(id: string): Photo {
   return p;
 }
 
-/** The credit line under a plate: "Author · Licence". */
+/** The credit line under a plate: "Author · License". */
 export function creditLine(p: Photo): string {
-  return `${p.author} · ${p.licence}`;
+  return `${p.author} · ${p.license}`;
 }
