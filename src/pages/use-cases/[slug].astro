@@ -26,7 +26,7 @@ const crumbs = [
   crumbs={crumbs}
   faq={c.faq}
   ld={{
-    service: { name: `Mru Field for ${c.lower}`, serviceType: 'Fault-tolerant software for hard-to-reach equipment' },
+    service: { name: `Mru Field for ${c.lower}`, serviceType: 'Fault-tolerant software for hard-to-reach systems' },
   }}
   active="usecases"
   request={{ interest: 'field', topic: c.name, heading: `Is Mru Field a fit for your ${c.lower}?` }}
@@ -35,13 +35,7 @@ const crumbs = [
     <Breadcrumbs items={crumbs} />
     <div class="hero-grid" style="margin-top: 40px; align-items: end">
       <div class="stack-m">
-        <div class="row" style="gap: 10px">
-          <span class="eyebrow">{c.kicker}</span>
-          <span class={c.status === 'Exploring' ? 'pill' : 'pill sig'}>
-            <span class="dot"></span>
-            {c.status}
-          </span>
-        </div>
+        <span class="eyebrow">{c.kicker}</span>
         <h1 class="h1">{c.name}</h1>
       </div>
       <p class="h2" style="font-family: var(--display); margin: 0; color: var(--ink-soft); text-wrap: balance">
@@ -90,8 +84,7 @@ const crumbs = [
         </p>
         <p class="soft">
           Mru Field runs on the processors already in the equipment. When one fails and nobody can come, it continues on
-          the ones left and delivers only results it can check. Status: decision core at TRL 3; first field pilot
-          planned for 2027.
+          the ones left and delivers only results it can check.
         </p>
       </div>
     </div>
@@ -102,7 +95,7 @@ const crumbs = [
   <section class="wrap section">
     <div class="cards" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))">
       {c.failures.map((f) => (
-        <div class="stack-s" style="border-top: 1px solid var(--rule-strong); padding-top: 16px">
+        <div class="note">
           <p class="tiny" style="margin: 0">
             {f.n}
           </p>
@@ -201,7 +194,7 @@ const crumbs = [
     <div class="row" style="justify-content: space-between; margin-bottom: 24px">
       <h2 class="h3">Related settings</h2>
       <a class="link-more" href="/use-cases/">
-        All use cases
+        More use cases
       </a>
     </div>
     <div class="cards">

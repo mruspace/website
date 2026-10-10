@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Checks the built site's search and AI layer. Fails (exit 1) on:
 // - a page in metadata.json with no built page, or a built page with no entry
+//   (redirects from old URLs excepted)
 // - titles over 65 characters, descriptions outside 70 to 160 (noindex pages
 //   are exempt from the minimum)
 // - missing title, description, canonical, Open Graph or Twitter tags
@@ -65,6 +66,8 @@ for (const f of await htmlFiles(DIST)) {
   const route = routeOf(f);
   if (internal(route)) continue;
   const m = byRoute.get(route);
+  // A redirect from an old URL (astro.config.mjs) is not a page: no entry needed.
+  if (!m && /<meta http-equiv="refresh"/.test(await readFile(f, 'utf8'))) continue;
   if (!m) {
     err(route, 'built page has no entry in metadata.json');
     continue;

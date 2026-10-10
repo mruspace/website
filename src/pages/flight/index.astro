@@ -11,7 +11,7 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Mru Flight' }];
 const faq = [
   {
     q: 'Do we need new flight hardware?',
-    a: 'No. Mru Flight is software for the processors you already fly, starting with F´.',
+    a: 'No. Mru Flight is software for the processors you already fly, starting with F´, then other flight software frameworks.',
   },
   {
     q: 'What does it cost us in throughput?',
@@ -45,16 +45,13 @@ const faq = [
     <Breadcrumbs items={crumbs} />
     <div class="hero-grid" style="margin-top: 40px">
       <div class="stack-m">
-        <div class="row" style="gap: 10px">
-          <span class="eyebrow">Mru Flight · Space</span>
-          <span class="pill">Prototype · TRL 3</span>
-        </div>
+        <span class="eyebrow">Mru Flight · Space</span>
         <h1 class="h1">Mru Flight: fault tolerance for spacecraft out of reach.</h1>
       </div>
       <div class="stack-m">
         <p class="lede">
           Onboard software for the processors you already fly. A small Rust decision core, checked with the Kani model
-          checker, to be wrapped as components for NASA JPL's F&#180; framework.
+          checker, to be wrapped as components for NASA JPL's F&#180; framework and other flight software frameworks.
         </p>
         <div class="row">
           <a class="btn" href="#request">
@@ -114,21 +111,21 @@ const faq = [
 
   <section class="wrap section">
     <div class="cards">
-      <div class="stack-s" style="border-top: 1px solid var(--signal); padding-top: 16px">
+      <div class="note lead">
         <p class="tiny" style="margin: 0">
           Proved
         </p>
         <h3 class="h3">Never less than TMR</h3>
         <p class="soft small">While TMR can run, both decide the same. A Kani proof covers every possible input.</p>
       </div>
-      <div class="stack-s" style="border-top: 1px solid var(--rule-strong); padding-top: 16px">
+      <div class="note">
         <p class="tiny" style="margin: 0">
           Proved
         </p>
         <h3 class="h3">Only agreed results</h3>
         <p class="soft small">Two votes, or a clean self-check on the last computer. Nothing else is delivered.</p>
       </div>
-      <div class="stack-s" style="border-top: 1px solid var(--rule-strong); padding-top: 16px">
+      <div class="note">
         <p class="tiny" style="margin: 0">
           Measured
         </p>
@@ -175,25 +172,23 @@ const faq = [
                 default. In one test run, 24 wrong results got out first.
               </td>
             </tr>
-            <tr>
-              <td>Flight heritage</td>
-              <td>None yet.</td>
-            </tr>
           </tbody>
         </table>
       </div>
     </div>
   </section>
 
-  <Seam life={60} label="The road to orbit" />
+  <Seam life={60} label="Getting to orbit" />
 
   <section class="wrap section stack-l">
     <div class="split">
       <div class="stack-m">
-        <p class="eyebrow">The road to orbit</p>
+        <p class="eyebrow">Getting to orbit</p>
         <h2 class="h2">What exists, and what comes next.</h2>
       </div>
-      <p class="lede">Mru Flight follows Mru Field. Field data on Earth comes first, then orbit.</p>
+      <p class="lede">
+        The decision core is built and proved with Kani. Each next step adds integration, real hardware, then flight.
+      </p>
     </div>
     <div class="strata">
       <div class="stratum">

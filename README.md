@@ -9,12 +9,14 @@
 
 # mru.space
 
-The website for **Mru**: fault-tolerant software for computers that cannot be
-repaired in time, on Earth and in space. Static HTML built with
+The website for **Mru**: fault-tolerant software for systems that cannot be
+easily maintained or repaired, on Earth and in space. Static HTML built with
 [Astro](https://astro.build), served by GitHub Pages at
 [`https://mru.space`](https://mru.space). The documentation is a separate site,
 [docs.mru.space](https://docs.mru.space), from
-[mruspace/docs](https://github.com/mruspace/docs).
+[mruspace/docs](https://github.com/mruspace/docs). The brand files (mark,
+lockup, colors, animations) are in [mruspace/brand](https://github.com/mruspace/brand),
+shown at `/brand/`.
 
 > Systems that still run a thousand years after we're gone.
 

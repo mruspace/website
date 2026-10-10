@@ -3,33 +3,74 @@ import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import PlateImage from '../../components/PlateImage.astro';
 import { PHOTOS } from '../../data/images';
+import { SITE } from '../../data/site';
 
 const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Company', href: '/company/' }, { label: 'Credits' }];
+
+const OFL = 'https://openfontlicense.org/';
+const FONTS = [
+  {
+    name: 'Jost',
+    by: 'Indestructible Type',
+    use: 'Headings, where Futura is not installed',
+    file: '/fonts/OFL-jost.txt',
+  },
+  {
+    name: 'Source Serif 4',
+    by: 'Adobe',
+    use: 'Body text, where Charter is not installed',
+    file: '/fonts/OFL-sourceserif4.txt',
+  },
+  { name: 'IBM Plex Mono', by: 'IBM', use: 'Labels, numbers and code', file: '/fonts/OFL-ibmplexmono.txt' },
+];
+const SOFTWARE = [
+  { name: 'Astro', use: 'Builds the site', license: 'MIT', href: 'https://github.com/withastro/astro' },
+  { name: '@astrojs/mdx', use: 'Research posts', license: 'MIT', href: 'https://github.com/withastro/astro' },
+  { name: '@astrojs/rss', use: 'The Log feed', license: 'MIT', href: 'https://github.com/withastro/astro' },
+];
+const gh = (repo: string, path: string) => `${SITE.github}/${repo}/blob/main/${path}`;
+const CODE = [
+  { repo: 'website', what: 'This site and the request form Worker', license: 'Apache 2.0', deps: 'package.json' },
+  { repo: 'docs', what: 'docs.mru.space', license: 'Apache 2.0', deps: 'package.json' },
+  { repo: 'flight', what: 'Mru Flight decision core and demo', license: 'Apache 2.0', deps: 'Cargo.toml' },
+  { repo: 'dusk', what: 'Dusk, the Monte Carlo simulator', license: 'Apache 2.0', deps: 'Cargo.toml' },
+  { repo: '2049', what: 'Mru 2049, the browser flight simulator', license: 'Apache 2.0', deps: 'package.json' },
+  { repo: 'whitepaper', what: 'The whitepaper source', license: 'CC BY 4.0', deps: '' },
+];
 ---
 
 <Base crumbs={crumbs}>
   <section class="wrap hero" style="padding-bottom: 48px">
     <Breadcrumbs items={crumbs} />
     <div class="hero-grid" style="margin-top: 40px">
-      <h1 class="h1">Credits</h1>
+      <h1 class="h1">Credits and licenses</h1>
       <div class="stack-m">
-        <p class="lede">Sources and licences for the photos on this site.</p>
+        <p class="lede">Sources and licenses for the photos, fonts and software on this site, and for our own work.</p>
         <p class="soft small">
-          Changes: all photos are cropped and shown in greyscale, blended into the page. Adaptations of CC BY-SA photos
-          are shared under the same licence. Charts are our own.
+          Each of our repositories lists its own dependencies. The links below go to the license and the dependency list
+          of each one.
         </p>
       </div>
     </div>
   </section>
 
-  <section class="wrap section" style="padding-top: 0">
+  <section class="wrap section stack-l" style="padding-top: 0" aria-labelledby="h-photos">
+    <div class="split">
+      <h2 id="h-photos" class="h2">
+        Photos
+      </h2>
+      <p class="soft small">
+        Changes: all photos are cropped and shown in grayscale, blended into the page. Adaptations of CC BY-SA photos
+        are shared under the same license. Charts are our own.
+      </p>
+    </div>
     <div class="tbl-box" tabindex="0">
       <table class="tbl">
         <thead>
           <tr>
             <th>Photo</th>
             <th>Author</th>
-            <th>Licence</th>
+            <th>License</th>
             <th>Source</th>
           </tr>
         </thead>
@@ -58,8 +99,114 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Company', href: '/company
         </tbody>
       </table>
     </div>
-    <p class="tiny" style="margin-top: 32px">
-      The Mru name and the Mru mark are trademarks of Binns Pte. Ltd. They are not covered by these licences.
+  </section>
+
+  <section class="wrap section stack-l" style="padding-top: 0" aria-labelledby="h-fonts">
+    <div class="split">
+      <h2 id="h-fonts" class="h2">
+        Fonts
+      </h2>
+      <p class="soft small">
+        Futura and Charter are used where your system has them. Everyone else gets these open fonts, served from this
+        site as subsets.
+      </p>
+    </div>
+    <div class="tbl-box" tabindex="0">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Font</th>
+            <th>Designer</th>
+            <th>Used for</th>
+            <th>License</th>
+          </tr>
+        </thead>
+        <tbody>
+          {FONTS.map((f) => (
+            <tr>
+              <td>{f.name}</td>
+              <td>{f.by}</td>
+              <td>{f.use}</td>
+              <td class="m">
+                <a href={OFL}>SIL OFL 1.1</a> · <a href={f.file}>Text</a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="wrap section stack-l" style="padding-top: 0" aria-labelledby="h-software">
+    <div class="split">
+      <h2 id="h-software" class="h2">
+        Software
+      </h2>
+      <p class="soft small">
+        The open-source packages this site is built with. The full list, with versions, is in the site's{' '}
+        <a href={gh('website', 'package.json')}>package.json</a>.
+      </p>
+    </div>
+    <div class="tbl-box" tabindex="0">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Package</th>
+            <th>Used for</th>
+            <th>License</th>
+          </tr>
+        </thead>
+        <tbody>
+          {SOFTWARE.map((s) => (
+            <tr>
+              <td>
+                <a href={s.href}>{s.name}</a>
+              </td>
+              <td>{s.use}</td>
+              <td class="m">{s.license}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="wrap section stack-l" style="padding-top: 0" aria-labelledby="h-code">
+    <div class="split">
+      <h2 id="h-code" class="h2">
+        Our code and papers
+      </h2>
+      <p class="soft small">Everything we publish is open. Each repository has its license and its dependency list.</p>
+    </div>
+    <div class="tbl-box" tabindex="0">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Repository</th>
+            <th>What it is</th>
+            <th>License</th>
+            <th>Dependencies</th>
+          </tr>
+        </thead>
+        <tbody>
+          {CODE.map((c) => (
+            <tr>
+              <td class="m">
+                <a href={`${SITE.github}/${c.repo}`}>mruspace/{c.repo}</a>
+              </td>
+              <td>{c.what}</td>
+              <td class="m">
+                <a href={gh(c.repo, 'LICENSE')}>{c.license}</a>
+              </td>
+              <td class="m">{c.deps ? <a href={gh(c.repo, c.deps)}>{c.deps}</a> : 'None'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="tiny">
+      The Mru name and the Mru mark are trademarks of Binns Pte. Ltd. They are not covered by these licenses. See the{' '}
+      <a href="/brand/">brand kit</a> for how to use them.
     </p>
   </section>
 </Base>

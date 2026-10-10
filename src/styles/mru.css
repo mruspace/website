@@ -279,11 +279,27 @@
   position: relative;
   z-index: 2;
 }
+/* The word "Mru" (24 px) and the nav links (16 px) share one baseline. A
+   baseline row sits at the top of a flex line, so the bar wraps and centres
+   its line instead. The mark, the button and the menu stay centred. */
 .site-header .bar {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: baseline;
   gap: 32px;
   min-height: 72px;
+}
+.site-header .bar > .cta,
+.site-header .bar > .menu-toggle {
+  align-self: center;
+}
+.site-header .brand {
+  align-items: baseline;
+}
+.site-header .brand > .mark-anim,
+.site-header .brand > .mark-static {
+  align-self: center;
 }
 .brand {
   display: inline-flex;
@@ -400,6 +416,28 @@
 }
 .link-more:hover {
   border-color: var(--signal);
+}
+
+/* Note: a small ruled card with a label, a heading, a few lines and an
+   optional link. Cards in one row stretch to the same height, and the link
+   sits at the bottom, so the links in a row line up. */
+.note {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  border-top: 1px solid var(--rule-strong);
+  padding-top: 16px;
+}
+.note.lead {
+  border-top-color: var(--signal);
+}
+.note > * {
+  margin: 0;
+}
+.note > .link-more {
+  margin-top: auto;
+  padding-top: 12px;
 }
 
 /* The mark */
@@ -957,9 +995,13 @@
   color: var(--ink-soft);
   font-size: 17px;
 }
+/* The tint bleeds 12 px past the rules on both sides, so the text stays in
+   line with the other layers. */
 .stratum.base {
   background: var(--signal-soft);
-  padding-inline: 12px;
+  box-shadow:
+    -12px 0 0 var(--signal-soft),
+    12px 0 0 var(--signal-soft);
 }
 
 /* Tables */
@@ -1869,6 +1911,10 @@
 .form {
   display: grid;
   gap: 20px;
+}
+/* After a send, the script hides the form; "display: grid" would undo that. */
+.form[hidden] {
+  display: none;
 }
 .form-row {
   display: grid;
