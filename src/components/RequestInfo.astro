@@ -25,8 +25,8 @@ const page = new URL(Astro.url.pathname, SITE.url).href;
           {heading}
         </h2>
         <p class="soft">
-          A few lines are enough: the hardware, where it is, and how long it must run without a visit. We will tell you
-          plainly whether Mru fits, including when it does not.
+          Tell us about the hardware, where it is, and what you need. We will tell you plainly whether Mru fits,
+          including when it does not.
         </p>
         <ul class="sig-list small">
           <li>We'll review your setup.</li>
@@ -39,20 +39,18 @@ const page = new URL(Astro.url.pathname, SITE.url).href;
           <p class="eyebrow" style="color: var(--signal)">
             <span class="dot" style="margin-right: 8px"></span>Request sent
           </p>
-          <h3 class="h3">Thank you. It is on its way to {SITE.email}.</h3>
-          <p class="soft small">
-            We reply by email. In the meantime, the whitepaper, the results and the code are all public.
-          </p>
+          <h3 class="h3">Thank you.</h3>
+          <p class="soft small">We reply by email and will be in touch soon.</p>
           <div class="row">
-            <a class="link-more" href="/research/">
-              Research
+            <a class="link-more" href="/use-cases/">
+              Use cases
             </a>
             <a class="link-more" href={`${SITE.docsUrl}/`}>
               Docs
             </a>
-            <button class="qbtn" type="button" data-req-again>
-              Send another
-            </button>
+            <a class="link-more" href="/research/">
+              Research
+            </a>
           </div>
         </div>
         <form class="form" method="post" action={FORM.action} data-req-form>
@@ -90,7 +88,7 @@ const page = new URL(Astro.url.pathname, SITE.url).href;
           </div>
           <div class="form-row two">
             <label class="field">
-              <span>Organisation</span>
+              <span>Organization</span>
               <input
                 type="text"
                 name="organisation"
@@ -147,7 +145,7 @@ const page = new URL(Astro.url.pathname, SITE.url).href;
               FORM.turnstileSiteKey && <div class="turnstile" data-turnstile={FORM.turnstileSiteKey} />
             }
             <button class="btn" type="submit">
-              Send request
+              Send
             </button>
           </div>
         </form>

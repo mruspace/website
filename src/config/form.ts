@@ -18,7 +18,7 @@ export const INTERESTS: { id: Interest; label: string }[] = [
 ];
 
 export const ROLES = [
-  'Programme or mission lead',
+  'Program or mission lead',
   'Engineering',
   'Operations',
   'Business or procurement',

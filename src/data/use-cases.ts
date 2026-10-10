@@ -22,7 +22,6 @@ interface RawEntry {
   kicker: string;
   plate: string;
   cap: string;
-  status: string;
   hook: string;
   intro: string;
   stats: Stat[];

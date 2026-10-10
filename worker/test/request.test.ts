@@ -197,6 +197,13 @@ describe('invalid input', () => {
     expect((await worker.fetch(post(form({ interest: 'prices' })), testEnv())).status).toBe(400);
   });
 
+  it('accepts the current role label and maps the old spelling to it', async () => {
+    for (const role of ['Program or mission lead', 'Programme or mission lead']) {
+      expect((await worker.fetch(post(form({ role })), testEnv())).status).toBe(200);
+      expect(last().text).toContain('Role          Program or mission lead');
+    }
+  });
+
   it('shows a plain HTML message for a failed plain form post', async () => {
     const res = await worker.fetch(post(form({ email: '' }), { json: false }), testEnv());
     expect(res.status).toBe(400);
