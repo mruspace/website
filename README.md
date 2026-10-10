@@ -132,10 +132,10 @@ deploys separately with `npx wrangler deploy` from `worker/`.
 
 - Site code: [Apache License 2.0](./LICENSE).
 - Content (the whitepaper and site copy): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-- Photos: their own free licences, listed on [/credits/](https://mru.space/credits/)
+- Photos: their own free licenses, listed on [/credits/](https://mru.space/credits/)
   and in `src/data/images.json`.
-- Fonts in `public/fonts/`: SIL Open Font License 1.1 (licence files alongside).
+- Fonts in `public/fonts/`: SIL Open Font License 1.1 (license files alongside).
 - The **Mru** name, logo and `mru.space` are trademarks of Binns Pte. Ltd. and
-  are not covered by these licences. See [TRADEMARK.md](./TRADEMARK.md).
+  are not covered by these licenses. See [TRADEMARK.md](./TRADEMARK.md).
 
 © Binns Pte. Ltd.

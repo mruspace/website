@@ -68,7 +68,7 @@
   {
     "url": "https://mru.space/use-cases/auv/",
     "title": "Autonomous underwater vehicles · Mru Field",
-    "description": "AUVs work out of contact with finite power and no way to swap a board. Mru Field decides which computer to trust so the mission continues.",
+    "description": "AUVs work out of contact with finite power and no way to swap a board. Mru Field decides which processor to trust so the mission continues.",
     "ogTitle": "Out of contact, with no way to swap a board",
     "cardLabel": "Use case · AUVs",
     "schema": ["Service", "FAQPage", "BreadcrumbList"]
@@ -76,7 +76,7 @@
   {
     "url": "https://mru.space/use-cases/offshore-wind/",
     "title": "Offshore wind · Mru Field",
-    "description": "Every offshore repair needs a vessel, a crew and a weather window. Mru Field keeps monitoring and control computers working until the next one.",
+    "description": "Every offshore repair needs a vessel, a crew and a weather window. Mru Field keeps monitoring and control systems working until the next one.",
     "ogTitle": "Every repair needs a vessel and a weather window",
     "cardLabel": "Use case · Offshore wind",
     "schema": ["Service", "FAQPage", "BreadcrumbList"]
@@ -84,7 +84,7 @@
   {
     "url": "https://mru.space/use-cases/remote-energy/",
     "title": "Remote energy and grid equipment · Mru Field",
-    "description": "Large transformers take up to 4 years to replace, and sites are far from crews. Mru Field keeps the computers that watch them working as parts fail.",
+    "description": "Large transformers take up to 4 years to replace, and sites are far from crews. Mru Field keeps the systems that watch them working as parts fail.",
     "ogTitle": "Replacement parts take years",
     "cardLabel": "Use case · Remote energy",
     "schema": ["Service", "FAQPage", "BreadcrumbList"]
@@ -116,7 +116,7 @@
   {
     "url": "https://mru.space/use-cases/nuclear-monitoring/",
     "title": "Nuclear facility monitoring · Mru Field",
-    "description": "Access is limited by dose and parts age under radiation. Mru Field keeps non-safety monitoring computers reporting as they degrade.",
+    "description": "Access is limited by dose and parts age under radiation. Mru Field keeps non-safety monitoring systems reporting as they degrade.",
     "ogTitle": "Access limited by dose",
     "cardLabel": "Use case · Nuclear monitoring",
     "schema": ["Service", "FAQPage", "BreadcrumbList"]
@@ -148,8 +148,8 @@
   {
     "url": "https://mru.space/use-cases/pipelines/",
     "title": "Pipelines · Mru Field",
-    "description": "Hundreds of kilometres of remote valve and monitoring stations. Mru Field keeps their computers trustworthy as they fail, between patrols.",
-    "ogTitle": "Hundreds of kilometres of remote stations",
+    "description": "Hundreds of kilometers of remote valve and monitoring stations. Mru Field keeps their systems trustworthy as they fail, between patrols.",
+    "ogTitle": "Hundreds of kilometers of remote stations",
     "cardLabel": "Use case · Pipelines",
     "schema": ["Service", "FAQPage", "BreadcrumbList"]
   },
