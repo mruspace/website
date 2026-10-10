@@ -11,6 +11,8 @@ export interface PageMeta {
   ogDescription?: string;
   cardLabel: string;
   schema: string[];
+  /** Exempt from the title and description length limits, by choice (Home). */
+  lengthExempt?: boolean;
 }
 
 export const METADATA: PageMeta[] = rows;
@@ -26,9 +28,10 @@ export function metaFor(pathname: string): PageMeta {
   const path = pathname.endsWith('/') ? pathname : `${pathname}/`;
   const m = METADATA.find((x) => new URL(x.url).pathname === path);
   if (!m) throw new Error(`metadata.json: no entry for ${path}`);
-  if (m.title.length > LIMITS.titleMax) throw new Error(`metadata.json: title over ${LIMITS.titleMax} for ${path}`);
+  if (m.title.length > LIMITS.titleMax && !m.lengthExempt)
+    throw new Error(`metadata.json: title over ${LIMITS.titleMax} for ${path}`);
   const d = m.description.length;
-  if (d > LIMITS.descMax || (d < LIMITS.descMin && !isNoindex(m)))
+  if (!m.lengthExempt && (d > LIMITS.descMax || (d < LIMITS.descMin && !isNoindex(m))))
     throw new Error(`metadata.json: description length ${d} out of range for ${path}`);
   return m;
 }
