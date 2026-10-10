@@ -10,7 +10,7 @@
     },
     "alone": {
       "t": "No one to ask",
-      "d": "When two computers disagree, there is no operator to say which one is right."
+      "d": "When two processors disagree, there is no operator to say which one is right."
     },
     "link": {
       "t": "The link is thin",
@@ -24,7 +24,7 @@
   "shared": {
     "HW": {
       "q": "Does Mru Field need new hardware?",
-      "a": "No. It is software for the processors you already deploy. It runs beside your control code and decides which computer to trust as parts fail."
+      "a": "No. It is software for the processors you already deploy. It runs beside your control code and decides which processor to trust as parts fail."
     },
     "START": {
       "q": "How do we start?",
@@ -40,7 +40,7 @@
       "plate": "01",
       "cap": "TEMPO deep-sea observatory module on a hydrothermal vent",
       "hook": "Batteries, a cable, and one service visit a year.",
-      "intro": "Seafloor observatories run science nodes on batteries and cables, far below anyone's reach. When a computer fails between visits, the data stops until the next ship.",
+      "intro": "Seafloor observatories run science nodes on batteries and cables, far below anyone's reach. When a system fails between visits, the data stops until the next ship.",
       "stats": [
         {
           "v": "1",
@@ -157,7 +157,7 @@
       "plate": "04",
       "cap": "MARUM-SEAL autonomous underwater vehicle craned off a research ship",
       "hook": "Out of contact for hours to months, with no way to swap a board.",
-      "intro": "An AUV works with finite power, ageing hardware and almost no communication until it surfaces. The whitepaper names it as one of the closest cousins of a deep-space probe.",
+      "intro": "An AUV works with finite power, aging hardware and almost no communication until it surfaces. The whitepaper names it as one of the closest cousins of a deep-space probe.",
       "stats": [],
       "fails": ["alone", "link", "compute"],
       "last": "brings the mission home",
@@ -173,7 +173,7 @@
         },
         {
           "q": "Does it replace our autonomy stack?",
-          "a": "No. It sits underneath. It decides which computer to trust, so your autonomy keeps running when one of them fails."
+          "a": "No. It sits underneath. It decides which processor to trust, so your autonomy keeps running when one of them fails."
         },
         {
           "shared": "START"
@@ -218,7 +218,7 @@
         },
         {
           "q": "Is this for safety systems?",
-          "a": "No. Safety systems keep their own certified protection. Mru Field is for the monitoring and control computers whose failure costs a trip."
+          "a": "No. Safety systems keep their own certified protection. Mru Field is for the monitoring and control systems whose failure costs a trip."
         },
         {
           "shared": "START"
@@ -234,7 +234,7 @@
       "plate": "06",
       "cap": "Glen Canyon high-voltage substation on a sandstone cliff, Arizona",
       "hook": "Replacement parts take years. Sites are far from crews.",
-      "intro": "Remote substations, solar sites and microgrids run on equipment that is slow to replace and far from crews. The computers that watch them should outlast the wait.",
+      "intro": "Remote substations, solar sites and microgrids run on equipment that is slow to replace and far from crews. The systems that watch them should outlast the wait.",
       "stats": [
         {
           "v": "4",
@@ -257,7 +257,7 @@
         },
         {
           "q": "Does it touch protection relays?",
-          "a": "No. It runs on monitoring and control computers, not on certified protection."
+          "a": "No. It runs on monitoring and control systems, not on certified protection."
         },
         {
           "shared": "START"
@@ -289,7 +289,7 @@
         },
         {
           "q": "Can it run beside existing site controllers?",
-          "a": "Yes. It decides which of several computers to trust. Your site logic stays the same."
+          "a": "Yes. It decides which of several processors to trust. Your site logic stays the same."
         },
         {
           "shared": "START"
@@ -376,7 +376,7 @@
       "plate": "10",
       "cap": "Watts Bar Nuclear Plant cooling towers on the Tennessee River",
       "hook": "Access limited by dose. Parts age under radiation.",
-      "intro": "Monitoring computers in nuclear facilities work where access is limited and parts age under radiation. They need to keep reporting as they degrade.",
+      "intro": "Monitoring systems in nuclear facilities work where access is limited and parts age under radiation. They need to keep reporting as they degrade.",
       "stats": [],
       "fails": ["compute", "memory", "alone"],
       "last": "keeps reporting",
@@ -488,7 +488,7 @@
         },
         {
           "q": "Will it miss an event while it checks itself?",
-          "a": "With two or more computers it runs at full speed. Only the last computer runs at half speed, and that beats stopping."
+          "a": "With two or more processors it runs at full speed. Only the last processor runs at half speed, and that beats stopping."
         },
         {
           "shared": "START"
@@ -503,7 +503,7 @@
       "kicker": "Infrastructure · Pipelines",
       "plate": "14",
       "cap": "Trans-Alaska Pipeline crossing tundra in the northern Brooks Range",
-      "hook": "Hundreds of kilometres of remote stations.",
+      "hook": "Hundreds of kilometers of remote stations.",
       "intro": "Pipelines cross deserts, permafrost and the sea floor. The valve stations and monitoring points along them are remote, numerous and costly to visit.",
       "stats": [],
       "fails": ["compute", "link", "alone"],
@@ -520,7 +520,7 @@
         },
         {
           "q": "Does it replace SCADA?",
-          "a": "No. It runs on the remote computers SCADA talks to, and keeps them trustworthy as they fail."
+          "a": "No. It runs on the remote systems SCADA talks to, and keeps them trustworthy as they fail."
         },
         {
           "shared": "START"
@@ -628,7 +628,7 @@
         {
           "slug": "pipelines",
           "kicker": "Pipelines",
-          "hook": "Hundreds of kilometres of remote stations."
+          "hook": "Hundreds of kilometers of remote stations."
         },
         {
           "slug": "rail-trackside",

@@ -1,6 +1,6 @@
 ---
 // The descent line. "three": three strands drop to one and keep going, while
-// the grey fixed-TMR line stops at the second failure. "strands": the 404
+// the gray fixed-TMR line stops at the second failure. "strands": the 404
 // version, where one strand ends and two continue.
 interface Props {
   variant?: 'three' | 'strands';
@@ -21,7 +21,7 @@ const {
 const aria =
   label ??
   (variant === 'three'
-    ? 'Three strands drop to one and continue. A grey line, fixed triple redundancy, stops at the second failure.'
+    ? 'Three strands drop to one and continue. A gray line, fixed triple redundancy, stops at the second failure.'
     : 'One strand ends, two continue.');
 // The "three" drawing at three widths, so its 12-unit labels stay readable:
 // the stylesheet shows one per screen width (l: wide, m: tablets, s: phones).
