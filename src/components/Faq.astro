@@ -1,6 +1,7 @@
 ---
 // Questions as <details>. The FAQPage JSON-LD is built from the same items.
 import type { Qa } from '../data/use-cases';
+import { keepFPrime } from '../data/text';
 interface Props {
   items: Qa[];
 }
@@ -10,8 +11,8 @@ const { items } = Astro.props;
 <div class="faq">
   {items.map((q) => (
     <details>
-      <summary>{q.q}</summary>
-      <p>{q.a}</p>
+      <summary>{keepFPrime(q.q)}</summary>
+      <p>{keepFPrime(q.a)}</p>
     </details>
   ))}
 </div>

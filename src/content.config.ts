@@ -44,7 +44,7 @@ const research = defineCollection({
         title: z.string(),
         summary: z.string(),
         line: z.string(),
-        chart: z.enum(['flight-correct', 'dusk-output', 'dusk-sensitivity']),
+        chart: z.enum(['flight-correct', 'flight-bench', 'dusk-output', 'dusk-sensitivity']),
         chartAlt: z.string(),
       })
       .optional(),

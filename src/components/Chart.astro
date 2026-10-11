@@ -1,13 +1,15 @@
 ---
 // A chart drawn once per palette (the original SVGs from the flight and dusk
-// repos). Shown as <img>: the SVGs carry their own <style>, which must not
+// repos; flight-bench is drawn from the flight bench results by
+// scripts/charts/flight-bench.mjs). Shown as <img>: the SVGs carry their own <style>, which must not
 // leak into the page. Both are lazy, so only the visible one downloads.
 interface Props {
-  name: 'flight-correct' | 'dusk-output' | 'dusk-sensitivity';
+  name: 'flight-correct' | 'flight-bench' | 'dusk-output' | 'dusk-sensitivity';
   alt: string;
 }
 const SIZES = {
   'flight-correct': [1200, 660],
+  'flight-bench': [1200, 660],
   'dusk-output': [760, 420],
   'dusk-sensitivity': [760, 390],
 } as const;
