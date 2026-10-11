@@ -179,6 +179,14 @@
 .stack-l > * + * {
   margin-top: 48px;
 }
+/* `.mru p` and `.mru h2` reset the top margin, which beats the stack rules
+   above. Without this, a paragraph sits flush under its heading. */
+.mru .stack-s > :is(h2, h3) + p {
+  margin-top: 8px;
+}
+.mru .stack-m > :is(h1, h2, h3) + p {
+  margin-top: 16px;
+}
 .row {
   display: flex;
   flex-wrap: wrap;

@@ -86,32 +86,34 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Company' }];
 
   <section class="wrap section" style="padding-top: 0" id="founder">
     <div class="split">
+      <figure class="plate" style="max-width: 320px">
+        <div class="ph sq">
+          <Picture
+            src={founder}
+            alt="Will Binns"
+            widths={[320, 640]}
+            sizes="320px"
+            formats={['avif', 'webp']}
+            fallbackFormat="jpg"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </figure>
       <div class="stack-m">
-        <p class="eyebrow">Founder</p>
-        <h2 class="h2">Will Binns</h2>
-        <figure class="plate" style="max-width: 240px; margin: 24px 0 0">
-          <div class="ph sq">
-            <Picture
-              src={founder}
-              alt="Will Binns"
-              widths={[240, 480]}
-              sizes="240px"
-              formats={['avif', 'webp']}
-              fallbackFormat="jpg"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-        </figure>
+        <div>
+          <p class="eyebrow">Founder</p>
+          <h2 class="h2">Will Binns</h2>
+        </div>
+        <ul class="sig-list" style="margin-top: 12px">
+          <li>Led teams at Coinbase.</li>
+          <li>
+            Editor of O&#39;Reilly&#39;s <em>Mastering Bitcoin</em> and <em>Mastering Ethereum</em>.
+          </li>
+          <li>Former maintainer of bitcoin.org.</li>
+          <li>Open-source contributor to ESA&#39;s pykep and the NanoSat MO Framework.</li>
+        </ul>
       </div>
-      <ul class="sig-list">
-        <li>Led teams at Coinbase.</li>
-        <li>
-          Editor of O&#39;Reilly&#39;s <em>Mastering Bitcoin</em> and <em>Mastering Ethereum</em>.
-        </li>
-        <li>Former maintainer of bitcoin.org.</li>
-        <li>Open-source contributor to ESA&#39;s pykep and the NanoSat MO Framework.</li>
-      </ul>
       <!-- TODO: advisors. None named yet. Add only after each one agrees. -->
       <!-- TODO: partners. None yet. Name a third party only after it accepts. -->
     </div>
