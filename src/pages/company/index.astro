@@ -2,7 +2,9 @@
 import Base from '../../layouts/Base.astro';
 import PlateImage from '../../components/PlateImage.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { Picture } from 'astro:assets';
 import { photo, creditLine } from '../../data/images';
+import founder from '../../assets/founder/will-binns.jpg';
 
 const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Company' }];
 ---
@@ -87,10 +89,23 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Company' }];
       <div class="stack-m">
         <p class="eyebrow">Founder</p>
         <h2 class="h2">Will Binns</h2>
-        <!-- TODO: founder photo. Needs a photo from Will, with credit and license for images.json. -->
+        <figure class="plate" style="max-width: 240px; margin: 8px 0 0">
+          <div class="ph sq">
+            <Picture
+              src={founder}
+              alt="Will Binns"
+              widths={[240, 480]}
+              sizes="240px"
+              formats={['avif', 'webp']}
+              fallbackFormat="jpg"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </figure>
       </div>
       <ul class="sig-list">
-        <li>Founder of Mru.</li>
+        <li>Led teams at Coinbase.</li>
         <li>
           Editor of O&#39;Reilly&#39;s <em>Mastering Bitcoin</em> and <em>Mastering Ethereum</em>.
         </li>
