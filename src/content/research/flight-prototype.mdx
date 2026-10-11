@@ -17,12 +17,6 @@ request:
   interest: flight
   topic: № 004 · Mru Flight prototype
   heading: Questions about this release?
-featured:
-  title: 'Mru Flight: onboard software that keeps working as its hardware fails'
-  summary: A small, verified Rust core and a demo on real processes with faults injected. With one replica stuck and another dead, it delivered 14,490 correct results where fixed TMR delivered 8,993.
-  line: 7 Oct 2026 · 9 min read · v0.1.1
-  chart: flight-correct
-  chartAlt: Correct results over 20,000 ticks. Fixed TMR stops at 8,993. The shrinking quorum reaches 14,490.
 code: { repo: 'https://github.com/mruspace/flight', language: Rust, license: Apache-2.0 }
 ---
 
@@ -30,7 +24,7 @@ import Section from '../../components/research/Section.astro';
 import Figure from '../../components/research/Figure.astro';
 
 <Section label="Status">
-<Fragment slot="note">Early prototype, v0.1.1. Update, 11 October 2026: v0.2.0 adds the F´ components and a bench on real processors. See <a href="/research/flight-measured/">№ 005</a>.</Fragment>
+<Fragment slot="note">Early prototype, v0.1.1. Update, 11 October 2026: v0.2.0 adds the F&#x2060;´ components and a bench on real processors. See <a href="/research/flight-measured/">№ 005</a>.</Fragment>
 
 ## What it is
 
@@ -113,7 +107,7 @@ A shorter test period trades throughput for a smaller window. That is the trade 
 ## What comes next
 
 <div class="strata" style="margin-top: 24px">
-  <div class="stratum" style="grid-template-columns: 48px 1fr"><span class="lv">1</span><p style="color: var(--ink)">F´ components around the Rust core: RedundancyManager, HealthRegistry, ReplicaHost.</p></div>
+  <div class="stratum" style="grid-template-columns: 48px 1fr"><span class="lv">1</span><p style="color: var(--ink)">F&#x2060;´ components around the Rust core: RedundancyManager, HealthRegistry, ReplicaHost.</p></div>
   <div class="stratum" style="grid-template-columns: 48px 1fr"><span class="lv">2</span><p style="color: var(--ink)">Measurements on representative processors.</p></div>
   <div class="stratum" style="grid-template-columns: 48px 1fr"><span class="lv">3</span><p style="color: var(--ink)">A hardware-in-the-loop bench with real boards and injected faults.</p></div>
   <div class="stratum" style="grid-template-columns: 48px 1fr"><span class="lv">4</span><p style="color: var(--ink)">In orbit: a flight experiment on a real satellite.</p></div>

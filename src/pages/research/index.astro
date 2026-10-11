@@ -1,14 +1,16 @@
 ---
 // The research log (canvas Research artboard). Entries come from the
-// research collection, newest first.
+// research collection, newest first. The card on top is always the newest
+// entry; its `featured` block adds a chart, and without one the card is text.
 import Base from '../../layouts/Base.astro';
 import Chart from '../../components/Chart.astro';
 import { entries, hrefOf, dateLabel, KIND_SLUGS } from '../../data/research';
+import { keepFPrime } from '../../data/text';
 import { SITE } from '../../data/site';
 
 const all = await entries();
-const latest = all.find((e) => e.data.featured)!;
-const f = latest.data.featured!;
+const latest = all[0]!;
+const f = latest.data.featured;
 const oldest = all[all.length - 1]!;
 const filters = [
   { label: 'All', slug: '' },
@@ -57,22 +59,26 @@ const filters = [
 
   <section class="wrap" aria-labelledby="latest">
     <a
-      class="split rev"
+      class={f ? 'split rev' : 'stack-m'}
       href={hrefOf(latest)}
       style="text-decoration: none; align-items: center; border-top: 1px solid var(--ink); padding-top: 32px"
     >
-      <figure class="figure" style="margin: 0">
-        <Chart name={f.chart} alt={f.chartAlt} />
-      </figure>
+      {f && (
+        <figure class="figure" style="margin: 0">
+          <Chart name={f.chart} alt={f.chartAlt} />
+        </figure>
+      )}
       <div class="stack-m">
         <p class="eyebrow">
           <span class="n">№ {latest.data.number}</span> · {latest.data.kind} · Latest
         </p>
         <h2 id="latest" class="h2">
-          {f.title}
+          {keepFPrime(f?.title ?? latest.data.title)}
         </h2>
-        <p class="soft">{f.summary}</p>
-        <p class="tiny">{f.line}</p>
+        <p class="soft">{keepFPrime(f?.summary ?? latest.data.summary)}</p>
+        <p class="tiny">
+          {f?.line ?? `${dateLabel(latest)} · ${latest.data.metaLabel ?? `${latest.data.readingTime} read`}`}
+        </p>
       </div>
     </a>
   </section>
@@ -102,10 +108,10 @@ const filters = [
           <span class="kind">{e.data.kind}</span>
           <div>
             <p class="t" style="margin: 0">
-              {e.data.title}
+              {keepFPrime(e.data.title)}
             </p>
             <p class="sum" style="margin-bottom: 0">
-              {e.data.summary}
+              {keepFPrime(e.data.summary)}
             </p>
           </div>
           <span class="meta">
