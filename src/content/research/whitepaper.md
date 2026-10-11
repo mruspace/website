@@ -9,14 +9,14 @@ updated: 2026-10-11
 dateLabel: May 2026
 readingTime: PDF
 metaLabel: PDF · DOI
-doi: 10.5281/zenodo.20580927
-external: 'https://zenodo.org/records/20580927'
+doi: 10.5281/zenodo.23305299
+external: 'https://zenodo.org/records/23305299'
 bibtex: |-
   @misc{binns2026mru,
     author = {Binns, Will},
     title  = {Mru: A Fault-Tolerant Operating System
               for Thousand-Year Autonomous Operation},
     year   = {2026},
-    doi    = {10.5281/zenodo.20580927}
+    doi    = {10.5281/zenodo.23305299}
   }
 ---
