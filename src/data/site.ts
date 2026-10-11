@@ -5,7 +5,7 @@ export const SITE = {
   email: 'contact@mru.space',
   github: 'https://github.com/mruspace',
   x: 'https://x.com/mruspace',
-  zenodo: 'https://doi.org/10.5281/zenodo.20579438',
+  zenodo: 'https://doi.org/10.5281/zenodo.20579437',
   name: 'Mru',
   siteName: 'Mru Aerospace',
   legal: 'Binns Pte. Ltd.',
