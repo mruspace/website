@@ -178,6 +178,14 @@
     "schema": ["ScholarlyArticle", "BreadcrumbList"]
   },
   {
+    "url": "https://mru.space/research/flight-measured/",
+    "title": "Mru Flight 0.2.0: measured, and in F´ · Mru Aerospace",
+    "description": "The shrinking quorum measured on three processors: up to 3.00x the correct results of fixed TMR on the same faults, never fewer. And F´ components, same counts.",
+    "ogTitle": "Mru Flight 0.2.0: measured, and in F´",
+    "cardLabel": "Research № 005 · Release",
+    "schema": ["BlogPosting", "SoftwareSourceCode", "BreadcrumbList"]
+  },
+  {
     "url": "https://mru.space/research/flight-prototype/",
     "title": "Mru Flight: a first prototype · Mru Aerospace",
     "description": "A no_std Rust core with four Kani proofs and a fault-injection demo. With one replica stuck and one dead: 14,490 correct results vs 8,993 for fixed TMR.",
