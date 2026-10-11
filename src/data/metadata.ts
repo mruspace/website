@@ -1,6 +1,7 @@
 // Page metadata, one entry per route, ported from the canvas Metadata board.
 // Every page looks itself up here; a missing entry fails the build.
 import rows from './metadata.json';
+import { assertClaims } from './claims';
 
 export interface PageMeta {
   url: string;
@@ -13,6 +14,8 @@ export interface PageMeta {
   schema: string[];
   /** Exempt from the title and description length limits, by choice (Home). */
   lengthExempt?: boolean;
+  /** Ids in claims.json whose numbers the title and descriptions use. The build checks them. */
+  claims?: string[];
 }
 
 export const METADATA: PageMeta[] = rows;
@@ -33,5 +36,6 @@ export function metaFor(pathname: string): PageMeta {
   const d = m.description.length;
   if (!m.lengthExempt && (d > LIMITS.descMax || (d < LIMITS.descMin && !isNoindex(m))))
     throw new Error(`metadata.json: description length ${d} out of range for ${path}`);
+  assertClaims(`metadata.json ${path}`, [m.title, m.description, m.ogTitle, m.ogDescription], m.claims);
   return m;
 }

@@ -20,7 +20,9 @@
     "test:e2e": "playwright test",
     "check:lighthouse": "lhci autorun",
     "test:worker": "cd worker && npm ci --silent && npm run typecheck && npm test",
-    "check": "npm run check:types && npm run lint && npm run build && npm run check:html && npm run check:links && npm run test:e2e && npm run check:lighthouse && npm run test:worker"
+    "claims": "node scripts/claims/pull.mjs",
+    "check:claims": "node scripts/claims/pull.mjs --check",
+    "check": "npm run check:claims && npm run check:types && npm run lint && npm run build && npm run check:html && npm run check:links && npm run test:e2e && npm run check:lighthouse && npm run test:worker"
   },
   "dependencies": {
     "@astrojs/mdx": "8.0.3",

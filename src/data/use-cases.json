@@ -6,7 +6,7 @@
     },
     "memory": {
       "t": "Stored data decays",
-      "d": "Flash wears out and bits flip. Logs and settings drift unless something checks them."
+      "d": "Flash wears out and bits flip. Logs and settings drift unless something checks them. Mru does not check stored data today."
     },
     "alone": {
       "t": "No one to ask",
@@ -18,13 +18,13 @@
     },
     "power": {
       "t": "Power runs down",
-      "d": "Batteries fade and panels foul. The system has to do less, on purpose, and keep the important part going."
+      "d": "Batteries fade and panels foul. The system has to do less and keep the important part going. Mru does not manage power today."
     }
   },
   "shared": {
     "HW": {
       "q": "Does Mru Field need new hardware?",
-      "a": "No. It is software for the processors you already deploy. It runs beside your control code and decides which processor to trust as parts fail."
+      "a": "No. It is software for the processors you already deploy. It runs beside your control code and decides which processor to trust as parts fail. It needs two or more processors that can run the same task, and each one costs power."
     },
     "START": {
       "q": "How do we start?",
@@ -45,8 +45,8 @@
         {
           "v": "1",
           "u": "visit / year",
-          "l": "EMSO-Azores runs on batteries 1,700 m down. A ship comes about once a year.",
-          "src": "EMSO ERIC · EMSO-Azores"
+          "l": "EMSO-Azores runs on batteries 1,700 m down. A maintenance cruise reaches it once a year.",
+          "src": "EMSO-Azores maintenance cruises (MoMARSAT)"
         }
       ],
       "fails": ["compute", "power", "alone"],
@@ -63,7 +63,7 @@
         },
         {
           "q": "Is there a test site?",
-          "a": "We plan a pilot in the Azores in 2027."
+          "a": "A pilot in the Azores is proposed. Nothing is agreed yet."
         },
         {
           "shared": "START"
@@ -80,14 +80,7 @@
       "cap": "Air-sea interaction spar buoy deployed in rough open ocean",
       "hook": "Years at sea between services, on solar power and a satellite link.",
       "intro": "Moored buoys measure the ocean for years at a time, in some of the hardest places on Earth. A failed logger leaves a gap in a record that can never be filled.",
-      "stats": [
-        {
-          "v": "$8.0B",
-          "u": "",
-          "l": "Spent on ocean-observation instruments in 2024, growing about 7% a year.",
-          "src": "Credence Research"
-        }
-      ],
+      "stats": [],
       "fails": ["compute", "link", "power"],
       "last": "keeps the record going",
       "fit": {
@@ -102,7 +95,7 @@
         },
         {
           "q": "Can it run on a buoy's power budget?",
-          "a": "The core is small: about 1.5 MB of memory per process on ARM64 in our tests. It adds work only where it checks results."
+          "a": "Each extra processor draws power, and self-check on the last one doubles its compute. We have not measured power draw yet. The first step models your power budget with your hardware."
         },
         {
           "shared": "START"
@@ -121,10 +114,10 @@
       "intro": "Profiling floats dive and surface on their own for years, until their batteries run out. Gliders fly for months between recoveries. Every extra month of good data counts.",
       "stats": [
         {
-          "v": "900",
+          "v": "600",
           "u": "/ year",
-          "l": "About this many Argo floats are replaced each year, at about $40,000 each.",
-          "src": "Argo Program"
+          "l": "New Argo floats needed each year to hold the array, at about $20,000 each, about double once deployed. Batteries set a float's life at 3 to 5 years.",
+          "src": "Argo Program FAQ"
         }
       ],
       "fails": ["power", "compute", "link"],
@@ -141,7 +134,7 @@
         },
         {
           "q": "Floats are rarely recovered. Why does decay matter?",
-          "a": "Because the last months still produce data. Mru keeps checking results as processors and memory fail, so that data stays trustworthy."
+          "a": "Because the last months still produce data. Mru keeps checking results as processors fail, so that data stays trustworthy. It applies only where a float carries two or more processors that can run the same task."
         },
         {
           "shared": "START"
@@ -192,16 +185,10 @@
       "intro": "Turbines, substations and met masts carry controllers and sensors far from shore. Every failure that needs a person means a vessel, a crew and the right weather.",
       "stats": [
         {
-          "v": "$59.7B",
-          "u": "/ year",
-          "l": "Wind turbine operations and maintenance spending by 2030.",
-          "src": "MarketsandMarkets"
-        },
-        {
-          "v": "628,000",
-          "u": "",
-          "l": "Wind technicians the industry needs by 2030.",
-          "src": "GWO / GWEC"
+          "v": "$40k",
+          "u": "/ day",
+          "l": "About the charter day rate for a service operation vessel, excluding fuel. This is the cost of reaching the hardware, not a cost Mru removes.",
+          "src": "£30k · BVG Associates, Guide to a Floating Offshore Wind Farm"
         }
       ],
       "fails": ["compute", "alone", "memory"],
@@ -306,14 +293,7 @@
       "cap": "Solar-powered GPS monitoring station on a lava field, Iceland",
       "hook": "Small power budgets, links measured in bytes, nobody nearby.",
       "intro": "Sensors on pipelines, farms, rivers and stations report over satellite links measured in bytes. When something goes wrong there, it has to be handled there.",
-      "stats": [
-        {
-          "v": "32.5M",
-          "u": "by 2029",
-          "l": "Remote devices on satellite links, up from 5.8 million.",
-          "src": "Berg Insight"
-        }
-      ],
+      "stats": [],
       "fails": ["link", "alone", "power"],
       "last": "keeps sending checked results",
       "fit": {
@@ -424,7 +404,7 @@
         },
         {
           "q": "Does Mru work for centuries today?",
-          "a": "No one can claim that yet. Our software is built for it and tested in simulation, and we publish all of it."
+          "a": "No one can claim that yet. Mru is designed for long unattended service and tested in simulation and on a bench, and we publish all of it."
         },
         {
           "shared": "START"
@@ -443,7 +423,7 @@
       "intro": "Storage decays. When not everything can be kept, something has to choose. The whitepaper calls this knowledge triage: keep what matters on the most durable medium, and check it.",
       "stats": [],
       "fails": ["memory", "alone", "power"],
-      "last": "keeps what matters most",
+      "last": "keeps checking results",
       "fit": {
         "power": "Varies",
         "link": "Varies",
@@ -456,7 +436,7 @@
         },
         {
           "q": "Is this a storage product?",
-          "a": "No. It is software that decides what to move to more durable media, and checks it, as storage fails."
+          "a": "No. Knowledge triage is a design in the whitepaper and is not built yet. Today Mru Field checks computed results, not stored data."
         },
         {
           "shared": "START"
@@ -488,7 +468,7 @@
         },
         {
           "q": "Will it miss an event while it checks itself?",
-          "a": "With two or more processors it runs at full speed. Only the last processor runs at half speed, and that beats stopping."
+          "a": "With three processors it runs at full speed. With two, a mismatch loses that result while a known-answer test runs. Only the last processor runs at half speed, and that beats stopping."
         },
         {
           "shared": "START"

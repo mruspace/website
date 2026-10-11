@@ -48,6 +48,8 @@ const research = defineCollection({
         chartAlt: z.string(),
       })
       .optional(),
+    /** Ids in src/data/claims.json whose numbers the title, summary, lede and featured copy use. */
+    claims: z.array(z.string()).default([]),
     /** Software: repository and language, for SoftwareSourceCode JSON-LD. */
     code: z.object({ repo: z.url(), language: z.string(), license: z.string() }).optional(),
   }),
