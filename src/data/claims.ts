@@ -13,9 +13,11 @@ export interface Claim {
   scope: string;
   conditions: string;
   source: { repo: string; path?: string; kind?: string; ref?: string; command?: string };
+  /** The results-file row a claim came from, when a page shows more than one number from it. */
+  detail?: Record<string, unknown>;
 }
 
-export const CLAIMS = data.claims as Record<string, Claim>;
+export const CLAIMS = data.claims as unknown as Record<string, Claim>;
 export const CLAIM_SOURCES = data.sources;
 
 export function claim(id: string): Claim {
@@ -37,7 +39,8 @@ export function ci(id: string): string {
 // Static copy (metadata descriptions, research frontmatter) cannot call t().
 // assertClaims checks it instead: every listed claim's text must appear, and
 // every decimal or grouped number in the copy must belong to a listed claim.
-const NUM = /\d+\.\d+|\d{1,3}(?:,\d{3})+/g;
+// Decimals and grouped integers; version strings such as 0.2.0 are not claims.
+const NUM = /(?<![\d.])\d+\.\d+(?![.\d])|\d{1,3}(?:,\d{3})+/g;
 const norm = (s: string) => s.replace(/(\d)x\b/g, '$1×');
 export function assertClaims(where: string, strings: (string | undefined)[], ids: string[] = []): void {
   if (ids.length === 0) return;

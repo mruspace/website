@@ -23,9 +23,23 @@ featured:
   chart: flight-bench
   chartAlt: Correct results per run, mean of 10 seeds. Upsets only, both 19,999.9. Two replicas lost one at a time, TMR 9,988.5, shrinking quorum 14,985.0. Two lost early, 3,994.7 and 11,987.3. One stuck and one lost, 8,989.5 and 14,483.8. Two lost with the last one stuck, 9,988.5 and 12,486.2.
 code: { repo: 'https://github.com/mruspace/flight', language: Rust, license: Apache-2.0 }
+claims:
+  - flight.bench.ratio.last-stuck
+  - flight.bench.ratio.common-mode
+  - flight.bench.useful.tmr.none
+  - flight.bench.useful.shrink.none
+  - flight.bench.useful.tmr.staggered-kills
+  - flight.bench.useful.shrink.staggered-kills
+  - flight.bench.useful.tmr.common-mode
+  - flight.bench.useful.shrink.common-mode
+  - flight.bench.useful.tmr.stuck
+  - flight.bench.useful.shrink.stuck
+  - flight.bench.useful.tmr.last-stuck
+  - flight.bench.useful.shrink.last-stuck
 ---
 
 import Section from '../../components/research/Section.astro';
+import Claim from '../../components/Claim.astro';
 
 <Section label="Status">
 <Fragment slot="note">Early prototype, v0.2.0. Everything here ran on general-purpose processors, not on flight hardware.</Fragment>
@@ -35,7 +49,7 @@ import Section from '../../components/research/Section.astro';
 [№ 004](/research/flight-prototype/) showed the decision core and a demo. Version 0.2.0 adds three things:
 
 <ul class="sig-list">
-  <li><strong>A bench.</strong> 300 runs per host, each with three replica processes on one host, the shrinking quorum against fixed TMR on the same faults.</li>
+  <li><strong>A bench.</strong> <Claim id="flight.bench.runs_per_host" /> runs per host, each with three replica processes on one host, the shrinking quorum against fixed TMR on the same faults.</li>
   <li><strong>F&#x2060;´ components.</strong> The core inside NASA JPL's F&#x2060;´, through a C interface that Kani proves equal to it.</li>
   <li><strong>Resets.</strong> The demo saves its state and resumes after a crash or power cut, with the same counts.</li>
 </ul>
@@ -51,16 +65,16 @@ import Section from '../../components/research/Section.astro';
   <table class="tbl">
     <thead><tr><th>Faults</th><th>Fixed TMR</th><th>Shrinking quorum</th><th>Ratio</th></tr></thead>
     <tbody>
-      <tr><td>Upsets only</td><td class="m">19,999.9</td><td class="m">19,999.9</td><td class="m wrap">1.00 (1.00)</td></tr>
-      <tr><td>Two replicas lost, one at a time</td><td class="m">9,988.5</td><td class="m sig">14,985.0</td><td class="m wrap">1.50 (1.50)</td></tr>
-      <tr><td>Two lost early</td><td class="m">3,994.7</td><td class="m sig">11,987.3</td><td class="m wrap">3.00 (3.00)</td></tr>
-      <tr><td>One stuck, one lost</td><td class="m">8,989.5</td><td class="m sig">14,483.8</td><td class="m wrap">1.61 (1.61)</td></tr>
-      <tr><td>Two lost, the last one stuck</td><td class="m">9,988.5</td><td class="m sig">12,486.2</td><td class="m wrap">1.25 (1.25)</td></tr>
+      <tr><td>Upsets only</td><td class="m"><Claim id="flight.bench.useful.tmr.none" /></td><td class="m"><Claim id="flight.bench.useful.shrink.none" /></td><td class="m wrap"><Claim id="flight.bench.ratio.none" /> (<Claim id="flight.bench.ratio.none" part="min" />)</td></tr>
+      <tr><td>Two replicas lost, one at a time</td><td class="m"><Claim id="flight.bench.useful.tmr.staggered-kills" /></td><td class="m sig"><Claim id="flight.bench.useful.shrink.staggered-kills" /></td><td class="m wrap"><Claim id="flight.bench.ratio.staggered-kills" /> (<Claim id="flight.bench.ratio.staggered-kills" part="min" />)</td></tr>
+      <tr><td>Two lost early</td><td class="m"><Claim id="flight.bench.useful.tmr.common-mode" /></td><td class="m sig"><Claim id="flight.bench.useful.shrink.common-mode" /></td><td class="m wrap"><Claim id="flight.bench.ratio.common-mode" /> (<Claim id="flight.bench.ratio.common-mode" part="min" />)</td></tr>
+      <tr><td>One stuck, one lost</td><td class="m"><Claim id="flight.bench.useful.tmr.stuck" /></td><td class="m sig"><Claim id="flight.bench.useful.shrink.stuck" /></td><td class="m wrap"><Claim id="flight.bench.ratio.stuck" /> (<Claim id="flight.bench.ratio.stuck" part="min" />)</td></tr>
+      <tr><td>Two lost, the last one stuck</td><td class="m"><Claim id="flight.bench.useful.tmr.last-stuck" /></td><td class="m sig"><Claim id="flight.bench.useful.shrink.last-stuck" /></td><td class="m wrap"><Claim id="flight.bench.ratio.last-stuck" /> (<Claim id="flight.bench.ratio.last-stuck" part="min" />)</td></tr>
     </tbody>
   </table>
 </div>
 
-<p>In all 150 pairs of runs, the shrinking quorum delivered at least as many correct results as fixed TMR. The counts are the same, run for run, on an Apple M4, an Arm Neoverse-N2 and an AMD EPYC 7763.</p>
+<p>In all <Claim id="flight.bench.pairs" /> pairs of runs, the shrinking quorum delivered at least as many correct results as fixed TMR. The counts are the same, run for run, on an Apple M4, an Arm Neoverse-N2 and an AMD EPYC 7763.</p>
 
 </Section>
 
@@ -69,7 +83,7 @@ import Section from '../../components/research/Section.astro';
 
 ## The cost, measured
 
-The extra work has a price on the last replica. Upsets that hit both of its runs alike gave up to 3.6 wrong results per run. A replica that got stuck gave 20, before the periodic known-answer test caught it 40 ticks later.
+The extra work has a price on the last replica. Upsets that hit both of its runs alike gave up to <Claim id="flight.wrong.common_mode_max" /> wrong results per run. A replica that got stuck gave <Claim id="flight.kat.wrong" />, before the periodic known-answer test caught it <Claim id="flight.kat.latency_ticks" /> ticks later. A later campaign measured how many faults that test catches at all: see <a href="https://docs.mru.space/core/bench/#kat">known-answer test coverage</a>.
 
 Dusk, the simulator, predicts these counts. Run on the same schedules, its policy model agrees with the bench within 3 standard errors in 17 of 18 comparisons. That checks the model against the code. It does not calibrate the environment: that needs radiation or flight data.
 
@@ -88,7 +102,7 @@ Four components for F&#x2060;´ v4.4.1: RedundancyManager, HealthRegistry, Repli
   <li><strong>Resets.</strong> Policy, slots and cycle survive a reset.</li>
 </ul>
 
-<p style="margin-top: 16px">37 unit tests and 9 Kani proofs run on every change.</p>
+<p style="margin-top: 16px"><Claim id="flight.fprime.unit_tests" /> unit tests and <Claim id="flight.kani.total" /> Kani proofs run on every change.</p>
 
 </Section>
 

@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Seam from '../../components/Seam.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { t, ci } from '../../data/claims';
 
 const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Architecture' }];
 ---
@@ -349,8 +350,12 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Architecture' }];
       </div>
       <div class="stack-m">
         <p>
-          We test in simulation and on a bench, in the open. Field and flight tests are proposed, not done.
-          DUSK-ARCH-PENDING
+          We test in simulation and on a bench, in the open. Field and flight tests are proposed, not done. Dusk ran{' '}
+          {t('dusk.runs')} missions on hardware that only ever decays, with no ground support after launch. The
+          shrinking quorum delivered {t('dusk.work_vs_tmr')} the useful work of fixed TMR (95% CI{' '}
+          {ci('dusk.work_vs_tmr')}). With ground support that never ends, the gain is {t('dusk.ground.never')}. Against
+          three-string cold standby it ranges from {t('dusk.work_vs_cold.01')} to {t('dusk.work_vs_cold.10')}, depending
+          on how fast an unpowered spare ages.
         </p>
         <div class="row">
           <a class="btn" href="/research/dusk-results/">

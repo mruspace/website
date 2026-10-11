@@ -6,7 +6,7 @@ shortTitle: 'Same hardware, 1.34× the useful work'
 summary: What a shrinking quorum buys on hardware that only ever decays. 10,000 simulated missions.
 lede: Dusk simulates 10,000 missions on processors that fail and are never repaired, with no ground support after launch. A shrinking quorum delivered a third more useful work than fixed triple redundancy.
 date: 2026-09-29
-updated: 2026-10-07
+updated: 2026-10-11
 readingTime: 12 min
 byline:
   - { label: Code, text: mruspace/dusk, href: 'https://github.com/mruspace/dusk' }
@@ -25,6 +25,7 @@ sources:
   - 'J. F. Meyer, “On Evaluating the Performability of Degradable Computing Systems,” IEEE Trans. Computers, 1980.'
   - 'B. Efron, “Bootstrap Methods: Another Look at the Jackknife,” Annals of Statistics, 1979.'
 related: [flight-prototype]
+claims: [dusk.work_vs_tmr, dusk.runs]
 request:
   interest: research
   topic: № 002 · Dusk results
@@ -34,15 +35,16 @@ code: { repo: 'https://github.com/mruspace/dusk', language: Rust, license: Apach
 
 import Section from '../../components/research/Section.astro';
 import Figure from '../../components/research/Figure.astro';
+import Claim from '../../components/Claim.astro';
 
 <Section label="Definition">
 <Fragment slot="note">TMR is triple modular redundancy. Lyons and Vanderkulk described it in 1962, building on von Neumann (1956).</Fragment>
 
 ## The question
 
-Classic triple modular redundancy has a fixed threshold. Three processors vote. Two can still detect a disagreement. One cannot outvote anything, so the system stops.
+Fixed triple modular redundancy has a fixed threshold. Three processors vote. Two can still detect a disagreement. One cannot outvote anything, so the system stops.
 
-On a mission with no repairs and no ground team in reach, that throws away the last processor's whole remaining life. The whitepaper proposes a shrinking quorum instead: vote while three are alive, compare while two are, self-check on one. Falling back from TMR to simplex is not new. The question is what it is worth when no ground team can command it.
+On a mission with no repairs and no ground team in reach, that throws away the last processor's whole remaining life. The whitepaper proposes a shrinking quorum instead: vote while three are alive, compare while two are, self-check on one. Falling back from TMR to simplex is not new: the Space Shuttle's computers did it. The question is what it is worth when no ground team can command it, and how it compares with the autonomous designs spacecraft fly.
 
 </Section>
 
@@ -62,30 +64,58 @@ Every policy runs against the same fault history and the same upsets. Any differ
 
 ## The result
 
-Mean useful years per mission, over 10,000 missions:
+Mean useful years per mission, over <Claim id="dusk.runs" /> missions:
 
 <div class="bars" style="margin: 32px 0">
-  <div class="barrow"><span class="lab">Fixed TMR</span><span class="track"><span class="fill" style="width: 47%"></span></span><span class="num">99.0</span></div>
-  <div class="barrow"><span class="lab">One processor, spares</span><span class="track"><span class="fill a" style="width: 39.5%"></span></span><span class="num">83.1</span></div>
-  <div class="barrow"><span class="lab" style="color: var(--signal)">Mru shrinking quorum</span><span class="track"><span class="fill s" style="width: 63%"></span></span><span class="num" style="color: var(--signal)">132.6</span></div>
+  <div class="barrow"><span class="lab">Fixed TMR</span><span class="track"><span class="fill" style="width: 47%"></span></span><span class="num"><Claim id="dusk.useful_years.tmr" /></span></div>
+  <div class="barrow"><span class="lab">One processor, spares</span><span class="track"><span class="fill a" style="width: 39.5%"></span></span><span class="num"><Claim id="dusk.useful_years.simplex" /></span></div>
+  <div class="barrow"><span class="lab" style="color: var(--signal)">Mru shrinking quorum</span><span class="track"><span class="fill s" style="width: 63%"></span></span><span class="num" style="color: var(--signal)"><Claim id="dusk.useful_years.shrink" /></span></div>
 </div>
 
-That is 1.34× the useful work of fixed TMR (95% CI 1.33× to 1.35×). It assumes no ground support after launch. With ground support that never ends, the gain falls to 1.00×: see [when the ground can help](#when-the-ground-can-help). The quorum is never less on a mission by construction in this model, because the two policies are identical until TMR stops.
+That is <Claim id="dusk.work_vs_tmr" /> the useful work of fixed TMR (95% CI <Claim id="dusk.work_vs_tmr" part="ci" />). It assumes no ground support after launch. With ground support that never ends, the gain falls to <Claim id="dusk.ground.never" />: see [when the ground can help](#when-the-ground-can-help). The quorum is never less on a mission by construction in this model, because the two policies are identical until TMR stops.
 
 </Section>
 
-<Figure name="dusk-output" alt="Useful output over the mission. The shrinking quorum stays above fixed TMR after year 50 and keeps working long after TMR has stopped.">Fig. 1 · Useful output over the mission, mean of 10,000 missions. The shaded area is total useful work. Drawn by <code>dusk --bin charts</code>; nothing by hand.</Figure>
+<Figure name="dusk-output" alt="Useful output over the mission for five policies. The shrinking quorum stays above fixed TMR after year 50 and keeps working long after TMR has stopped. Two dashed baselines: TMR with an unchecked fallback, and cold standby.">Fig. 1 · Useful output over the mission, mean of 10,000 missions. The shaded area is total useful work. Drawn by <code>dusk --bin charts</code>; nothing by hand.</Figure>
 
 <Section label="Baseline">
-<Fragment slot="note">The 59% compares against standby simplex, one processor that swaps in spares. Against TMR, the quorum has more wrong results, late in life.</Fragment>
+<Fragment slot="note">Risk is the share of missions that deliver at least one wrong result. Against TMR, the quorum has more wrong results, late in life.</Fragment>
 
 ## The cost
 
 A lone self-checking processor misses a few of its upsets. Those become wrong results that nobody knew were bad. Fixed TMR never produces them, because it never lives long enough.
 
-So the honest comparison is a price. Fixed TMR comes out ahead only if one wrong result costs more than **136 years** of useful work (95% CI 131 to 142). Against one processor with spares, the shrinking quorum gives 1.6× the useful work and 59% fewer wrong results.
+So the honest comparison is a price. Under the shrinking quorum, <Claim id="dusk.risk.shrink" /> of missions (95% CI <Claim id="dusk.risk.shrink" part="ci" />) deliver at least one wrong result. Under fixed TMR, <Claim id="dusk.risk.tmr" /> do. Fixed TMR comes out ahead only if one wrong result costs more than **<Claim id="dusk.break_even_years" /> years** of useful work (95% CI <Claim id="dusk.break_even_years" part="ci" />). Against one processor with spares (standby simplex), the shrinking quorum makes <Claim id="dusk.fewer_wrong_vs_simplex" /> fewer wrong results.
 
 </Section>
+
+<Section label="Baselines">
+<Fragment slot="note">Cold standby here has three strings, on the same hardware as TMR. With two strings (<code>--nodes 2</code>) the shrinking quorum does <Claim id="dusk.nodes2.work_vs_cold.01" /> to <Claim id="dusk.nodes2.work_vs_cold.10" /> its useful work.</Fragment>
+
+## Against autonomous baselines
+
+Fixed TMR is one baseline, not what most spacecraft fly. Two more baselines also act with no ground team, on the same fault histories.
+
+<div class="tbl-box" tabindex="0" style="margin: 24px 0">
+  <table class="tbl">
+    <thead><tr><th>Policy</th><th>Useful years</th><th>Missions with a wrong result</th><th>Shrinking quorum's work against it</th></tr></thead>
+    <tbody>
+      <tr><td>Fixed TMR</td><td class="m"><Claim id="dusk.useful_years.tmr" /></td><td class="m"><Claim id="dusk.risk.tmr" /></td><td class="m"><Claim id="dusk.work_vs_tmr" /></td></tr>
+      <tr><td>TMR, unchecked fallback</td><td class="m"><Claim id="dusk.useful_years.unchecked" /></td><td class="m"><Claim id="dusk.risk.unchecked" /></td><td class="m"><Claim id="dusk.work_vs_unchecked" /></td></tr>
+      <tr><td>Cold standby, spares aging 0.1</td><td class="m"><Claim id="dusk.useful_years.cold_01" /></td><td class="m"><Claim id="dusk.risk.cold_01" /></td><td class="m"><Claim id="dusk.work_vs_cold.01" /></td></tr>
+      <tr><td>Cold standby, spares aging 1.0</td><td class="m"><Claim id="dusk.useful_years.cold_10" /></td><td class="m"><Claim id="dusk.risk.cold_10" /></td><td class="m"><Claim id="dusk.work_vs_cold.10" /></td></tr>
+      <tr class="hl"><td>Shrinking quorum</td><td class="m"><Claim id="dusk.useful_years.shrink" /></td><td class="m"><Claim id="dusk.risk.shrink" /></td><td class="m">·</td></tr>
+    </tbody>
+  </table>
+</div>
+
+**TMR with an unchecked fallback** steps down on its own but never checks its last processor. It does more useful work at every setting, with about 100 times the wrong results: the shrinking quorum makes <Claim id="dusk.wrong_vs_unchecked" /> of them (95% CI <Claim id="dusk.wrong_vs_unchecked" part="ci" />). That gap is what self-check buys.
+
+**Cold standby** keeps one processor powered and switches on the next when it dies, the nearest model here of dual-string with autonomous switchover. An unpowered spare ages more slowly than a powered one, but nobody knows how much, so the rate is swept from 0.1 to 1.0. Below about <Claim id="dusk.cold.crossing" />, cold standby does more useful work than the shrinking quorum. Above it, the shrinking quorum does more. At every rate, cold standby has more missions with a wrong result, because it never votes.
+
+</Section>
+
+<Figure name="dusk-cold-aging" alt="Cold standby's useful work relative to fixed TMR, by spare aging rate, with the shrinking quorum and standby simplex as reference lines. Cold standby crosses the shrinking quorum near an aging rate of 0.2.">Fig. 2 · Cold standby by spare aging rate, three strings, 10,000 missions per point. Drawn by <code>dusk --bin charts</code>.</Figure>
 
 <Section label="Example">
 <Fragment slot="note">Voyager has had 49 years of support so far. Its power falls about 4 watts a year.</Fragment>
@@ -98,11 +128,11 @@ Real spacecraft do not run TMR alone. When a string fails, a ground team command
   <table class="tbl">
     <thead><tr><th>Ground support ends</th><th>Gain over TMR</th></tr></thead>
     <tbody>
-      <tr><td>At launch</td><td class="m">1.34×</td></tr>
-      <tr><td>After 25 years</td><td class="m">1.31×</td></tr>
-      <tr class="hl"><td>After 50 years</td><td class="m">1.25×</td></tr>
-      <tr><td>After 100 years</td><td class="m">1.11×</td></tr>
-      <tr><td>Never</td><td class="m">1.00×</td></tr>
+      <tr><td>At launch</td><td class="m"><Claim id="dusk.ground.0" /></td></tr>
+      <tr><td>After 25 years</td><td class="m"><Claim id="dusk.ground.25" /></td></tr>
+      <tr class="hl"><td>After 50 years</td><td class="m"><Claim id="dusk.ground.50" /></td></tr>
+      <tr><td>After 100 years</td><td class="m"><Claim id="dusk.ground.100" /></td></tr>
+      <tr><td>Never</td><td class="m"><Claim id="dusk.ground.never" /></td></tr>
     </tbody>
   </table>
 </div>
@@ -112,20 +142,20 @@ Answer time barely matters. A fallback a day or six months late gives the same r
 </Section>
 
 <Section label="Reproduce">
-<Fragment slot="note">Run it yourself: <code>cargo run --release -- --sweep</code>, about 30 seconds on a laptop.</Fragment>
+<Fragment slot="note">Run it yourself: <code>cargo run --release -- --sweep</code>, about two minutes on a laptop.</Fragment>
 
 ## How sure are we
 
-The sweep varies every parameter the model cannot pin down. Across every row, the shrinking quorum returned **1.11× to 1.68×** the useful work of fixed TMR. The gain is largest with early, random failures and smallest with sharp wear-out, where all three processors die close together.
+The sweep varies every parameter the model cannot pin down. Across every row, the shrinking quorum returned **<Claim id="dusk.sweep.range" />** the useful work of fixed TMR. The gain is largest with early, random failures and smallest with sharp wear-out, where all three processors die close together.
 
 </Section>
 
-<Figure name="dusk-sensitivity" alt="Sensitivity of the gain over fixed TMR to each uncertain parameter. Every row stays above 1.1 times.">Fig. 2 · Sensitivity. 10,000 missions per row, seed 1.</Figure>
+<Figure name="dusk-sensitivity" alt="Sensitivity of the gain over fixed TMR to each uncertain parameter. Every row stays above 1.1 times.">Fig. 3 · Sensitivity. 10,000 missions per row, seed 1.</Figure>
 
 <Section>
 
 ## What this does not claim
 
-The parameters are plausible orders of magnitude, not values fitted to flight data. The claim is the shape of the trade, and the sweep shows where it holds. Power, thermal limits and duty cycling are not modeled. The ground team in the baseline is perfect, which flatters the ground.
+The parameters are plausible orders of magnitude, not values fitted to flight data. The claim is the shape of the trade, and the sweep shows where it holds. Power, thermal limits and duty cycling are not modeled. The ground team in the baseline is perfect, which flatters the ground. The aging rate of an unpowered spare is not measured. Correlated deaths in cold standby follow the powered fault history, which slightly under-counts them.
 
 </Section>

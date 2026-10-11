@@ -4,20 +4,20 @@
   "sources": {
     "flight": {
       "repo": "mruspace/flight",
-      "commit": "0fc17e7",
+      "commit": "900a1fd",
       "bench": ["2026-10-11-darwin-arm64.json", "2026-10-11-linux-aarch64.json", "2026-10-11-linux-x86_64.json"],
       "bench_commits": { "darwin-arm64": "7c1a629", "linux-aarch64": "d79b345", "linux-x86_64": "d79b345" },
-      "kat": null,
-      "kat_commit": null
+      "kat": "2026-10-11-darwin-arm64-kat.json",
+      "kat_commit": "22ea557"
     },
     "dusk": {
       "repo": "mruspace/dusk",
-      "commit": "0106791-dirty",
+      "commit": "6936feb",
       "runs": 10000,
       "seed": 1,
       "generated": {
         "date": "2026-10-11",
-        "commit": "0106791-dirty",
+        "commit": "6936feb",
         "host": "darwin-arm64",
         "rustc": "rustc 1.86.0 (05f9846f8 2025-03-31)",
         "seed": 1,
@@ -42,473 +42,18 @@
       "text": "136",
       "ci": "131 to 142"
     },
-    "dusk.display.break_even": {
-      "value": "136",
-      "format": "text",
-      "text": "136",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
+    "dusk.cold.crossing": {
+      "value": 0.1954,
+      "format": "dec2",
+      "unit": "spare aging rate below which three-string cold standby does more useful work than the shrinking quorum",
+      "scope": "Dusk --sweep, cold standby by spare aging rate, 10,000 missions per row",
       "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
       "source": {
         "repo": "dusk",
-        "path": "docs/data.json: display.break_even",
+        "path": "docs/data.json: cold.crossing",
         "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.break_even_ci": {
-      "value": "131 to 142",
-      "format": "text",
-      "text": "131 to 142",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.break_even_ci",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.cold_crossing": {
-      "value": "cold standby outworks the shrinking quorum below a spare aging rate of about 0.20",
-      "format": "text",
-      "text": "cold standby outworks the shrinking quorum below a spare aging rate of about 0.20",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.cold_crossing",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.fewer_vs_simplex": {
-      "value": "59%",
-      "format": "text",
-      "text": "59%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.fewer_vs_simplex",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.fewer_vs_simplex_ci": {
-      "value": "58% to 60%",
-      "format": "text",
-      "text": "58% to 60%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.fewer_vs_simplex_ci",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.nodes2_work_vs_cold_01": {
-      "value": "1.05x",
-      "format": "text",
-      "text": "1.05x",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.nodes2_work_vs_cold_01",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.nodes2_work_vs_cold_01_ci": {
-      "value": "1.05x to 1.05x",
-      "format": "text",
-      "text": "1.05x to 1.05x",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.nodes2_work_vs_cold_01_ci",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.nodes2_work_vs_cold_10": {
-      "value": "1.49x",
-      "format": "text",
-      "text": "1.49x",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.nodes2_work_vs_cold_10",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.nodes2_work_vs_cold_10_ci": {
-      "value": "1.48x to 1.50x",
-      "format": "text",
-      "text": "1.48x to 1.50x",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.nodes2_work_vs_cold_10_ci",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.risk_cold_01": {
-      "value": "61.3%",
-      "format": "text",
-      "text": "61.3%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.risk_cold_01",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.risk_cold_01_ci": {
-      "value": "60.4% to 62.3%",
-      "format": "text",
-      "text": "60.4% to 62.3%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.risk_cold_01_ci",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.risk_cold_10": {
-      "value": "43.2%",
-      "format": "text",
-      "text": "43.2%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.risk_cold_10",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.risk_cold_10_ci": {
-      "value": "42.2% to 44.2%",
-      "format": "text",
-      "text": "42.2% to 44.2%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.risk_cold_10_ci",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.risk_shrink": {
-      "value": "20.1%",
-      "format": "text",
-      "text": "20.1%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.risk_shrink",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.risk_shrink_ci": {
-      "value": "19.3% to 20.9%",
-      "format": "text",
-      "text": "19.3% to 20.9%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.risk_shrink_ci",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.risk_simplex": {
-      "value": "43.2%",
-      "format": "text",
-      "text": "43.2%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.risk_simplex",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.risk_simplex_ci": {
-      "value": "42.2% to 44.2%",
-      "format": "text",
-      "text": "42.2% to 44.2%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.risk_simplex_ci",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.risk_tmr": {
-      "value": "0.0%",
-      "format": "text",
-      "text": "0.0%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.risk_tmr",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.risk_tmr_ci": {
-      "value": "0.0% to 0.0%",
-      "format": "text",
-      "text": "0.0% to 0.0%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.risk_tmr_ci",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.risk_unchecked": {
-      "value": "87.2%",
-      "format": "text",
-      "text": "87.2%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.risk_unchecked",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.risk_unchecked_ci": {
-      "value": "86.6% to 87.8%",
-      "format": "text",
-      "text": "86.6% to 87.8%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.risk_unchecked_ci",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.sweep_fewer_range": {
-      "value": "47% to 82%",
-      "format": "text",
-      "text": "47% to 82%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.sweep_fewer_range",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.sweep_work_range": {
-      "value": "1.11x to 1.68x",
-      "format": "text",
-      "text": "1.11x to 1.68x",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.sweep_work_range",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.voyager": {
-      "value": "1.25x",
-      "format": "text",
-      "text": "1.25x",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.voyager",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.work_vs_cold_01": {
-      "value": "0.92x",
-      "format": "text",
-      "text": "0.92x",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.work_vs_cold_01",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.work_vs_cold_01_ci": {
-      "value": "0.91x to 0.92x",
-      "format": "text",
-      "text": "0.91x to 0.92x",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.work_vs_cold_01_ci",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.work_vs_cold_10": {
-      "value": "1.60x",
-      "format": "text",
-      "text": "1.60x",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.work_vs_cold_10",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.work_vs_cold_10_ci": {
-      "value": "1.59x to 1.60x",
-      "format": "text",
-      "text": "1.59x to 1.60x",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.work_vs_cold_10_ci",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.work_vs_simplex": {
-      "value": "160%",
-      "format": "text",
-      "text": "160%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.work_vs_simplex",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.work_vs_tmr": {
-      "value": "1.34x",
-      "format": "text",
-      "text": "1.34x",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.work_vs_tmr",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.work_vs_tmr_ci": {
-      "value": "1.33x to 1.35x",
-      "format": "text",
-      "text": "1.33x to 1.35x",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.work_vs_tmr_ci",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.work_vs_unchecked": {
-      "value": "80%",
-      "format": "text",
-      "text": "80%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.work_vs_unchecked",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.wrong_vs_simplex": {
-      "value": "41%",
-      "format": "text",
-      "text": "41%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.wrong_vs_simplex",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.wrong_vs_simplex_ci": {
-      "value": "40% to 42%",
-      "format": "text",
-      "text": "40% to 42%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.wrong_vs_simplex_ci",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.wrong_vs_unchecked": {
-      "value": "1.00%",
-      "format": "text",
-      "text": "1.00%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.wrong_vs_unchecked",
-        "command": "cargo run --release --bin charts"
-      }
-    },
-    "dusk.display.wrong_vs_unchecked_ci": {
-      "value": "0.96% to 1.04%",
-      "format": "text",
-      "text": "0.96% to 1.04%",
-      "unit": "string printed by dusk",
-      "scope": "Dusk default scenario, 10,000 missions, seed 1",
-      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
-      "source": {
-        "repo": "dusk",
-        "path": "docs/data.json: display.wrong_vs_unchecked_ci",
-        "command": "cargo run --release --bin charts"
-      }
+      },
+      "text": "0.20"
     },
     "dusk.fewer_wrong_vs_simplex": {
       "value": 0.5915,
@@ -606,6 +151,130 @@
       "text": "1.00×",
       "ci": "1.00× to 1.00×"
     },
+    "dusk.nodes2.work_vs_cold.01": {
+      "value": 1.05,
+      "format": "ratio2",
+      "text": "1.05×",
+      "ci": "1.05× to 1.05×",
+      "unit": "the useful work of two-string cold standby, spare aging rate 0.1",
+      "scope": "Dusk --nodes 2, 10,000 missions, seed 1",
+      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
+      "source": {
+        "repo": "dusk",
+        "path": "docs/data.json: display.nodes2_work_vs_cold_01",
+        "command": "cargo run --release --bin charts"
+      }
+    },
+    "dusk.nodes2.work_vs_cold.10": {
+      "value": 1.49,
+      "format": "ratio2",
+      "text": "1.49×",
+      "ci": "1.48× to 1.50×",
+      "unit": "the useful work of two-string cold standby, spare aging rate 1",
+      "scope": "Dusk --nodes 2, 10,000 missions, seed 1",
+      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
+      "source": {
+        "repo": "dusk",
+        "path": "docs/data.json: display.nodes2_work_vs_cold_10",
+        "command": "cargo run --release --bin charts"
+      }
+    },
+    "dusk.risk.cold_01": {
+      "value": 0.6134,
+      "lo": 0.6036,
+      "hi": 0.6227,
+      "format": "pct1",
+      "unit": "of missions deliver at least one wrong result",
+      "scope": "Dusk default scenario, 10,000 missions, seed 1, cold standby, aging 0.1",
+      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
+      "source": {
+        "repo": "dusk",
+        "path": "docs/data.json: policies[cold standby, aging 0.1].risk",
+        "command": "cargo run --release --bin charts"
+      },
+      "text": "61.3%",
+      "ci": "60.4% to 62.3%"
+    },
+    "dusk.risk.cold_10": {
+      "value": 0.4321,
+      "lo": 0.4222,
+      "hi": 0.4416,
+      "format": "pct1",
+      "unit": "of missions deliver at least one wrong result",
+      "scope": "Dusk default scenario, 10,000 missions, seed 1, cold standby, aging 1.0",
+      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
+      "source": {
+        "repo": "dusk",
+        "path": "docs/data.json: policies[cold standby, aging 1.0].risk",
+        "command": "cargo run --release --bin charts"
+      },
+      "text": "43.2%",
+      "ci": "42.2% to 44.2%"
+    },
+    "dusk.risk.shrink": {
+      "value": 0.2012,
+      "lo": 0.1932,
+      "hi": 0.2089,
+      "format": "pct1",
+      "unit": "of missions deliver at least one wrong result",
+      "scope": "Dusk default scenario, 10,000 missions, seed 1, shrinking quorum",
+      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
+      "source": {
+        "repo": "dusk",
+        "path": "docs/data.json: policies[shrinking quorum].risk",
+        "command": "cargo run --release --bin charts"
+      },
+      "text": "20.1%",
+      "ci": "19.3% to 20.9%"
+    },
+    "dusk.risk.simplex": {
+      "value": 0.4321,
+      "lo": 0.4222,
+      "hi": 0.4416,
+      "format": "pct1",
+      "unit": "of missions deliver at least one wrong result",
+      "scope": "Dusk default scenario, 10,000 missions, seed 1, standby simplex",
+      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
+      "source": {
+        "repo": "dusk",
+        "path": "docs/data.json: policies[standby simplex].risk",
+        "command": "cargo run --release --bin charts"
+      },
+      "text": "43.2%",
+      "ci": "42.2% to 44.2%"
+    },
+    "dusk.risk.tmr": {
+      "value": 0,
+      "lo": 0,
+      "hi": 0,
+      "format": "pct1",
+      "unit": "of missions deliver at least one wrong result",
+      "scope": "Dusk default scenario, 10,000 missions, seed 1, fixed TMR",
+      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
+      "source": {
+        "repo": "dusk",
+        "path": "docs/data.json: policies[fixed TMR].risk",
+        "command": "cargo run --release --bin charts"
+      },
+      "text": "0.0%",
+      "ci": "0.0% to 0.0%"
+    },
+    "dusk.risk.unchecked": {
+      "value": 0.8719,
+      "lo": 0.8655,
+      "hi": 0.8782,
+      "format": "pct1",
+      "unit": "of missions deliver at least one wrong result",
+      "scope": "Dusk default scenario, 10,000 missions, seed 1, TMR + unchecked simplex",
+      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
+      "source": {
+        "repo": "dusk",
+        "path": "docs/data.json: policies[TMR + unchecked simplex].risk",
+        "command": "cargo run --release --bin charts"
+      },
+      "text": "87.2%",
+      "ci": "86.6% to 87.8%"
+    },
     "dusk.runs": {
       "value": 10000,
       "format": "int",
@@ -627,6 +296,32 @@
         "path": "docs/data.json: sweep.rows[].points[].work",
         "command": "cargo run --release --bin charts"
       }
+    },
+    "dusk.useful_years.cold_01": {
+      "value": 144.7462,
+      "format": "years1",
+      "unit": "mean useful years per mission",
+      "scope": "Dusk default scenario, 10,000 missions, seed 1, cold standby, aging 0.1",
+      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
+      "source": {
+        "repo": "dusk",
+        "path": "docs/data.json: policies[cold standby, aging 0.1].useful_years",
+        "command": "cargo run --release --bin charts"
+      },
+      "text": "144.7"
+    },
+    "dusk.useful_years.cold_10": {
+      "value": 83.107,
+      "format": "years1",
+      "unit": "mean useful years per mission",
+      "scope": "Dusk default scenario, 10,000 missions, seed 1, cold standby, aging 1.0",
+      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
+      "source": {
+        "repo": "dusk",
+        "path": "docs/data.json: policies[cold standby, aging 1.0].useful_years",
+        "command": "cargo run --release --bin charts"
+      },
+      "text": "83.1"
     },
     "dusk.useful_years.shrink": {
       "value": 132.5904,
@@ -667,6 +362,51 @@
       },
       "text": "99.0"
     },
+    "dusk.useful_years.unchecked": {
+      "value": 166.2234,
+      "format": "years1",
+      "unit": "mean useful years per mission",
+      "scope": "Dusk default scenario, 10,000 missions, seed 1, TMR + unchecked simplex",
+      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
+      "source": {
+        "repo": "dusk",
+        "path": "docs/data.json: policies[TMR + unchecked simplex].useful_years",
+        "command": "cargo run --release --bin charts"
+      },
+      "text": "166.2"
+    },
+    "dusk.work_vs_cold.01": {
+      "value": 0.916,
+      "lo": 0.9131,
+      "hi": 0.9187,
+      "format": "ratio2",
+      "unit": "the useful work of three-string cold standby, spare aging rate 0.1",
+      "scope": "Dusk default scenario, 10,000 missions, seed 1",
+      "conditions": "Spare aging rate 0.1 of a powered processor. Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
+      "source": {
+        "repo": "dusk",
+        "path": "docs/data.json: headline.work_vs_cold[aging=0.1]",
+        "command": "cargo run --release --bin charts"
+      },
+      "text": "0.92×",
+      "ci": "0.91× to 0.92×"
+    },
+    "dusk.work_vs_cold.10": {
+      "value": 1.5954,
+      "lo": 1.5901,
+      "hi": 1.6008,
+      "format": "ratio2",
+      "unit": "the useful work of three-string cold standby, spare aging rate 1",
+      "scope": "Dusk default scenario, 10,000 missions, seed 1",
+      "conditions": "Spare aging rate 1 of a powered processor. Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
+      "source": {
+        "repo": "dusk",
+        "path": "docs/data.json: headline.work_vs_cold[aging=1]",
+        "command": "cargo run --release --bin charts"
+      },
+      "text": "1.60×",
+      "ci": "1.59× to 1.60×"
+    },
     "dusk.work_vs_tmr": {
       "value": 1.3399,
       "lo": 1.3323,
@@ -682,6 +422,19 @@
       },
       "text": "1.34×",
       "ci": "1.33× to 1.35×"
+    },
+    "dusk.work_vs_unchecked": {
+      "value": 0.7977,
+      "format": "pct0",
+      "unit": "of the useful work of TMR with an unchecked simplex fallback",
+      "scope": "Dusk default scenario, 10,000 missions, seed 1",
+      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
+      "source": {
+        "repo": "dusk",
+        "path": "docs/data.json: headline.work_vs_unchecked",
+        "command": "cargo run --release --bin charts"
+      },
+      "text": "80%"
     },
     "dusk.wrong_days.shrink": {
       "value": 0.2465,
@@ -737,6 +490,22 @@
       },
       "text": "41%",
       "ci": "40% to 42%"
+    },
+    "dusk.wrong_vs_unchecked": {
+      "value": 0.01,
+      "lo": 0.0096,
+      "hi": 0.0104,
+      "format": "pct2",
+      "unit": "of the wrong results of TMR with an unchecked simplex fallback",
+      "scope": "Dusk default scenario, 10,000 missions, seed 1",
+      "conditions": "Weibull shape 1.5, scale 125 y, correlated deaths 0.1, upset rate 1e-3, self-check coverage 0.99, self-check throughput 0.5. No ground support after launch. 95% paired bootstrap, 2,000 resamples. Parameters illustrative, not calibrated.",
+      "source": {
+        "repo": "dusk",
+        "path": "docs/data.json: headline.wrong_vs_unchecked",
+        "command": "cargo run --release --bin charts"
+      },
+      "text": "1.00%",
+      "ci": "0.96% to 1.04%"
     },
     "flight.bench.pairs": {
       "value": 150,
@@ -1070,6 +839,2173 @@
       "conditions": "Run in CI on every change.",
       "source": { "repo": "flight", "path": "sum of the two counts" },
       "text": "9"
+    },
+    "flight.kat_cost.1000000.cpu": {
+      "scope": "Known-answer test cost, 10 runs of 100,000 ticks per period, self-check on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "No faults after the two kills. CPU time of the voter and replicas. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: throughput[kat_period=1000000]",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0,
+      "format": "pct1",
+      "unit": "extra CPU time against no test (median)",
+      "detail": {
+        "kat_period": 1000000,
+        "runs": 10,
+        "useful_mean": 50010,
+        "kat_tests_mean": 0,
+        "kat_tests_per_delivered_result": 0,
+        "cpu_s_median": 0.901,
+        "cpu_s_q1": 0.8768,
+        "cpu_s_q3": 0.939,
+        "cpu_s_iqr": 0.0622,
+        "cpu_cost_vs_no_test": 0,
+        "model_extra_computes": 0.000001
+      },
+      "text": "0.0%"
+    },
+    "flight.kat_cost.1000000.tests_per_result": {
+      "scope": "Known-answer test cost, 10 runs of 100,000 ticks per period, self-check on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "No faults after the two kills. CPU time of the voter and replicas. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: throughput[kat_period=1000000]",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0,
+      "format": "dec4",
+      "unit": "known-answer tests per delivered result",
+      "text": "0.0000"
+    },
+    "flight.kat_cost.128.cpu": {
+      "scope": "Known-answer test cost, 10 runs of 100,000 ticks per period, self-check on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "No faults after the two kills. CPU time of the voter and replicas. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: throughput[kat_period=128]",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0.0044,
+      "format": "pct1",
+      "unit": "extra CPU time against no test (median)",
+      "detail": {
+        "kat_period": 128,
+        "runs": 10,
+        "useful_mean": 50010,
+        "kat_tests_mean": 781,
+        "kat_tests_per_delivered_result": 0.015617,
+        "cpu_s_median": 0.905,
+        "cpu_s_q1": 0.8912,
+        "cpu_s_q3": 0.9472,
+        "cpu_s_iqr": 0.056,
+        "cpu_cost_vs_no_test": 0.0044,
+        "model_extra_computes": 0.007812
+      },
+      "text": "0.4%"
+    },
+    "flight.kat_cost.128.tests_per_result": {
+      "scope": "Known-answer test cost, 10 runs of 100,000 ticks per period, self-check on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "No faults after the two kills. CPU time of the voter and replicas. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: throughput[kat_period=128]",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0.015617,
+      "format": "dec4",
+      "unit": "known-answer tests per delivered result",
+      "text": "0.0156"
+    },
+    "flight.kat_cost.16.cpu": {
+      "scope": "Known-answer test cost, 10 runs of 100,000 ticks per period, self-check on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "No faults after the two kills. CPU time of the voter and replicas. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: throughput[kat_period=16]",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0.1038,
+      "format": "pct1",
+      "unit": "extra CPU time against no test (median)",
+      "detail": {
+        "kat_period": 16,
+        "runs": 10,
+        "useful_mean": 50010,
+        "kat_tests_mean": 6249,
+        "kat_tests_per_delivered_result": 0.124955,
+        "cpu_s_median": 0.9945,
+        "cpu_s_q1": 0.9802,
+        "cpu_s_q3": 1.0157,
+        "cpu_s_iqr": 0.0355,
+        "cpu_cost_vs_no_test": 0.1038,
+        "model_extra_computes": 0.0625
+      },
+      "text": "10.4%"
+    },
+    "flight.kat_cost.16.tests_per_result": {
+      "scope": "Known-answer test cost, 10 runs of 100,000 ticks per period, self-check on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "No faults after the two kills. CPU time of the voter and replicas. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: throughput[kat_period=16]",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0.124955,
+      "format": "dec4",
+      "unit": "known-answer tests per delivered result",
+      "text": "0.1250"
+    },
+    "flight.kat_cost.256.cpu": {
+      "scope": "Known-answer test cost, 10 runs of 100,000 ticks per period, self-check on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "No faults after the two kills. CPU time of the voter and replicas. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: throughput[kat_period=256]",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0.015,
+      "format": "pct1",
+      "unit": "extra CPU time against no test (median)",
+      "detail": {
+        "kat_period": 256,
+        "runs": 10,
+        "useful_mean": 50010,
+        "kat_tests_mean": 390,
+        "kat_tests_per_delivered_result": 0.007798,
+        "cpu_s_median": 0.9145,
+        "cpu_s_q1": 0.884,
+        "cpu_s_q3": 0.949,
+        "cpu_s_iqr": 0.065,
+        "cpu_cost_vs_no_test": 0.015,
+        "model_extra_computes": 0.003906
+      },
+      "text": "1.5%"
+    },
+    "flight.kat_cost.256.tests_per_result": {
+      "scope": "Known-answer test cost, 10 runs of 100,000 ticks per period, self-check on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "No faults after the two kills. CPU time of the voter and replicas. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: throughput[kat_period=256]",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0.007798,
+      "format": "dec4",
+      "unit": "known-answer tests per delivered result",
+      "text": "0.0078"
+    },
+    "flight.kat_cost.32.cpu": {
+      "scope": "Known-answer test cost, 10 runs of 100,000 ticks per period, self-check on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "No faults after the two kills. CPU time of the voter and replicas. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: throughput[kat_period=32]",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0.0438,
+      "format": "pct1",
+      "unit": "extra CPU time against no test (median)",
+      "detail": {
+        "kat_period": 32,
+        "runs": 10,
+        "useful_mean": 50010,
+        "kat_tests_mean": 3125,
+        "kat_tests_per_delivered_result": 0.062488,
+        "cpu_s_median": 0.9405,
+        "cpu_s_q1": 0.922,
+        "cpu_s_q3": 0.9812,
+        "cpu_s_iqr": 0.0592,
+        "cpu_cost_vs_no_test": 0.0438,
+        "model_extra_computes": 0.03125
+      },
+      "text": "4.4%"
+    },
+    "flight.kat_cost.32.tests_per_result": {
+      "scope": "Known-answer test cost, 10 runs of 100,000 ticks per period, self-check on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "No faults after the two kills. CPU time of the voter and replicas. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: throughput[kat_period=32]",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0.062488,
+      "format": "dec4",
+      "unit": "known-answer tests per delivered result",
+      "text": "0.0625"
+    },
+    "flight.kat_cost.64.cpu": {
+      "scope": "Known-answer test cost, 10 runs of 100,000 ticks per period, self-check on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "No faults after the two kills. CPU time of the voter and replicas. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: throughput[kat_period=64]",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0.0189,
+      "format": "pct1",
+      "unit": "extra CPU time against no test (median)",
+      "detail": {
+        "kat_period": 64,
+        "runs": 10,
+        "useful_mean": 50010,
+        "kat_tests_mean": 1562,
+        "kat_tests_per_delivered_result": 0.031234,
+        "cpu_s_median": 0.918,
+        "cpu_s_q1": 0.9048,
+        "cpu_s_q3": 0.9607,
+        "cpu_s_iqr": 0.056,
+        "cpu_cost_vs_no_test": 0.0189,
+        "model_extra_computes": 0.015625
+      },
+      "text": "1.9%"
+    },
+    "flight.kat_cost.64.tests_per_result": {
+      "scope": "Known-answer test cost, 10 runs of 100,000 ticks per period, self-check on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "No faults after the two kills. CPU time of the voter and replicas. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: throughput[kat_period=64]",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0.031234,
+      "format": "dec4",
+      "unit": "known-answer tests per delivered result",
+      "text": "0.0312"
+    },
+    "flight.kat_cost.8.cpu": {
+      "scope": "Known-answer test cost, 10 runs of 100,000 ticks per period, self-check on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "No faults after the two kills. CPU time of the voter and replicas. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: throughput[kat_period=8]",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0.2214,
+      "format": "pct1",
+      "unit": "extra CPU time against no test (median)",
+      "detail": {
+        "kat_period": 8,
+        "runs": 10,
+        "useful_mean": 50010,
+        "kat_tests_mean": 12498,
+        "kat_tests_per_delivered_result": 0.24991,
+        "cpu_s_median": 1.1005,
+        "cpu_s_q1": 1.097,
+        "cpu_s_q3": 1.1058,
+        "cpu_s_iqr": 0.0088,
+        "cpu_cost_vs_no_test": 0.2214,
+        "model_extra_computes": 0.125
+      },
+      "text": "22.1%"
+    },
+    "flight.kat_cost.8.tests_per_result": {
+      "scope": "Known-answer test cost, 10 runs of 100,000 ticks per period, self-check on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "No faults after the two kills. CPU time of the voter and replicas. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: throughput[kat_period=8]",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0.24991,
+      "format": "dec4",
+      "unit": "known-answer tests per delivered result",
+      "text": "0.2499"
+    },
+    "flight.kat_coverage.corrupt.64.0": {
+      "value": 1,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 400 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "corrupt",
+        "location": null,
+        "kat_period": 64,
+        "common_mode": 0,
+        "runs": 400,
+        "detected": 400,
+        "fraction_detected": 1,
+        "missed_with_wrong": 0,
+        "missed_no_effect": 0,
+        "latency_mean": 0,
+        "latency_max": 0,
+        "wrong_before_detection_mean": 0,
+        "wrong_before_detection_max": 0,
+        "wrong_rate_when_missed": null
+      },
+      "text": "100%"
+    },
+    "flight.kat_coverage.corrupt.64.0.05": {
+      "value": 0.9425,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 400 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks, common-mode share 0.05. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "corrupt",
+        "location": null,
+        "kat_period": 64,
+        "common_mode": 0.05,
+        "runs": 400,
+        "detected": 377,
+        "fraction_detected": 0.9425,
+        "missed_with_wrong": 23,
+        "missed_no_effect": 0,
+        "latency_mean": 0,
+        "latency_max": 0,
+        "wrong_before_detection_mean": 0,
+        "wrong_before_detection_max": 0,
+        "wrong_rate_when_missed": 0.0196
+      },
+      "text": "94%"
+    },
+    "flight.kat_coverage.corrupt.64.0.05.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 400 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks, common-mode share 0.05. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "0.0"
+    },
+    "flight.kat_coverage.corrupt.64.0.05.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 400 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks, common-mode share 0.05. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "0.0"
+    },
+    "flight.kat_coverage.corrupt.64.0.2": {
+      "value": 0.79,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 400 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks, common-mode share 0.2. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "corrupt",
+        "location": null,
+        "kat_period": 64,
+        "common_mode": 0.2,
+        "runs": 400,
+        "detected": 316,
+        "fraction_detected": 0.79,
+        "missed_with_wrong": 84,
+        "missed_no_effect": 0,
+        "latency_mean": 0,
+        "latency_max": 0,
+        "wrong_before_detection_mean": 0,
+        "wrong_before_detection_max": 0,
+        "wrong_rate_when_missed": 0.0196
+      },
+      "text": "79%"
+    },
+    "flight.kat_coverage.corrupt.64.0.2.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 400 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks, common-mode share 0.2. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "0.0"
+    },
+    "flight.kat_coverage.corrupt.64.0.2.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 400 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks, common-mode share 0.2. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "0.0"
+    },
+    "flight.kat_coverage.corrupt.64.0.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 400 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "0.0"
+    },
+    "flight.kat_coverage.corrupt.64.0.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 400 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "0.0"
+    },
+    "flight.kat_coverage.hang.64": {
+      "value": 1,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 64 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "hang",
+        "location": null,
+        "kat_period": 64,
+        "common_mode": null,
+        "runs": 64,
+        "detected": 64,
+        "fraction_detected": 1,
+        "missed_with_wrong": 0,
+        "missed_no_effect": 0,
+        "latency_mean": 0.5,
+        "latency_max": 1,
+        "wrong_before_detection_mean": 0,
+        "wrong_before_detection_max": 0,
+        "wrong_rate_when_missed": null
+      },
+      "text": "100%"
+    },
+    "flight.kat_coverage.hang.64.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 64 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "0.5"
+    },
+    "flight.kat_coverage.hang.64.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 64 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "0.0"
+    },
+    "flight.kat_coverage.stuck.128": {
+      "value": 1,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 256 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 128 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuck",
+        "location": null,
+        "kat_period": 128,
+        "common_mode": null,
+        "runs": 256,
+        "detected": 256,
+        "fraction_detected": 1,
+        "missed_with_wrong": 0,
+        "missed_no_effect": 0,
+        "latency_mean": 63.5,
+        "latency_max": 127,
+        "wrong_before_detection_mean": 31.5,
+        "wrong_before_detection_max": 63,
+        "wrong_rate_when_missed": null
+      },
+      "text": "100%"
+    },
+    "flight.kat_coverage.stuck.128.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 256 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 128 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 63.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "63.5"
+    },
+    "flight.kat_coverage.stuck.128.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 256 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 128 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 31.5,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "31.5"
+    },
+    "flight.kat_coverage.stuck.16": {
+      "value": 1,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 256 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 16 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuck",
+        "location": null,
+        "kat_period": 16,
+        "common_mode": null,
+        "runs": 256,
+        "detected": 256,
+        "fraction_detected": 1,
+        "missed_with_wrong": 0,
+        "missed_no_effect": 0,
+        "latency_mean": 7.5,
+        "latency_max": 15,
+        "wrong_before_detection_mean": 3.5,
+        "wrong_before_detection_max": 7,
+        "wrong_rate_when_missed": null
+      },
+      "text": "100%"
+    },
+    "flight.kat_coverage.stuck.16.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 256 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 16 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 7.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "7.5"
+    },
+    "flight.kat_coverage.stuck.16.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 256 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 16 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 3.5,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "3.5"
+    },
+    "flight.kat_coverage.stuck.256": {
+      "value": 1,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 256 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 256 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuck",
+        "location": null,
+        "kat_period": 256,
+        "common_mode": null,
+        "runs": 256,
+        "detected": 256,
+        "fraction_detected": 1,
+        "missed_with_wrong": 0,
+        "missed_no_effect": 0,
+        "latency_mean": 127.5,
+        "latency_max": 255,
+        "wrong_before_detection_mean": 63.5,
+        "wrong_before_detection_max": 127,
+        "wrong_rate_when_missed": null
+      },
+      "text": "100%"
+    },
+    "flight.kat_coverage.stuck.256.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 256 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 256 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 127.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "127.5"
+    },
+    "flight.kat_coverage.stuck.256.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 256 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 256 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 63.5,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "63.5"
+    },
+    "flight.kat_coverage.stuck.32": {
+      "value": 1,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 256 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 32 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuck",
+        "location": null,
+        "kat_period": 32,
+        "common_mode": null,
+        "runs": 256,
+        "detected": 256,
+        "fraction_detected": 1,
+        "missed_with_wrong": 0,
+        "missed_no_effect": 0,
+        "latency_mean": 15.5,
+        "latency_max": 31,
+        "wrong_before_detection_mean": 7.5,
+        "wrong_before_detection_max": 15,
+        "wrong_rate_when_missed": null
+      },
+      "text": "100%"
+    },
+    "flight.kat_coverage.stuck.32.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 256 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 32 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 15.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "15.5"
+    },
+    "flight.kat_coverage.stuck.32.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 256 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 32 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 7.5,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "7.5"
+    },
+    "flight.kat_coverage.stuck.64": {
+      "value": 1,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 256 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuck",
+        "location": null,
+        "kat_period": 64,
+        "common_mode": null,
+        "runs": 256,
+        "detected": 256,
+        "fraction_detected": 1,
+        "missed_with_wrong": 0,
+        "missed_no_effect": 0,
+        "latency_mean": 31.5,
+        "latency_max": 63,
+        "wrong_before_detection_mean": 15.5,
+        "wrong_before_detection_max": 31,
+        "wrong_rate_when_missed": null
+      },
+      "text": "100%"
+    },
+    "flight.kat_coverage.stuck.64.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 256 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 31.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "31.5"
+    },
+    "flight.kat_coverage.stuck.64.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 256 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 15.5,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "15.5"
+    },
+    "flight.kat_coverage.stuck.8": {
+      "value": 1,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 256 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 8 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuck",
+        "location": null,
+        "kat_period": 8,
+        "common_mode": null,
+        "runs": 256,
+        "detected": 256,
+        "fraction_detected": 1,
+        "missed_with_wrong": 0,
+        "missed_no_effect": 0,
+        "latency_mean": 3.5,
+        "latency_max": 7,
+        "wrong_before_detection_mean": 1.5,
+        "wrong_before_detection_max": 3,
+        "wrong_rate_when_missed": null
+      },
+      "text": "100%"
+    },
+    "flight.kat_coverage.stuck.8.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 256 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 8 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 3.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "3.5"
+    },
+    "flight.kat_coverage.stuck.8.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 256 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 8 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 1.5,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "1.5"
+    },
+    "flight.kat_coverage.stuckbit.acc.128": {
+      "value": 0.9844,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 128 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "acc",
+        "kat_period": 128,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 126,
+        "fraction_detected": 0.9844,
+        "missed_with_wrong": 2,
+        "missed_no_effect": 0,
+        "latency_mean": 63.8,
+        "latency_max": 127,
+        "wrong_before_detection_mean": 31.48,
+        "wrong_before_detection_max": 63,
+        "wrong_rate_when_missed": 0.6254,
+        "by_value": { "0": { "runs": 64, "detected": 63 }, "1": { "runs": 64, "detected": 63 } }
+      },
+      "text": "98%"
+    },
+    "flight.kat_coverage.stuckbit.acc.128.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 128 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 63.8,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "63.8"
+    },
+    "flight.kat_coverage.stuckbit.acc.128.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 128 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 31.48,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "31.5"
+    },
+    "flight.kat_coverage.stuckbit.acc.16": {
+      "value": 0.9844,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 16 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "acc",
+        "kat_period": 16,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 126,
+        "fraction_detected": 0.9844,
+        "missed_with_wrong": 2,
+        "missed_no_effect": 0,
+        "latency_mean": 7.4,
+        "latency_max": 15,
+        "wrong_before_detection_mean": 3.4,
+        "wrong_before_detection_max": 7,
+        "wrong_rate_when_missed": 0.6254,
+        "by_value": { "0": { "runs": 64, "detected": 63 }, "1": { "runs": 64, "detected": 63 } }
+      },
+      "text": "98%"
+    },
+    "flight.kat_coverage.stuckbit.acc.16.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 16 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 7.4,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "7.4"
+    },
+    "flight.kat_coverage.stuckbit.acc.16.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 16 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 3.4,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "3.4"
+    },
+    "flight.kat_coverage.stuckbit.acc.256": {
+      "value": 0.9844,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 256 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "acc",
+        "kat_period": 256,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 126,
+        "fraction_detected": 0.9844,
+        "missed_with_wrong": 2,
+        "missed_no_effect": 0,
+        "latency_mean": 178.6,
+        "latency_max": 255,
+        "wrong_before_detection_mean": 88.27,
+        "wrong_before_detection_max": 127,
+        "wrong_rate_when_missed": 0.6254,
+        "by_value": { "0": { "runs": 64, "detected": 63 }, "1": { "runs": 64, "detected": 63 } }
+      },
+      "text": "98%"
+    },
+    "flight.kat_coverage.stuckbit.acc.256.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 256 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 178.6,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "178.6"
+    },
+    "flight.kat_coverage.stuckbit.acc.256.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 256 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 88.27,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "88.3"
+    },
+    "flight.kat_coverage.stuckbit.acc.32": {
+      "value": 0.9844,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 32 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "acc",
+        "kat_period": 32,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 126,
+        "fraction_detected": 0.9844,
+        "missed_with_wrong": 2,
+        "missed_no_effect": 0,
+        "latency_mean": 15.5,
+        "latency_max": 31,
+        "wrong_before_detection_mean": 7.44,
+        "wrong_before_detection_max": 15,
+        "wrong_rate_when_missed": 0.6254,
+        "by_value": { "0": { "runs": 64, "detected": 63 }, "1": { "runs": 64, "detected": 63 } }
+      },
+      "text": "98%"
+    },
+    "flight.kat_coverage.stuckbit.acc.32.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 32 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 15.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "15.5"
+    },
+    "flight.kat_coverage.stuckbit.acc.32.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 32 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 7.44,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "7.4"
+    },
+    "flight.kat_coverage.stuckbit.acc.64": {
+      "value": 0.9844,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "acc",
+        "kat_period": 64,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 126,
+        "fraction_detected": 0.9844,
+        "missed_with_wrong": 2,
+        "missed_no_effect": 0,
+        "latency_mean": 31.8,
+        "latency_max": 63,
+        "wrong_before_detection_mean": 15.57,
+        "wrong_before_detection_max": 31,
+        "wrong_rate_when_missed": 0.6254,
+        "by_value": { "0": { "runs": 64, "detected": 63 }, "1": { "runs": 64, "detected": 63 } }
+      },
+      "text": "98%"
+    },
+    "flight.kat_coverage.stuckbit.acc.64.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 31.8,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "31.8"
+    },
+    "flight.kat_coverage.stuckbit.acc.64.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 15.57,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "15.6"
+    },
+    "flight.kat_coverage.stuckbit.acc.8": {
+      "value": 0.9844,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 8 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "acc",
+        "kat_period": 8,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 126,
+        "fraction_detected": 0.9844,
+        "missed_with_wrong": 2,
+        "missed_no_effect": 0,
+        "latency_mean": 3.5,
+        "latency_max": 7,
+        "wrong_before_detection_mean": 1.44,
+        "wrong_before_detection_max": 3,
+        "wrong_rate_when_missed": 0.6254,
+        "by_value": { "0": { "runs": 64, "detected": 63 }, "1": { "runs": 64, "detected": 63 } }
+      },
+      "text": "98%"
+    },
+    "flight.kat_coverage.stuckbit.acc.8.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 8 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 3.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "3.5"
+    },
+    "flight.kat_coverage.stuckbit.acc.8.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 8 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 1.44,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "1.4"
+    },
+    "flight.kat_coverage.stuckbit.block.128": {
+      "value": 0.4609,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 128 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "block",
+        "kat_period": 128,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 59,
+        "fraction_detected": 0.4609,
+        "missed_with_wrong": 69,
+        "missed_no_effect": 0,
+        "latency_mean": 67.6,
+        "latency_max": 123,
+        "wrong_before_detection_mean": 16.58,
+        "wrong_before_detection_max": 36,
+        "wrong_rate_when_missed": 0.4995,
+        "by_value": { "0": { "runs": 64, "detected": 30 }, "1": { "runs": 64, "detected": 29 } }
+      },
+      "text": "46%"
+    },
+    "flight.kat_coverage.stuckbit.block.128.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 128 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 67.6,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "67.6"
+    },
+    "flight.kat_coverage.stuckbit.block.128.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 128 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 16.58,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "16.6"
+    },
+    "flight.kat_coverage.stuckbit.block.16": {
+      "value": 0.4609,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 16 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "block",
+        "kat_period": 16,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 59,
+        "fraction_detected": 0.4609,
+        "missed_with_wrong": 69,
+        "missed_no_effect": 0,
+        "latency_mean": 7.7,
+        "latency_max": 15,
+        "wrong_before_detection_mean": 1.86,
+        "wrong_before_detection_max": 5,
+        "wrong_rate_when_missed": 0.4995,
+        "by_value": { "0": { "runs": 64, "detected": 30 }, "1": { "runs": 64, "detected": 29 } }
+      },
+      "text": "46%"
+    },
+    "flight.kat_coverage.stuckbit.block.16.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 16 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 7.7,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "7.7"
+    },
+    "flight.kat_coverage.stuckbit.block.16.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 16 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 1.86,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "1.9"
+    },
+    "flight.kat_coverage.stuckbit.block.256": {
+      "value": 0.4609,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 256 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "block",
+        "kat_period": 256,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 59,
+        "fraction_detected": 0.4609,
+        "missed_with_wrong": 69,
+        "missed_no_effect": 0,
+        "latency_mean": 184.8,
+        "latency_max": 251,
+        "wrong_before_detection_mean": 45.69,
+        "wrong_before_detection_max": 67,
+        "wrong_rate_when_missed": 0.4995,
+        "by_value": { "0": { "runs": 64, "detected": 30 }, "1": { "runs": 64, "detected": 29 } }
+      },
+      "text": "46%"
+    },
+    "flight.kat_coverage.stuckbit.block.256.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 256 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 184.8,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "184.8"
+    },
+    "flight.kat_coverage.stuckbit.block.256.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 256 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 45.69,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "45.7"
+    },
+    "flight.kat_coverage.stuckbit.block.32": {
+      "value": 0.4609,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 32 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "block",
+        "kat_period": 32,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 59,
+        "fraction_detected": 0.4609,
+        "missed_with_wrong": 69,
+        "missed_no_effect": 0,
+        "latency_mean": 15.6,
+        "latency_max": 31,
+        "wrong_before_detection_mean": 3.85,
+        "wrong_before_detection_max": 10,
+        "wrong_rate_when_missed": 0.4995,
+        "by_value": { "0": { "runs": 64, "detected": 30 }, "1": { "runs": 64, "detected": 29 } }
+      },
+      "text": "46%"
+    },
+    "flight.kat_coverage.stuckbit.block.32.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 32 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 15.6,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "15.6"
+    },
+    "flight.kat_coverage.stuckbit.block.32.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 32 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 3.85,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "3.9"
+    },
+    "flight.kat_coverage.stuckbit.block.64": {
+      "value": 0.4609,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "block",
+        "kat_period": 64,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 59,
+        "fraction_detected": 0.4609,
+        "missed_with_wrong": 69,
+        "missed_no_effect": 0,
+        "latency_mean": 32.9,
+        "latency_max": 62,
+        "wrong_before_detection_mean": 8.17,
+        "wrong_before_detection_max": 18,
+        "wrong_rate_when_missed": 0.4995,
+        "by_value": { "0": { "runs": 64, "detected": 30 }, "1": { "runs": 64, "detected": 29 } }
+      },
+      "text": "46%"
+    },
+    "flight.kat_coverage.stuckbit.block.64.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 32.9,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "32.9"
+    },
+    "flight.kat_coverage.stuckbit.block.64.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 8.17,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "8.2"
+    },
+    "flight.kat_coverage.stuckbit.block.8": {
+      "value": 0.4609,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 8 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "block",
+        "kat_period": 8,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 59,
+        "fraction_detected": 0.4609,
+        "missed_with_wrong": 69,
+        "missed_no_effect": 0,
+        "latency_mean": 3.4,
+        "latency_max": 7,
+        "wrong_before_detection_mean": 0.69,
+        "wrong_before_detection_max": 3,
+        "wrong_rate_when_missed": 0.4995,
+        "by_value": { "0": { "runs": 64, "detected": 30 }, "1": { "runs": 64, "detected": 29 } }
+      },
+      "text": "46%"
+    },
+    "flight.kat_coverage.stuckbit.block.8.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 8 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 3.4,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "3.4"
+    },
+    "flight.kat_coverage.stuckbit.block.8.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 8 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0.69,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "0.7"
+    },
+    "flight.kat_coverage.stuckbit.in.128": {
+      "value": 0.5,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 128 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "in",
+        "kat_period": 128,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 64,
+        "fraction_detected": 0.5,
+        "missed_with_wrong": 10,
+        "missed_no_effect": 54,
+        "latency_mean": 44.5,
+        "latency_max": 76,
+        "wrong_before_detection_mean": 19.47,
+        "wrong_before_detection_max": 38,
+        "wrong_rate_when_missed": 0.0782,
+        "by_value": { "0": { "runs": 64, "detected": 0 }, "1": { "runs": 64, "detected": 64 } }
+      },
+      "text": "50%"
+    },
+    "flight.kat_coverage.stuckbit.in.128.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 128 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 44.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "44.5"
+    },
+    "flight.kat_coverage.stuckbit.in.128.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 128 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 19.47,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "19.5"
+    },
+    "flight.kat_coverage.stuckbit.in.16": {
+      "value": 0.5,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 16 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "in",
+        "kat_period": 16,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 64,
+        "fraction_detected": 0.5,
+        "missed_with_wrong": 10,
+        "missed_no_effect": 54,
+        "latency_mean": 7.5,
+        "latency_max": 15,
+        "wrong_before_detection_mean": 3.22,
+        "wrong_before_detection_max": 7,
+        "wrong_rate_when_missed": 0.0782,
+        "by_value": { "0": { "runs": 64, "detected": 0 }, "1": { "runs": 64, "detected": 64 } }
+      },
+      "text": "50%"
+    },
+    "flight.kat_coverage.stuckbit.in.16.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 16 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 7.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "7.5"
+    },
+    "flight.kat_coverage.stuckbit.in.16.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 16 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 3.22,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "3.2"
+    },
+    "flight.kat_coverage.stuckbit.in.256": {
+      "value": 0.5,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 256 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "in",
+        "kat_period": 256,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 64,
+        "fraction_detected": 0.5,
+        "missed_with_wrong": 10,
+        "missed_no_effect": 54,
+        "latency_mean": 172.5,
+        "latency_max": 204,
+        "wrong_before_detection_mean": 78.47,
+        "wrong_before_detection_max": 102,
+        "wrong_rate_when_missed": 0.0782,
+        "by_value": { "0": { "runs": 64, "detected": 0 }, "1": { "runs": 64, "detected": 64 } }
+      },
+      "text": "50%"
+    },
+    "flight.kat_coverage.stuckbit.in.256.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 256 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 172.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "172.5"
+    },
+    "flight.kat_coverage.stuckbit.in.256.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 256 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 78.47,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "78.5"
+    },
+    "flight.kat_coverage.stuckbit.in.32": {
+      "value": 0.5,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 32 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "in",
+        "kat_period": 32,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 64,
+        "fraction_detected": 0.5,
+        "missed_with_wrong": 10,
+        "missed_no_effect": 54,
+        "latency_mean": 15.5,
+        "latency_max": 31,
+        "wrong_before_detection_mean": 7.22,
+        "wrong_before_detection_max": 15,
+        "wrong_rate_when_missed": 0.0782,
+        "by_value": { "0": { "runs": 64, "detected": 0 }, "1": { "runs": 64, "detected": 64 } }
+      },
+      "text": "50%"
+    },
+    "flight.kat_coverage.stuckbit.in.32.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 32 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 15.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "15.5"
+    },
+    "flight.kat_coverage.stuckbit.in.32.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 32 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 7.22,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "7.2"
+    },
+    "flight.kat_coverage.stuckbit.in.64": {
+      "value": 0.5,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "in",
+        "kat_period": 64,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 64,
+        "fraction_detected": 0.5,
+        "missed_with_wrong": 10,
+        "missed_no_effect": 54,
+        "latency_mean": 31.5,
+        "latency_max": 63,
+        "wrong_before_detection_mean": 15.22,
+        "wrong_before_detection_max": 31,
+        "wrong_rate_when_missed": 0.0782,
+        "by_value": { "0": { "runs": 64, "detected": 0 }, "1": { "runs": 64, "detected": 64 } }
+      },
+      "text": "50%"
+    },
+    "flight.kat_coverage.stuckbit.in.64.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 31.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "31.5"
+    },
+    "flight.kat_coverage.stuckbit.in.64.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 15.22,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "15.2"
+    },
+    "flight.kat_coverage.stuckbit.in.8": {
+      "value": 0.5,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 8 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "in",
+        "kat_period": 8,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 64,
+        "fraction_detected": 0.5,
+        "missed_with_wrong": 10,
+        "missed_no_effect": 54,
+        "latency_mean": 3.5,
+        "latency_max": 7,
+        "wrong_before_detection_mean": 1.41,
+        "wrong_before_detection_max": 3,
+        "wrong_rate_when_missed": 0.0782,
+        "by_value": { "0": { "runs": 64, "detected": 0 }, "1": { "runs": 64, "detected": 64 } }
+      },
+      "text": "50%"
+    },
+    "flight.kat_coverage.stuckbit.in.8.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 8 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 3.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "3.5"
+    },
+    "flight.kat_coverage.stuckbit.in.8.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 8 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 1.41,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "1.4"
+    },
+    "flight.kat_coverage.stuckbit.out.128": {
+      "value": 0.5,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 128 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "out",
+        "kat_period": 128,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 64,
+        "fraction_detected": 0.5,
+        "missed_with_wrong": 64,
+        "missed_no_effect": 0,
+        "latency_mean": 57.5,
+        "latency_max": 126,
+        "wrong_before_detection_mean": 14.31,
+        "wrong_before_detection_max": 31,
+        "wrong_rate_when_missed": 0.5011,
+        "by_value": { "0": { "runs": 64, "detected": 31 }, "1": { "runs": 64, "detected": 33 } }
+      },
+      "text": "50%"
+    },
+    "flight.kat_coverage.stuckbit.out.128.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 128 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 57.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "57.5"
+    },
+    "flight.kat_coverage.stuckbit.out.128.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 128 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 14.31,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "14.3"
+    },
+    "flight.kat_coverage.stuckbit.out.16": {
+      "value": 0.5,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 16 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "out",
+        "kat_period": 16,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 64,
+        "fraction_detected": 0.5,
+        "missed_with_wrong": 64,
+        "missed_no_effect": 0,
+        "latency_mean": 7.5,
+        "latency_max": 15,
+        "wrong_before_detection_mean": 1.64,
+        "wrong_before_detection_max": 4,
+        "wrong_rate_when_missed": 0.5011,
+        "by_value": { "0": { "runs": 64, "detected": 31 }, "1": { "runs": 64, "detected": 33 } }
+      },
+      "text": "50%"
+    },
+    "flight.kat_coverage.stuckbit.out.16.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 16 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 7.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "7.5"
+    },
+    "flight.kat_coverage.stuckbit.out.16.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 16 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 1.64,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "1.6"
+    },
+    "flight.kat_coverage.stuckbit.out.256": {
+      "value": 0.5,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 256 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "out",
+        "kat_period": 256,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 64,
+        "fraction_detected": 0.5,
+        "missed_with_wrong": 64,
+        "missed_no_effect": 0,
+        "latency_mean": 167.5,
+        "latency_max": 254,
+        "wrong_before_detection_mean": 41.39,
+        "wrong_before_detection_max": 73,
+        "wrong_rate_when_missed": 0.5011,
+        "by_value": { "0": { "runs": 64, "detected": 31 }, "1": { "runs": 64, "detected": 33 } }
+      },
+      "text": "50%"
+    },
+    "flight.kat_coverage.stuckbit.out.256.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 256 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 167.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "167.5"
+    },
+    "flight.kat_coverage.stuckbit.out.256.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 256 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 41.39,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "41.4"
+    },
+    "flight.kat_coverage.stuckbit.out.32": {
+      "value": 0.5,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 32 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "out",
+        "kat_period": 32,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 64,
+        "fraction_detected": 0.5,
+        "missed_with_wrong": 64,
+        "missed_no_effect": 0,
+        "latency_mean": 15.5,
+        "latency_max": 31,
+        "wrong_before_detection_mean": 3.69,
+        "wrong_before_detection_max": 8,
+        "wrong_rate_when_missed": 0.5011,
+        "by_value": { "0": { "runs": 64, "detected": 31 }, "1": { "runs": 64, "detected": 33 } }
+      },
+      "text": "50%"
+    },
+    "flight.kat_coverage.stuckbit.out.32.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 32 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 15.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "15.5"
+    },
+    "flight.kat_coverage.stuckbit.out.32.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 32 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 3.69,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "3.7"
+    },
+    "flight.kat_coverage.stuckbit.out.64": {
+      "value": 0.5,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "out",
+        "kat_period": 64,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 64,
+        "fraction_detected": 0.5,
+        "missed_with_wrong": 64,
+        "missed_no_effect": 0,
+        "latency_mean": 31.5,
+        "latency_max": 63,
+        "wrong_before_detection_mean": 7.91,
+        "wrong_before_detection_max": 17,
+        "wrong_rate_when_missed": 0.5011,
+        "by_value": { "0": { "runs": 64, "detected": 31 }, "1": { "runs": 64, "detected": 33 } }
+      },
+      "text": "50%"
+    },
+    "flight.kat_coverage.stuckbit.out.64.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 31.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "31.5"
+    },
+    "flight.kat_coverage.stuckbit.out.64.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 64 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 7.91,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "7.9"
+    },
+    "flight.kat_coverage.stuckbit.out.8": {
+      "value": 0.5,
+      "format": "pct0",
+      "unit": "of injected faults detected",
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 8 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "detail": {
+        "fault": "stuckbit",
+        "location": "out",
+        "kat_period": 8,
+        "common_mode": null,
+        "runs": 128,
+        "detected": 64,
+        "fraction_detected": 0.5,
+        "missed_with_wrong": 64,
+        "missed_no_effect": 0,
+        "latency_mean": 3.5,
+        "latency_max": 7,
+        "wrong_before_detection_mean": 0.67,
+        "wrong_before_detection_max": 2,
+        "wrong_rate_when_missed": 0.5011,
+        "by_value": { "0": { "runs": 64, "detected": 31 }, "1": { "runs": 64, "detected": 33 } }
+      },
+      "text": "50%"
+    },
+    "flight.kat_coverage.stuckbit.out.8.latency_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 8 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 3.5,
+      "format": "mean1",
+      "unit": "ticks from the fault to detection, mean over detected faults",
+      "text": "3.5"
+    },
+    "flight.kat_coverage.stuckbit.out.8.wrong_mean": {
+      "scope": "Known-answer test coverage campaign, 128 faults on the last replica, demo task on Apple M4 (darwin-arm64)",
+      "conditions": "Known-answer test every 8 ticks. General-purpose processor, not flight hardware.",
+      "source": {
+        "repo": "flight",
+        "path": "2026-10-11-darwin-arm64-kat.json: summary",
+        "command": "./scripts/kat-coverage.sh"
+      },
+      "value": 0.67,
+      "format": "mean1",
+      "unit": "wrong results before detection, mean over detected faults",
+      "text": "0.7"
     },
     "flight.kat.latency_ticks": {
       "value": 40,
