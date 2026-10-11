@@ -35,7 +35,7 @@ code: { repo: 'https://github.com/mruspace/dusk', language: Rust, license: Apach
 import Section from '../../components/research/Section.astro';
 import Figure from '../../components/research/Figure.astro';
 
-<Section label="Note 1">
+<Section label="Definition">
 <Fragment slot="note">TMR is triple modular redundancy. Lyons and Vanderkulk described it in 1962, building on von Neumann (1956).</Fragment>
 
 ## The question
@@ -46,7 +46,7 @@ On a mission with no repairs and no ground team in reach, that throws away the l
 
 </Section>
 
-<Section label="Note 2">
+<Section label="Parameters">
 <Fragment slot="note">Shape 1.5 and a 125-year scale give a median processor life of about 98 years. The parameters are illustrative, not calibrated.</Fragment>
 
 ## The model
@@ -57,7 +57,7 @@ Every policy runs against the same fault history and the same upsets. Any differ
 
 </Section>
 
-<Section label="Note 3">
+<Section label="Method">
 <Fragment slot="note">Intervals are from a paired bootstrap: 2,000 resamples of whole missions.</Fragment>
 
 ## The result
@@ -76,7 +76,7 @@ That is 1.34× the useful work of fixed TMR (95% CI 1.33× to 1.35×). It is nev
 
 <Figure name="dusk-output" alt="Useful output over the mission. The shrinking quorum stays above fixed TMR after year 50 and keeps working long after TMR has stopped.">Fig. 1 · Useful output over the mission, mean of 10,000 missions. The shaded area is total useful work. Drawn by <code>dusk --bin charts</code>; nothing by hand.</Figure>
 
-<Section label="Note 4">
+<Section label="Baseline">
 <Fragment slot="note">The 59% compares against standby simplex, one processor that swaps in spares. Against TMR, the quorum has more wrong results, late in life.</Fragment>
 
 ## The cost
@@ -87,7 +87,7 @@ So the honest comparison is a price. Fixed TMR comes out ahead only if one wrong
 
 </Section>
 
-<Section label="Note 5">
+<Section label="Example">
 <Fragment slot="note">Voyager has had 49 years of support so far. Its power falls about 4 watts a year.</Fragment>
 
 ## When the ground can help
@@ -111,7 +111,7 @@ Answer time barely matters. A fallback a day or six months late gives the same r
 
 </Section>
 
-<Section label="Note 6">
+<Section label="Reproduce">
 <Fragment slot="note">Run it yourself: <code>cargo run --release -- --sweep</code>, about 30 seconds on a laptop.</Fragment>
 
 ## How sure are we
