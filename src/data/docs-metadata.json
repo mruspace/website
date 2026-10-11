@@ -40,6 +40,14 @@
     "schema": ["TechArticle", "BreadcrumbList"]
   },
   {
+    "url": "https://docs.mru.space/core/bench/",
+    "title": "Bench results for Layer 1 · Mru Docs",
+    "description": "The shrinking quorum against fixed TMR on the same injected faults, 300 runs per host: correct and wrong results, GDI, detection latency and limits.",
+    "ogTitle": "Bench",
+    "cardLabel": "Docs · Core runtime",
+    "schema": ["TechArticle", "BreadcrumbList"]
+  },
+  {
     "url": "https://docs.mru.space/simulation/dusk/",
     "title": "Dusk simulator reference · Mru Docs",
     "description": "Run Dusk, the Monte Carlo of redundancy policies: options and defaults, the fault model, default results, sweeps and what it does not claim.",
