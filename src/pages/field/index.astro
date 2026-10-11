@@ -10,11 +10,11 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Mru Field' }];
 const faq = [
   {
     q: 'Is it open source?',
-    a: 'The decision core and the simulator are open source under Apache 2.0, and the design is published. Mru Field adds integration, support and qualification for your site.',
+    a: 'The decision core and the simulator are open source under Apache 2.0, and the whitepaper is published under CC BY 4.0. Mru Field adds integration and support for your site.',
   },
   {
     q: 'What evidence is there today?',
-    a: 'Simulation over 10,000 missions, a fault-injection demo and a bench on real processes, and nine Kani proofs.',
+    a: 'Simulation over 10,000 missions, a fault-injection demo and a bench on real processes, and nine Kani proofs. All of it runs on general-purpose processors. None of it has run on your equipment yet.',
   },
   {
     q: 'How is it priced?',
@@ -53,6 +53,7 @@ const faq = [
           to trust. As processors fail, it moves from voting to comparing to self-checking, and keeps delivering checked
           results until none are left.
         </p>
+        <p class="soft small">Status: early prototype, tested on general-purpose processors, not yet in the field.</p>
         <div class="row">
           <a class="btn" href="#request">
             Get in touch
@@ -104,8 +105,8 @@ const faq = [
         </p>
         <h3 class="h3">Delivers only checked results</h3>
         <p class="soft small">
-          A result leaves only if two processors agree, or the last one gets the same answer twice. Proved with Kani for
-          every input.
+          A result leaves only if two processors agree, or the last one gets the same answer twice. Kani proves this for
+          every set of three replies to the decision function.
         </p>
       </div>
       <div class="note">
@@ -147,8 +148,8 @@ const faq = [
           <tr>
             <td style="width: 30%">Processors</td>
             <td>
-              Two or three today, running the same task. Support for more is planned. One still works, in self-check
-              mode.
+              Two or three, running the same task. The core takes up to three replicas; more is planned. One still
+              works, in self-check mode. Each processor costs power.
             </td>
           </tr>
           <tr>
@@ -157,17 +158,24 @@ const faq = [
           </tr>
           <tr>
             <td>Footprint</td>
-            <td>About 1.5 MB of memory per process on ARM64, measured in CI. Binary about 0.5 MB.</td>
+            <td>FOOTPRINT-PENDING-FIELD</td>
           </tr>
           <tr>
             <td>Throughput cost</td>
-            <td>None while two or more processors are alive. Half rate on the last one, because it computes twice.</td>
+            <td>
+              None while three processors are alive. With two, a mismatch loses that result and costs a known-answer
+              test on both. Half rate on the last one, because it computes twice.
+            </td>
           </tr>
           <tr>
             <td>Known limit</td>
+            <td>KAT-PENDING-FIELD</td>
+          </tr>
+          <tr>
+            <td>Inputs</td>
             <td>
-              On the last processor, a stuck fault is caught only by a periodic known-answer test. A few wrong results
-              can get out before it. The period is configurable.
+              In the demo every replica gets the same input. Real sensor inputs need an agreement step between replicas,
+              which Mru does not provide yet.
             </td>
           </tr>
           <tr>
@@ -186,7 +194,7 @@ const faq = [
       <div class="stratum base">
         <span class="lv">Mru</span>
         <h3>Mru Field</h3>
-        <p>Shrinking quorum, health record, known-answer tests, memory checks, decision log.</p>
+        <p>Shrinking quorum, health record, known-answer tests, a memory upset counter, decision log.</p>
       </div>
       <div class="stratum">
         <span class="lv">Yours</span>
@@ -292,15 +300,13 @@ const faq = [
         <p class="n">2 · Pilot</p>
         <h3 class="h3">One site, months unattended</h3>
         <p class="soft small">
-          Mru Field on your own equipment, with the decision log in your telemetry. A pilot in the Azores is planned.
+          Mru Field on your own equipment, with the decision log in your telemetry. A pilot in the Azores is proposed.
         </p>
       </div>
       <div class="stack-s">
         <p class="n">3 · Fleet</p>
         <h3 class="h3">License and support</h3>
-        <p class="soft small">
-          Annual license per site or fleet, with support and qualification evidence for your sector.
-        </p>
+        <p class="soft small">Annual license per site or fleet, with support.</p>
       </div>
     </div>
   </section>

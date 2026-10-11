@@ -15,11 +15,11 @@ export const TMR: Record<Alive, QuorumState> = {
 };
 
 export const MRU: Record<Alive, QuorumState> = {
-  3: { mode: 'Vote', width: '92%', note: 'Same decision as TMR.' },
+  3: { mode: 'Vote', width: '92%', note: 'Same outcome as TMR for the same replies.' },
   2: {
     mode: 'Compare',
     width: '88%',
-    note: 'Same decision as TMR. On a mismatch, a known-answer test finds the faulty processor.',
+    note: 'Same outcome as TMR for the same replies. On a mismatch, a known-answer test can find the faulty processor.',
   },
   1: { mode: 'Self-check', width: '46%', note: 'Computes twice, delivers on a match. Half rate.' },
 };

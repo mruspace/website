@@ -3,8 +3,8 @@ number: '005'
 kind: Release
 title: 'Mru Flight 0.2.0: measured, and in F´'
 shortTitle: 'Mru Flight 0.2.0'
-summary: The shrinking quorum measured on three processors, F´ components that give the same counts, and resets survived.
-lede: Layer 1 measured on real processors with injected faults, against fixed TMR on the same faults. And the same core, inside NASA JPL's F´ framework, giving the same counts.
+summary: The shrinking quorum measured on three replica processes against fixed TMR, F´ components that match the demo's wrong results in every run, and resets survived.
+lede: The Layer 1 quorum measured on general-purpose processors with injected faults, against fixed TMR on the same faults. And the same core, inside NASA JPL's F´ framework.
 date: 2026-10-11
 readingTime: 6 min
 byline:
@@ -17,7 +17,7 @@ request:
   topic: № 005 · Mru Flight 0.2.0
   heading: Questions about this release?
 featured:
-  title: 'Mru Flight 0.2.0: the shrinking quorum, measured on three processors'
+  title: 'Mru Flight 0.2.0: the shrinking quorum, measured against fixed TMR'
   summary: Against fixed TMR on the same injected faults, it delivered 1.25 to 3.00 times the correct results when replicas failed, and the same with upsets only. The same core now runs inside NASA JPL's F´.
   line: 11 Oct 2026 · 6 min read · v0.2.0
   chart: flight-bench
@@ -35,7 +35,7 @@ import Section from '../../components/research/Section.astro';
 [№ 004](/research/flight-prototype/) showed the decision core and a demo. Version 0.2.0 adds three things:
 
 <ul class="sig-list">
-  <li><strong>A bench.</strong> 300 runs per host on three processors, the shrinking quorum against fixed TMR on the same faults.</li>
+  <li><strong>A bench.</strong> 300 runs per host, each with three replica processes on one host, the shrinking quorum against fixed TMR on the same faults.</li>
   <li><strong>F&#x2060;´ components.</strong> The core inside NASA JPL's F&#x2060;´, through a C interface that Kani proves equal to it.</li>
   <li><strong>Resets.</strong> The demo saves its state and resumes after a crash or power cut, with the same counts.</li>
 </ul>
@@ -65,7 +65,7 @@ import Section from '../../components/research/Section.astro';
 </Section>
 
 <Section label="Scope">
-<Fragment slot="note">At upset rate 0.01, mean per run. Fixed TMR delivered no wrong result in any run: it stops instead.</Fragment>
+<Fragment slot="note">Mean per run. Common-mode upsets at upset rate 0.01; the stuck replica at upset rate 0.0001. Fixed TMR delivered no wrong result in any run: it stops instead.</Fragment>
 
 ## The cost, measured
 
@@ -80,10 +80,10 @@ Dusk, the simulator, predicts these counts. Run on the same schedules, its polic
 
 ## Inside F&#x2060;´
 
-Four components for F&#x2060;´ v4.4.1: RedundancyManager, HealthRegistry, ReplicaHost, and FaultInjector for tests. Every decision still comes from the Rust core. A C interface carries it, and Kani proves that each of its functions gives the core's answer.
+Four components for F&#x2060;´ v4.4.1: RedundancyManager, HealthRegistry, ReplicaHost, and FaultInjector for tests. Every decision still comes from the Rust core. A C interface carries it, and Kani proves that its decide, mode, strike and clear functions give the core's answer.
 
 <ul class="sig-list">
-  <li><strong>The same counts.</strong> On the bench schedules, 36 of 60 runs match the demo exactly. In the rest, a replica that dies is found by silence, which costs 2 correct results. Wrong results match in all 60.</li>
+  <li><strong>Counts against the demo.</strong> On the bench schedules, 36 of 60 runs match the demo exactly. In the rest, a replica that dies is found by silence, which costs 2 correct results. Wrong results match in all 60.</li>
   <li><strong>Spares and standby.</strong> A slot can take a spare after a known-answer test, or be set aside to save power.</li>
   <li><strong>Resets.</strong> Policy, slots and cycle survive a reset.</li>
 </ul>

@@ -17,8 +17,8 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Architecture' }];
       <h1 class="h-hero">Decline is the baseline.</h1>
       <div class="stack-m">
         <p class="lede">
-          Every system we build assumes someone will fix it. Mru starts from the opposite end: parts will fail, nobody
-          will come, and the software has to keep doing useful work with whatever is left.
+          Most systems we build assume someone will fix them eventually. Mru starts from the opposite end: parts will
+          fail, nobody will come, and the software has to keep doing useful work with whatever is left.
         </p>
         <div class="row">
           <a class="btn" href="/research/">
@@ -43,12 +43,11 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Architecture' }];
       <div class="stack-m">
         <p>
           Voyager has flown for 49 years, but a team on Earth still nurses it. Its power drops about 4 watts a year, and
-          people decide what to switch off next. COBOL systems have run for about 60 years because people kept patching
-          them.
+          people decide what to switch off next.
         </p>
         <p class="soft">
-          Take the people away and almost every system fails at its first serious fault. That is the problem Mru works
-          on, on Earth and in space.
+          Mru works on the case where the people are taken away, on Earth and in space. Voyager&#39;s own limit is
+          power, which Mru does not address today.
         </p>
         <div class="cards" style="margin-top: 32px">
           <div class="stat">
@@ -56,14 +55,22 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Architecture' }];
               49<small>years</small>
             </div>
             <p class="l">Voyager in flight, with a ground team the whole time.</p>
-            <p class="src">NASA JPL</p>
+            <p class="src">
+              <a href="https://www.jpl.nasa.gov/news/nasa-turns-off-two-voyager-science-instruments-to-extend-mission/">
+                NASA JPL, 2025
+              </a>
+            </p>
           </div>
           <div class="stat">
             <div class="v">
               4<small>W / year</small>
             </div>
             <p class="l">Voyager&#39;s power loss, about 4 W a year. Instruments go dark one by one.</p>
-            <p class="src">NASA JPL, 2025</p>
+            <p class="src">
+              <a href="https://www.jpl.nasa.gov/news/nasa-turns-off-two-voyager-science-instruments-to-extend-mission/">
+                NASA JPL, 2025
+              </a>
+            </p>
           </div>
         </div>
       </div>
@@ -104,8 +111,8 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Architecture' }];
         <h2 class="h2">Same hardware. Two designs.</h2>
       </div>
       <p class="lede">
-        Classic triple redundancy votes on three processors and stops when it can no longer form a majority. Mru keeps
-        going: vote on three, compare on two, check its own work on one.
+        Fixed triple modular redundancy (TMR) votes on three processors and stops when it can no longer form a majority.
+        Mru keeps going: vote on three, compare on two, check its own work on one.
       </p>
     </div>
     <div class="tbl-box" tabindex="0">
@@ -113,7 +120,7 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Architecture' }];
         <thead>
           <tr>
             <th>Processors left</th>
-            <th>Today (fixed TMR)</th>
+            <th>Fixed TMR</th>
             <th>Mru</th>
           </tr>
         </thead>
@@ -137,9 +144,77 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Architecture' }];
       </table>
     </div>
     <p class="tiny">
-      Mru decides exactly like fixed TMR while TMR can still run, so it can never deliver less. This is proved with Kani
-      for every possible input.
+      Kani proves that, with two or more replicas alive, the decision function gives the same outcome under both
+      policies, for every set of three replies. Over a whole run, never less than fixed TMR is tested, not proved: Mru
+      also retires replicas that fixed TMR keeps.{' '}
+      <a href="https://docs.mru.space/concepts/shrinking-quorum/">The rule and its proofs</a>
     </p>
+  </section>
+
+  <section class="wrap section" style="padding-top: 0" id="prior-art">
+    <div class="split">
+      <div class="stack-m">
+        <p class="eyebrow">Prior art</p>
+        <h2 class="h2">Stepping down is not new.</h2>
+      </div>
+      <div class="stack-m">
+        <p>
+          Majority voting over replicas goes back to von Neumann in 1956. The Space Shuttle&#39;s computers voted, then
+          compared and self-tested with two left. Spacecraft fault protection has acted on its own for decades, then
+          waited for the ground.
+        </p>
+        <p class="soft">
+          Mru adds three things: it degrades on its own with no ground team, its decision core is small and verified,
+          and its trade data is public.
+        </p>
+        <a class="link-more" href="https://docs.mru.space/concepts/prior-art/">
+          Prior art and related work, with sources
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section" style="padding-top: 0" id="open-questions">
+    <div class="split">
+      <div class="stack-m">
+        <p class="eyebrow">Open questions</p>
+        <h2 class="h2">What is not solved yet.</h2>
+      </div>
+      <div class="tbl-box" tabindex="0">
+        <table class="tbl">
+          <tbody>
+            <tr>
+              <td style="width: 32%">Common-mode faults</td>
+              <td>
+                Shared power, clock or heat can fail every replica at once. Dusk models correlated deaths, and the demo
+                models one upset that hits both self-check runs. Neither models a shared power supply or clock.
+              </td>
+            </tr>
+            <tr>
+              <td>Input agreement</td>
+              <td>
+                The demo derives each input from the tick, so replicas agree by construction. Real sensor inputs need an
+                agreement step between replicas. Mru does not provide one, and nothing models it.
+              </td>
+            </tr>
+            <tr>
+              <td>Replica determinism</td>
+              <td>
+                The demo task is a pure function of the tick. Interrupts and scheduling on real flight software can make
+                healthy replicas disagree. Neither Dusk nor the bench models that.
+              </td>
+            </tr>
+            <tr>
+              <td>Known-answer test coverage</td>
+              <td>
+                Measured for the demo task on general-purpose processors, on the bench. Not measured on target hardware
+                or under radiation.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </section>
 
   <Seam life={52} label="04 · The architecture" />
@@ -156,14 +231,14 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Architecture' }];
           things alone. The answer is layers. The lower the layer, the smaller and more verified it is.
         </p>
         <p class="soft small">
-          This is the full architecture from the whitepaper. Today&#39;s software implements the Layer 1 quorum. The
-          rest is the road ahead.
+          This is the full architecture from the whitepaper. The software today implements the Layer 1 quorum and its
+          health record. Every other part is not built yet.
         </p>
       </div>
     </div>
     <div class="strata">
       <div class="stratum">
-        <span class="lv">L5</span>
+        <span class="lv">L5 · Not built</span>
         <h3>Bounded self-change</h3>
         <p>
           A constitution in read-only memory. Rules can adapt how the mission is pursued, never what the mission is.
@@ -171,34 +246,37 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Architecture' }];
         </p>
       </div>
       <div class="stratum">
-        <span class="lv">L4</span>
+        <span class="lv">L4 · Not built</span>
         <h3>Communication</h3>
-        <p>Coding that adapts as power falls, from kilobits per second to bits per hour, and at the end a beacon.</p>
+        <p>
+          Designed: coding that adapts as power falls, from kilobits per second to bits per hour, and at the end a
+          beacon.
+        </p>
       </div>
       <div class="stratum">
-        <span class="lv">L3</span>
+        <span class="lv">L3 · Not built</span>
         <h3>Science and knowledge triage</h3>
         <p>Rule-based, not neural networks: legible and bounded. Decides what is worth keeping as storage decays.</p>
       </div>
       <div class="stratum">
-        <span class="lv">L2</span>
+        <span class="lv">L2 · Not built</span>
         <h3>Navigation</h3>
         <p>Star tracking with a fallback to dead reckoning.</p>
       </div>
       <div class="stratum">
-        <span class="lv">L1</span>
+        <span class="lv">L1 · Partly built</span>
         <h3>Hardware consensus and health</h3>
         <p>
-          The shrinking quorum, memory scrubbing, a health registry, and a power accountant. This is the core that Mru
-          Field and Mru Flight are built on.
+          Built: the shrinking quorum and a health record. Not built: memory scrubbing and a power accountant. This is
+          the core that Mru Field and Mru Flight are built on.
         </p>
       </div>
       <div class="stratum">
-        <span class="lv">L0</span>
+        <span class="lv">L0 · Not built</span>
         <h3>Survival kernel</h3>
         <p>
-          About 200 to 500 instructions, under 10,000 lines of verified code, under half a watt in hibernation. It keeps
-          the system alive.
+          Design targets: about 200 to 500 instructions, under 10,000 lines of verified code, under half a watt in
+          hibernation. Its job is to keep the system alive.
         </p>
       </div>
     </div>
@@ -209,7 +287,7 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Architecture' }];
   <section class="wrap section stack-l">
     <div class="split">
       <div class="stack-m">
-        <p class="eyebrow">Six phases</p>
+        <p class="eyebrow">Power phases</p>
         <h2 class="h2">Defined behavior at each power level.</h2>
       </div>
       <p class="lede">
@@ -255,7 +333,10 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Architecture' }];
         </tbody>
       </table>
     </div>
-    <p class="tiny">Phases from the whitepaper, §13. A probe adds a Transit phase (&lt;1 W) before arrival.</p>
+    <p class="tiny">
+      Phases from the whitepaper, §13. A probe adds a Transit phase (&lt;1 W) before arrival. Not built: Mru has no
+      power management today.
+    </p>
   </section>
 
   <Seam life={28} label="06 · The proof" />
@@ -263,14 +344,13 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Architecture' }];
   <section class="wrap section">
     <div class="split">
       <div class="stack-m">
-        <p class="quote">&#8220;A claim about a thousand years cannot be tested by waiting.&#8221;</p>
-        <p class="quote-by">Whitepaper, §14</p>
+        <p class="eyebrow">Evidence</p>
+        <h2 class="h2">Tested where it can be.</h2>
       </div>
       <div class="stack-m">
         <p>
-          So we test it in simulation, in the open, and then in the field. Dusk ran 10,000 missions on hardware that
-          only ever decays. The shrinking quorum delivered 1.34× the useful work of fixed TMR, and never less on any
-          single mission.
+          We test in simulation and on a bench, in the open. Field and flight tests are proposed, not done.
+          DUSK-ARCH-PENDING
         </p>
         <div class="row">
           <a class="btn" href="/research/dusk-results/">

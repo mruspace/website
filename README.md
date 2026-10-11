@@ -18,7 +18,7 @@ easily maintained or repaired, on Earth and in space. Static HTML built with
 lockup, colors, animations) are in [mruspace/brand](https://github.com/mruspace/brand),
 shown at `/brand/`.
 
-> Systems that still run a thousand years after we're gone.
+> Software for unattended missions with no repair path.
 
 Questions, typos, ideas: [contact@mru.space](mailto:contact@mru.space).
 

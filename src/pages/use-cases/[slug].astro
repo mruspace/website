@@ -83,9 +83,15 @@ const crumbs = [
           {c.intro}
         </p>
         <p class="soft">
-          Mru Field runs on the processors already in the equipment. When one fails and nobody can come, it continues on
-          the ones left and delivers only results it can check.
+          Mru Field runs on the processors already in the equipment, where there are two or more. When one fails and
+          nobody can come, it continues on the ones left and delivers only results it can check.
         </p>
+        {c.stats.length > 0 && (
+          <p class="soft small">
+            The figures here are the cost of reaching the hardware. Batteries, sensors and mechanical work cause most
+            visits, and Mru does not remove them.
+          </p>
+        )}
       </div>
     </div>
   </section>
@@ -112,8 +118,8 @@ const crumbs = [
     <div class="split">
       <h2 class="h2">Three processors. Then two. Then one, still working.</h2>
       <p class="lede">
-        Most redundant systems stop when they lose their majority. Mru Field steps down instead, and says which mode it
-        is in.
+        Fixed triple redundancy stops when it loses its majority. Mru Field steps down instead, and says which mode it
+        is in. Each extra processor costs power.
       </p>
     </div>
     <div class="path">
@@ -145,7 +151,7 @@ const crumbs = [
             <span class="lamp"></span>C
           </span>
         </div>
-        <p>Two compare. A known-answer test finds the faulty one.</p>
+        <p>Two compare. On a mismatch, a known-answer test can find the faulty one.</p>
       </div>
       <div class="stack-s">
         <p class="n">1 alive · self-check</p>

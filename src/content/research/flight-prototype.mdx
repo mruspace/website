@@ -42,12 +42,12 @@ The **demo** runs three real replica processes and a voter built on the core. It
 ## What the core guarantees
 
 <ul class="sig-list">
-  <li><strong>Never less than fixed TMR.</strong> While TMR can still run, both policies decide the same.</li>
+  <li><strong>Same outcome as fixed TMR per decision.</strong> With two or more replicas alive, both policies give the same outcome for the same replies. Over a whole run, never less is tested, not proved.</li>
   <li><strong>It stops only with nothing left.</strong> Fixed TMR stops below two replicas.</li>
   <li><strong>Only agreed results go out.</strong> Two votes, or a clean self-check on the last replica.</li>
 </ul>
 
-<p style="margin-top: 16px">Unit tests check every combination of a small value domain. Kani checks every possible input, in CI, on every change.</p>
+<p style="margin-top: 16px">Unit tests check every combination of a small value domain. Kani checks every set of three replies to the decision function, in CI, on every change. It does not check health scoring, diagnosis, timing or the system as a whole.</p>
 
 </Section>
 
@@ -78,7 +78,7 @@ Fixed TMR masks the stuck replica while it has three. Once another replica dies,
 
 ## The honest cost
 
-On one replica, a stuck fault is caught only by the periodic known-answer test, every 64 ticks. In one run, the demo delivered 24 wrong results before the test caught the fault and the system stopped. Fixed TMR would have stopped long before and delivered none.
+On one replica, a stuck fault is caught only by the periodic known-answer test, every 64 ticks. In one v0.1.1 run, the demo delivered 24 wrong results before the test caught the fault and the system stopped. Later measurements are in <a href="https://docs.mru.space/core/bench/">the bench docs</a>. Fixed TMR would have stopped long before and delivered none.
 
 A shorter test period trades throughput for a smaller window. That is the trade the whitepaper and Dusk put numbers on.
 
@@ -87,7 +87,7 @@ A shorter test period trades throughput for a smaller window. That is the trade 
 <Section label="Source">
 <Fragment slot="note">Measured in CI on every change, over 20,000 results.</Fragment>
 
-## Small enough to fly
+## Footprint
 
 <div class="tbl-box" tabindex="0" style="margin: 24px 0">
   <table class="tbl">

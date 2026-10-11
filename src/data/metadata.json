@@ -2,9 +2,9 @@
   {
     "url": "https://mru.space/",
     "title": "Mru Aerospace",
-    "description": "Systems that still run a thousand years after we're gone.",
+    "description": "Software for unattended missions with no repair path.",
     "lengthExempt": true,
-    "ogTitle": "Systems that still run a thousand years after we're gone",
+    "ogTitle": "Software for unattended missions with no repair path",
     "ogDescription": "Mru is software for systems that cannot be easily maintained or repaired: ocean observatories, offshore and remote sites, spacecraft. When processors fail, it keeps delivering checked results with the ones left, instead of stopping.",
     "cardLabel": "Mru",
     "schema": ["Organization", "WebSite"]
@@ -20,7 +20,7 @@
   {
     "url": "https://mru.space/flight/",
     "title": "Mru Flight: onboard fault tolerance · Mru Aerospace",
-    "description": "A no_std Rust decision core with Kani proofs, to run as F´ components. Continues on two, then one processor after fixed TMR stops.",
+    "description": "Early prototype: a no_std Rust decision core with Kani proofs, as F´ components. It continues on two, then one processor, where fixed TMR stops.",
     "ogTitle": "Mru Flight: fault tolerance for spacecraft out of reach",
     "cardLabel": "Product · Space",
     "schema": ["SoftwareApplication", "BreadcrumbList", "FAQPage"]
@@ -60,7 +60,7 @@
   {
     "url": "https://mru.space/use-cases/profiling-floats/",
     "title": "Profiling floats and gliders · Mru Field",
-    "description": "About 900 Argo floats are replaced each year. Mru Field keeps a float's last months of data trustworthy as its processors and memory fail.",
+    "description": "Argo needs about 600 new floats a year. Where a float carries two or more processors, Mru Field keeps its last months of data checked as they fail.",
     "ogTitle": "Deployed once, rarely recovered",
     "cardLabel": "Use case · Floats and gliders",
     "schema": ["Service", "FAQPage", "BreadcrumbList"]
@@ -100,7 +100,7 @@
   {
     "url": "https://mru.space/use-cases/satellite-iot/",
     "title": "Satellite-linked remote devices · Mru Field",
-    "description": "32.5M devices on satellite links by 2029. Small power budgets, links in bytes. Mru Field decides on the device and sends checked results only.",
+    "description": "Devices on satellite links run on small power budgets and links measured in bytes. Mru Field decides on the device and sends only checked results.",
     "ogTitle": "Small power budgets, links measured in bytes",
     "cardLabel": "Use case · Satellite IoT",
     "schema": ["Service", "FAQPage", "BreadcrumbList"]
@@ -132,7 +132,7 @@
   {
     "url": "https://mru.space/use-cases/long-term-archives/",
     "title": "Long-term archives · Mru Field",
-    "description": "Storage decays faster than records must last. Mru Field decides what to move to durable media, and checks it, as storage fails.",
+    "description": "Storage decays faster than records must last. Knowledge triage, from the whitepaper, would choose what to keep. It is not built yet.",
     "ogTitle": "Storage decays faster than the records must last",
     "cardLabel": "Use case · Archives",
     "schema": ["Service", "FAQPage", "BreadcrumbList"]
@@ -172,7 +172,7 @@
   {
     "url": "https://mru.space/research/dusk-results/",
     "title": "Same hardware, 1.34× the useful work · Mru Aerospace",
-    "description": "10,000 simulated missions on processors that are never repaired. A shrinking quorum delivers 1.34× the useful work of fixed TMR, never less on any mission.",
+    "description": "10,000 simulated missions on processors never repaired, with no ground support. A shrinking quorum delivers 1.34× the useful work of fixed TMR.",
     "ogTitle": "Same hardware, 1.34× the useful work",
     "cardLabel": "Research № 002 · Results",
     "schema": ["ScholarlyArticle", "BreadcrumbList"]
@@ -180,7 +180,7 @@
   {
     "url": "https://mru.space/research/flight-measured/",
     "title": "Mru Flight 0.2.0: measured, and in F´ · Mru Aerospace",
-    "description": "The shrinking quorum measured on three processors: up to 3.00x the correct results of fixed TMR on the same faults, never fewer. And F´ components, same counts.",
+    "description": "The shrinking quorum on three replica processes: 1.25× to 3.00× the correct results of fixed TMR on the same faults, in 150 of 150 run pairs. And F´ components.",
     "ogTitle": "Mru Flight 0.2.0: measured, and in F´",
     "cardLabel": "Research № 005 · Release",
     "schema": ["BlogPosting", "SoftwareSourceCode", "BreadcrumbList"]

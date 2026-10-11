@@ -1,7 +1,7 @@
 {
   "name": "Mru",
   "short_name": "Mru",
-  "description": "Systems that still run a thousand years after we're gone.",
+  "description": "Software for unattended missions with no repair path.",
   "start_url": "/",
   "display": "browser",
   "background_color": "#121214",

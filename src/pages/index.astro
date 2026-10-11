@@ -23,13 +23,16 @@ const TILES = [
   <!-- 1 · Hero -->
   <section class="wrap hero" aria-labelledby="h-hero">
     <h1 id="h-hero" class="h-hero" style="max-width: 22ch">
-      Systems that still run a thousand years after we&#39;re gone
+      Software for unattended missions with no repair path
     </h1>
     <div class="stack-m" style="margin-top: 48px; max-width: 720px">
       <p class="lede" style="color: var(--ink)">
         Mru is software for systems that cannot be easily maintained or repaired: ocean observatories, offshore and
         remote sites, spacecraft. When processors fail, it keeps delivering checked results with the ones left, instead
         of stopping.
+      </p>
+      <p class="soft small">
+        Status: early prototype. It runs on general-purpose processors today, not yet on flight hardware.
       </p>
       <div class="row">
         <a class="btn hero-contact" href="/contact/">
@@ -49,15 +52,25 @@ const TILES = [
       <div class="stack-m">
         <p class="eyebrow">The problem</p>
         <h2 id="h-problem" class="h2">
-          Redundancy assumes a repair crew.
+          Most fault tolerance assumes someone can step in eventually.
         </h2>
       </div>
       <div class="stack-m">
         <p class="lede">
-          Triple modular redundancy stops safely at the second failure and waits for someone to fix it. On equipment
-          nobody can reach in time, that wait is the rest of the deployment, and the processor still working is wasted.
+          Spacecraft mostly fly two strings of radiation-hardened processors, with error-correcting memory, watchdogs
+          and autonomous fault protection. When a part fails, the system makes itself safe and people decide what comes
+          next. On equipment nobody can reach in time, that wait can be the rest of the deployment.
         </p>
-        <p class="soft small">The cost of reaching the hardware is what makes this expensive:</p>
+        <p class="soft">
+          Stepping down from three replicas to two to one is not new: the Space Shuttle&#39;s computers did it. Mru adds
+          three things. It degrades on its own, with no ground team. Its decision core is small and verified. Its trade
+          data is public. <a href="https://docs.mru.space/concepts/prior-art/">Prior art</a>
+        </p>
+        <p class="soft small">
+          What it costs to reach the hardware. Batteries, sensors and mechanical work cause most of these visits, not
+          processor failure, and Mru does not remove them. Mru keeps the processors that are left doing checked work
+          between visits. It needs two or more processors, and each extra processor costs power.
+        </p>
       </div>
     </div>
     <div class="cards four">
@@ -70,8 +83,16 @@ const TILES = [
           <div class="v">
             49<small>years</small>
           </div>
-          <p class="l">Voyager in flight, kept alive by a ground team. Its power drops about 4 W a year.</p>
-          <p class="src">NASA JPL · Photo NASA/JPL, PD</p>
+          <p class="l">
+            Voyager in flight, with a ground team the whole time. Its limit is power, about 4 W less each year. Mru does
+            not address power today.
+          </p>
+          <p class="src">
+            <a href="https://www.jpl.nasa.gov/news/nasa-turns-off-two-voyager-science-instruments-to-extend-mission/">
+              NASA JPL, 2025
+            </a>{' '}
+            · Photo NASA/JPL, PD
+          </p>
         </div>
       </figure>
       <figure class="plate">
@@ -83,8 +104,11 @@ const TILES = [
           <div class="v">
             1<small>visit / year</small>
           </div>
-          <p class="l">EMSO-Azores, on batteries at 1,700 m.</p>
-          <p class="src">EMSO ERIC · Photo Ifremer, CC BY 4.0</p>
+          <p class="l">EMSO-Azores, on batteries at 1,700 m. A maintenance cruise reaches it once a year.</p>
+          <p class="src">
+            <a href="https://www.emso-fr.org/EMSO-Azores/Maintenance-cruises">EMSO-Azores cruises</a> · Photo Ifremer,
+            CC BY 4.0
+          </p>
         </div>
       </figure>
       <figure class="plate">
@@ -94,10 +118,15 @@ const TILES = [
         </div>
         <div class="stat" style="margin-top: 16px">
           <div class="v">
-            900<small>/ year</small>
+            600<small>/ year</small>
           </div>
-          <p class="l">About this many Argo floats are replaced each year, at about $40,000 each.</p>
-          <p class="src">Argo Program · Photo Ifremer, CC BY 4.0</p>
+          <p class="l">
+            New Argo floats needed each year to hold the array. Each costs about $20,000, about double once deployed.
+            Batteries set a float&#39;s life at 3 to 5 years.
+          </p>
+          <p class="src">
+            <a href="https://argo.ucsd.edu/faq/">Argo Program FAQ</a> · Photo Ifremer, CC BY 4.0
+          </p>
         </div>
       </figure>
       <figure class="plate">
@@ -109,8 +138,16 @@ const TILES = [
           <div class="v">
             $40k<small>/ day</small>
           </div>
-          <p class="l">About the day rate for the vessel that services an offshore wind farm.</p>
-          <p class="src">£30k · BVG Associates, 2025 · Photo US DOE, PD</p>
+          <p class="l">
+            About the charter day rate for a service operation vessel at an offshore wind farm, excluding fuel.
+          </p>
+          <p class="src">
+            £30k ·{' '}
+            <a href="https://guidetofloatingoffshorewind.com/guide/o-operations-and-maintenance/o-4-offshore-vessels-and-logistics/o-4-2-service-operation-vessels/">
+              BVG Associates
+            </a>{' '}
+            · Photo US DOE, PD
+          </p>
         </div>
       </figure>
     </div>
@@ -127,9 +164,9 @@ const TILES = [
           Vote on three. Compare on two. Self-check on one.
         </h2>
         <p class="soft">
-          While two or more processors are alive, Mru decides exactly as fixed TMR does. It differs only after TMR has
-          stopped: the last processor computes twice and delivers a result only when both runs match. Remove a processor
-          to compare.
+          On three replicas, Mru votes as fixed TMR does. On two, a mismatch triggers a known-answer test that can find
+          and retire the bad replica, where fixed TMR stays in disagreement. On one, the last processor computes twice
+          and delivers a result only when both runs match. Remove a processor to compare.
         </p>
         <a class="link-more" href="https://docs.mru.space/concepts/shrinking-quorum/">
           The full rule, in the docs
@@ -267,7 +304,7 @@ const TILES = [
       <div class="stack-m">
         <p class="eyebrow">Products</p>
         <h2 id="h-path" class="h2">
-          Ship on Earth. Fly in the sky.
+          One core, on Earth and in space.
         </h2>
       </div>
       <p class="lede">The same core runs in both products.</p>
@@ -292,15 +329,15 @@ const TILES = [
           Mru Flight
         </h3>
         <p class="soft" style="margin-top: 12px">
-          Onboard software for spacecraft, built on NASA JPL's F&#180;. Per mission, with support and qualification
-          evidence.
+          Onboard software for spacecraft, built on NASA JPL&#39;s F&#180;. Per mission, with support. Qualification is
+          planned; no qualification evidence exists yet.
         </p>
         <span class="link-more">Mru Flight</span>
       </a>
     </div>
     <p class="tiny">
-      Open core: the design, the decision core and the simulator are public under Apache 2.0. We sell integration,
-      support, qualification and simulation of your own hardware.
+      Open core: the decision core and the simulator are public under Apache 2.0, and the whitepaper under CC BY 4.0. We
+      sell integration, support and simulation of your own hardware.
     </p>
   </section>
 </Base>
