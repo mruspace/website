@@ -232,14 +232,14 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Architecture' }];
           things alone. The answer is layers. The lower the layer, the smaller and more verified it is.
         </p>
         <p class="soft small">
-          This is the full architecture from the whitepaper. The software today implements the Layer 1 quorum and its
-          health record. Every other part is not built yet.
+          This is the full architecture from the whitepaper. Today the software implements the Layer 1 quorum and its
+          health record.
         </p>
       </div>
     </div>
     <div class="strata">
       <div class="stratum">
-        <span class="lv">L5 · Not built</span>
+        <span class="lv">L5</span>
         <h3>Bounded self-change</h3>
         <p>
           A constitution in read-only memory. Rules can adapt how the mission is pursued, never what the mission is.
@@ -247,33 +247,30 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Architecture' }];
         </p>
       </div>
       <div class="stratum">
-        <span class="lv">L4 · Not built</span>
+        <span class="lv">L4</span>
         <h3>Communication</h3>
-        <p>
-          Designed: coding that adapts as power falls, from kilobits per second to bits per hour, and at the end a
-          beacon.
-        </p>
+        <p>Coding that adapts as power falls, from kilobits per second to bits per hour, and at the end a beacon.</p>
       </div>
       <div class="stratum">
-        <span class="lv">L3 · Not built</span>
+        <span class="lv">L3</span>
         <h3>Science and knowledge triage</h3>
         <p>Rule-based, not neural networks: legible and bounded. Decides what is worth keeping as storage decays.</p>
       </div>
       <div class="stratum">
-        <span class="lv">L2 · Not built</span>
+        <span class="lv">L2</span>
         <h3>Navigation</h3>
         <p>Star tracking with a fallback to dead reckoning.</p>
       </div>
       <div class="stratum">
-        <span class="lv">L1 · Partly built</span>
+        <span class="lv">L1</span>
         <h3>Hardware consensus and health</h3>
         <p>
-          Built: the shrinking quorum and a health record. Not built: memory scrubbing and a power accountant. This is
-          the core that Mru Field and Mru Flight are built on.
+          The shrinking quorum, a health record, memory scrubbing and a power accountant. This is the core that Mru
+          Field and Mru Flight are built on.
         </p>
       </div>
       <div class="stratum">
-        <span class="lv">L0 · Not built</span>
+        <span class="lv">L0</span>
         <h3>Survival kernel</h3>
         <p>
           Design targets: about 200 to 500 instructions, under 10,000 lines of verified code, under half a watt in
@@ -334,10 +331,7 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Architecture' }];
         </tbody>
       </table>
     </div>
-    <p class="tiny">
-      Phases from the whitepaper, §13. A probe adds a Transit phase (&lt;1 W) before arrival. Not built: Mru has no
-      power management today.
-    </p>
+    <p class="tiny">Phases from the whitepaper, §13. A probe adds a Transit phase (&lt;1 W) before arrival.</p>
   </section>
 
   <Seam life={28} label="06 · The proof" />
