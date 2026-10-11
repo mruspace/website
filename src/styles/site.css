@@ -176,6 +176,11 @@ html.js .quorum-fallback {
 .entry-body > .article + .article {
   margin-top: 56px;
 }
+/* A number cell that may wrap at its space on a narrow screen, e.g. a ratio
+   with the lowest seed in brackets: "1.50 (1.50)". */
+.tbl td.m.wrap {
+  white-space: normal;
+}
 /* A margin note is running text: the label on its own line, then links and
    code inline. .note is a flex column for cards, which split it at each link. */
 .article .note {

@@ -42,7 +42,7 @@ import Section from '../../components/research/Section.astro';
 
 </Section>
 
-<Section label="Note 1">
+<Section label="Method">
 <Fragment slot="note">Upset rate 0.001, mean of 10 seeds, 20,000 ticks per run. The ratio gives the mean and, in brackets, the lowest seed. Method and all upset rates in the <a href="https://docs.mru.space/core/bench/">docs</a>.</Fragment>
 
 ## Measured
@@ -51,11 +51,11 @@ import Section from '../../components/research/Section.astro';
   <table class="tbl">
     <thead><tr><th>Faults</th><th>Fixed TMR</th><th>Shrinking quorum</th><th>Ratio</th></tr></thead>
     <tbody>
-      <tr><td>Upsets only</td><td class="m">19,999.9</td><td class="m">19,999.9</td><td class="m">1.00 (1.00)</td></tr>
-      <tr><td>Two replicas lost, one at a time</td><td class="m">9,988.5</td><td class="m sig">14,985.0</td><td class="m">1.50 (1.50)</td></tr>
-      <tr><td>Two lost early</td><td class="m">3,994.7</td><td class="m sig">11,987.3</td><td class="m">3.00 (3.00)</td></tr>
-      <tr><td>One stuck, one lost</td><td class="m">8,989.5</td><td class="m sig">14,483.8</td><td class="m">1.61 (1.61)</td></tr>
-      <tr><td>Two lost, the last one stuck</td><td class="m">9,988.5</td><td class="m sig">12,486.2</td><td class="m">1.25 (1.25)</td></tr>
+      <tr><td>Upsets only</td><td class="m">19,999.9</td><td class="m">19,999.9</td><td class="m wrap">1.00 (1.00)</td></tr>
+      <tr><td>Two replicas lost, one at a time</td><td class="m">9,988.5</td><td class="m sig">14,985.0</td><td class="m wrap">1.50 (1.50)</td></tr>
+      <tr><td>Two lost early</td><td class="m">3,994.7</td><td class="m sig">11,987.3</td><td class="m wrap">3.00 (3.00)</td></tr>
+      <tr><td>One stuck, one lost</td><td class="m">8,989.5</td><td class="m sig">14,483.8</td><td class="m wrap">1.61 (1.61)</td></tr>
+      <tr><td>Two lost, the last one stuck</td><td class="m">9,988.5</td><td class="m sig">12,486.2</td><td class="m wrap">1.25 (1.25)</td></tr>
     </tbody>
   </table>
 </div>
@@ -64,7 +64,7 @@ import Section from '../../components/research/Section.astro';
 
 </Section>
 
-<Section label="Note 2">
+<Section label="Scope">
 <Fragment slot="note">At upset rate 0.01, mean per run. Fixed TMR delivered no wrong result in any run: it stops instead.</Fragment>
 
 ## The cost, measured
@@ -75,7 +75,7 @@ Dusk, the simulator, predicts these counts. Run on the same schedules, its polic
 
 </Section>
 
-<Section label="Note 3">
+<Section label="Process">
 <Fragment slot="note">Requirements and design were written and approved in F&#x2060;´'s own order before any code. <a href="https://docs.mru.space/core/fprime/">Docs</a>.</Fragment>
 
 ## Inside F&#x2060;´

@@ -36,7 +36,7 @@ The **demo** runs three real replica processes and a voter built on the core. It
 
 </Section>
 
-<Section label="Note 1">
+<Section label="Definition">
 <Fragment slot="note">Kani is a model checker for Rust from AWS. Four proofs, listed in the <a href="https://docs.mru.space/core/quorum-crate/#proofs">docs</a>.</Fragment>
 
 ## What the core guarantees
@@ -53,7 +53,7 @@ The **demo** runs three real replica processes and a voter built on the core. It
 
 <Figure name="flight-correct" alt="Correct results over 20,000 ticks. Both lines match until tick 9,000. Then fixed TMR stops at 8,993 correct results. The shrinking quorum reaches 14,490.">Fig. 1 · Same seed, same faults: random upsets, replica 1 stuck from tick 4,000, replica 0 dead at tick 9,000.</Figure>
 
-<Section label="Note 2">
+<Section label="Scope">
 <Fragment slot="note">Illustrative scenarios, not a reliability estimate. For statistics over thousands of missions, see <a href="/research/dusk-results/">№ 002</a>.</Fragment>
 
 ## One run, two designs
@@ -73,7 +73,7 @@ Fixed TMR masks the stuck replica while it has three. Once another replica dies,
 
 </Section>
 
-<Section label="Note 3">
+<Section label="Found in testing">
 <Fragment slot="note">The tests also caught a real flaw: health scoring once retired healthy replicas after random upsets. Diagnosing before retiring fixed it.</Fragment>
 
 ## The honest cost
@@ -84,7 +84,7 @@ A shorter test period trades throughput for a smaller window. That is the trade 
 
 </Section>
 
-<Section label="Note 4">
+<Section label="Source">
 <Fragment slot="note">Measured in CI on every change, over 20,000 results.</Fragment>
 
 ## Small enough to fly
