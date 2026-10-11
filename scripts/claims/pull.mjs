@@ -75,6 +75,16 @@ const kaniFfi = await proofs('quorum-ffi/src/lib.rs');
 
 // ---------- dusk ----------
 const D = JSON.parse(await text('dusk', 'docs/data.json'));
+for (const [path, ok] of [
+  ['headline.work_vs_unchecked', D.headline?.work_vs_unchecked !== undefined],
+  ['headline.work_vs_cold', Array.isArray(D.headline?.work_vs_cold)],
+  ['policies[].risk', D.policies?.every((p) => p.risk)],
+  ['cold.crossing', D.cold?.crossing !== undefined],
+])
+  if (!ok)
+    throw new Error(
+      `claims: dusk docs/data.json${REMOTE ? ' on main' : ''} has no ${path}. It comes from dusk's baselines and risk metric; merge that first, or run from a local dusk checkout.`,
+    );
 const P = (name) => {
   const p = D.policies.find((x) => x.policy === name);
   if (!p) throw new Error(`claims: dusk data.json has no policy "${name}"`);
