@@ -1,0 +1,100 @@
+---
+number: '005'
+kind: Release
+title: 'Mru Flight 0.2.0: measured, and in F´'
+shortTitle: 'Mru Flight 0.2.0'
+summary: The shrinking quorum measured on three processors, F´ components that give the same counts, and resets survived.
+lede: Layer 1 measured on real processors with injected faults, against fixed TMR on the same faults. And the same core, inside NASA JPL's F´ framework, giving the same counts.
+date: 2026-10-11
+readingTime: 6 min
+byline:
+  - { label: Release, text: v0.2.0, href: 'https://github.com/mruspace/flight/releases/tag/v0.2.0' }
+  - { label: Code, text: mruspace/flight, href: 'https://github.com/mruspace/flight' }
+citeText: 'W. Binns, <em>Mru Flight</em>, version 0.2.0, 2026. github.com/mruspace/flight. See CITATION.cff.'
+related: [flight-prototype, dusk-results]
+request:
+  interest: flight
+  topic: № 005 · Mru Flight 0.2.0
+  heading: Questions about this release?
+code: { repo: 'https://github.com/mruspace/flight', language: Rust, license: Apache-2.0 }
+---
+
+import Section from '../../components/research/Section.astro';
+
+<Section label="Status">
+<Fragment slot="note">Early prototype, v0.2.0. Everything here ran on general-purpose processors, not on flight hardware.</Fragment>
+
+## What is new
+
+[№ 004](/research/flight-prototype/) showed the decision core and a demo. Version 0.2.0 adds three things:
+
+<ul class="sig-list">
+  <li><strong>A bench.</strong> 300 runs per host on three processors, the shrinking quorum against fixed TMR on the same faults.</li>
+  <li><strong>F´ components.</strong> The core inside NASA JPL's F´, through a C interface that Kani proves equal to it.</li>
+  <li><strong>Resets.</strong> The demo saves its state and resumes after a crash or power cut, with the same counts.</li>
+</ul>
+
+</Section>
+
+<Section label="Note 1">
+<Fragment slot="note">Upset rate 0.001, mean of 10 seeds, 20,000 ticks per run. The ratio gives the mean and, in brackets, the lowest seed. Method and all upset rates in the <a href="https://docs.mru.space/core/bench/">docs</a>.</Fragment>
+
+## Measured
+
+<div class="tbl-box" tabindex="0" style="margin: 24px 0">
+  <table class="tbl">
+    <thead><tr><th>Faults</th><th>Fixed TMR</th><th>Shrinking quorum</th><th>Ratio</th></tr></thead>
+    <tbody>
+      <tr><td>Upsets only</td><td class="m">19,999.9</td><td class="m">19,999.9</td><td class="m">1.00 (1.00)</td></tr>
+      <tr><td>Two replicas lost, one at a time</td><td class="m">9,988.5</td><td class="m sig">14,985.0</td><td class="m">1.50 (1.50)</td></tr>
+      <tr><td>Two lost early</td><td class="m">3,994.7</td><td class="m sig">11,987.3</td><td class="m">3.00 (3.00)</td></tr>
+      <tr><td>One stuck, one lost</td><td class="m">8,989.5</td><td class="m sig">14,483.8</td><td class="m">1.61 (1.61)</td></tr>
+      <tr><td>Two lost, the last one stuck</td><td class="m">9,988.5</td><td class="m sig">12,486.2</td><td class="m">1.25 (1.25)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>In all 150 pairs of runs, the shrinking quorum delivered at least as many correct results as fixed TMR. The counts are the same, run for run, on an Apple M4, an Arm Neoverse-N2 and an AMD EPYC 7763.</p>
+
+</Section>
+
+<Section label="Note 2">
+<Fragment slot="note">At upset rate 0.01, mean per run. Fixed TMR delivered no wrong result in any run: it stops instead.</Fragment>
+
+## The cost, measured
+
+The extra work has a price on the last replica. Upsets that hit both of its runs alike gave up to 3.6 wrong results per run. A replica that got stuck gave 20, before the periodic known-answer test caught it 40 ticks later.
+
+Dusk, the simulator, predicts these counts. Run on the same schedules, its policy model agrees with the bench within 3 standard errors in 17 of 18 comparisons. That checks the model against the code. It does not calibrate the environment: that needs radiation or flight data.
+
+</Section>
+
+<Section label="Note 3">
+<Fragment slot="note">Requirements and design were written and approved in F´'s own order before any code. <a href="https://docs.mru.space/core/fprime/">Docs</a>.</Fragment>
+
+## Inside F´
+
+Four components for F´ v4.4.1: RedundancyManager, HealthRegistry, ReplicaHost, and FaultInjector for tests. Every decision still comes from the Rust core. A C interface carries it, and Kani proves that each of its functions gives the core's answer.
+
+<ul class="sig-list">
+  <li><strong>The same counts.</strong> On the bench schedules, 36 of 60 runs match the demo exactly. In the rest, a replica that dies is found by silence, which costs 2 correct results. Wrong results match in all 60.</li>
+  <li><strong>Spares and standby.</strong> A slot can take a spare after a known-answer test, or be set aside to save power.</li>
+  <li><strong>Resets.</strong> Policy, slots and cycle survive a reset.</li>
+</ul>
+
+<p style="margin-top: 16px">37 unit tests and 9 Kani proofs run on every change.</p>
+
+</Section>
+
+<Section>
+
+## What comes next
+
+<div class="strata" style="margin-top: 24px">
+  <div class="stratum" style="grid-template-columns: 48px 1fr"><span class="lv">1</span><p style="color: var(--ink)">The same bench on a target-class board, with reboots and power cuts. The scripts are ready.</p></div>
+  <div class="stratum" style="grid-template-columns: 48px 1fr"><span class="lv">2</span><p style="color: var(--ink)">A full F´ deployment on that board, with commands and telemetry from the ground.</p></div>
+  <div class="stratum" style="grid-template-columns: 48px 1fr"><span class="lv">3</span><p style="color: var(--ink)">Real upsets: a radiation beam test, then flight.</p></div>
+  <div class="stratum base" style="grid-template-columns: 48px 1fr"><span class="lv">4</span><p style="color: var(--ink)">On Earth: the same software on an unattended ocean node. <a href="/field/">Mru Field</a></p></div>
+</div>
+
+</Section>

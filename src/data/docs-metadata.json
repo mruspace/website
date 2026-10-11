@@ -40,6 +40,14 @@
     "schema": ["TechArticle", "BreadcrumbList"]
   },
   {
+    "url": "https://docs.mru.space/core/fprime/",
+    "title": "F´ components for the shrinking quorum · Mru Docs",
+    "description": "RedundancyManager, HealthRegistry, ReplicaHost and FaultInjector for F´ v4.4.1, the C interface to the core, and how they were verified.",
+    "ogTitle": "F´ components",
+    "cardLabel": "Docs · Core runtime",
+    "schema": ["TechArticle", "SoftwareSourceCode", "BreadcrumbList"]
+  },
+  {
     "url": "https://docs.mru.space/core/bench/",
     "title": "Bench results for Layer 1 · Mru Docs",
     "description": "The shrinking quorum against fixed TMR on the same injected faults, 300 runs per host: correct and wrong results, GDI, detection latency and limits.",

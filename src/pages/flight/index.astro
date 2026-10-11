@@ -51,13 +51,14 @@ const faq = [
       <div class="stack-m">
         <p class="lede">
           Onboard software for the processors you already fly. A small Rust decision core, checked with the Kani model
-          checker, to be wrapped as components for NASA JPL's F&#180; framework and other flight software frameworks.
+          checker, as components for NASA JPL's F&#180; framework, with a C interface for other flight software
+          frameworks.
         </p>
         <div class="row">
           <a class="btn" href="#request">
             Get in touch
           </a>
-          <a class="btn ghost" href="/research/flight-prototype/">
+          <a class="btn ghost" href="/research/flight-measured/">
             Read the release
           </a>
         </div>
@@ -153,13 +154,16 @@ const faq = [
             <tr>
               <td>Targets today</td>
               <td>
-                Decision core: bare-metal ARM Cortex-M, <code>no_std</code>. Demo: static Linux binaries for 64-bit and
-                32-bit ARM, tested under emulation.
+                Decision core: bare-metal ARM Cortex-M, <code>no_std</code>. Demo and bench: static Linux binaries for
+                64-bit and 32-bit ARM and x86_64, tested in CI.
               </td>
             </tr>
             <tr>
               <td>Framework</td>
-              <td>F&#180; components designed, not yet built: RedundancyManager, HealthRegistry, ReplicaHost.</td>
+              <td>
+                F&#180; v4.4.1 components, built and tested: RedundancyManager, HealthRegistry, ReplicaHost. Not yet run
+                on flight hardware.
+              </td>
             </tr>
             <tr>
               <td>Throughput cost</td>
@@ -187,24 +191,28 @@ const faq = [
         <h2 class="h2">What exists, and what comes next.</h2>
       </div>
       <p class="lede">
-        The decision core is built and proved with Kani. Each next step adds integration, real hardware, then flight.
+        The decision core and its F&#180; components are built, tested and measured. Each next step adds real hardware,
+        then flight.
       </p>
     </div>
     <div class="strata">
       <div class="stratum">
         <span class="lv">Now</span>
-        <h3>Decision core and demo</h3>
-        <p>Rust core with Kani proofs, a demo on real processes with injected faults, static ARM builds. v0.1.1.</p>
+        <h3>Core, F&#180; components and bench</h3>
+        <p>
+          Rust core with Kani proofs, F&#180; components that give the demo&#39;s counts, a bench on three processors,
+          and resets survived. v0.2.0.
+        </p>
       </div>
       <div class="stratum">
         <span class="lv">Next</span>
-        <h3>F&#180; components</h3>
-        <p>RedundancyManager, HealthRegistry and ReplicaHost as thin C++ shells around the Rust core.</p>
+        <h3>Hardware in the loop</h3>
+        <p>Target-class boards with injected faults: bit flips, resets, power cuts. The scripts are ready.</p>
       </div>
       <div class="stratum">
-        <span class="lv">Bench</span>
-        <h3>Hardware in the loop</h3>
-        <p>Real boards with injected faults: bit flips, resets, power cuts.</p>
+        <span class="lv">Then</span>
+        <h3>F&#180; deployment</h3>
+        <p>A full F&#180; deployment on those boards, with commands and telemetry from the ground.</p>
       </div>
       <div class="stratum base">
         <span class="lv">Orbit</span>
