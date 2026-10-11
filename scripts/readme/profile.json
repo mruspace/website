@@ -1,0 +1,20 @@
+{
+  "tagline": "Systems that still run a thousand years after we're gone.",
+  "paragraphs": [
+    "Mru builds software for unattended missions with no repair path. When a processor fails and no one can replace it, Mru steps down from voting on three replicas to comparing two, then to one replica that checks its own work, so the system keeps doing useful work on the hardware that is left.",
+    "Mru Flight is the version for spacecraft. Mru Field is the version for equipment on Earth that nobody can reach in time, such as deep-ocean sensors."
+  ],
+  "status": {
+    "label": "Status · early prototype",
+    "text": "The decision core, a fault-injection demo and F´ components run on general-purpose processors. Nothing runs on flight hardware yet."
+  },
+  "repos": [
+    { "name": "flight", "desc": "The decision core in Rust, F´ components, the demo and the bench." },
+    { "name": "dusk", "desc": "Monte Carlo simulator of redundancy policies, interactive at dusk.mru.space." },
+    { "name": "docs", "desc": "Source of docs.mru.space." },
+    { "name": "whitepaper", "desc": "The architecture. doi:10.5281/zenodo.23305299" },
+    { "name": "website", "desc": "Source of mru.space." }
+  ],
+  "skip": [".github", "brand", "2049"],
+  "footer": ["mru.space", "contact@mru.space"]
+}
