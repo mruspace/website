@@ -1,0 +1,15 @@
+---
+// A number from claims.json, for MDX and templates: <Claim id="dusk.work_vs_tmr" />.
+// part="ci" gives the interval, part="min" the lowest seed.
+import { claim } from '../data/claims';
+interface Props {
+  id: string;
+  part?: 'text' | 'ci' | 'min';
+}
+const { id, part = 'text' } = Astro.props;
+const c = claim(id);
+const out = part === 'ci' ? c.ci : part === 'min' ? c.min_text : c.text;
+if (out === undefined) throw new Error(`claims.json: claim "${id}" has no ${part}`);
+---
+
+<Fragment set:text={out} />
