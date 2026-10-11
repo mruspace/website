@@ -22,6 +22,12 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - name: Restore optimized images
+        uses: actions/cache@v6
+        with:
+          path: node_modules/.astro
+          key: astro-${{ runner.os }}-${{ hashFiles('src/assets/**', 'package-lock.json') }}
+          restore-keys: astro-${{ runner.os }}-
       - run: npm run build
       - uses: actions/upload-pages-artifact@v5
         with:

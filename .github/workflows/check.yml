@@ -4,10 +4,36 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  # A new push to a pull request cancels the run for the old commit.
+  group: check-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+env:
+  # claims.json must match the results files on mruspace/flight and mruspace/dusk main.
+  CLAIMS_FROM: github
+  GITHUB_TOKEN: ${{ github.token }}
+# The jobs run the steps of `npm run check` side by side. A step added to
+# `check` in package.json must also go in one of these jobs.
 jobs:
-  check:
+  static:
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run check:claims
+      - run: npm run check:readme
+      - run: npm run check:types
+      - run: npm run lint
+      - run: npm run test:worker
+
+  site:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
         with:
@@ -17,16 +43,52 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - name: Restore optimized images
+        uses: actions/cache@v6
+        with:
+          path: node_modules/.astro
+          key: astro-${{ runner.os }}-${{ hashFiles('src/assets/**', 'package-lock.json') }}
+          restore-keys: astro-${{ runner.os }}-
       - run: npx playwright install --with-deps chromium
-      - run: npm run check
-        env:
-          # claims.json must match the results files on mruspace/flight and mruspace/dusk main.
-          CLAIMS_FROM: github
-          GITHUB_TOKEN: ${{ github.token }}
+      - run: npm run build
+      - run: npm run check:html
+      - run: npm run check:links
+      - run: npm run test:e2e
+
+  lighthouse:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        # Each shard audits the URLs in lighthouserc.json whose index modulo 4 is the shard.
+        shard: [0, 1, 2, 3]
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Restore optimized images
+        uses: actions/cache@v6
+        with:
+          path: node_modules/.astro
+          key: astro-${{ runner.os }}-${{ hashFiles('src/assets/**', 'package-lock.json') }}
+          restore-keys: astro-${{ runner.os }}-
+      - run: npm run build
+      - name: Lighthouse
+        run: |
+          urls=$(node -e "const u=require('./lighthouserc.json').ci.collect.url; console.log(u.filter((_, i) => i % 4 === ${{ matrix.shard }}).map(x => '--collect.url=' + x).join(' '))")
+          test -n "$urls" || exit 0
+          npx lhci autorun $urls
       - name: Keep the Lighthouse reports
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: lighthouse
+          name: lighthouse-${{ matrix.shard }}
           path: .lighthouseci/
           retention-days: 7
+          if-no-files-found: ignore
