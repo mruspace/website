@@ -2,7 +2,7 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
-// Research log entries № 001 to № 004. Entries with a body get a page at
+// Research log entries № 001 to № 005. Entries with a body get a page at
 // /research/<slug>/; the others link out (external).
 const research = defineCollection({
   loader: glob({ pattern: '*.{md,mdx}', base: './src/content/research' }),
