@@ -69,6 +69,10 @@ These must keep working, byte for byte where they are files. They live in
   file in place to update it.
 - `/assets/readme/mru-github-dark.gif` and `-light.gif`: used by every mruspace
   README.
+- `/assets/readme/profile-*.png` and `blank.png`: the github.com/mruspace
+  profile card. Edit `scripts/readme/profile.json`, then run `npm run readme`.
+  `npm run check:readme` fails when the PNGs are stale or a public repo is
+  missing from the card.
 - `/favicon.ico`, `/favicon.svg`, `/assets/favicon-light.png`,
   `/assets/favicon-dark.png`, `/apple-touch-icon.png`, `/site.webmanifest`,
   `/assets/og-image.png`
