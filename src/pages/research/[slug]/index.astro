@@ -4,6 +4,7 @@ import { render } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { entries, hrefOf, formatDate, kindFilter, type Entry } from '../../../data/research';
+import { keepFPrime } from '../../../data/text';
 
 export async function getStaticPaths() {
   const all = await entries();
@@ -46,8 +47,8 @@ const ld = {
           <p class="eyebrow">
             <span class="n">№ {d.number}</span> · {d.kind}
           </p>
-          <h1 class="h1">{d.title}</h1>
-          {d.lede && <p class="lede">{d.lede}</p>}
+          <h1 class="h1">{keepFPrime(d.title)}</h1>
+          {d.lede && <p class="lede">{keepFPrime(d.lede)}</p>}
         </div>
       </div>
       <div class="byline" style="margin-top: 32px">
@@ -120,7 +121,7 @@ const ld = {
           <a href={hrefOf(older)}>
             <span class="tiny">Previous · № {older.data.number}</span>
             <span class="h4" style="display: block; font-family: var(--display)">
-              {older.data.shortTitle}
+              {keepFPrime(older.data.shortTitle)}
             </span>
           </a>
         ) : (
@@ -130,7 +131,7 @@ const ld = {
           <a href={hrefOf(newer)} style="text-align: right">
             <span class="tiny">Next · № {newer.data.number}</span>
             <span class="h4" style="display: block; font-family: var(--display)">
-              {newer.data.shortTitle}
+              {keepFPrime(newer.data.shortTitle)}
             </span>
           </a>
         ) : (

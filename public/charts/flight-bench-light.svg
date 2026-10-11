@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="660" viewBox="0 0 1200 660">
+<style>text{font-family:Charter,'Source Serif 4',Georgia,serif;fill:#16161a} .soft{fill:#44444c} .faint{fill:#6f6f78} .display{font-family:Futura,Jost,'Century Gothic',sans-serif;font-weight:500}</style>
+<rect width="1200" height="660" fill="#fafaf8"/>
+<text class="display" x="56" y="76" font-size="34">Same faults, measured: up to 3.00× the correct results</text>
+<text x="56" y="114" font-size="20" class="soft">Correct results per run of 20,000 ticks, on real processors with the same injected faults.</text>
+<line x1="56" x2="86" y1="155" y2="155" stroke="#2a78d6" stroke-width="5" stroke-linecap="round"/>
+<text x="98" y="162" font-size="20" font-weight="700">Mru shrinking quorum</text>
+<line x1="346" x2="376" y1="155" y2="155" stroke="#eb6834" stroke-width="5" stroke-linecap="round"/>
+<text x="388" y="162" font-size="20" font-weight="400">Fixed triple redundancy (TMR)</text>
+<line x1="400" x2="400" y1="222" y2="548" stroke="#e3e3dd" stroke-width="1.5"/>
+<text x="400" y="574" font-size="17" text-anchor="middle" class="faint">0</text>
+<line x1="547.5" x2="547.5" y1="222" y2="548" stroke="#e3e3dd" stroke-width="1.5"/>
+<text x="547.5" y="574" font-size="17" text-anchor="middle" class="faint">5k</text>
+<line x1="695" x2="695" y1="222" y2="548" stroke="#e3e3dd" stroke-width="1.5"/>
+<text x="695" y="574" font-size="17" text-anchor="middle" class="faint">10k</text>
+<line x1="842.5" x2="842.5" y1="222" y2="548" stroke="#e3e3dd" stroke-width="1.5"/>
+<text x="842.5" y="574" font-size="17" text-anchor="middle" class="faint">15k</text>
+<line x1="990" x2="990" y1="222" y2="548" stroke="#e3e3dd" stroke-width="1.5"/>
+<text x="990" y="574" font-size="17" text-anchor="middle" class="faint">20k</text>
+<text x="56" y="574" font-size="17" class="faint">correct results</text>
+<text x="1144" y="214" font-size="17" text-anchor="end" class="faint">Mru ÷ TMR</text>
+<text x="56" y="265" font-size="19">Upsets only</text>
+<path d="M400,236 H986.0 Q990.0,236 990.0,240 V254 Q990.0,258 986.0,258 H400 Z" fill="#2a78d6"/>
+<text x="1000.0" y="252" font-size="16" class="soft">19,999.9</text>
+<path d="M400,260 H986.0 Q990.0,260 990.0,264 V278 Q990.0,282 986.0,282 H400 Z" fill="#eb6834"/>
+<text x="1000.0" y="276" font-size="16" class="soft">19,999.9</text>
+<text x="1144" y="265" font-size="19" text-anchor="end" font-weight="700">1.00×</text>
+<text x="56" y="329" font-size="19">Two replicas lost, one at a time</text>
+<path d="M400,300 H838.1 Q842.1,300 842.1,304 V318 Q842.1,322 838.1,322 H400 Z" fill="#2a78d6"/>
+<text x="852.1" y="316" font-size="16" class="soft">14,985.0</text>
+<path d="M400,324 H690.7 Q694.7,324 694.7,328 V342 Q694.7,346 690.7,346 H400 Z" fill="#eb6834"/>
+<text x="704.7" y="340" font-size="16" class="soft">9,988.5</text>
+<text x="1144" y="329" font-size="19" text-anchor="end" font-weight="700">1.50×</text>
+<text x="56" y="393" font-size="19">Two lost early</text>
+<path d="M400,364 H749.6 Q753.6,364 753.6,368 V382 Q753.6,386 749.6,386 H400 Z" fill="#2a78d6"/>
+<text x="763.6" y="380" font-size="16" class="soft">11,987.3</text>
+<path d="M400,388 H513.8 Q517.8,388 517.8,392 V406 Q517.8,410 513.8,410 H400 Z" fill="#eb6834"/>
+<text x="527.8" y="404" font-size="16" class="soft">3,994.7</text>
+<text x="1144" y="393" font-size="19" text-anchor="end" font-weight="700">3.00×</text>
+<text x="56" y="457" font-size="19">One stuck, one lost</text>
+<path d="M400,428 H823.3 Q827.3,428 827.3,432 V446 Q827.3,450 823.3,450 H400 Z" fill="#2a78d6"/>
+<text x="837.3" y="444" font-size="16" class="soft">14,483.8</text>
+<path d="M400,452 H661.2 Q665.2,452 665.2,456 V470 Q665.2,474 661.2,474 H400 Z" fill="#eb6834"/>
+<text x="675.2" y="468" font-size="16" class="soft">8,989.5</text>
+<text x="1144" y="457" font-size="19" text-anchor="end" font-weight="700">1.61×</text>
+<text x="56" y="521" font-size="19">Two lost, the last one stuck</text>
+<path d="M400,492 H764.3 Q768.3,492 768.3,496 V510 Q768.3,514 764.3,514 H400 Z" fill="#2a78d6"/>
+<text x="778.3" y="508" font-size="16" class="soft">12,486.2</text>
+<path d="M400,516 H690.7 Q694.7,516 694.7,520 V534 Q694.7,538 690.7,538 H400 Z" fill="#eb6834"/>
+<text x="704.7" y="532" font-size="16" class="soft">9,988.5</text>
+<text x="1144" y="521" font-size="19" text-anchor="end" font-weight="700">1.25×</text>
+<text x="56" y="634" font-size="16" class="faint">Mean of 10 seeds per case, upset rate 0.001. The same on all three processors. Data: mruspace/flight v0.2.0, bench/results.</text>
+</svg>
