@@ -19,6 +19,10 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm run check
+        env:
+          # claims.json must match the results files on mruspace/flight and mruspace/dusk main.
+          CLAIMS_FROM: github
+          GITHUB_TOKEN: ${{ github.token }}
       - name: Keep the Lighthouse reports
         if: always()
         uses: actions/upload-artifact@v7

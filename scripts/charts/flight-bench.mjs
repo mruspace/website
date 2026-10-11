@@ -19,7 +19,8 @@ const CASES = [
 // One row per case. Every host must give the same means, as the post says.
 const dir = join(FLIGHT, 'bench/results');
 const hosts = readdirSync(dir)
-  .filter((f) => f.endsWith('.json'))
+  // The bench files only: <date>-<host>.json, not -quick or the -kat coverage campaign.
+  .filter((f) => f.endsWith('.json') && !f.includes('-quick') && !f.endsWith('-kat.json'))
   .map((f) => JSON.parse(readFileSync(join(dir, f), 'utf8')));
 if (hosts.length !== 3) throw new Error(`expected 3 hosts in ${dir}, found ${hosts.length}`);
 const rows = CASES.map(([schedule, label]) => {
