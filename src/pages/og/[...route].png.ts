@@ -6,7 +6,7 @@ import { METADATA } from '../../data/metadata';
 export const getStaticPaths: GetStaticPaths = () =>
   METADATA.map((m) => {
     const p = new URL(m.url).pathname.replace(/^\/|\/$/g, '');
-    return { params: { route: p || 'index' }, props: { label: m.cardLabel, title: m.ogTitle } };
+    return { params: { route: p || 'index' }, props: { label: m.cardLabel, title: m.cardTitle ?? m.ogTitle } };
   });
 
 export const GET: APIRoute = async ({ props }) => {
