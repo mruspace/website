@@ -25,6 +25,7 @@ const TYPE = [
   { role: 'Body text', face: 'Charter', open: 'Source Serif 4', cls: 'lede' },
   { role: 'Labels, numbers and code', face: 'IBM Plex Mono', open: 'IBM Plex Mono', cls: 'tiny' },
 ];
+const WORDMARKS = ['Mru', 'Mru Aerospace', 'Mru Field', 'Mru Flight'];
 const DOWNLOADS = [
   { label: 'Mark, SVG, for light backgrounds', path: 'mark/mru-mark-on-light.svg' },
   { label: 'Mark, SVG, for dark backgrounds', path: 'mark/mru-mark-on-dark.svg' },
@@ -32,6 +33,17 @@ const DOWNLOADS = [
   { label: 'Mark, PNG 1024 px, for dark backgrounds', path: 'mark/mru-mark-on-dark-1024.png' },
   { label: 'Lockup, SVG, for light backgrounds', path: 'lockup/mru-lockup-on-light.svg' },
   { label: 'Lockup, SVG, for dark backgrounds', path: 'lockup/mru-lockup-on-dark.svg' },
+  { label: 'Wordmark "Mru", SVG, for light backgrounds', path: 'wordmark/mru-wordmark-on-light.svg' },
+  { label: 'Wordmark "Mru", SVG, for dark backgrounds', path: 'wordmark/mru-wordmark-on-dark.svg' },
+  {
+    label: 'Wordmark "Mru Aerospace", SVG, for light backgrounds',
+    path: 'wordmark/mru-aerospace-wordmark-on-light.svg',
+  },
+  { label: 'Wordmark "Mru Aerospace", SVG, for dark backgrounds', path: 'wordmark/mru-aerospace-wordmark-on-dark.svg' },
+  { label: 'Wordmark "Mru Field", SVG, for light backgrounds', path: 'wordmark/mru-field-wordmark-on-light.svg' },
+  { label: 'Wordmark "Mru Field", SVG, for dark backgrounds', path: 'wordmark/mru-field-wordmark-on-dark.svg' },
+  { label: 'Wordmark "Mru Flight", SVG, for light backgrounds', path: 'wordmark/mru-flight-wordmark-on-light.svg' },
+  { label: 'Wordmark "Mru Flight", SVG, for dark backgrounds', path: 'wordmark/mru-flight-wordmark-on-dark.svg' },
   { label: 'Animated mark, MP4, for dark backgrounds', path: 'motion/mru.mp4' },
   { label: 'Animated mark, MP4, for light backgrounds', path: 'motion/mru-light.mp4' },
 ];
@@ -43,7 +55,7 @@ const DOWNLOADS = [
     <div class="hero-grid" style="margin-top: 40px">
       <h1 class="h1">Brand kit</h1>
       <div class="stack-m">
-        <p class="lede">The Mru mark, the lockup, the colors and the type, with files to download.</p>
+        <p class="lede">The Mru mark, the lockup, the wordmarks, the colors and the type, with files to download.</p>
         <div class="row">
           <a class="btn" href={ZIP}>
             Download the kit
@@ -110,6 +122,30 @@ const DOWNLOADS = [
           <MarkSvg />
           <span aria-hidden="true">Mru</span>
         </span>
+      </div>
+    </div>
+  </section>
+
+  <Seam life={72} label="Wordmark" />
+
+  <section class="wrap section" aria-labelledby="h-wordmark">
+    <div class="split">
+      <div class="stack-m">
+        <p class="eyebrow">Wordmark</p>
+        <h2 id="h-wordmark" class="h2">
+          The names alone.
+        </h2>
+        <p class="soft">
+          For places where the mark cannot go. "Mru Aerospace" names the company, for example in a document or a
+          listing. "Mru Field" and "Mru Flight" name the products.
+        </p>
+      </div>
+      <div class="card brand-tile" style="min-height: 220px">
+        <ul class="wordmarks" aria-label="The four wordmarks">
+          {WORDMARKS.map((w) => (
+            <li>{w}</li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
@@ -219,7 +255,7 @@ const DOWNLOADS = [
         <li>Use the mark at 16 px or larger, and the lockup at 24 px tall or larger.</li>
         <li>Use dark ink on light backgrounds and light ink on dark ones.</li>
         <li>Do not recolor, rotate, stretch or outline the mark, or add effects to it.</li>
-        <li>Do not set "Mru" in another typeface.</li>
+        <li>Do not set "Mru" or the wordmarks in another typeface.</li>
       </ul>
     </div>
   </section>
@@ -274,6 +310,27 @@ const DOWNLOADS = [
   .brand-lockup :global(svg) {
     width: 172px;
     height: 172px;
+  }
+  .wordmarks {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+  }
+  .wordmarks li {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: 0.005em;
+  }
+  @media (max-width: 640px) {
+    .wordmarks li {
+      font-size: 32px;
+    }
   }
   .chip-dot {
     display: inline-block;
