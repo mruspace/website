@@ -8,6 +8,8 @@ export interface PageMeta {
   title: string;
   description: string;
   ogTitle: string;
+  /** Headline on the share card image, where it differs from ogTitle (Home). */
+  cardTitle?: string;
   /** Open Graph and Twitter description, where it differs from the meta description. */
   ogDescription?: string;
   cardLabel: string;
