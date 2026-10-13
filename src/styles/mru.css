@@ -557,7 +557,7 @@
   display: grid;
   grid-template-columns: 21fr 34fr;
   gap: 64px;
-  align-items: end;
+  align-items: start;
 }
 
 /* The descent line */
