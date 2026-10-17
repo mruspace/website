@@ -2,11 +2,17 @@
 // The animated mark. The GIFs carry no alpha: light art multiplies on paper,
 // dark art screens on ink (see README). No transform, filter, opacity or
 // z-index may sit on this element or any ancestor, or the blend breaks.
-// Both images are lazy: only the one the theme shows gets a layout box, so
-// the other never downloads. Nothing stands in while the GIF loads: the
-// space stays empty, then the animation shows. The GIFs are about 2 MB, so
-// they fetch at low priority: the fonts and the hero text paint first.
-// Reduced motion hides both and shows the SVG.
+// One <picture> holds both arts: the <source> picks the dark GIF when the
+// system prefers dark, the <img> carries the light one. Only one downloads,
+// and the request leaves with the HTML, before the stylesheet arrives. The
+// script swaps the source when the viewer has chosen a theme (data-theme on
+// <html>) and whenever that choice, or the system theme, changes.
+// `small` (the header and footer brand, 48 px on the page) loads 96 px and
+// 144 px copies, sharp at 2x and 3x, about 125 KB and 230 KB, at once. The
+// rest load the 600 px originals, about 2 MB, lazily and at low priority:
+// the fonts and the page text paint first. Nothing stands in while the GIF
+// loads: the space stays empty, then the animation shows. Reduced motion
+// hides the GIF and shows the SVG.
 import MarkSvg from './MarkSvg.astro';
 
 interface Props {
@@ -14,35 +20,31 @@ interface Props {
   staticSize?: number;
   gap?: number;
   alt?: string;
+  small?: boolean;
 }
-const { size, staticSize, gap, alt = 'The Mru mark: a ring, a tilted orbit and an M' } = Astro.props;
+const { size, staticSize, gap, alt = 'The Mru mark: a ring, a tilted orbit and an M', small = false } = Astro.props;
 // Inline sizes only where a page sets them, as on the canvas; otherwise the
 // stylesheet sizes the mark (104 px, 88 px on phones).
 const style = (s?: number) =>
   [s === undefined ? '' : `width: ${s}px; height: ${s}px`, gap === undefined ? '' : `margin-bottom: ${gap}px`]
     .filter(Boolean)
     .join('; ') || undefined;
+const px = small ? 96 : 600;
+const darkSet = small ? '/assets/mru-96.gif 2x, /assets/mru-144.gif 3x' : '/assets/mru.gif';
+const lightSet = small ? '/assets/mru-light-96.gif 2x, /assets/mru-light-144.gif 3x' : undefined;
+const light = small ? '/assets/mru-light-96.gif' : '/assets/mru-light.gif';
 ---
 
 <span class="mark-anim" style={style(size)}>
   <picture>
+    <source media="(prefers-color-scheme: dark)" srcset={darkSet} />
     <img
-      class="on-light"
-      src="/assets/mru-light.gif"
+      src={light}
+      srcset={lightSet}
       alt={alt}
-      width="600"
-      height="600"
-      loading="lazy"
-      decoding="async"
-      fetchpriority="low"
-    />
-    <img
-      class="on-dark"
-      src="/assets/mru.gif"
-      alt=""
-      width="600"
-      height="600"
-      loading="lazy"
+      width={px}
+      height={px}
+      loading={small ? undefined : 'lazy'}
       decoding="async"
       fetchpriority="low"
     />
@@ -52,10 +54,44 @@ const style = (s?: number) =>
 
 <script>
   // Show each GIF once it has loaded, so a slow or failed load shows an empty
-  // space, never a half-drawn frame or a broken-image icon.
-  for (const img of document.querySelectorAll<HTMLImageElement>('.mark-anim img')) {
-    const play = () => img.closest('.mark-anim')?.classList.add('playing');
-    if (img.complete && img.naturalWidth > 0) play();
-    else img.addEventListener('load', play, { once: true });
+  // space, never a half-drawn frame or a broken-image icon. Keep the picture's
+  // choice of art in step with the theme: the <source> only knows the system
+  // theme, so a viewer's own choice (data-theme) swaps it here. While the
+  // other art loads the GIF hides again, or the old frame would show through
+  // the new blend mode as a solid square.
+  const system = matchMedia('(prefers-color-scheme: dark)');
+  const QUERY = '(prefers-color-scheme: dark)';
+  const marks = [...document.querySelectorAll<HTMLElement>('.mark-anim')].flatMap((box) => {
+    const source = box.querySelector('source');
+    const img = box.querySelector('img');
+    // At parse time the picture chose by the system theme alone.
+    return source && img ? [{ box, source, img, dark: system.matches, pending: false }] : [];
+  });
+  const wantDark = () => {
+    const chosen = document.documentElement.getAttribute('data-theme');
+    return chosen === 'dark' || (chosen !== 'light' && system.matches);
+  };
+  const sync = () => {
+    const want = wantDark();
+    const chosen = document.documentElement.getAttribute('data-theme');
+    const media = chosen === 'dark' ? 'all' : chosen === 'light' ? 'not all' : QUERY;
+    for (const m of marks) {
+      if (m.dark !== want) {
+        m.dark = want;
+        m.pending = true;
+        m.box.classList.remove('playing');
+      }
+      if (m.source.media !== media) m.source.media = media;
+    }
+  };
+  for (const m of marks) {
+    m.img.addEventListener('load', () => {
+      m.pending = false;
+      m.box.classList.add('playing');
+    });
   }
+  sync();
+  for (const m of marks) if (!m.pending && m.img.complete && m.img.naturalWidth > 0) m.box.classList.add('playing');
+  new MutationObserver(sync).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  system.addEventListener('change', sync);
 </script>
