@@ -22,8 +22,12 @@ them. Every variant closes on its own first frame.
 The mark is drawn in one of two palettes, matching the site's light and dark
 themes. The dark trace variant publishes as mru.gif / mru.mp4, the light one as
 mru-light.gif / mru-light.mp4; everything else keeps its logo-loop-* name.
+The published GIFs also come in 96 px and 144 px copies (mru-96.gif and so
+on) for the site header and footer, where the mark is 48 px: sharp at 2x and
+3x, and about 125 KB and 230 KB instead of 2 MB.
 
 Usage: _gen_logo_anim.py [name|all] [dark|light|both]
+       _gen_logo_anim.py small          # the 96 / 144 px copies, from the published GIFs
 """
 import math, os, subprocess, shutil, sys, tempfile
 
@@ -33,6 +37,8 @@ FONT_MONO = "/System/Library/Fonts/SFNSMono.ttf"
 
 W = H = 1080
 FPS = 30
+
+SMALL = (96, 144)   # header copies, see small_gifs()
 
 # The site's two palettes, mirroring the :root blocks in index.html. Light is
 # not a negative of dark: the page has no glow in light mode, and the trace
@@ -377,6 +383,26 @@ def frame(g, base, out, t, v, acc=None):
     run(cmd)
 
 
+def small_gifs(gif, colors):
+    """The 96 px and 144 px copies of a published GIF, next to it. Each is the
+    big GIF scaled with the same palette settings, snapped to its flat backdrop
+    and layer-optimised; gifsicle, if present, then halves it again."""
+    stem, _ = os.path.splitext(gif)
+    pure = "white" if BLEND == "multiply" else "black"
+    for px in SMALL:
+        out = f"{stem}-{px}.gif"
+        run(["ffmpeg", "-y", "-v", "error", "-i", gif,
+             "-vf", (f"scale={px}:{px}:flags=lanczos,split[a][b];"
+                     f"[a]palettegen=max_colors={colors}:stats_mode=diff[p];"
+                     "[b][p]paletteuse=dither=bayer:bayer_scale=4:diff_mode=rectangle"),
+             "-loop", "0", out])
+        run(["magick", out, "-fuzz", "2%", "-fill", pure, "-opaque", pure,
+             "-layers", "optimize", out])
+        if shutil.which("gifsicle"):
+            run(["gifsicle", "-O3", out, "-o", out])
+        print(f"  {os.path.basename(out)}: {os.path.getsize(out) // 1024} KB")
+
+
 def build(name, theme="dark"):
     v = VARIANTS[name]
     use_theme(theme)
@@ -431,6 +457,8 @@ def build(name, theme="dark"):
             pure = "white" if BLEND == "multiply" else "black"
             run(["magick", gif, "-fuzz", "2%", "-fill", pure, "-opaque", pure,
                  "-layers", "optimize", gif])
+        if v.get("publish"):
+            small_gifs(gif, v["gif_colors"])
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
     print(f"{name}/{theme}: {os.path.basename(mp4)}, {os.path.basename(gif)}")
@@ -439,6 +467,15 @@ def build(name, theme="dark"):
 if __name__ == "__main__":
     which = sys.argv[1] if len(sys.argv) > 1 else "all"
     theme = sys.argv[2] if len(sys.argv) > 2 else "dark"
+    if which == "small":
+        for n, v in VARIANTS.items():
+            if not v.get("publish"):
+                continue
+            for t in THEMES:
+                use_theme(t)
+                small_gifs(os.path.join(HERE, v["publish"] + ("" if t == "dark" else f"-{t}") + ".gif"),
+                           v["gif_colors"])
+        sys.exit(0)
     for t in (THEMES if theme == "both" else [theme]):
         for n in (VARIANTS if which == "all" else [which]):
             build(n, t)
