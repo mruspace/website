@@ -77,7 +77,8 @@ These must keep working, byte for byte where they are files. They live in
   `/assets/favicon-dark.png`, `/apple-touch-icon.png`, `/site.webmanifest`,
   `/assets/og-image.png`
 - `/assets/mru.gif`, `/assets/mru-light.gif`, `/assets/mru.mp4`,
-  `/assets/mru-light.mp4`
+  `/assets/mru-light.mp4`, and the header copies `/assets/mru-96.gif`,
+  `/assets/mru-light-96.gif`, `/assets/mru-144.gif`, `/assets/mru-light-144.gif`
 - `/terms/`, `CNAME` (`mru.space`), `.nojekyll`
 
 ### The animated mark
@@ -86,8 +87,10 @@ GIF has no alpha channel, so each frame ships on a flat backdrop and the page
 blends it away: the light art multiplies on paper, the dark art screens on ink.
 Anything that gives `.mark-anim`, or an element above it, its own stacking
 context (`transform`, `filter`, `opacity`, `z-index`) breaks the blend. The
-GIFs start after the page's largest paint; with reduced motion or without
-JavaScript, the static SVG mark shows instead.
+header and footer load 96 px and 144 px copies (about 125 KB and 230 KB,
+sharp at 2x and 3x) with the HTML, so the mark shows with the text; the
+600 px originals (about 2 MB) load lazily where a page shows the mark large.
+With reduced motion or without JavaScript, the static SVG mark shows instead.
 
 ## Search and AI crawlers
 

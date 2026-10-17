@@ -476,7 +476,8 @@
   padding-top: 12px;
 }
 
-/* The mark */
+/* The mark. One <img> per mark (Mark.astro): the <picture> picks the art
+   for the theme, so only the blend mode changes here. */
 .mark-anim {
   width: 104px;
   height: 104px;
@@ -487,9 +488,6 @@
   height: 100%;
   mix-blend-mode: multiply;
 }
-.mark-anim .on-dark {
-  display: none;
-}
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) .mark-anim img {
     mix-blend-mode: screen;
@@ -497,22 +495,6 @@
 }
 :root[data-theme='dark'] .mark-anim img {
   mix-blend-mode: screen;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) .mark-anim .on-light {
-    display: none;
-  }
-}
-:root[data-theme='dark'] .mark-anim .on-light {
-  display: none;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) .mark-anim .on-dark {
-    display: block;
-  }
-}
-:root[data-theme='dark'] .mark-anim .on-dark {
-  display: block;
 }
 .mark-static {
   display: none;
