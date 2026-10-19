@@ -347,3 +347,22 @@ html.js .mark-anim:not(.playing) img {
 .news-bar a:focus-visible .more {
   color: var(--ink);
 }
+@media (max-width: 720px) {
+  /* Narrow screens: flow as one sentence, no orphan label or link lines. */
+  .news-bar a {
+    display: block;
+  }
+  .news-bar .pill {
+    display: inline-block;
+    vertical-align: 2px;
+    margin-right: 8px;
+  }
+  .news-bar .text,
+  .news-bar .more {
+    display: inline;
+  }
+  .news-bar .more {
+    margin-left: 8px;
+    white-space: nowrap;
+  }
+}
