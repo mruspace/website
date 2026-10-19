@@ -306,29 +306,40 @@ html.js .mark-anim:not(.playing) img {
 
 /* News bar: one line above the header, no dismiss. Remove when the news is old. */
 .news-bar {
-  background: var(--signal-soft);
-  border-bottom: 1px solid var(--rule);
+  background: var(--card);
+  border-bottom: 2px solid var(--signal);
 }
 .news-bar .wrap {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 .news-bar a {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   gap: 6px 14px;
   color: var(--ink);
   text-decoration: none;
-  font-family: var(--serif);
-  font-size: 15px;
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 500;
   line-height: 1.4;
 }
-.news-bar .eyebrow {
+.news-bar .pill {
   flex: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  line-height: 1.2;
+  padding: 4px 9px 3px;
+  border-radius: 999px;
+  background: var(--signal);
+  color: #16161a;
 }
 .news-bar .more {
-  color: var(--accent);
+  color: var(--signal);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
