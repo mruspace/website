@@ -68,7 +68,7 @@ The voter used 65,992 KiB resident, almost all of it the 64 MB sensor block, and
 
 </Section>
 
-<Figure name="flight-orbit" alt="Timeline of the two runs in orbit by tick, with an axis break at tick 300. Faults at ticks 20, 120 and 240, and the memory scan at tick 250. The shrinking quorum delivers checked results to tick 5,250: 2,745 correct, 0 wrong. Fixed TMR delivers 239 correct results to tick 239, then detects 4,261 disagreements and delivers nothing to tick 4,500.">Fig. 1 · Events as the program logged them on OPS-SAT PRETTY, from the files the satellite sent down. The axis breaks at tick 300: every fault lands before it, both runs go on past it.</Figure>
+<Figure name="flight-orbit" alt="Timeline of the two runs in orbit by tick, with an axis break at tick 300. Faults at ticks 20, 120 and 240, and the memory scan at tick 250. The shrinking quorum delivers checked results to tick 5,250: 2,745 correct, 0 wrong. Fixed TMR delivers 239 correct results to tick 239, then detects 4,261 disagreements and delivers nothing to tick 4,500.">Fig. 1 · Events as the program logged them on OPS-SAT PRETTY, from the files the satellite sent down. The axis breaks at tick 300: every fault lands before it, both runs go on past it. The bit flip in replica 2 at tick 60 is outvoted and leaves no event in the log, so it has no mark.</Figure>
 
 <Section label="Prediction">
 <Fragment slot="note">Written to ESA on 16 October 2026 at 14:10 UTC, after the FlatSat test and before the run in orbit.</Fragment>
@@ -97,6 +97,6 @@ One defect: both runs overran the 110-second cap by about 3 seconds. The limit i
 
 ## Next
 
-A longer run and a second run are proposed to ESA. Neither is scheduled. Until then, the numbers above are the whole record: one run, 227 seconds, zero wrong results.
+A second run of five minutes or less is proposed to ESA, with a hung replica, a stuck bit on the last replica, a safe halt and a resume across a restart. It is not scheduled. Until then, the numbers above are the whole record: one run, 227 seconds, zero wrong results.
 
 </Section>
