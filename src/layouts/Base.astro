@@ -107,6 +107,7 @@ const canonical = new URL(Astro.url.pathname, SITE.url).href;
       Skip to content
     </a>
     <div class:list={['mru', rootClass]}>
+      <slot name="top" />
       {chrome && <SiteHeader active={active} />}
       <main id="main" class={mainClass} style={mainStyle}>
         <slot />
