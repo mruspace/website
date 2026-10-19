@@ -4,6 +4,7 @@ import Seam from '../components/Seam.astro';
 import PlateImage from '../components/PlateImage.astro';
 import Descent from '../components/Descent.astro';
 import QuorumDemo from '../components/QuorumDemo.astro';
+import NewsBar from '../components/NewsBar.astro';
 import { photo } from '../data/images';
 import { claim, t, ci } from '../data/claims';
 
@@ -31,6 +32,9 @@ const TILES = [
 ---
 
 <Base rootClass="glow" request={{ interest: 'field' }}>
+  <NewsBar slot="top" href="/research/flight-orbit/">
+    ESA has run Mru Flight on its OPS-SAT PRETTY satellite.
+  </NewsBar>
   <!-- 1 · Hero -->
   <section class="wrap hero" aria-labelledby="h-hero">
     <h1 id="h-hero" class="h-hero" style="max-width: 22ch">

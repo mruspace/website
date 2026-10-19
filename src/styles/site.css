@@ -303,3 +303,36 @@ html.js .quorum-fallback {
 html.js .mark-anim:not(.playing) img {
   visibility: hidden;
 }
+
+/* News bar: one line above the header, no dismiss. Remove when the news is old. */
+.news-bar {
+  background: var(--signal-soft);
+  border-bottom: 1px solid var(--rule);
+}
+.news-bar .wrap {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.news-bar a {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  color: var(--ink);
+  text-decoration: none;
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.4;
+}
+.news-bar .eyebrow {
+  flex: none;
+}
+.news-bar .more {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.news-bar a:hover .more,
+.news-bar a:focus-visible .more {
+  color: var(--ink);
+}
