@@ -60,7 +60,7 @@ The same binary ran three times: in ESA's software environment on 15 October (a 
 
 ## In orbit
 
-The shrinking quorum retired the stuck replica at tick 122, two ticks after the fault. It ran alone on the last replica from tick 240 and passed its known-answer tests there: 80 in the run, one of them the test that retired the stuck replica. The memory scan at tick 250 found the injected flip and repaired it. After 5,250 ticks and 113.5 seconds it had delivered 2,745 correct results and 0 wrong, at about 46 ticks per second.
+The shrinking quorum retired the stuck replica at tick 122, two ticks after the fault. It ran alone on the last replica from tick 240, checked by known-answer tests (80 in the run). The memory scan at tick 250 found the injected flip and repaired it. After 5,250 ticks and 113.5 seconds it had delivered 2,745 correct results and 0 wrong, at about 46 ticks per second.
 
 Fixed TMR, on the same faults, delivered 239 correct results. From tick 240 it had one good replica and one stuck one, and it detected a disagreement on every tick to 4,500 without delivering a result. That is the difference the policy makes: on the last replica, where fixed TMR stops, the shrinking quorum keeps delivering checked results.
 
