@@ -1,0 +1,22 @@
+---
+/** One-line news bar above the site header. Remove it when the news is old. */
+interface Props {
+  href: string;
+  label?: string;
+}
+const { href, label = 'New' } = Astro.props;
+---
+
+<div class="news-bar">
+  <div class="wrap">
+    <a href={href}>
+      <span class="eyebrow">
+        <span class="n">{label}</span>
+      </span>
+      <span class="text">
+        <slot />
+      </span>
+      <span class="more">Read the results</span>
+    </a>
+  </div>
+</div>
