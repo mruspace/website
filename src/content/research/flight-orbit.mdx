@@ -20,6 +20,7 @@ code: { repo: 'https://github.com/mruspace/flight', language: Rust, license: Apa
 ---
 
 import Section from '../../components/research/Section.astro';
+import Figure from '../../components/research/Figure.astro';
 
 <Section label="Status">
 <Fragment slot="note">Prototype, v0.3.1. One run in orbit, 227 seconds, on a Linux payload processor in user space. Not a hardware-redundancy test.</Fragment>
@@ -66,6 +67,8 @@ Fixed TMR, on the same faults, delivered 239 correct results. From tick 240 it h
 The voter used 65,992 KiB resident, almost all of it the 64 MB sensor block, and 5.2% of wall time including start-up. Each replica used 452 KiB.
 
 </Section>
+
+<Figure name="flight-orbit" alt="Timeline of the two runs in orbit by tick, with an axis break at tick 300. Faults at ticks 20, 120 and 240, and the memory scan at tick 250. The shrinking quorum delivers checked results to tick 5,250: 2,745 correct, 0 wrong. Fixed TMR delivers 239 correct results to tick 239, then detects 4,261 disagreements and delivers nothing to tick 4,500.">Fig. 1 · Events as the program logged them on OPS-SAT PRETTY, from the files the satellite sent down. The axis breaks at tick 300: every fault lands before it, both runs go on past it.</Figure>
 
 <Section label="Prediction">
 <Fragment slot="note">Written to ESA on 16 October 2026 at 14:10 UTC, after the FlatSat test and before the run in orbit.</Fragment>
