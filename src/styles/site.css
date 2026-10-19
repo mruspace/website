@@ -336,7 +336,7 @@ html.js .mark-anim:not(.playing) img {
   padding: 4px 9px 3px;
   border-radius: 999px;
   background: var(--signal);
-  color: #16161a;
+  color: var(--card);
 }
 .news-bar .more {
   color: var(--signal);
@@ -346,4 +346,11 @@ html.js .mark-anim:not(.playing) img {
 .news-bar a:hover .more,
 .news-bar a:focus-visible .more {
   color: var(--ink);
+}
+/* Narrow screens: the pill, the text and the link each take a line. */
+@media (max-width: 720px) {
+  .news-bar .text,
+  .news-bar .more {
+    flex-basis: 100%;
+  }
 }
