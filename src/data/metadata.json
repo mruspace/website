@@ -21,7 +21,7 @@
   {
     "url": "https://mru.space/flight/",
     "title": "Mru Flight: onboard fault tolerance · Mru Aerospace",
-    "description": "Early prototype: a no_std Rust decision core with Kani proofs, as F´ components. It continues on two, then one processor, where fixed TMR stops.",
+    "description": "A no_std Rust decision core that continues on two, then one processor, where fixed TMR stops. v0.3.1 ran in orbit on OPS-SAT PRETTY, October 2026.",
     "ogTitle": "Mru Flight: fault tolerance for spacecraft out of reach",
     "cardLabel": "Product · Space",
     "schema": ["SoftwareApplication", "BreadcrumbList", "FAQPage"]
@@ -178,6 +178,14 @@
     "cardLabel": "Research № 002 · Results",
     "schema": ["ScholarlyArticle", "BreadcrumbList"],
     "claims": ["dusk.work_vs_tmr", "dusk.runs"]
+  },
+  {
+    "url": "https://mru.space/research/flight-orbit/",
+    "title": "Mru Flight ran in orbit · Mru Aerospace",
+    "description": "On 18 October 2026, v0.3.1 ran on ESA's OPS-SAT PRETTY as three software replicas on one processor, with injected faults: 2,745 correct results and 0 wrong.",
+    "ogTitle": "Mru Flight ran in orbit",
+    "cardLabel": "Research № 006 · Results",
+    "schema": ["BlogPosting", "SoftwareSourceCode", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/research/flight-measured/",
