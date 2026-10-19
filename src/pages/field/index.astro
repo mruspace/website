@@ -15,7 +15,7 @@ const faq = [
   },
   {
     q: 'What evidence is there today?',
-    a: `Simulation over ${t('dusk.runs')} missions, a fault-injection demo and a bench on real processes, and ${t('flight.kani.total')} Kani proofs. All of it runs on general-purpose processors. None of it has run on your equipment yet.`,
+    a: `Simulation over ${t('dusk.runs')} missions, a fault-injection demo and a bench on real processes, and ${t('flight.kani.total')} Kani proofs, and one run in orbit on ESA's OPS-SAT PRETTY. None of it has run on your equipment yet.`,
   },
   {
     q: 'How is it priced?',
@@ -54,7 +54,9 @@ const faq = [
           to trust. As processors fail, it moves from voting to comparing to self-checking, and keeps delivering checked
           results until none are left.
         </p>
-        <p class="soft small">Status: early prototype, tested on general-purpose processors, not yet in the field.</p>
+        <p class="soft small">
+          Status: prototype, tested on general-purpose processors and once in orbit, not yet in the field.
+        </p>
         <div class="row">
           <a class="btn" href="#request">
             Get in touch
