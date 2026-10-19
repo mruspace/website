@@ -43,7 +43,8 @@ const TILES = [
         of stopping.
       </p>
       <p class="soft small">
-        Status: early prototype. It runs on general-purpose processors today, not yet on flight hardware.
+        Status: prototype. On 18 October 2026 it <a href="/research/flight-orbit/">ran in orbit</a> on ESA&#39;s OPS-SAT
+        PRETTY satellite: three software replicas on one processor, with injected faults.
       </p>
       <div class="row">
         <a class="btn hero-contact" href="/contact/">
@@ -208,6 +209,10 @@ const TILES = [
           less than {t('dusk.cold.crossing')} of the powered rate. A fallback with no self-check does more work, with
           far more wrong results.
         </p>
+        <p class="soft">
+          In orbit on ESA&#39;s OPS-SAT PRETTY, 18 October 2026: 2,745 correct results and 0 wrong over 5,250 ticks,
+          where fixed triple redundancy stopped at 239. <a href="/research/flight-orbit/">Mru Flight ran in orbit</a>
+        </p>
       </div>
       <div class="stack-l">
         <div class="bars">
@@ -351,8 +356,8 @@ const TILES = [
           Mru Flight
         </h3>
         <p class="soft" style="margin-top: 12px">
-          Onboard software for spacecraft, built on NASA JPL&#39;s F&#180;. Per mission, with support. Qualification is
-          planned; no qualification evidence exists yet.
+          Onboard software for spacecraft, built on NASA JPL&#39;s F&#180;. v0.3.1 has run once in orbit, on ESA&#39;s
+          OPS-SAT PRETTY. Per mission, with support. Qualification is planned; no qualification evidence exists yet.
         </p>
         <span class="link-more">Mru Flight</span>
       </a>
