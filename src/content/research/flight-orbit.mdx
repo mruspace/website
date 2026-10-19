@@ -23,13 +23,13 @@ code: { repo: 'https://github.com/mruspace/flight', language: Rust, license: Apa
 import Section from '../../components/research/Section.astro';
 
 <Section label="Status">
-<Fragment slot="note">Prototype, v0.3.1. One run in orbit, 227 seconds, on a Linux payload processor in user space. Not a hardware-redundancy test, and not qualification evidence.</Fragment>
+<Fragment slot="note">Prototype, v0.3.1. One run in orbit, 227 seconds, on a Linux payload processor in user space. Not a hardware-redundancy test.</Fragment>
 
 ## What ran
 
 On 18 October 2026 at 09:45 UTC, Mru Flight v0.3.1 ran on ESA's OPS-SAT PRETTY satellite, as experiment exp4051 of the ESA OPS-SAT Space Lab. The experiment was registered on 7 October and the package was sent on 15 October: eleven days from registration to orbit.
 
-The package is the fault-injection demo from release v0.3.1, built as a static 32-bit ARM binary. One entry point runs the shrinking quorum, then fixed triple redundancy (TMR), with the same seed and the same fault schedule: a sensor self-test at tick 20, a bit flip in replica 2 at tick 60, replica 1 stuck at tick 120, replica 0 killed at tick 240. Each run has 110 seconds, a 5% share of the processor, 128 MB per process, and a 64 MB block of memory scanned for upsets every 250 ticks.
+The package is the fault-injection demo from release v0.3.1, built as a static 32-bit ARM binary. One entry point runs the shrinking quorum, then fixed triple redundancy (TMR), with the same seed and the same fault schedule (one tick is one voting round): a sensor self-test at tick 20, a bit flip in replica 2 at tick 60, replica 1 stuck at tick 120, replica 0 killed at tick 240. Each run has 110 seconds, a 5% share of the processor, 128 MB per process, and a 64 MB block of memory scanned for upsets every 250 ticks.
 
 </Section>
 
@@ -62,7 +62,7 @@ The same binary ran three times: in ESA's software environment on 15 October (a 
 
 The shrinking quorum retired the stuck replica at tick 122, two ticks after the fault. It ran alone on the last replica from tick 240, checked by known-answer tests (80 in the run). The memory scan at tick 250 found the injected flip and repaired it. After 5,250 ticks and 113.5 seconds it had delivered 2,745 correct results and 0 wrong, at about 46 ticks per second.
 
-Fixed TMR, on the same faults, delivered 239 correct results. From tick 240 it had one good replica and one stuck one, and it detected a disagreement on every tick to 4,500 without delivering a result. That is the difference the policy makes: on the last replica, where fixed TMR stops, the shrinking quorum keeps delivering checked results.
+Fixed TMR, on the same faults, delivered 239 correct results. From tick 240 it had one good replica and one stuck one, and it detected a disagreement on every tick to 4,500 without delivering a result. On the last replica, where fixed TMR stops, the shrinking quorum keeps delivering checked results.
 
 The voter used 65,992 KiB resident, almost all of it the 64 MB sensor block, and 5.2% of wall time including start-up. Each replica used 452 KiB.
 
@@ -82,9 +82,9 @@ The prediction had five parts. The same events on the same ticks as on the FlatS
 
 ## What it shows, and what it does not
 
-It shows that the policy runs on a flight processor, in user space, at a 5% share of the processor, and keeps delivering correct results on the last replica where fixed TMR stops. It shows that one binary gives the same events on a virtual machine, on the FlatSat and in orbit.
+It shows that the policy runs on a flight processor, in user space, at a 5% share of the processor, and keeps delivering correct results on the last replica where fixed TMR stops. It shows that one binary gives the same events on a virtual machine, on the FlatSat and in orbit. For an operator, that answers one question: the policy behaves the same on the flight processor as on the ground.
 
-It does not show more than that. The three replicas were software processes on one Linux processor, not three processors. The faults came from a schedule, not from the environment. The memory sensor saw no real upset in 227 seconds. The run used the demo voter and replicas, not the F&#x2060;´ components. None of this is qualification evidence.
+It does not show more than that. The three replicas were software processes on one Linux processor, not three processors. The faults came from a schedule, not from the environment. The memory sensor saw no real upset in 227 seconds. The run used the demo voter and replicas, not the F&#x2060;´ components. <a href="https://docs.mru.space/concepts/qualification/">Qualification evidence</a> needs the F&#x2060;´ version in orbit, real upsets and a long run. This run is the step before that.
 
 One defect: both runs overran the 110-second cap by about 3 seconds. The limit is checked once per tick, and the last tick was a 64 MB scan. A fix is planned for the next version.
 
