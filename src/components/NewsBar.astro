@@ -10,13 +10,11 @@ const { href, label = 'New' } = Astro.props;
 <div class="news-bar">
   <div class="wrap">
     <a href={href}>
-      <span class="eyebrow">
-        <span class="n">{label}</span>
-      </span>
+      <span class="pill">{label}</span>
       <span class="text">
         <slot />
       </span>
-      <span class="more">Read the results</span>
+      <span class="more">Read more</span>
     </a>
   </div>
 </div>
