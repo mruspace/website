@@ -90,37 +90,39 @@ const ld = {
     <div class="wrap entry-body" style="padding-block: 56px 0">
       <Content />
 
-      <div class="article" style="margin-top: 48px">
-        {d.bibtex ? (
-          <div class="stack-m">
+      {(d.bibtex || d.citeText) && (
+        <div class="article" style="margin-top: 48px">
+          {d.bibtex ? (
+            <div class="stack-m">
+              <div class="cite">
+                <p class="eyebrow" style="margin-bottom: 12px">
+                  Cite this
+                </p>
+                <pre class="pre" tabindex="0" style="background: transparent; border: 0; padding: 0">{d.bibtex}</pre>
+              </div>
+              {d.sources.length > 0 && (
+                <div>
+                  <p class="eyebrow" style="margin-bottom: 12px">
+                    Sources
+                  </p>
+                  <ol class="small soft" style="padding-left: 20px; margin: 0">
+                    {d.sources.map((s) => (
+                      <li>{s}</li>
+                    ))}
+                  </ol>
+                </div>
+              )}
+            </div>
+          ) : d.citeText ? (
             <div class="cite">
               <p class="eyebrow" style="margin-bottom: 12px">
                 Cite this
               </p>
-              <pre class="pre" tabindex="0" style="background: transparent; border: 0; padding: 0">{d.bibtex}</pre>
+              <p class="small" style="margin: 0" set:html={d.citeText} />
             </div>
-            {d.sources.length > 0 && (
-              <div>
-                <p class="eyebrow" style="margin-bottom: 12px">
-                  Sources
-                </p>
-                <ol class="small soft" style="padding-left: 20px; margin: 0">
-                  {d.sources.map((s) => (
-                    <li>{s}</li>
-                  ))}
-                </ol>
-              </div>
-            )}
-          </div>
-        ) : (
-          <div class="cite">
-            <p class="eyebrow" style="margin-bottom: 12px">
-              Cite this
-            </p>
-            <p class="small" style="margin: 0" set:html={d.citeText} />
-          </div>
-        )}
-      </div>
+          ) : null}
+        </div>
+      )}
 
       <nav class="prevnext" aria-label="More entries" style="margin: 64px 0 96px">
         {older ? (
