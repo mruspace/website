@@ -88,7 +88,7 @@ It shows that the policy runs on a flight processor, in user space, at a 5% shar
 
 It does not show more than that. The three replicas were software processes on one Linux processor, not three processors. The faults came from a schedule, not from the environment. The memory sensor saw no real upset in 227 seconds. The run used the demo voter and replicas, not the F&#x2060;´ components. <a href="https://docs.mru.space/concepts/qualification/">Qualification evidence</a> needs the F&#x2060;´ version in orbit, real upsets and a long run. This run is the step before that.
 
-One defect: both runs overran the 110-second cap by about 3 seconds. The limit is checked once per tick, and the last tick was a 64 MB scan. A fix is planned for the next version.
+One defect: both runs overran the 110-second cap by about 3 seconds. The limit is checked once per tick, and the last tick was a 64 MB scan. Fixed in v0.4.0: the scan checks the limit every 1 MiB and the sleep stops at the cap.
 
 </Section>
 
@@ -97,6 +97,6 @@ One defect: both runs overran the 110-second cap by about 3 seconds. The limit i
 
 ## Next
 
-A second run of five minutes or less is proposed to ESA, with a hung replica, a stuck bit on the last replica, a safe halt and a resume across a restart. It is not scheduled. Until then, the numbers above are the whole record: one run, 227 seconds, zero wrong results.
+ESA confirmed a second run of five minutes or less on 20 October 2026: a hung replica, a stuck replica, a stuck bit on the last replica with a safe halt, and a resume after the voter is killed and restarted. It is not scheduled. Until it flies, the numbers above are the whole record: one run, 227 seconds, zero wrong results.
 
 </Section>
