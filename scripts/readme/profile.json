@@ -34,13 +34,6 @@
       "desc": "Source of mru.space."
     }
   ],
-  "skip": [
-    ".github",
-    "brand",
-    "2049"
-  ],
-  "footer": [
-    "mru.space",
-    "contact@mru.space"
-  ]
+  "skip": [".github", "brand", "2049"],
+  "footer": ["mru.space", "contact@mru.space"]
 }
