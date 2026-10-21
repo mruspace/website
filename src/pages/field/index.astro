@@ -15,7 +15,7 @@ const faq = [
   },
   {
     q: 'What evidence is there today?',
-    a: `Simulation over ${t('dusk.runs')} missions, a fault-injection demo and a bench on real processes, and ${t('flight.kani.total')} Kani proofs, and one run in orbit on ESA's OPS-SAT PRETTY. None of it has run on your equipment yet.`,
+    a: `Simulation over ${t('dusk.runs')} missions, a fault-injection demo and a bench on real processes, ${t('flight.kani.total')} Kani proofs, one run in orbit on ESA's OPS-SAT PRETTY, and the supervisor's own tests and scenario checks on the bench, in its repository. None of it has run on your equipment yet.`,
   },
   {
     q: 'How is it priced?',
@@ -23,7 +23,7 @@ const faq = [
   },
   {
     q: 'Do we need to change our code?',
-    a: 'Your task runs on each processor as it does now. Mru Field needs a defined result per cycle to compare, and a known-answer test for that task.',
+    a: 'Your task becomes a function from an input record to an output record, over standard input and output, in any language. The supervisor reads each input once and runs three copies of the task. It needs a known-answer test for the task, and a check tool tells you whether the task is deterministic. A wrapper that runs an existing program once per cycle is included.',
   },
 ];
 ---
@@ -50,12 +50,14 @@ const faq = [
       </div>
       <div class="stack-m">
         <p class="lede">
-          Mru Field runs on multiple processors, the ones already in your enclosure. Each cycle it decides which results
-          to trust. As processors fail, it moves from voting to comparing to self-checking, and keeps delivering checked
-          results until none are left.
+          Mru Field runs your task as three replicas on one processor, the one already in your enclosure. Each cycle it
+          reads the input once, hands the same bytes to every replica, and decides which result to trust. As replicas
+          fail, it moves from voting to comparing to self-checking, and keeps delivering checked results until none are
+          left. A second processor over a link is planned.
         </p>
         <p class="soft small">
-          Status: prototype, tested on general-purpose processors and once in orbit, not yet in the field.
+          Status: version 0.1.0, built and tested on the bench on general-purpose processors, not yet on a board in the
+          field. The decision core has run once in orbit.
         </p>
         <div class="row">
           <a class="btn" href="#request">
@@ -88,7 +90,7 @@ const faq = [
         <h2 class="h2">Four things, and nothing else.</h2>
       </div>
       <p class="lede">
-        Fixed triple redundancy stops at the second processor failure. Mru Field continues with what is left, and tells
+        Fixed triple redundancy stops at the second replica failure. Mru Field continues with what is left, and tells
         your operators which mode it is in.
       </p>
     </div>
@@ -99,7 +101,7 @@ const faq = [
         </p>
         <h3 class="h3">Steps down instead of stopping</h3>
         <p class="soft small">
-          Vote on three, compare on two, self-check on one. It halts only when no processor is left.
+          Vote on three, compare on two, self-check on one. It halts only when no replica is left.
         </p>
       </div>
       <div class="note">
@@ -108,7 +110,7 @@ const faq = [
         </p>
         <h3 class="h3">Delivers only checked results</h3>
         <p class="soft small">
-          A result leaves only if two processors agree, or the last one gets the same answer twice. Kani proves this for
+          A result leaves only if two replicas agree, or the last one gets the same answer twice. Kani proves this for
           every set of three replies to the decision function.
         </p>
       </div>
@@ -118,7 +120,7 @@ const faq = [
         </p>
         <h3 class="h3">Diagnoses before it retires</h3>
         <p class="soft small">
-          A processor outvoted 3 times in 200 cycles gets a known-answer test. It is retired only if it fails.
+          A replica outvoted 3 times in 200 cycles gets a known-answer test. It is retired only if it fails.
         </p>
       </div>
       <div class="note">
@@ -127,7 +129,8 @@ const faq = [
         </p>
         <h3 class="h3">Logs every decision</h3>
         <p class="soft small">
-          Mode changes, retirements, detected and delivered results, and memory bit flips, for your telemetry.
+          Mode changes, retirements, detected and delivered results, and every resume after a power cut, for your
+          telemetry.
         </p>
       </div>
     </div>
@@ -142,7 +145,7 @@ const faq = [
         <h2 class="h2">What it needs, and what it does not do.</h2>
       </div>
       <p class="lede">
-        Your instrument and control code stays as it is. Mru Field sits between that code and your processors.
+        Your instrument and control code stays as it is. Mru Field sits between your task and the processor.
       </p>
     </div>
     <div class="tbl-box" tabindex="0">
@@ -151,8 +154,9 @@ const faq = [
           <tr>
             <td style="width: 30%">Processors</td>
             <td>
-              Two or three, running the same task. The core takes up to three replicas; more is planned. One still
-              works, in self-check mode. Each processor costs power.
+              One Linux processor. The supervisor runs three replicas of your task as processes on it, and still works
+              with one, in self-check mode. Replicas on a second processor over a link are planned; until then a failure
+              of the processor itself is not survived.
             </td>
           </tr>
           <tr>
@@ -169,14 +173,14 @@ const faq = [
           <tr>
             <td>Throughput cost</td>
             <td>
-              None while three processors are alive. With two, a mismatch loses that result and costs a known-answer
-              test on both. Half rate on the last one, because it computes twice.
+              Three computations per cycle while three replicas are alive. With two, a mismatch loses that result and
+              costs a known-answer test on both. On the last one the task computes twice per cycle.
             </td>
           </tr>
           <tr>
             <td>Known limit</td>
             <td>
-              On the last processor, only the periodic known-answer test, every 64 ticks by default, can catch a stuck
+              On the last replica, only the periodic known-answer test, every 64 cycles by default, can catch a stuck
               fault. Measured with the demo task: every stuck result was caught, after{' '}
               {t('flight.kat_coverage.stuck.64.wrong_mean')} wrong results on average. The one test input saw{' '}
               {t('flight.kat_coverage.stuckbit.out.64')} of stuck-at bits in the result; the others keep delivering
@@ -187,8 +191,10 @@ const faq = [
           <tr>
             <td>Inputs</td>
             <td>
-              In the demo every replica gets the same input. Real sensor inputs need an agreement step between replicas,
-              which Mru does not provide yet.
+              The supervisor reads each input record once, from a serial port, a file, a socket or a command, and hands
+              the same bytes to every replica. Your task computes from that record and the state it is handed, and
+              nothing else. Across processors, real sensor inputs would still need an agreement step, which Mru does not
+              provide yet.
             </td>
           </tr>
           <tr>
@@ -202,17 +208,22 @@ const faq = [
       <div class="stratum">
         <span class="lv">Yours</span>
         <h3>Instrument and control code</h3>
-        <p>Sampling, logging, telemetry. Unchanged.</p>
+        <p>
+          Your task: a function from an input record to an output record, in any language. Sampling and telemetry
+          unchanged.
+        </p>
       </div>
       <div class="stratum base">
         <span class="lv">Mru</span>
         <h3>Mru Field</h3>
-        <p>Shrinking quorum, health record, known-answer tests, a memory upset counter, decision log.</p>
+        <p>
+          Acquisition once, shrinking quorum, health record, known-answer tests, checkpoint and resume, decision log.
+        </p>
       </div>
       <div class="stratum">
         <span class="lv">Yours</span>
-        <h3>Multiple processors</h3>
-        <p>The hardware already in the enclosure. No new boards.</p>
+        <h3>One Linux processor</h3>
+        <p>The board already in the enclosure. A second processor over a link is planned.</p>
       </div>
     </div>
   </section>
@@ -313,7 +324,8 @@ const faq = [
         <p class="n">2 · Pilot</p>
         <h3 class="h3">One site, months unattended</h3>
         <p class="soft small">
-          Mru Field on your own equipment, with the decision log in your telemetry. A pilot in the Azores is proposed.
+          Mru Field on your own equipment, with the decision log in your telemetry. A pilot on a European ocean
+          observatory node is proposed for 2027.
         </p>
       </div>
       <div class="stack-s">

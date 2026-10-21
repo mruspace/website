@@ -13,7 +13,7 @@
   {
     "url": "https://mru.space/field/",
     "title": "Mru Field: fault tolerance for remote equipment · Mru Aerospace",
-    "description": "Runs on the processors already in your enclosure. Votes, compares, then self-checks as they fail, instead of stopping. Linux on ARM and x86.",
+    "description": "Runs your task as three replicas on the Linux processor you already have. Votes, compares, then self-checks as they fail, instead of stopping. ARM and x86.",
     "ogTitle": "Mru Field: fault tolerance for hard-to-reach systems",
     "cardLabel": "Product · Earth",
     "schema": ["SoftwareApplication", "BreadcrumbList", "FAQPage"]
@@ -37,7 +37,7 @@
   {
     "url": "https://mru.space/use-cases/",
     "title": "Use cases for Mru Field · Mru Aerospace",
-    "description": "Fifteen settings where equipment has two or more processors, runs unattended for months, and a repair visit is slow or costly. Ocean settings first.",
+    "description": "Fifteen settings where equipment has a Linux processor, runs unattended for months, and a repair visit is slow or costly. Ocean settings first.",
     "ogTitle": "Where Mru Field applies",
     "cardLabel": "Use cases",
     "schema": ["CollectionPage", "BreadcrumbList"]
@@ -61,7 +61,7 @@
   {
     "url": "https://mru.space/use-cases/profiling-floats/",
     "title": "Profiling floats and gliders · Mru Field",
-    "description": "Argo needs about 600 new floats a year. Where a float carries two or more processors, Mru Field keeps its last months of data checked as they fail.",
+    "description": "Argo needs about 600 new floats a year. Where a float carries a Linux processor, Mru Field keeps its last months of data checked as its software fails.",
     "ogTitle": "Deployed once, rarely recovered",
     "cardLabel": "Use case · Floats and gliders",
     "schema": ["Service", "FAQPage", "BreadcrumbList"]
