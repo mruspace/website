@@ -24,7 +24,7 @@
   "shared": {
     "HW": {
       "q": "Does Mru Field need new hardware?",
-      "a": "No. It is software for the processors you already deploy. It runs beside your control code and decides which processor to trust as parts fail. It needs two or more processors that can run the same task, and each one costs power."
+      "a": "No. It is software for the Linux processor you already deploy. It runs beside your control code as three copies of your task and decides which copy to trust as faults appear. Each copy costs processor time. A second processor, which would survive the first one failing, is planned."
     },
     "START": {
       "q": "How do we start?",
@@ -134,7 +134,7 @@
         },
         {
           "q": "Floats are rarely recovered. Why does decay matter?",
-          "a": "Because the last months still produce data. Mru keeps checking results as processors fail, so that data stays trustworthy. It applies only where a float carries two or more processors that can run the same task."
+          "a": "Because the last months still produce data. Mru keeps checking results as processors fail, so that data stays trustworthy. It applies where a float carries a Linux processor that can run the task three times; surviving that processor itself needs a second one, which is planned."
         },
         {
           "shared": "START"
@@ -276,7 +276,7 @@
         },
         {
           "q": "Can it run beside existing site controllers?",
-          "a": "Yes. It decides which of several processors to trust. Your site logic stays the same."
+          "a": "Yes. It decides which copy of your task to trust. Your site logic stays the same."
         },
         {
           "shared": "START"

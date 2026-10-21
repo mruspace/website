@@ -15,7 +15,7 @@
     },
     {
       "name": "field",
-      "desc": "Mru Field: the supervisor for hard-to-reach systems on Earth. Specification; planned, not built."
+      "desc": "Mru Field: the supervisor for hard-to-reach systems on Earth. Version 0.1.0, bench-tested, not yet in the field."
     },
     {
       "name": "dusk",
