@@ -23,7 +23,7 @@ const faq = [
   },
   {
     q: 'Do we need to change our code?',
-    a: 'Your task becomes a function from an input record to an output record, over standard input and output, in any language. The supervisor reads each input once and runs three copies of the task. It needs a known-answer test for the task, and a check tool tells you whether the task is deterministic. A wrapper that runs an existing program once per cycle is included.',
+    a: 'Your task becomes a function from an input record to an output record, over standard input and output, in any language. The supervisor reads each input once and runs three replicas of the task. It needs a known-answer test for the task. A check tool tells you whether the task is deterministic, and a wrapper runs an existing program once per cycle without a code change.',
   },
 ];
 ---
@@ -155,8 +155,8 @@ const faq = [
             <td style="width: 30%">Processors</td>
             <td>
               One Linux processor. The supervisor runs three replicas of your task as processes on it, and still works
-              with one, in self-check mode. Replicas on a second processor over a link are planned; until then a failure
-              of the processor itself is not survived.
+              with one, in self-check mode. Replicas on a second processor over a link are planned. Until then, a
+              failure of the processor itself is not survived.
             </td>
           </tr>
           <tr>

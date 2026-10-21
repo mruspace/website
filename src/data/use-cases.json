@@ -24,7 +24,7 @@
   "shared": {
     "HW": {
       "q": "Does Mru Field need new hardware?",
-      "a": "No. It is software for the Linux processor you already deploy. It runs beside your control code as three copies of your task and decides which copy to trust as faults appear. Each copy costs processor time. A second processor, which would survive the first one failing, is planned."
+      "a": "No. It is software for the Linux processor you already deploy. It runs beside your control code as three replicas of your task and decides which replica to trust as faults appear. Each replica costs processor time. A second processor, which would survive the failure of the first, is planned."
     },
     "START": {
       "q": "How do we start?",
@@ -276,7 +276,7 @@
         },
         {
           "q": "Can it run beside existing site controllers?",
-          "a": "Yes. It decides which copy of your task to trust. Your site logic stays the same."
+          "a": "Yes. It decides which replica of your task to trust. Your site logic stays the same."
         },
         {
           "shared": "START"
