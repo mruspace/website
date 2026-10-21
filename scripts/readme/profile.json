@@ -5,16 +5,42 @@
     "Mru Flight is the version for spacecraft. Mru Field is the version for equipment on Earth that nobody can reach in time, such as deep-ocean sensors."
   ],
   "status": {
-    "label": "Status · prototype, first run in orbit",
-    "text": "The decision core, a fault-injection demo and F´ components run on general-purpose processors. On 18 October 2026 the demo ran in orbit on ESA's OPS-SAT PRETTY: three replicas on one processor."
+    "label": "Status · prototype, ran in orbit; second run confirmed",
+    "text": "The decision core, a fault-injection demo and F´ components run on general-purpose processors. On 18 October 2026 the demo ran in orbit on ESA's OPS-SAT PRETTY: three replicas on one processor. ESA confirmed a second run on 20 October."
   },
   "repos": [
-    { "name": "flight", "desc": "The decision core in Rust, F´ components, the demo and the bench." },
-    { "name": "dusk", "desc": "Monte Carlo simulator of redundancy policies, interactive at dusk.mru.space." },
-    { "name": "docs", "desc": "Source of docs.mru.space." },
-    { "name": "whitepaper", "desc": "The architecture. doi:10.5281/zenodo.23305299" },
-    { "name": "website", "desc": "Source of mru.space." }
+    {
+      "name": "flight",
+      "desc": "The decision core in Rust, F´ components, the demo and the bench."
+    },
+    {
+      "name": "field",
+      "desc": "Mru Field: the supervisor for unattended systems on Earth. Specification; planned, not built."
+    },
+    {
+      "name": "dusk",
+      "desc": "Monte Carlo simulator of redundancy policies, interactive at dusk.mru.space."
+    },
+    {
+      "name": "docs",
+      "desc": "Source of docs.mru.space."
+    },
+    {
+      "name": "whitepaper",
+      "desc": "The architecture. doi:10.5281/zenodo.23305299"
+    },
+    {
+      "name": "website",
+      "desc": "Source of mru.space."
+    }
   ],
-  "skip": [".github", "brand", "2049"],
-  "footer": ["mru.space", "contact@mru.space"]
+  "skip": [
+    ".github",
+    "brand",
+    "2049"
+  ],
+  "footer": [
+    "mru.space",
+    "contact@mru.space"
+  ]
 }
