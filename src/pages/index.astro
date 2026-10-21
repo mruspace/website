@@ -80,8 +80,9 @@ const TILES = [
         </p>
         <p class="soft small">
           What it costs to reach the hardware. Batteries, sensors and mechanical work cause most of these visits, not
-          processor failure, and Mru does not remove them. Mru keeps the processors that are left doing checked work
-          between visits. It needs two or more processors, and each extra processor costs power.
+          processor failure, and Mru does not remove them. Mru keeps the replicas that are left doing checked work
+          between visits. It needs one Linux processor. A second processor, planned, is what survives the failure of the
+          first.
         </p>
       </div>
     </div>
@@ -296,8 +297,8 @@ const TILES = [
       </div>
       <div class="stack-m">
         <p class="lede">
-          Mru fits when three things are true: the equipment has two or more processors, it must run unattended for
-          months or longer, and a repair visit is slow, costly or impossible.
+          Mru fits when three things are true: the equipment has a Linux processor with room to run your task three
+          times, it must run unattended for months or longer, and a repair visit is slow, costly or impossible.
         </p>
         <a class="link-more" href="/use-cases/">
           See more use cases
