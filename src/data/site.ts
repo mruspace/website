@@ -8,5 +8,5 @@ export const SITE = {
   zenodo: 'https://doi.org/10.5281/zenodo.20579437',
   name: 'Mru',
   siteName: 'Mru Aerospace',
-  legal: 'Binns Pte. Ltd.',
+  legal: 'Mru Aerospace, Inc.',
 } as const;

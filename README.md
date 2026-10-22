@@ -142,7 +142,7 @@ deploys separately with `npx wrangler deploy` from `worker/`.
 - Photos: their own free licenses, listed on [/credits/](https://mru.space/credits/)
   and in `src/data/images.json`.
 - Fonts in `public/fonts/`: SIL Open Font License 1.1 (license files alongside).
-- The **Mru** name, logo and `mru.space` are trademarks of Binns Pte. Ltd. and
+- The **Mru** name, logo and `mru.space` are trademarks of Mru Aerospace, Inc. and
   are not covered by these licenses. See [TRADEMARK.md](./TRADEMARK.md).
 
-© Binns Pte. Ltd.
+© Mru Aerospace, Inc.
