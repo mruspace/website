@@ -177,8 +177,10 @@ const faq = [
             <tr>
               <td>Framework</td>
               <td>
-                Four F&#180; v4.4.1 components, built and tested: RedundancyManager, HealthRegistry, ReplicaHost and the
-                test-only FaultInjector. Not yet run in orbit; the OPS-SAT run used the demo voter and replicas.
+                F&#180; v4.4.1 components, built and tested: RedundancyManager, HealthRegistry and ReplicaHost for
+                flight, and the test-only FaultInjector and RunRecorder. A first F&#180; deployment runs them with
+                F&#180;&#39;s own services, built for the OPS-SAT flight processor. Not yet run in orbit; the OPS-SAT
+                run used the demo voter and replicas.
               </td>
             </tr>
             <tr>
@@ -320,7 +322,10 @@ const faq = [
       <div class="stratum base">
         <span class="lv">Then</span>
         <h3>F&#180; deployment</h3>
-        <p>A full F&#180; deployment on those boards, with commands and telemetry from the ground.</p>
+        <p>
+          A first F&#180; deployment runs the components with F&#180;&#39;s own command, event, telemetry and sequencing
+          services, without a ground link. Next: on those boards, with commands and telemetry from the ground.
+        </p>
       </div>
     </div>
   </section>
