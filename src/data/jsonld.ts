@@ -60,7 +60,7 @@ export const organization = (): Organization => ({
   '@type': 'Organization',
   '@id': ORG_ID,
   name: SITE.name,
-  // The legal entity today. Becomes Mru Aerospace, Lda. after incorporation.
+  // The legal entity: Mru Aerospace, Inc. (Delaware).
   legalName: SITE.legal,
   url: `${SITE.url}/`,
   logo: { '@type': 'ImageObject', url: `${SITE.url}/assets/icon-512.png`, width: '512', height: '512' },
