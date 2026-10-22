@@ -529,11 +529,11 @@ const MANUAL = {
     source: { repo: 'flight', kind: 'manual', ref: 'fprime/Mru/Components/' },
   },
   'flight.fprime.unit_tests': {
-    value: 40,
+    value: 44,
     format: 'int',
     unit: 'F´ unit tests',
     scope: 'fprime/Mru components, fprime-util check in CI',
-    conditions: 'HealthRegistry 5, ReplicaHost 5, FaultInjector 8, RedundancyManager 19, RunRecorder 3',
+    conditions: 'HealthRegistry 5, ReplicaHost 5, FaultInjector 8, RedundancyManager 23, RunRecorder 3',
     source: { repo: 'flight', kind: 'manual', ref: 'docs/fprime-design-fpp.md' },
   },
 };
