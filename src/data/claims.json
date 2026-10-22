@@ -4,7 +4,7 @@
   "sources": {
     "flight": {
       "repo": "mruspace/flight",
-      "commit": "23721b9",
+      "commit": "215547b",
       "bench": ["2026-10-11-darwin-arm64.json", "2026-10-11-linux-aarch64.json", "2026-10-11-linux-x86_64.json"],
       "bench_commits": { "darwin-arm64": "7c1a629", "linux-aarch64": "d79b345", "linux-x86_64": "d79b345" },
       "kat": "2026-10-11-darwin-arm64-kat.json",
@@ -805,13 +805,13 @@
       "text": "5"
     },
     "flight.fprime.unit_tests": {
-      "value": 40,
+      "value": 44,
       "format": "int",
       "unit": "F´ unit tests",
       "scope": "fprime/Mru components, fprime-util check in CI",
-      "conditions": "HealthRegistry 5, ReplicaHost 5, FaultInjector 8, RedundancyManager 19, RunRecorder 3",
+      "conditions": "HealthRegistry 5, ReplicaHost 5, FaultInjector 8, RedundancyManager 23, RunRecorder 3",
       "source": { "repo": "flight", "kind": "manual", "ref": "docs/fprime-design-fpp.md" },
-      "text": "40"
+      "text": "44"
     },
     "flight.kani.core": {
       "value": 4,
