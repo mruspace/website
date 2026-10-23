@@ -74,9 +74,10 @@ const TILES = [
           next. On equipment nobody can reach in time, that wait can be the rest of the deployment.
         </p>
         <p class="soft">
-          Stepping down from three replicas to two to one is not new: the Space Shuttle&#39;s computers did it. Mru adds
-          three things. It degrades on its own, with no ground team. Its decision core is small and verified. Its trade
-          data is public. <a href="https://docs.mru.space/concepts/prior-art/">Prior art</a>
+          Stepping down from three replicas to two to one is{' '}
+          <a href="https://docs.mru.space/concepts/prior-art/">not new</a>: the Space Shuttle&#39;s computers did it.
+          Mru adds three things. It degrades on its own, with no ground team. Its decision core is small and verified.
+          Its trade data is public.
         </p>
         <p class="soft small">
           What it costs to reach the hardware. Batteries, sensors and mechanical work cause most of these visits, not
@@ -201,9 +202,9 @@ const TILES = [
         </h2>
         <p class="soft">
           Dusk, our open-source Monte Carlo: {t('dusk.runs')} missions on processors that fail and are never repaired.
-          Every policy sees the same fault history. This assumes no ground support after launch. With ground support
-          that never ends, the gain is {t('dusk.ground.never')}.{' '}
-          <a href="/research/dusk-results/#when-the-ground-can-help">Ground support</a>
+          Every policy sees the same fault history. This assumes no ground support after launch. With{' '}
+          <a href="/research/dusk-results/#when-the-ground-can-help">ground support that never ends</a>, the gain is{' '}
+          {t('dusk.ground.never')}.
         </p>
         <p class="soft">
           Against autonomous baselines the result is mixed. Cold standby does more work when an unpowered spare ages at
@@ -211,8 +212,8 @@ const TILES = [
           far more wrong results.
         </p>
         <p class="soft">
-          In orbit on ESA&#39;s OPS-SAT PRETTY, 18 October 2026: 2,745 correct results and 0 wrong over 5,250 ticks,
-          where fixed triple redundancy stopped at 239. <a href="/research/flight-orbit/">Mru Flight ran in orbit</a>
+          <a href="/research/flight-orbit/">In orbit on ESA&#39;s OPS-SAT PRETTY</a>, 18 October 2026: 2,745 correct
+          results and 0 wrong over 5,250 ticks, where fixed triple redundancy stopped at 239.
         </p>
       </div>
       <div class="stack-l">
@@ -277,9 +278,11 @@ const TILES = [
         </div>
         <p class="tiny">
           Limits: parameters are illustrative, not calibrated to flight data. Power and thermal limits are not modeled.
-          The aging rate of an unpowered spare is not known, so it is swept.{' '}
-          <a href="/research/dusk-results/">Full results and method</a>
+          The aging rate of an unpowered spare is not known, so it is swept.
         </p>
+        <a class="link-more" href="/research/dusk-results/">
+          Full results and method
+        </a>
       </div>
     </div>
   </section>

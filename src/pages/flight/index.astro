@@ -121,9 +121,9 @@ const faq = [
         </p>
         <h3 class="h3">Same outcome as fixed TMR on two or more</h3>
         <p class="soft small">
-          Kani proves that, with two or more replicas alive, <code>decide()</code> gives the same outcome under both
-          policies, for every set of three replies.{' '}
-          <a href="https://github.com/mruspace/flight/blob/v0.3.1/quorum/src/lib.rs#L331">The proof</a>
+          <a href="https://github.com/mruspace/flight/blob/v0.3.1/quorum/src/lib.rs#L331">Kani proves</a> that, with two
+          or more replicas alive, <code>decide()</code> gives the same outcome under both policies, for every set of
+          three replies.
         </p>
       </div>
       <div class="note">
@@ -133,8 +133,8 @@ const faq = [
         <h3 class="h3">Only agreed results</h3>
         <p class="soft small">
           A delivered value came from two agreeing replicas, or from both runs of the last replica&#39;s self-check.
-          Kani proves it for every set of three replies to <code>decide()</code>.{' '}
-          <a href="https://github.com/mruspace/flight/blob/v0.3.1/quorum/src/lib.rs#L362">The proof</a>
+          <a href="https://github.com/mruspace/flight/blob/v0.3.1/quorum/src/lib.rs#L362">Kani proves it</a> for every
+          set of three replies to <code>decide()</code>.
         </p>
       </div>
       <div class="note">
@@ -203,8 +203,8 @@ const faq = [
               <td>Command path</td>
               <td>
                 Self-check on one replica is for data products, not spacecraft commands, unless the mission adds its own
-                command safety layer. Integrators can gate commands on <code>Verdict.mode</code>.{' '}
-                <a href="https://docs.mru.space/core/quorum-crate/#gate">Example</a>
+                command safety layer. Integrators can{' '}
+                <a href="https://docs.mru.space/core/quorum-crate/#gate">gate commands</a> on <code>Verdict.mode</code>.
               </td>
             </tr>
             <tr>
@@ -218,11 +218,10 @@ const faq = [
               <td>Known limit</td>
               <td>
                 On the last replica, only the periodic known-answer test, every 64 ticks by default, can catch a stuck
-                fault. Measured with the demo task: every stuck result was caught, after{' '}
-                {t('flight.kat_coverage.stuck.64.wrong_mean')} wrong results on average. The one test input saw{' '}
-                {t('flight.kat_coverage.stuckbit.out.64')} of stuck-at bits in the result; the others keep delivering
-                wrong results. Bit flips that hit both self-check runs alike are not caught.{' '}
-                <a href="https://docs.mru.space/core/bench/#kat">Coverage data</a>
+                fault. <a href="https://docs.mru.space/core/bench/#kat">Measured with the demo task</a>: every stuck
+                result was caught, after {t('flight.kat_coverage.stuck.64.wrong_mean')} wrong results on average. The
+                one test input saw {t('flight.kat_coverage.stuckbit.out.64')} of stuck-at bits in the result; the others
+                keep delivering wrong results. Bit flips that hit both self-check runs alike are not caught.
               </td>
             </tr>
           </tbody>
@@ -310,9 +309,10 @@ const faq = [
         <p>
           The experiment on OPS-SAT PRETTY (exp4051): faults from a schedule, with the software&#39;s own memory sensor
           logged. After ESA&#39;s software environment test on 15 October 2026 and TU Graz&#39;s FlatSat test on the
-          flight processor on 16 October, v0.3.1 ran in orbit on 18 October 2026 at 09:45 UTC: three software replicas
-          on one Linux processor, in user space. Both runs exited 0 and matched the prediction written before the run.
-          No real upset was seen. <a href="/research/flight-orbit/">№ 006</a>
+          flight processor on 16 October, v0.3.1{' '}
+          <a href="/research/flight-orbit/">ran in orbit on 18 October 2026 at 09:45 UTC</a>: three software replicas on
+          one Linux processor, in user space. Both runs exited 0 and matched the prediction written before the run. No
+          real upset was seen.
         </p>
       </div>
       <div class="stratum">
