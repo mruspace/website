@@ -181,11 +181,10 @@ const faq = [
             <td>Known limit</td>
             <td>
               On the last replica, only the periodic known-answer test, every 64 cycles by default, can catch a stuck
-              fault. Measured with the demo task: every stuck result was caught, after{' '}
-              {t('flight.kat_coverage.stuck.64.wrong_mean')} wrong results on average. The one test input saw{' '}
-              {t('flight.kat_coverage.stuckbit.out.64')} of stuck-at bits in the result; the others keep delivering
-              wrong results. Bit flips that hit both self-check runs alike are not caught.{' '}
-              <a href="https://docs.mru.space/core/bench/#kat">Coverage data</a>
+              fault. <a href="https://docs.mru.space/core/bench/#kat">Measured with the demo task</a>: every stuck
+              result was caught, after {t('flight.kat_coverage.stuck.64.wrong_mean')} wrong results on average. The one
+              test input saw {t('flight.kat_coverage.stuckbit.out.64')} of stuck-at bits in the result; the others keep
+              delivering wrong results. Bit flips that hit both self-check runs alike are not caught.
             </td>
           </tr>
           <tr>
