@@ -23,7 +23,7 @@ import Section from '../../components/research/Section.astro';
 import Figure from '../../components/research/Figure.astro';
 
 <Section label="Status">
-<Fragment slot="note">Prototype, v0.3.1. One run in orbit, 227 seconds, on a Linux payload processor in user space. Not a hardware-redundancy test.</Fragment>
+<Fragment slot="note">Prototype, v0.3.1. Run 1 of 2 in orbit, 227 seconds, on a Linux payload processor in user space. Not a hardware-redundancy test.</Fragment>
 
 ## What ran
 
@@ -97,6 +97,6 @@ One defect: both runs overran the 110-second cap by about 3 seconds. The limit i
 
 ## Next
 
-Run 2 ran in orbit on 22 October 2026 at 09:49 UTC, with v0.4.0: a hung replica, a stuck replica, a stuck bit on the last replica with a safe halt, and a resume after the voter was killed and restarted. It met the prediction written to ESA on 20 October. The shrinking quorum delivered 698 correct results and 0 wrong, and the self-check caught the stuck bit for a safe halt at tick 1,281. Fixed TMR, on the same faults, delivered 119. The voter was killed at tick 900, resumed once from its checkpoint at tick 900, and ran to tick 1,750: 1,750 correct results in that segment, 0 wrong. A full write-up of run 2 is planned.
+Run 2 ran in orbit on 22 October 2026, with v0.4.0: three replicas down to one, a stuck bit on the last one caught for a safe halt with 0 wrong results, and a resume after the voter was killed. It met its prediction. See <a href="/research/flight-orbit-2/">№ 007</a>.
 
 </Section>

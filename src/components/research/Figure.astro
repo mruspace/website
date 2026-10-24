@@ -1,7 +1,14 @@
 ---
 import Chart from '../Chart.astro';
 interface Props {
-  name: 'flight-correct' | 'flight-bench' | 'flight-orbit' | 'dusk-output' | 'dusk-sensitivity' | 'dusk-cold-aging';
+  name:
+    | 'flight-correct'
+    | 'flight-bench'
+    | 'flight-orbit'
+    | 'flight-orbit-2'
+    | 'dusk-output'
+    | 'dusk-sensitivity'
+    | 'dusk-cold-aging';
   alt: string;
 }
 const { name, alt } = Astro.props;

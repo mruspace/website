@@ -12,7 +12,7 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Mru Flight' }];
 const faq = [
   {
     q: 'Do we need new flight hardware?',
-    a: 'No. Mru Flight is software for the processors you already fly, starting with F´, then other flight software frameworks. It needs two or more processors that can run the same task at the same time, and each one costs power.',
+    a: 'No. Mru Flight is software for the processors you already fly, starting with F´, then other flight software frameworks. It needs two or more processors that can run the same task at the same time, and each one costs power. The prototype that ran in orbit put all three replicas on one processor.',
   },
   {
     q: 'What does it cost us in throughput?',
@@ -162,8 +162,9 @@ const faq = [
             <tr>
               <td style="width: 32%">Processors</td>
               <td>
-                Three replicas of the same task, on two or more processors. Continues on two, then one. Each processor
-                costs power.
+                Mru Flight: three replicas of the same task, on two or more processors. Continues on two, then one. Each
+                processor costs power. The prototype that ran in orbit put all three replicas on one processor, the
+                SEPP.
               </td>
             </tr>
             <tr>
@@ -171,7 +172,8 @@ const faq = [
               <td>
                 Decision core: <code>no_std</code>, built in CI for bare-metal ARM Cortex-M, not yet run on one. Demo
                 and bench: static Linux binaries for 64-bit and 32-bit ARM and x86_64, tested in CI, natively and under
-                emulation. The demo ran in orbit on OPS-SAT PRETTY&#39;s SEPP (two Cortex-A9 cores), in user space.
+                emulation. The demo ran in orbit twice on OPS-SAT PRETTY&#39;s SEPP (two Cortex-A9 cores), in user
+                space.
               </td>
             </tr>
             <tr>
@@ -180,8 +182,8 @@ const faq = [
                 F&#180; v4.4.1 components, built and tested: RedundancyManager, HealthRegistry and ReplicaHost for
                 flight, and the test-only FaultInjector and RunRecorder. A first F&#180; deployment runs them with
                 F&#180;&#39;s own services, built for the OPS-SAT flight processor, with each replica in a process of
-                its own on the processor&#39;s two cores. Not yet run in orbit; the OPS-SAT run used the demo voter and
-                replicas.
+                its own on the processor&#39;s two cores. Not yet run in orbit; both OPS-SAT runs used the demo voter
+                and replicas.
               </td>
             </tr>
             <tr>
@@ -265,7 +267,7 @@ const faq = [
               <td>
                 Unit tests, {t('flight.kani.total')} Kani proofs, CI on three operating systems and emulated ARM,
                 scenario tests, a bench, F&#180; unit and system tests, TU Graz&#39;s FlatSat test on the flight
-                processor and one run in orbit on OPS-SAT PRETTY.
+                processor and two runs in orbit on OPS-SAT PRETTY.
               </td>
             </tr>
             <tr>
@@ -290,8 +292,8 @@ const faq = [
         <h2 class="h2">What exists, and what comes next.</h2>
       </div>
       <p class="lede">
-        The decision core and its F&#180; components are built, tested and measured, and the demo has run once in orbit.
-        Each next step adds longer runs and more hardware.
+        The decision core and its F&#180; components are built, tested and measured, and the demo has run twice in
+        orbit. Each next step adds longer runs and more hardware.
       </p>
     </div>
     <div class="strata">
@@ -300,19 +302,21 @@ const faq = [
         <h3>Core, F&#180; components and bench</h3>
         <p>
           Rust core with Kani proofs, F&#180; components that give the demo&#39;s counts, a bench of three replica
-          processes on general-purpose hosts, resets survived, and one run in orbit. v0.3.1.
+          processes on general-purpose hosts, resets survived, and two runs in orbit. v0.4.0.
         </p>
       </div>
       <div class="stratum">
         <span class="lv">Orbit</span>
-        <h3>Ran in orbit, 18 October 2026</h3>
+        <h3>Ran in orbit, 18 and 22 October 2026</h3>
         <p>
           The experiment on OPS-SAT PRETTY (exp4051): faults from a schedule, with the software&#39;s own memory sensor
           logged. After ESA&#39;s software environment test on 15 October 2026 and TU Graz&#39;s FlatSat test on the
           flight processor on 16 October, v0.3.1{' '}
           <a href="/research/flight-orbit/">ran in orbit on 18 October 2026 at 09:45 UTC</a>: three software replicas on
-          one Linux processor, in user space. Both runs exited 0 and matched the prediction written before the run. No
-          real upset was seen.
+          one Linux processor, in user space. Both policies exited 0 and matched the prediction written before the run.
+          v0.4.0 <a href="/research/flight-orbit-2/">ran again on 22 October 2026</a>: three replicas down to one, a
+          stuck bit on the last one caught for a safe halt with 0 wrong results, and a resume from a checkpoint after
+          the program was killed. It matched its prediction too. No real upset was seen in either run.
         </p>
       </div>
       <div class="stratum">
