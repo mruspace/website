@@ -32,8 +32,8 @@ const TILES = [
 ---
 
 <Base rootClass="glow" request={{ interest: 'field' }}>
-  <NewsBar slot="top" href="/research/flight-orbit/">
-    Mru Flight ran in orbit on ESA's OPS-SAT satellite
+  <NewsBar slot="top" href="/research/flight-orbit-2/">
+    Mru Flight ran in orbit again: a safe halt and a restart
   </NewsBar>
   <!-- 1 · Hero -->
   <section class="wrap hero" aria-labelledby="h-hero">
@@ -82,8 +82,9 @@ const TILES = [
         <p class="soft">
           What it costs to reach the hardware. Batteries, sensors and mechanical work cause most of these visits, not
           processor failure, and Mru does not remove them. Mru keeps the replicas that are left doing checked work
-          between visits. It needs one Linux processor. A second processor, planned, is what survives the failure of the
-          first.
+          between visits. Mru Field needs one Linux processor and runs the three replicas as processes on it. A second
+          processor, planned, is what survives the failure of the first. Mru Flight puts the replicas on two or more
+          processors.
         </p>
       </div>
     </div>
@@ -214,6 +215,8 @@ const TILES = [
         <p class="soft">
           <a href="/research/flight-orbit/">In orbit on ESA&#39;s OPS-SAT PRETTY</a>, 18 October 2026: 2,745 correct
           results and 0 wrong over 5,250 ticks, where fixed triple redundancy stopped at 239.
+          <a href="/research/flight-orbit-2/">Again on 22 October</a>: down to one replica, then a safe halt with 0
+          wrong results, and a resume after the program was killed.
         </p>
       </div>
       <div class="stack-l">
@@ -360,8 +363,9 @@ const TILES = [
           Mru Flight
         </h3>
         <p class="soft" style="margin-top: 12px">
-          Onboard software for spacecraft, built on NASA JPL&#39;s F&#180;. v0.3.1 has run once in orbit, on ESA&#39;s
-          OPS-SAT PRETTY. Per mission, with support. Qualification is planned; no qualification evidence exists yet.
+          Onboard software for spacecraft, built on NASA JPL&#39;s F&#180;. It has run twice in orbit, on ESA&#39;s
+          OPS-SAT PRETTY (v0.3.1 and v0.4.0). Per mission, with support. Qualification is planned; no qualification
+          evidence exists yet.
         </p>
         <span class="link-more">Mru Flight</span>
       </a>

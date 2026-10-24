@@ -15,7 +15,7 @@ const faq = [
   },
   {
     q: 'What evidence is there today?',
-    a: `Simulation over ${t('dusk.runs')} missions, a fault-injection demo and a bench on real processes, ${t('flight.kani.total')} Kani proofs, one run in orbit on ESA's OPS-SAT PRETTY, and the supervisor's own tests and scenario checks on the bench, in its repository. None of it has run on your equipment yet.`,
+    a: `Simulation over ${t('dusk.runs')} missions, a fault-injection demo and a bench on real processes, ${t('flight.kani.total')} Kani proofs, two runs in orbit on ESA's OPS-SAT PRETTY, and the supervisor's own tests and scenario checks on the bench, in its repository. None of it has run on your equipment yet.`,
   },
   {
     q: 'How is it priced?',
@@ -57,7 +57,7 @@ const faq = [
         </p>
         <p class="soft small">
           Status: version 0.1.0, built and tested on the bench on general-purpose processors, not yet on a board in the
-          field. The decision core has run once in orbit.
+          field. The decision core has run twice in orbit.
         </p>
         <div class="row">
           <a class="btn" href="#request">
@@ -154,9 +154,10 @@ const faq = [
           <tr>
             <td style="width: 30%">Processors</td>
             <td>
-              One Linux processor. The supervisor runs three replicas of your task as processes on it, and still works
-              with one, in self-check mode. Replicas on a second processor over a link are planned. Until then, a
-              failure of the processor itself is not survived.
+              Mru Field needs one Linux processor. The supervisor runs three replicas of your task as processes on it,
+              and still works with one, in self-check mode. Replicas on a second processor over a link are planned.
+              Until then, a failure of the processor itself is not survived. Mru Flight, for spacecraft, puts the
+              replicas on two or more processors.
             </td>
           </tr>
           <tr>
