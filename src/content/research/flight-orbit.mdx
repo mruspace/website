@@ -3,8 +3,8 @@ number: '006'
 kind: Results
 title: 'Mru Flight ran in orbit'
 shortTitle: 'Mru Flight ran in orbit'
-summary: On 18 October 2026, v0.3.1 ran on ESA's OPS-SAT PRETTY as three software replicas on one processor, with injected faults. 2,745 correct results and 0 wrong, where fixed TMR stopped at 239.
-lede: On 18 October 2026, Mru Flight v0.3.1 ran on ESA's OPS-SAT PRETTY satellite. Three software replicas on one flight processor, faults from a schedule, and a prediction written two days before the run, met on every tick.
+summary: On October 18, 2026, v0.3.1 ran on ESA's OPS-SAT PRETTY as three software replicas on one processor, with injected faults. 2,745 correct results and 0 wrong, where fixed TMR stopped at 239.
+lede: On October 18, 2026, Mru Flight v0.3.1 ran on ESA's OPS-SAT PRETTY satellite. Three software replicas on one flight processor, faults from a schedule, and a prediction written two days before the run, met on every tick.
 date: 2026-10-18
 readingTime: 6 min
 byline:
@@ -27,7 +27,7 @@ import Figure from '../../components/research/Figure.astro';
 
 ## What ran
 
-On 18 October 2026 at 09:45 UTC, Mru Flight v0.3.1 ran on ESA's OPS-SAT PRETTY satellite, as experiment exp4051 of the ESA OPS-SAT Space Lab. The experiment was registered on 7 October and the package was sent on 15 October: eleven days from registration to orbit.
+On October 18 at 09:45 UTC, Mru Flight v0.3.1 ran on ESA's OPS-SAT PRETTY satellite, as experiment exp4051 of the ESA OPS-SAT Space Lab. The experiment was registered on October 7 and the package was sent on October 15: eleven days from registration to orbit.
 
 The package is the fault-injection demo from release v0.3.1, built as a static 32-bit ARM binary. One entry point runs the shrinking quorum, then fixed triple redundancy (TMR), with the same seed and the same fault schedule (one tick is one voting round): a sensor self-test at tick 20, a bit flip in replica 2 at tick 60, replica 1 stuck at tick 120, replica 0 killed at tick 240. Each run has 110 seconds, a 5% share of the processor, 128 MB per process, and a 64 MB block of memory scanned for upsets every 250 ticks.
 
@@ -38,15 +38,15 @@ The package is the fault-injection demo from release v0.3.1, built as a static 3
 
 ## Three hosts, the same events
 
-The same binary ran three times: in ESA's software environment on 15 October (a Linux virtual machine, not the flight processor), on TU Graz's FlatSat on the flight processor on 16 October, and in orbit on 18 October. Every scheduled fault landed on the same tick on every host. No run gave a wrong result.
+The same binary ran three times: in ESA's software environment on October 15 (a Linux virtual machine, not the flight processor), on TU Graz's FlatSat on the flight processor on October 16, and in orbit on October 18. Every scheduled fault landed on the same tick on every host. No run gave a wrong result.
 
 <div class="tbl-box" tabindex="0" style="margin: 24px 0 0">
   <table class="tbl">
     <thead><tr><th>Run</th><th>Shrinking quorum: correct, wrong, ticks</th><th>Fixed TMR: correct, then detected disagreements to tick</th><th>Total</th><th>Exit</th></tr></thead>
     <tbody>
-      <tr><td>Software environment, 15 Oct</td><td class="m">14,886 · 0 · 29,532</td><td class="m">239, to 19,250</td><td class="m">222 s</td><td class="m">0, 0</td></tr>
-      <tr><td>FlatSat, 16 Oct</td><td class="m">2,745 · 0 · 5,250</td><td class="m">239, to 4,778</td><td class="m">224 s</td><td class="m">0, 0</td></tr>
-      <tr><td>In orbit, 18 Oct</td><td class="m sig">2,745 · 0 · 5,250</td><td class="m">239, to 4,500</td><td class="m">227 s</td><td class="m">0, 0</td></tr>
+      <tr><td>Software environment, 2026-10-15</td><td class="m">14,886 · 0 · 29,532</td><td class="m">239, to 19,250</td><td class="m">222 s</td><td class="m">0, 0</td></tr>
+      <tr><td>FlatSat, 2026-10-16</td><td class="m">2,745 · 0 · 5,250</td><td class="m">239, to 4,778</td><td class="m">224 s</td><td class="m">0, 0</td></tr>
+      <tr><td>In orbit, 2026-10-18</td><td class="m sig">2,745 · 0 · 5,250</td><td class="m">239, to 4,500</td><td class="m">227 s</td><td class="m">0, 0</td></tr>
     </tbody>
   </table>
 </div>
@@ -71,7 +71,7 @@ The voter used 65,992 KiB resident, almost all of it the 64 MB sensor block, and
 <Figure name="flight-orbit" alt="Timeline of the two runs in orbit by tick, with an axis break at tick 300. Faults at ticks 20, 120 and 240, and the memory scan at tick 250. The shrinking quorum delivers checked results to tick 5,250: 2,745 correct, 0 wrong. Fixed TMR delivers 239 correct results to tick 239, then detects 4,261 disagreements and delivers nothing to tick 4,500.">Fig. 1 · Events as the program logged them on OPS-SAT PRETTY, from the files the satellite sent down. The axis breaks at tick 300: every fault lands before it, both runs go on past it. The bit flip in replica 2 at tick 60 is outvoted and leaves no event in the log, so it has no mark.</Figure>
 
 <Section label="Prediction">
-<Fragment slot="note">Written to ESA on 16 October 2026 at 14:10 UTC, after the FlatSat test and before the run in orbit.</Fragment>
+<Fragment slot="note">Written to ESA on October 16 at 14:10 UTC, after the FlatSat test and before the run in orbit.</Fragment>
 
 ## What we said it would do
 
@@ -97,6 +97,6 @@ One defect: both runs overran the 110-second cap by about 3 seconds. The limit i
 
 ## Next
 
-Run 2 ran in orbit on 22 October 2026, with v0.4.0: three replicas down to one, a stuck bit on the last one caught for a safe halt with 0 wrong results, and a resume after the voter was killed. It met its prediction. See <a href="/research/flight-orbit-2/">№ 007</a>.
+Run 2 ran in orbit on October 22, with v0.4.0: three replicas down to one, a stuck bit on the last one caught for a safe halt with 0 wrong results, and a resume after the voter was killed. It met its prediction. See <a href="/research/flight-orbit-2/">№ 007</a>.
 
 </Section>

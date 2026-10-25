@@ -21,9 +21,22 @@ const KIND_PATH: Record<Entry['data']['kind'], string> = {
 export const kindFilter = (kind: Entry['data']['kind']) => `/research/?kind=${KIND_PATH[kind]}`;
 export const KIND_SLUGS = KIND_PATH;
 
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-/** "29 Sep 2026", as on the canvas. */
-export const formatDate = (d: Date) => `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+const MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+/** "September 29, 2026", US style. */
+export const formatDate = (d: Date) => `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`;
 
 export function dateLabel(e: Entry): string {
   return e.data.dateLabel ?? formatDate(e.data.date);

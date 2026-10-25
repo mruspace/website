@@ -98,7 +98,7 @@ const filters = [
         ))}
       </nav>
       <span class="tiny" data-count>
-        {all.length} entries since {dateLabel(oldest).replace(/^\d+ /, '')}
+        {all.length} entries since {dateLabel(oldest).replace(/ \d+,/, '')}
       </span>
     </div>
     <div class="log" data-log>

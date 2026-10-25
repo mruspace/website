@@ -6,7 +6,7 @@
   ],
   "status": {
     "label": "Status · prototype, ran in orbit twice",
-    "text": "The decision core, a fault-injection demo and F´ components run on general-purpose processors. The demo ran in orbit on ESA's OPS-SAT PRETTY on 18 and 22 October 2026: three replicas on one processor, down to one and a safe halt, with 0 wrong results."
+    "text": "The decision core, a fault-injection demo and F´ components run on general-purpose processors. The demo ran in orbit on ESA's OPS-SAT PRETTY on October 18 and 22, 2026: three replicas on one processor, down to one and a safe halt, with 0 wrong results."
   },
   "repos": [
     {
