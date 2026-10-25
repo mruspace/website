@@ -3,7 +3,7 @@
 <defs><pattern id="hatch2" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="#eb6834" stroke-width="2.5" opacity="0.55"/></pattern></defs>
 <rect width="1200" height="676" fill="#fafaf8"/>
 <text class="display" x="56" y="76" font-size="34">Down to one replica, a safe halt, and a restart.</text>
-<text x="56" y="114" font-size="20" class="soft">Events logged by the quorum program on OPS-SAT PRETTY, 22 October 2026. Seed 1, faults from a schedule.</text>
+<text x="56" y="114" font-size="20" class="soft">Events logged by the quorum program on OPS-SAT PRETTY, October 22, 2026. Seed 1, faults from a schedule.</text>
 <line x1="56" x2="86" y1="155" y2="155" stroke="#2a78d6" stroke-width="5" stroke-linecap="round"/>
 <text x="98" y="162" font-size="20" font-weight="700">Mru shrinking quorum</text>
 <line x1="346" x2="376" y1="155" y2="155" stroke="#eb6834" stroke-width="5" stroke-linecap="round"/>

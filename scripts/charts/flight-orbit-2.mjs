@@ -1,6 +1,6 @@
 // Draws public/charts/flight-orbit-2-{light,dark}.svg from the event logs,
 // summaries and checkpoints the satellite sent down for run 2 of experiment
-// exp4051 (OPS-SAT PRETTY, 22 October 2026):
+// exp4051 (OPS-SAT PRETTY, 2026-10-22):
 // opssat/results/2026-10-22-ops-sat-pretty-on-board-run2 in mruspace/flight.
 // Same theme, series colors and axis break as flight-orbit.mjs (№ 006). Three
 // lanes: segment 1 (shrinking quorum, lifecycle faults), segment 2 (fixed TMR,
@@ -146,7 +146,7 @@ function svg(theme) {
     `<text class="display" x="${M}" y="${M + 20}" font-size="34">Down to one replica, a safe halt, and a restart.</text>`,
   );
   add(
-    `<text x="${M}" y="${M + 58}" font-size="20" class="soft">Events logged by the quorum program on OPS-SAT PRETTY, 22 October 2026. Seed 1, faults from a schedule.</text>`,
+    `<text x="${M}" y="${M + 58}" font-size="20" class="soft">Events logged by the quorum program on OPS-SAT PRETTY, October 22, 2026. Seed 1, faults from a schedule.</text>`,
   );
   const key = (x, colour, text, weight) => {
     add(

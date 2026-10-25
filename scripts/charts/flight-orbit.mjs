@@ -1,6 +1,6 @@
 // Draws public/charts/flight-orbit-{light,dark}.svg from the event logs and
 // summaries the satellite sent down for experiment exp4051 (OPS-SAT PRETTY,
-// 18 October 2026): opssat/results/2026-10-18-ops-sat-pretty-on-board in
+// 2026-10-18): opssat/results/2026-10-18-ops-sat-pretty-on-board in
 // mruspace/flight. The theme and series colors are the ones scripts/chart.py
 // in that repo uses. The x axis has a break: the faults all land in the first
 // 300 ticks, the runs go on to 5,250.
@@ -118,7 +118,7 @@ function svg(theme) {
     `<text class="display" x="${M}" y="${M + 20}" font-size="34">Two policies, the same faults, 110 seconds in orbit.</text>`,
   );
   add(
-    `<text x="${M}" y="${M + 58}" font-size="20" class="soft">Events logged by the quorum program on OPS-SAT PRETTY, 18 October 2026. Seed 1, faults from a schedule.</text>`,
+    `<text x="${M}" y="${M + 58}" font-size="20" class="soft">Events logged by the quorum program on OPS-SAT PRETTY, October 18, 2026. Seed 1, faults from a schedule.</text>`,
   );
   const key = (x, colour, text, weight) => {
     add(

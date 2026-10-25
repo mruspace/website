@@ -182,7 +182,7 @@
   {
     "url": "https://mru.space/research/flight-orbit-2/",
     "title": "Second run in orbit: a safe halt and a restart · Mru Aerospace",
-    "description": "On 22 October 2026, v0.4.0 ran on ESA's OPS-SAT PRETTY: down to one replica, a safe halt with 0 wrong results, and a resume after the voter was killed.",
+    "description": "On October 22, 2026, v0.4.0 ran on ESA's OPS-SAT PRETTY: down to one replica, a safe halt with 0 wrong results, and a resume after the voter was killed.",
     "ogTitle": "Second run in orbit: a safe halt and a restart",
     "cardLabel": "Research № 007 · Results",
     "schema": ["BlogPosting", "SoftwareSourceCode", "BreadcrumbList"]
@@ -190,7 +190,7 @@
   {
     "url": "https://mru.space/research/flight-orbit/",
     "title": "Mru Flight ran in orbit · Mru Aerospace",
-    "description": "On 18 October 2026, v0.3.1 ran on ESA's OPS-SAT PRETTY as three software replicas on one processor, with injected faults: 2,745 correct results and 0 wrong.",
+    "description": "On October 18, 2026, v0.3.1 ran on ESA's OPS-SAT PRETTY as three software replicas on one processor, with injected faults: 2,745 correct results and 0 wrong.",
     "ogTitle": "Mru Flight ran in orbit",
     "cardLabel": "Research № 006 · Results",
     "schema": ["BlogPosting", "SoftwareSourceCode", "BreadcrumbList"]
