@@ -5,8 +5,8 @@
     "Mru Flight is the version for spacecraft. Mru Field is the version for equipment on Earth that nobody can reach in time, such as deep-ocean sensors."
   ],
   "status": {
-    "label": "Status · prototype, ran in orbit twice",
-    "text": "The decision core, a fault-injection demo and F´ components run on general-purpose processors. The demo ran in orbit on ESA's OPS-SAT PRETTY on October 18 and 22, 2026: three replicas on one processor, down to one and a safe halt, with 0 wrong results."
+    "label": "Status · prototype, ran in orbit three times",
+    "text": "The decision core, a fault-injection demo and F´ components run on general-purpose processors. Mru Flight ran in orbit on ESA's OPS-SAT PRETTY on October 18, 22 and 28, 2026, the last time as F´ components: three replicas on one processor, down to one, with 0 wrong results."
   },
   "repos": [
     {

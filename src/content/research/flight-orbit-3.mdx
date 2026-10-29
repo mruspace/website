@@ -1,0 +1,110 @@
+---
+number: '008'
+kind: Results
+title: 'Third run in orbit: the F´ components'
+shortTitle: 'Third run in orbit'
+summary: On October 28, 2026, Mru Flight v0.7.0 ran on ESA's OPS-SAT PRETTY as an F´ deployment, each replica a process of its own. Down to the last replica with 342 correct results and 0 wrong, and a killed manager restored from its state file.
+lede: On October 28, 2026, Mru's F´ components ran on ESA's OPS-SAT PRETTY satellite, the third run of the experiment and the first in the form a mission would integrate. Each replica ran as a process of its own on the processor's two cores, one was killed for real, and the manager was killed and restored. It met the prediction written two days before.
+date: 2026-10-28
+readingTime: 6 min
+byline:
+  - { label: Release, text: v0.7.0, href: 'https://github.com/mruspace/flight/releases/tag/v0.7.0' }
+  - { label: Experiment, text: exp4051, href: 'https://github.com/mruspace/flight/blob/main/docs/opssat.md' }
+  - { label: Raw files, text: opssat/results, href: 'https://github.com/mruspace/flight/tree/main/opssat/results/2026-10-28-ops-sat-pretty-on-board-run3' }
+related: [flight-orbit-2, flight-orbit, flight-measured]
+request:
+  interest: flight
+  topic: № 008 · Third run in orbit
+  heading: Questions about this run?
+code: { repo: 'https://github.com/mruspace/flight', language: Rust, license: Apache-2.0 }
+---
+
+import Section from '../../components/research/Section.astro';
+import Figure from '../../components/research/Figure.astro';
+
+<Section label="Status">
+<Fragment slot="note">Prototype, v0.7.0. The third run in orbit, 148 seconds, on a Linux payload processor in user space. Not a hardware-redundancy test. Run 2 is <a href="/research/flight-orbit-2/">№ 007</a>.</Fragment>
+
+## What ran
+
+On October 28 at 09:13 UTC, Mru Flight v0.7.0 ran on ESA's OPS-SAT PRETTY satellite, the third run of experiment exp4051 of the ESA OPS-SAT Space Lab. The package went to ESA with the run 2 results on October 26, ESA confirmed a third run on October 27, and TU Graz ran it on the FlatSat on the morning of October 28.
+
+Runs 1 and 2 flew the fault-injection demo. Run 3 flies the same decision core as F&#x2060;´ components, in the form a mission would integrate it. F&#x2060;´ is NASA JPL's open-source flight software framework. The manager process runs RedundancyManager and HealthRegistry with F&#x2060;´'s own command dispatcher, events, telemetry, health pings and command sequencer, on a timer of 100 ms (one cycle). Each of the three replicas is an F&#x2060;´ process of its own, linked to the manager through F&#x2060;´'s GenericHub over local sockets, with no network. Replica 0 is pinned to one of the processor's two cores, replicas 1 and 2 to the other.
+
+The faults are the ones of run 1, commanded by F&#x2060;´ command sequences, as an operator would command them. Three segments, 128 MB per process:
+
+1. The shrinking quorum: a bit flip in replica 2 at cycle 60, replica 1 stuck at cycle 120, and at the start of cycle 240 the manager kills replica 0's process (SIGKILL). Cap 45 seconds.
+2. Fixed triple redundancy (TMR) on the same faults. Cap 35 seconds.
+3. The shrinking quorum with its state saved to a file, replica 1 stuck at cycle 200. After 35 seconds our script kills the manager without warning and starts it again for 30 seconds, with no command sequence.
+
+The kills are our own software ending our own processes, in user space. Nothing on the platform was reset or commanded.
+
+</Section>
+
+<Section label="Hosts">
+<Fragment slot="note">The flight processor is the SEPP: an Altera Cyclone V SoC with two ARM Cortex-A9 cores at 800 MHz, 1 GB of memory and Linux 4.9. The deployment ran in a container as an unprivileged user, in user space only.</Fragment>
+
+## Three hosts, the same counts
+
+The same package ran in ESA's image on our laptop on October 22, the run the prediction came from, on TU Graz's FlatSat on the flight processor on the morning of October 28, and in orbit the same day. Every segment gave the same counts on every host. No segment on any host gave a wrong result.
+
+<div class="tbl-box" tabindex="0" style="margin: 24px 0 0">
+  <table class="tbl">
+    <thead><tr><th>Run</th><th>1 · Shrinking quorum: correct, caught, wrong</th><th>2 · Fixed TMR: correct, then caught disagreements to cycle</th><th>3 · Restart: correct, wrong, restored at cycle</th><th>Total</th></tr></thead>
+    <tbody>
+      <tr><td>ESA's image on a laptop, 2026-10-22</td><td class="m">342 · 3 · 0</td><td class="m">239, to 347</td><td class="m">299 · 0 · 303</td><td class="m">148 s</td></tr>
+      <tr><td>FlatSat, 2026-10-28</td><td class="m">342 · 3 · 0</td><td class="m">239, to 348</td><td class="m">299 · 0 · 303</td><td class="m">148 s</td></tr>
+      <tr><td>In orbit, 2026-10-28</td><td class="m sig">342 · 3 · 0</td><td class="m">239, to 348</td><td class="m sig">299 · 0 · 303</td><td class="m">148 s</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p class="tiny">The segments run to a time cap at ten cycles a second, so the cycle counts barely change with the host. On the FlatSat the kill at cycle 240 came while replica 0's link errors were still in the manager's queue, so the manager withheld that cycle instead of blaming replica 0 for a missing answer (the late-cycle rule, added in v0.6.0), and retired replica 0 one cycle later, at 243. The counts did not change; in segment 2 the withheld cycle took the place of one caught disagreement. In orbit no cycle was withheld, as on the laptop. Total is the three segments plus start-up, from the run-info times.</p>
+
+</Section>
+
+<Section label="Source">
+<Fragment slot="note">The summaries, event files, state files and run-info.txt in <a href="https://github.com/mruspace/flight/tree/main/opssat/results/2026-10-28-ops-sat-pretty-on-board-run3">opssat/results</a>, the files the satellite sent down. The operations note is <a href="https://github.com/mruspace/flight/blob/main/docs/opssat.md#in-orbit-october-28-2026">docs/opssat.md</a>.</Fragment>
+
+## In orbit
+
+Segment 1. The bit flip at cycle 60 was outvoted. At cycle 120 replica 1 got stuck: it was outvoted, a known-answer test at cycle 122 named it, and the quorum retired it. Replicas 0 and 2 went on in compare mode. At the start of cycle 240 the manager killed replica 0's process. Its answers stopped, the quorum caught a disagreement on cycles 240 to 242, and at 242 retired replica 0 as lost. From cycle 243 replica 2 ran alone in self-check, computing each result twice, so it delivers a result every other cycle. 342 correct results and 0 wrong over 449 cycles.
+
+Segment 2. Fixed TMR, on the same faults, delivered 239 correct results. After the kill it had one good replica and one stuck one, could not tell which was wrong, and caught a disagreement on every cycle to 348 without delivering a result.
+
+Segment 3. Replica 1 got stuck at cycle 200 and was retired at 202. At 35 seconds the script killed the manager. Its state file, 21 bytes, held the policy, the three slots and cycle 303. Started again, the manager restored that state, logged one restore with replica 1 still retired, and went on with replicas 0 and 2 to cycle 601: 299 correct results and 0 wrong.
+
+Each replica process ran on the core it was pinned to, in every segment. The manager used 1.7 MB resident and 11.8 MB of address space. All four processes together used 0.79% to 0.96% of wall time, measured on the SEPP in steps of 10 ms, under the registered 5% share.
+
+</Section>
+
+<Figure name="flight-orbit-3" alt="Timeline of the three segments of run 3 in orbit by cycle, from 0 to 650. Faults at cycles 60, 120 and 240. Segment 1, the shrinking quorum, retires replica 1 at cycle 122 and replica 0 at 242 after its process is killed at 240, then runs on the last replica in self-check to cycle 448: 342 correct, 0 wrong, 3 caught at the kill. Segment 2, fixed TMR, delivers 239 correct results to cycle 239, then catches 109 disagreements and delivers nothing to cycle 348. Segment 3 retires the stuck replica at cycle 202, the manager is killed 35 seconds in and restored from its state file at cycle 303 with replica 1 still retired, then delivers 299 correct results, 0 wrong, to cycle 601.">Fig. 1 · Events as the F&#x2060;´ deployment logged them on OPS-SAT PRETTY, from the files the satellite sent down. One cycle is 100 ms. Segments 1 and 2 share the faults; segment 3 has its own. The pale bar in segment 3 is the run before the kill, which wrote no summary; the bar across it marks the restore.</Figure>
+
+<Section label="Prediction">
+<Fragment slot="note">Written to ESA on October 26, with the package, and restated on October 28 after the FlatSat test.</Fragment>
+
+## What we said it would do
+
+The prediction had four parts. Zero wrong results in every segment: zero. About 340 correct results in segment 1, with the quorum down to its last replica: 342, on replica 2 alone. 239 for fixed TMR, then a caught disagreement on every cycle: 239, then 109. One restore in segment 3, with the retired replica still retired: one, at cycle 303. We also wrote that the run would stop by itself after about two and a half minutes: 148 seconds.
+
+</Section>
+
+<Section label="Scope">
+<Fragment slot="note">Runs 1 and 2 are <a href="/research/flight-orbit/">№ 006</a> and <a href="/research/flight-orbit-2/">№ 007</a>.</Fragment>
+
+## What it shows, and what it does not
+
+It shows the F&#x2060;´ components doing in orbit what the demo did in runs 1 and 2: the shrinking quorum went down to its last replica with no wrong result, and fixed TMR, on the same faults, stopped delivering at cycle 240. It shows the parts a mission integrates: the components inside F&#x2060;´, commanded by a sequence, reporting through F&#x2060;´ events, a replica lost to a real process kill and found by its silence, and a manager restart that brings a retired replica back as retired. The F&#x2060;´ components had only run on the ground before this run.
+
+It does not show more than that. The three replicas were processes on one Linux processor with two cores, not three processors. The stuck value and the bit flip came from the test-only fault injector, and both kills came from our own software. The package had no memory sensor, so it says nothing about real upsets. <a href="https://docs.mru.space/concepts/qualification/">Qualification evidence</a> needs independent processors, real upsets and a long run.
+
+</Section>
+
+<Section label="Credit">
+<Fragment slot="note">ESA OPS-SAT Space Lab ran experiment exp4051 on OPS-SAT PRETTY. TU Graz operates the satellite and ran the FlatSat test.</Fragment>
+
+## Next
+
+At most one more short run on PRETTY is planned: a failure case that ESA's operations team sees in practice, if ESA agrees. After that, the next step is independent processors, on boards on the bench.
+
+</Section>

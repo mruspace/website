@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="676" viewBox="0 0 1200 676">
+<style>text{font-family:Charter,'Source Serif 4',Georgia,serif;fill:#ecece8} .soft{fill:#c0c0bc} .faint{fill:#8f8f8a} .display{font-family:Futura,Jost,'Century Gothic',sans-serif;font-weight:500}</style>
+<defs><pattern id="hatch3" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="#d95926" stroke-width="2.5" opacity="0.55"/></pattern></defs>
+<rect width="1200" height="676" fill="#16161a"/>
+<text class="display" x="56" y="76" font-size="34">Down to one replica, and a restart of the manager.</text>
+<text x="56" y="114" font-size="20" class="soft">Events logged by Mru's flight components on OPS-SAT PRETTY, October 28, 2026. Faults by command sequence, real kills.</text>
+<line x1="56" x2="86" y1="155" y2="155" stroke="#3987e5" stroke-width="5" stroke-linecap="round"/>
+<text x="98" y="162" font-size="20" font-weight="700">Mru shrinking quorum</text>
+<line x1="346" x2="376" y1="155" y2="155" stroke="#d95926" stroke-width="5" stroke-linecap="round"/>
+<text x="388" y="162" font-size="20" font-weight="400">Fixed triple redundancy (TMR)</text>
+<line x1="80" x2="954" y1="611" y2="611" stroke="#2e2e33" stroke-width="1.5"/>
+<text x="80.0" y="639" font-size="17" text-anchor="middle" class="faint">0</text>
+<text x="214.5" y="639" font-size="17" text-anchor="middle" class="faint">100</text>
+<text x="348.9" y="639" font-size="17" text-anchor="middle" class="faint">200</text>
+<text x="483.4" y="639" font-size="17" text-anchor="middle" class="faint">300</text>
+<text x="617.8" y="639" font-size="17" text-anchor="middle" class="faint">400</text>
+<text x="752.3" y="639" font-size="17" text-anchor="middle" class="faint">500</text>
+<text x="886.8" y="639" font-size="17" text-anchor="middle" class="faint">600</text>
+<text x="954" y="663" font-size="15" text-anchor="end" class="faint">cycle (100 ms each)</text>
+<line x1="160.7" x2="160.7" y1="200" y2="467" stroke="#8f8f8a" stroke-width="1.5" stroke-dasharray="2 5"/>
+<text x="166.7" y="194" font-size="16" class="soft" paint-order="stroke" stroke="#16161a" stroke-width="6" stroke-linejoin="round">cycle 60: bit flip in replica 2, outvoted</text>
+<line x1="241.4" x2="241.4" y1="224" y2="467" stroke="#8f8f8a" stroke-width="1.5" stroke-dasharray="2 5"/>
+<text x="247.4" y="218" font-size="16" class="soft" paint-order="stroke" stroke="#16161a" stroke-width="6" stroke-linejoin="round">cycle 120: replica 1 stuck, retired at 122</text>
+<line x1="402.7" x2="402.7" y1="248" y2="467" stroke="#8f8f8a" stroke-width="1.5" stroke-dasharray="2 5"/>
+<text x="408.7" y="242" font-size="16" class="soft" paint-order="stroke" stroke="#16161a" stroke-width="6" stroke-linejoin="round">cycle 240: replica 0's process killed, retired at 242</text>
+<text x="80" y="315" font-size="16" class="faint" paint-order="stroke" stroke="#16161a" stroke-width="6" stroke-linejoin="round">1 · shrinking quorum</text>
+<rect x="80.0" y="325" width="322.7" height="26" fill="#3987e5" />
+<rect x="406.7" y="325" width="275.6" height="26" fill="#3987e5" opacity="0.6"/>
+<circle cx="244.0" cy="338" r="6" fill="#16161a" stroke="#3987e5" stroke-width="2.5"/>
+<circle cx="405.4" cy="338" r="6" fill="#16161a" stroke="#3987e5" stroke-width="2.5"/>
+<text x="694.4" y="339" font-size="17" font-weight="700" fill="#ecece8">342 correct</text>
+<text x="694.4" y="359" font-size="15" class="soft">0 wrong, 3 caught at the kill</text>
+<text x="416.7" y="315" font-size="15" class="soft" paint-order="stroke" stroke="#16161a" stroke-width="6" stroke-linejoin="round">from cycle 243: the last replica alone, in self-check</text>
+<text x="80" y="423" font-size="16" class="faint" paint-order="stroke" stroke="#16161a" stroke-width="6" stroke-linejoin="round">2 · fixed TMR</text>
+<rect x="80.0" y="433" width="321.4" height="26" fill="#d95926" />
+<rect x="402.7" y="433" width="145.2" height="26" fill="url(#hatch3)" stroke="#d95926" stroke-width="1.5"/>
+<text x="559.9" y="447" font-size="17" font-weight="700" fill="#ecece8">239 correct</text>
+<text x="559.9" y="467" font-size="15" class="soft">0 wrong, 109 caught, no results</text>
+<text x="80" y="531" font-size="16" class="faint" paint-order="stroke" stroke="#16161a" stroke-width="6" stroke-linejoin="round">3 · shrinking quorum, manager killed and restored</text>
+<rect x="80.0" y="541" width="407.4" height="26" fill="#3987e5" opacity="0.35"/>
+<rect x="487.4" y="541" width="400.7" height="26" fill="#3987e5" />
+<circle cx="351.6" cy="554" r="6" fill="#16161a" stroke="#3987e5" stroke-width="2.5"/>
+<text x="341.6" y="587" font-size="15" text-anchor="end" class="soft" paint-order="stroke" stroke="#16161a" stroke-width="6" stroke-linejoin="round">cycle 200: replica 1 stuck, retired at 202</text>
+<rect x="483.4" y="535" width="8" height="38" fill="#16161a"/>
+<line x1="487.4" x2="487.4" y1="533" y2="575" stroke="#ecece8" stroke-width="2.5" stroke-linecap="round"/>
+<text x="497.4" y="531" font-size="15" class="soft" paint-order="stroke" stroke="#16161a" stroke-width="6" stroke-linejoin="round">killed 35 s in; restored at cycle 303, replica 1 still retired</text>
+<text x="900.1" y="555" font-size="17" font-weight="700" fill="#ecece8">299 correct</text>
+<text x="900.1" y="575" font-size="15" class="soft">0 wrong, after the restore</text>
+</svg>

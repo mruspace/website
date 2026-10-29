@@ -21,7 +21,7 @@
   {
     "url": "https://mru.space/flight/",
     "title": "Mru Flight: onboard fault tolerance · Mru Aerospace",
-    "description": "A no_std Rust decision core that continues on two, then one processor, where fixed TMR stops. The demo ran in orbit on OPS-SAT PRETTY twice, October 2026.",
+    "description": "A no_std Rust decision core that continues on two, then one processor, where fixed TMR stops. It ran in orbit on OPS-SAT PRETTY three times, October 2026.",
     "ogTitle": "Mru Flight: fault tolerance for spacecraft out of reach",
     "cardLabel": "Product · Space",
     "schema": ["SoftwareApplication", "BreadcrumbList", "FAQPage"]
@@ -178,6 +178,14 @@
     "cardLabel": "Research № 002 · Results",
     "schema": ["ScholarlyArticle", "BreadcrumbList"],
     "claims": ["dusk.work_vs_tmr", "dusk.runs"]
+  },
+  {
+    "url": "https://mru.space/research/flight-orbit-3/",
+    "title": "Third run in orbit: the F´ components · Mru Aerospace",
+    "description": "On October 28, 2026, v0.7.0 ran on ESA's OPS-SAT PRETTY as F´ components, each replica its own process: down to one replica with 0 wrong, and a restart.",
+    "ogTitle": "Third run in orbit: the F´ components",
+    "cardLabel": "Research № 008 · Results",
+    "schema": ["BlogPosting", "SoftwareSourceCode", "BreadcrumbList"]
   },
   {
     "url": "https://mru.space/research/flight-orbit-2/",
