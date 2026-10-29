@@ -34,6 +34,6 @@
       "desc": "Source of mru.space."
     }
   ],
-  "skip": [".github", "brand", "2049"],
+  "skip": [".github", "brand", "2049", "opssat-pretty-template"],
   "footer": ["mru.space", "contact@mru.space"]
 }
