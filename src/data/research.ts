@@ -16,7 +16,6 @@ const KIND_PATH: Record<Entry['data']['kind'], string> = {
   Paper: 'papers',
   Results: 'results',
   Release: 'releases',
-  Note: 'notes',
 };
 export const kindFilter = (kind: Entry['data']['kind']) => `/research/?kind=${KIND_PATH[kind]}`;
 export const KIND_SLUGS = KIND_PATH;

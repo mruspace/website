@@ -25,7 +25,7 @@ const all = await entries();
 const i = all.findIndex((e) => e.id === entry.id);
 const older = all[i + 1];
 const newer = all[i - 1];
-const kindPlural = { Paper: 'Papers', Results: 'Results', Release: 'Releases', Note: 'Notes' }[d.kind];
+const kindPlural = { Paper: 'Papers', Results: 'Results', Release: 'Releases' }[d.kind];
 const crumbs = [
   { label: 'Research', href: '/research/' },
   { label: kindPlural, href: kindFilter(d.kind) },
