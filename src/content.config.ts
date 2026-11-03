@@ -8,7 +8,7 @@ const research = defineCollection({
   loader: glob({ pattern: '*.{md,mdx}', base: './src/content/research' }),
   schema: z.object({
     number: z.string().regex(/^\d{3}$/),
-    kind: z.enum(['Paper', 'Results', 'Release', 'Note']),
+    kind: z.enum(['Paper', 'Results', 'Release']),
     title: z.string(),
     /** Title in prev/next links. */
     shortTitle: z.string(),
