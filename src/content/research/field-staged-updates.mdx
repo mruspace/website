@@ -3,7 +3,7 @@ number: '009'
 kind: Release
 title: 'One update, every copy: staged updates in Mru Field 0.2.0'
 shortTitle: 'Staged updates'
-summary: Friday's nationwide ground stop is a reminder that a backup fails with the original when one change reaches both. Mru Field 0.2.0 brings a new build in one slot at a time and checks it against the old build. On the bench, every bad build was rejected with 0 wrong outputs.
+summary: A backup fails with the original when one change reaches both. Mru Field 0.2.0 brings a new build in one slot at a time and checks it against the old build. On the bench, every bad build was rejected with 0 wrong outputs.
 lede: On Friday, November 13, the FAA held departures across the United States for more than four hours after the network between air traffic control centers failed. The cause is not confirmed. The pattern is familiar, though, and it is one our own software had too. Mru Field 0.2.0 adds staged updates.
 date: 2026-11-14
 readingTime: 7 min
@@ -42,7 +42,7 @@ The cause is not confirmed, and the accounts differ:
 - Homeland Security Secretary Markwayne Mullin said new security patches in the older system appeared to overwhelm its routers. He said it did not appear to be a cyberattack.
 - CBS News, citing sources, reported that an update to the network that connects air traffic control facilities made the system reboot and crash.
 
-Stopping was the right call. An aircraft on the ground can wait safely. With the links between control centers in doubt, holding departures is the safe state, and the FAA went to it quickly.
+Stopping was the right call. An aircraft on the ground can wait safely. With the links between control centers in doubt, holding departures is the safe state, and the FAA went to it.
 
 </Section>
 
@@ -53,9 +53,9 @@ Stopping was the right call. An aircraft on the ground can wait safely. With the
 
 A backup protects against a part that fails on its own. It does not protect against a cause that reaches every copy at once: the same update, the same overload, the same bad file. This is a common-mode fault.
 
-Changes are the common case. On January 11, 2023, the FAA's NOTAM system failed, and the FAA paused domestic departures nationwide that morning. Its preliminary review found that contract personnel deleted files while they worked to "correct synchronization between the live primary database and a backup database" (NPR). The backup was part of the same change.
+A change was behind an earlier outage. On January 11, 2023, the FAA's NOTAM system failed, and the FAA paused domestic departures nationwide that morning. Its preliminary review found that contract personnel deleted files while they worked to "correct synchronization between the live primary database and a backup database" (NPR). The backup was part of the same change.
 
-Two of the three accounts of Friday also name a change: an update, or new patches. A change is the one thing that is designed to reach every copy.
+Two of the three accounts of Friday also name a change: an update, or new patches. A change is designed to reach every copy.
 
 </Section>
 
@@ -140,6 +140,8 @@ By staged update, every bad build was rejected on the cycle its bug first showed
 
 ## Where stopping is not an option
 
-At an airport, the safe state is on the ground. A seafloor observatory, a polar station or a spacecraft has no gate to wait at, and a visit to undo a bad update can take months. These systems still need updates: fixes, new compilers, new libraries. A staged update lets the system judge a new build against the one it already trusts, on its own, and keep working while it does.
+At an airport, the safe state is on the ground. A seafloor observatory, a polar station or a spacecraft has no gate to wait at. A visit to a seafloor node can be a year away, and a spacecraft waits for its next contact. These systems still need updates: fixes, new compilers, new libraries. A staged update lets the system judge a new build against the one it already trusts, on its own, and keep working while it does.
+
+Staged updates are in Mru Field 0.2.0. Bringing them to Mru Flight is planned.
 
 </Section>
