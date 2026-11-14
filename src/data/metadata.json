@@ -189,9 +189,9 @@
   },
   {
     "url": "https://mru.space/research/field-staged-updates/",
-    "title": "Staged updates could help avoid a ground stop · Mru Aerospace",
+    "title": "What a ground stop shows about redundancy · Mru Aerospace",
     "description": "A bad update that reaches every copy at once can stop a whole system. Field 0.2.0 checks a new build against the old one: every bad build rejected, 0 wrong.",
-    "ogTitle": "How staged updates in Mru Field 0.2.0 could help avoid a nationwide ground stop",
+    "ogTitle": "What a nationwide ground stop shows about redundancy: staged updates in Mru Field 0.2.0",
     "cardLabel": "Research № 009 · Release",
     "schema": ["BlogPosting", "SoftwareSourceCode", "BreadcrumbList"]
   },
