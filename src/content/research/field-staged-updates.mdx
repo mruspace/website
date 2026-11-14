@@ -1,10 +1,10 @@
 ---
 number: '009'
 kind: Release
-title: 'One update, every copy: staged updates in Mru Field 0.2.0'
+title: 'How staged updates in Mru Field 0.2.0 could help avoid a nationwide ground stop'
 shortTitle: 'Staged updates'
-summary: A backup fails with the original when one change reaches both. Mru Field 0.2.0 brings a new build in one slot at a time and checks it against the old build. On the bench, every bad build was rejected with 0 wrong outputs.
-lede: On Friday, November 13, the FAA held departures across the United States for more than four hours after the network between air traffic control centers failed. The cause is not confirmed. The pattern is familiar, though, and it is one our own software had too. Mru Field 0.2.0 adds staged updates.
+summary: A bad update that reaches every copy at once can stop a whole system. Mru Field 0.2.0 brings a new build in one slot at a time and checks it against the old build. On the bench, every bad build was rejected with 0 wrong outputs.
+lede: On Friday, November 13, the FAA held departures across the United States for more than four hours after the network between air traffic control centers failed. The cause is not confirmed, and two of the three accounts point to an update. A bad update that reaches every copy at once is what Mru Field 0.2.0 is built to stop. It brings a new build in one copy at a time, and the old build checks it.
 date: 2026-11-14
 readingTime: 7 min
 byline:
@@ -47,7 +47,7 @@ Stopping was the right call. An aircraft on the ground can wait safely. With the
 </Section>
 
 <Section label="Scope">
-<Fragment slot="note">This post makes no claim about Friday's network. We have not seen it, and its cause is not confirmed. It is about a pattern, and about our own software.</Fragment>
+<Fragment slot="note">Whether staged updates would have helped on Friday depends on the cause, which is not confirmed. If an update or new patches caused it, as two accounts say, it is the pattern they address. If overloaded routers caused it, they do not. We have not seen the network.</Fragment>
 
 ## Redundancy that fails together
 
@@ -59,14 +59,14 @@ Two of the three accounts of Friday also name a change: an update, or new patche
 
 </Section>
 
-<Section label="Field 0.1.0">
+<Section label="Field">
 <Fragment slot="note">The common-mode measurement is from the known-answer coverage campaign in mruspace/flight (`bench/results/2026-10-11-darwin-arm64-kat.json`). The common-mode share is an input to the test, not a measured physical rate.</Fragment>
 
-## Where our own software stopped
+## What three replicas catch, and what they share
 
 Mru Field runs an operator's task as three replicas on a system's own processor. Every replica gets the same input, and the supervisor delivers only outputs it has checked. When one replica is wrong, hung or dead, the other two outvote it or carry on without it.
 
-Three copies of the same program have the same bugs. Our documents state the limit: on the last replica, a fault that hits both computations alike gets through (at a common-mode share of 0.05, 23 of 400 bit flips). And in version 0.1.0, a new build of the task went into all three slots at once. A bad build would take all three replicas down together, or make all three agree on the same wrong answer.
+Three copies of the same program share their bugs, so a fault that reaches all three at once needs a different check. We measure that limit and publish it: on the last replica, a fault that hits both computations alike gets through (at a common-mode share of 0.05, 23 of 400 bit flips). A new build is the change that reaches every copy. Brought into all three slots at once, a bad build takes all three replicas down together, or makes all three agree on the same wrong answer. Version 0.2.0 checks a new build before it reaches every copy.
 
 </Section>
 
@@ -83,7 +83,7 @@ Version 0.2.0 brings a new build in one slot at a time, and the old build checks
 
 Until the last switch, one fault of a slot on the new build rejects it: a wrong answer, a hang, a crash, a failed known-answer test, or a disagreement with the old build. A rejection takes the new build out of every slot that has it and starts the old build there again. If a slot on the old build fails during a trial, the update pauses, because nothing may be delivered on the strength of a build under test. A power cut during a trial resumes the trial from the checkpoint.
 
-Our first version of this did not hold back the second slot. The bench caught it: once two slots ran the new build, they outvoted the old one on a bug that showed in the second trial. That is the same failure in a smaller form, and the rule in step 2 is the fix.
+The bench shaped the rule in step 2. In an early build, two slots on the new build could outvote the old one on a bug that showed in the second trial. Step 2 closes that: the old build has the final say until the last switch.
 
 </Section>
 
@@ -123,7 +123,7 @@ By staged update, every bad build was rejected on the cycle its bug first showed
 <Figure name="field-staged" alt="Correct outputs of 5,000 per bad build, staged update against all at once. Crashes on cycle 500: 5,000 and 499, halted at 500. Hangs on cycle 500: 5,000 and 499, halted at 500. Wrong from cycle 500: 5,000 and 499 plus 4,501 wrong. Wrong on 1 input in 97: 5,000 and 4,949 plus 51 wrong. Fails its known-answer test: 5,000 and 0, never started. Crashes on cycle 1,500: 4,999 and 1,499, halted at 1,500. Hangs on cycle 1,500: 4,999 and 1,499, halted at 1,500. Wrong from cycle 1,500: 4,999 and 1,499 plus 3,501 wrong. Wrong from cycle 2,500, after the last switch: 2,499 plus 2,501 wrong both ways.">Fig. 2 · Correct outputs per run of 5,000 cycles, each bad build brought in both ways. The last row is the stated limit.</Figure>
 
 <Section label="Limits">
-<Fragment slot="note">The <a href="/field/">Field page</a> lists what Field is not for. Air traffic control is a certified safety function.</Fragment>
+<Fragment slot="note">Mru Field is not for certified safety functions, which keep their own certification (<a href="/field/">Field page</a>). Air traffic control is one. The method, a new build checked against the old one before it reaches every copy, does not depend on Field.</Fragment>
 
 ## What this does not cover
 
