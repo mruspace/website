@@ -90,37 +90,48 @@ const ld = {
     <div class="wrap entry-body" style="padding-block: 56px 0">
       <Content />
 
-      {(d.bibtex || d.citeText) && (
+      {(d.bibtex || d.citeText || d.sources.length > 0) && (
         <div class="article" style="margin-top: 48px">
-          {d.bibtex ? (
-            <div class="stack-m">
+          <div class="stack-m">
+            {d.bibtex ? (
               <div class="cite">
                 <p class="eyebrow" style="margin-bottom: 12px">
                   Cite this
                 </p>
                 <pre class="pre" tabindex="0" style="background: transparent; border: 0; padding: 0">{d.bibtex}</pre>
               </div>
-              {d.sources.length > 0 && (
-                <div>
-                  <p class="eyebrow" style="margin-bottom: 12px">
-                    Sources
-                  </p>
-                  <ol class="small soft" style="padding-left: 20px; margin: 0">
-                    {d.sources.map((s) => (
+            ) : d.citeText ? (
+              <div class="cite">
+                <p class="eyebrow" style="margin-bottom: 12px">
+                  Cite this
+                </p>
+                <p class="small" style="margin: 0" set:html={d.citeText} />
+              </div>
+            ) : null}
+            {d.sources.length > 0 && (
+              <div>
+                <p class="eyebrow" style="margin-bottom: 12px">
+                  Sources
+                </p>
+                <ol class="small soft" style="padding-left: 20px; margin: 0">
+                  {d.sources.map((s) => {
+                    // a source that ends in a URL links it
+                    const m = s.match(/^(.*?)\s*(https?:\/\/\S+)$/);
+                    return m ? (
+                      <li>
+                        {m[1]}{' '}
+                        <a href={m[2]} style="overflow-wrap: anywhere">
+                          {m[2].replace(/^https?:\/\/(www\.)?/, '')}
+                        </a>
+                      </li>
+                    ) : (
                       <li>{s}</li>
-                    ))}
-                  </ol>
-                </div>
-              )}
-            </div>
-          ) : d.citeText ? (
-            <div class="cite">
-              <p class="eyebrow" style="margin-bottom: 12px">
-                Cite this
-              </p>
-              <p class="small" style="margin: 0" set:html={d.citeText} />
-            </div>
-          ) : null}
+                    );
+                  })}
+                </ol>
+              </div>
+            )}
+          </div>
         </div>
       )}
 
