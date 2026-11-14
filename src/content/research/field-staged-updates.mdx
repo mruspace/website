@@ -34,13 +34,13 @@ import Figure from '../../components/research/Figure.astro';
 
 ## What happened on November 13
 
-At about 4 p.m. ET on Friday, November 13, the FAA stopped departures at airports across the United States. It lifted the stop at 8:15 p.m. ET. More than 10,000 flights were disrupted (CNBC). The FAA called it a temporary telecommunications outage that affected multiple Air Route Traffic Control Centers.
+At about 4 p.m. ET on Friday, November 13, the FAA stopped departures at airports across the United States. It lifted the stop at 8:15 p.m. ET. More than 10,000 flights were disrupted ([CNBC](https://www.cnbc.com/2026/11/13/faa-ground-stop.html)). The FAA called it a temporary telecommunications outage that affected multiple Air Route Traffic Control Centers.
 
 The cause is not confirmed, and the accounts differ:
 
-- Transportation Secretary Sean Duffy said telecommunications routers were overloaded with data.
-- Homeland Security Secretary Markwayne Mullin said new security patches in the older system appeared to overwhelm its routers. He said it did not appear to be a cyberattack.
-- CBS News, citing sources, reported that an update to the network that connects air traffic control facilities made the system reboot and crash.
+- Transportation Secretary Sean Duffy said telecommunications routers were overloaded with data ([CNBC](https://www.cnbc.com/2026/11/13/faa-ground-stop.html)).
+- Homeland Security Secretary Markwayne Mullin said new security patches in the older system appeared to overwhelm its routers. He said it did not appear to be a cyberattack ([CBS News](https://www.cbsnews.com/news/faa-issues-nationwide-ground-stop/)).
+- [CBS News](https://www.cbsnews.com/video/update-to-network-connecting-air-traffic-control-system-led-to-outage-before-ground-stop-sources-ay/), citing sources, reported that an update to the network that connects air traffic control facilities made the system reboot and crash.
 
 Stopping was the right call. An aircraft on the ground can wait safely. With the links between control centers in doubt, holding departures is the safe state, and the FAA went to it.
 
@@ -53,7 +53,7 @@ Stopping was the right call. An aircraft on the ground can wait safely. With the
 
 A backup protects against a part that fails on its own. It does not protect against a cause that reaches every copy at once: the same update, the same overload, the same bad file. This is a common-mode fault.
 
-A change was behind an earlier outage. On January 11, 2023, the FAA's NOTAM system failed, and the FAA paused domestic departures nationwide that morning. Its preliminary review found that contract personnel deleted files while they worked to "correct synchronization between the live primary database and a backup database" (NPR). The backup was part of the same change.
+A change was behind an earlier outage. On January 11, 2023, the FAA's NOTAM system failed, and the FAA paused domestic departures nationwide that morning. Its preliminary review found that contract personnel deleted files while they worked to "correct synchronization between the live primary database and a backup database" ([NPR](https://www.ctpublic.org/2023-01-19/faa-contractors-deleted-files-and-inadvertently-grounded-thousands-of-flights); [FAA statement](https://www.faa.gov/newsroom/faa-notam-statement)). The backup was part of the same change.
 
 Two of the three accounts of Friday also name a change: an update, or new patches. A change is designed to reach every copy.
 
