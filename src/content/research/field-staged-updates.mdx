@@ -1,0 +1,145 @@
+---
+number: '009'
+kind: Release
+title: 'One update, every copy: staged updates in Mru Field 0.2.0'
+shortTitle: 'Staged updates'
+summary: Friday's nationwide ground stop is a reminder that a backup fails with the original when one change reaches both. Mru Field 0.2.0 brings a new build in one slot at a time and checks it against the old build. On the bench, every bad build was rejected with 0 wrong outputs.
+lede: On Friday, November 13, the FAA held departures across the United States for more than four hours after the network between air traffic control centers failed. The cause is not confirmed. The pattern is familiar, though, and it is one our own software had too. Mru Field 0.2.0 adds staged updates.
+date: 2026-11-14
+readingTime: 7 min
+byline:
+  - { label: Release, text: v0.2.0, href: 'https://github.com/mruspace/field/releases/tag/v0.2.0' }
+  - { label: Specification, text: section 10, href: 'https://github.com/mruspace/field/blob/main/docs/spec.md#10-staged-updates' }
+  - { label: Raw files, text: docs/results, href: 'https://github.com/mruspace/field/tree/main/docs/results/2026-11-14-darwin-arm64/staged' }
+sources:
+  - 'L. Josephs, "FAA lifts ground stop after more than four hours, but flight cancellations will stretch into the weekend," CNBC, November 13, 2026. https://www.cnbc.com/2026/11/13/faa-ground-stop.html'
+  - '"FAA lifts nationwide ground stop that disrupted thousands of flights," CBS News, November 13, 2026. https://www.cbsnews.com/news/faa-issues-nationwide-ground-stop/'
+  - '"Update to network connecting ATC system led to outage before ground stop, sources say," CBS News (video), November 13, 2026. https://www.cbsnews.com/video/update-to-network-connecting-air-traffic-control-system-led-to-outage-before-ground-stop-sources-ay/'
+  - 'Federal Aviation Administration, "FAA NOTAM Statement," January 19, 2023. https://www.faa.gov/newsroom/faa-notam-statement'
+  - '"FAA contractors deleted files and inadvertently grounded thousands of flights," NPR, January 19, 2023. https://www.ctpublic.org/2023-01-19/faa-contractors-deleted-files-and-inadvertently-grounded-thousands-of-flights'
+  - 'Mru Field specification, version 0.3, section 10, "Staged updates." https://github.com/mruspace/field/blob/main/docs/spec.md'
+related: [flight-orbit-3, flight-measured]
+request:
+  interest: field
+  topic: № 009 · Staged updates
+  heading: Questions about staged updates?
+code: { repo: 'https://github.com/mruspace/field', language: Rust, license: Apache-2.0 }
+---
+
+import Section from '../../components/research/Section.astro';
+import Figure from '../../components/research/Figure.astro';
+
+<Section label="Status">
+<Fragment slot="note">Mru Field v0.2.0, built and tested on the bench, on general-purpose processors. It has not run on a board in a system yet, and it is not qualification evidence. Field is not for certified safety functions, which keep their own certification.</Fragment>
+
+## What happened on November 13
+
+At about 4 p.m. ET on Friday, November 13, the FAA stopped departures at airports across the United States. It lifted the stop at 8:15 p.m. ET. More than 10,000 flights were disrupted (CNBC). The FAA called it a temporary telecommunications outage that affected multiple Air Route Traffic Control Centers.
+
+The cause is not confirmed, and the accounts differ:
+
+- Transportation Secretary Sean Duffy said telecommunications routers were overloaded with data.
+- Homeland Security Secretary Markwayne Mullin said new security patches in the older system appeared to overwhelm its routers. He said it did not appear to be a cyberattack.
+- CBS News, citing sources, reported that an update to the network that connects air traffic control facilities made the system reboot and crash.
+
+Stopping was the right call. An aircraft on the ground can wait safely. With the links between control centers in doubt, holding departures is the safe state, and the FAA went to it quickly.
+
+</Section>
+
+<Section label="Scope">
+<Fragment slot="note">This post makes no claim about Friday's network. We have not seen it, and its cause is not confirmed. It is about a pattern, and about our own software.</Fragment>
+
+## Redundancy that fails together
+
+A backup protects against a part that fails on its own. It does not protect against a cause that reaches every copy at once: the same update, the same overload, the same bad file. This is a common-mode fault.
+
+Changes are the common case. On January 11, 2023, the FAA's NOTAM system failed, and the FAA paused domestic departures nationwide that morning. Its preliminary review found that contract personnel deleted files while they worked to "correct synchronization between the live primary database and a backup database" (NPR). The backup was part of the same change.
+
+Two of the three accounts of Friday also name a change: an update, or new patches. A change is the one thing that is designed to reach every copy.
+
+</Section>
+
+<Section label="Field 0.1.0">
+<Fragment slot="note">The common-mode measurement is from the known-answer coverage campaign in mruspace/flight (`bench/results/2026-10-11-darwin-arm64-kat.json`). The common-mode share is an input to the test, not a measured physical rate.</Fragment>
+
+## Where our own software stopped
+
+Mru Field runs an operator's task as three replicas on a system's own processor. Every replica gets the same input, and the supervisor delivers only outputs it has checked. When one replica is wrong, hung or dead, the other two outvote it or carry on without it.
+
+Three copies of the same program have the same bugs. Our documents state the limit: on the last replica, a fault that hits both computations alike gets through (at a common-mode share of 0.05, 23 of 400 bit flips). And in version 0.1.0, a new build of the task went into all three slots at once. A bad build would take all three replicas down together, or make all three agree on the same wrong answer.
+
+</Section>
+
+<Section label="Method">
+<Fragment slot="note">The rules are section 10 of the <a href="https://github.com/mruspace/field/blob/main/docs/spec.md#10-staged-updates">specification</a>. The decision rule is still the `quorum` crate from mruspace/flight v0.4.0, unchanged, with its proofs. Staged updates live in the supervisor.</Fragment>
+
+## Staged updates
+
+Version 0.2.0 brings a new build in one slot at a time, and the old build checks every delivered output until the last switch:
+
+1. **First trial.** Slot 2 runs the new build against two slots on the old build, for 1,000 clean cycles by default (`candidate_cycles`).
+2. **Second trial.** Slot 1 takes the new build for as many cycles again. Two slots now run the new build. An output is delivered only if the slot left on the old build gave the same bytes, so the new build cannot outvote the old one.
+3. **The last switch.** Slot 0 takes the new build, and the update is done.
+
+Until the last switch, one fault of a slot on the new build rejects it: a wrong answer, a hang, a crash, a failed known-answer test, or a disagreement with the old build. A rejection takes the new build out of every slot that has it and starts the old build there again. If a slot on the old build fails during a trial, the update pauses, because nothing may be delivered on the strength of a build under test. A power cut during a trial resumes the trial from the checkpoint.
+
+Our first version of this did not hold back the second slot. The bench caught it: once two slots ran the new build, they outvoted the old one on a bug that showed in the second trial. That is the same failure in a smaller form, and the rule in step 2 is the fix.
+
+</Section>
+
+<Figure name="field-staged-timeline" alt="Which build each of the three slots ran, cycle by cycle, for a new build that crashes on cycle 1,500. All at once: all three slots run the new build from cycle 0, all three replicas are lost on cycle 1,500, and the run halts with 1,499 outputs delivered. Staged update: slot 2 runs the new build from cycle 0 and passes its trial at cycle 1,000; slot 1 then runs it; on cycle 1,500 both are lost, the build is rejected, and both slots go back to the old build. Slot 0 runs the old build throughout. 4,999 delivered, 0 wrong, 3 alive.">Fig. 1 · The same bad build in two runs on the bench, from the runs' event logs: in every slot at once, and by staged update. One cycle withheld at the rejection.</Figure>
+
+<Section label="Bench">
+<Fragment slot="note">Apple M4, field 0.2.0, `scripts/staged.sh`. Reply timeout 200 ms, cycles as fast as the task answers. The oracle is the old build, so "wrong" means an output the old build would not have given.</Fragment>
+
+## Results on the bench
+
+We gave the demo task a switch that makes a bad build: one that crashes, hangs, gives wrong answers from a set cycle, gives wrong answers on 1 input in 97, or fails its known-answer test. Each bad build ran for 5,000 cycles twice: in all three slots at once, and by staged update with trials of 1,000 cycles.
+
+<div class="tbl-box" tabindex="0" style="margin: 24px 0 0">
+  <table class="tbl">
+    <thead><tr><th style="min-width: 150px">New build</th><th>All at once</th><th>Staged update</th></tr></thead>
+    <tbody>
+      <tr><td>Crashes on cycle 500</td><td>All three lost; the run halts after 499 outputs</td><td>Rejected on cycle 500 · 0 wrong · 3 alive</td></tr>
+      <tr><td>Hangs on cycle 500</td><td>All three lost; the run halts after 499 outputs</td><td>Rejected on cycle 500 · 0 wrong · 3 alive</td></tr>
+      <tr><td>Wrong from cycle 500</td><td>4,501 wrong outputs, none flagged</td><td>Rejected on cycle 500 · 0 wrong</td></tr>
+      <tr><td>Wrong on 1 input in 97</td><td>51 wrong outputs, none flagged</td><td>Rejected on cycle 97 · 0 wrong</td></tr>
+      <tr><td>Fails its known-answer test</td><td>No replica starts</td><td>Rejected at start · 0 wrong</td></tr>
+      <tr><td>Crashes on cycle 1,500</td><td>All three lost; the run halts after 1,499 outputs</td><td>Rejected on cycle 1,500 · 1 withheld · 0 wrong</td></tr>
+      <tr><td>Wrong from cycle 1,500</td><td>3,501 wrong outputs, none flagged</td><td>Rejected on cycle 1,500 · 1 withheld · 0 wrong</td></tr>
+      <tr><td>Wrong from cycle 2,500</td><td>2,501 wrong</td><td class="sig">2,501 wrong: after the last switch</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p class="tiny">A hang on cycle 1,500 gave the same counts as the crash on 1,500. A good build went to all three slots on cycle 2,000, with 5,000 outputs delivered and 0 wrong. Every line is a run in staged.csv.</p>
+
+All at once, a crash or a hang took down all three replicas on the same cycle, and the run halted. A build with wrong answers was worse: all three replicas agreed, the vote passed, and 4,501 wrong outputs went out with nothing to flag them.
+
+By staged update, every bad build was rejected on the cycle its bug first showed. Every slot went back to the old build, three replicas stayed alive, and no wrong output was delivered. A rejection in the second trial withheld one cycle.
+
+</Section>
+
+<Figure name="field-staged" alt="Correct outputs of 5,000 per bad build, staged update against all at once. Crashes on cycle 500: 5,000 and 499, halted at 500. Hangs on cycle 500: 5,000 and 499, halted at 500. Wrong from cycle 500: 5,000 and 499 plus 4,501 wrong. Wrong on 1 input in 97: 5,000 and 4,949 plus 51 wrong. Fails its known-answer test: 5,000 and 0, never started. Crashes on cycle 1,500: 4,999 and 1,499, halted at 1,500. Hangs on cycle 1,500: 4,999 and 1,499, halted at 1,500. Wrong from cycle 1,500: 4,999 and 1,499 plus 3,501 wrong. Wrong from cycle 2,500, after the last switch: 2,499 plus 2,501 wrong both ways.">Fig. 2 · Correct outputs per run of 5,000 cycles, each bad build brought in both ways. The last row is the stated limit.</Figure>
+
+<Section label="Limits">
+<Fragment slot="note">The <a href="/field/">Field page</a> lists what Field is not for. Air traffic control is a certified safety function.</Fragment>
+
+## What this does not cover
+
+- **A bug that shows after the last switch.** No slot runs the old build any more, so nothing can disagree (the last row). A longer trial covers more inputs and more time.
+- **Updates meant to change outputs.** The new build must give the same outputs as the old one: a patch, a new compiler, new libraries, a new platform. A build that changes outputs on purpose needs a different check. That is an open question in the specification.
+- **Overload.** A vote cannot add capacity. If Friday's cause was overloaded routers, nothing here applies to it.
+- **Networks.** Field runs on one processor. A replica on a second processor over a link is planned, and nothing here covers a network.
+- **A false rejection.** In the second trial, a fault on the one old slot rejects a good build. The operator can try it again.
+
+</Section>
+
+<Section label="Field and Flight">
+<Fragment slot="note">Mru Field is for systems on Earth. Mru Flight, the same core for spacecraft, ran three times on ESA's OPS-SAT PRETTY satellite (<a href="/research/flight-orbit-3/">№ 008</a>).</Fragment>
+
+## Where stopping is not an option
+
+At an airport, the safe state is on the ground. A seafloor observatory, a polar station or a spacecraft has no gate to wait at, and a visit to undo a bad update can take months. These systems still need updates: fixes, new compilers, new libraries. A staged update lets the system judge a new build against the one it already trusts, on its own, and keep working while it does.
+
+</Section>

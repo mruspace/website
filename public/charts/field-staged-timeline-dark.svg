@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680">
+<style>text{font-family:Charter,'Source Serif 4',Georgia,serif;fill:#ecece8} .soft{fill:#c0c0bc} .faint{fill:#8f8f8a} .display{font-family:Futura,Jost,'Century Gothic',sans-serif;font-weight:500}</style>
+<rect width="1200" height="680" fill="#16161a"/>
+<text class="display" x="56" y="76" font-size="34">A new build that crashes on cycle 1,500</text>
+<text x="56" y="114" font-size="20" class="soft">Which build each of the three slots ran, cycle by cycle, from the two runs' event logs.</text>
+<line x1="56" x2="86" y1="155" y2="155" stroke="#4a4a52" stroke-width="5" stroke-linecap="round"/>
+<text x="98" y="162" font-size="20">Old build</text>
+<line x1="256" x2="286" y1="155" y2="155" stroke="#d95926" stroke-width="5" stroke-linecap="round"/>
+<text x="298" y="162" font-size="20">New build</text>
+<text x="476" y="162" font-size="20">✕ replica lost</text>
+<text class="display" x="56" y="220" font-size="22">All at once</text>
+<text x="56" y="255" font-size="17" class="soft">slot 0</text>
+<rect x="230.0" y="242" width="266.2" height="16" rx="3" fill="#d95926"/>
+<text x="498.2" y="256" font-size="20" text-anchor="middle" font-weight="700">✕</text>
+<text x="56" y="289" font-size="17" class="soft">slot 1</text>
+<rect x="230.0" y="276" width="266.2" height="16" rx="3" fill="#d95926"/>
+<text x="498.2" y="290" font-size="20" text-anchor="middle" font-weight="700">✕</text>
+<text x="56" y="323" font-size="17" class="soft">slot 2</text>
+<rect x="230.0" y="310" width="266.2" height="16" rx="3" fill="#d95926"/>
+<text x="498.2" y="324" font-size="20" text-anchor="middle" font-weight="700">✕</text>
+<text x="56" y="366" font-size="18" class="soft">All three replicas lost on cycle 1,500; the run halts. 1,499 outputs delivered.</text>
+<text class="display" x="56" y="420" font-size="22">Staged update</text>
+<text x="56" y="455" font-size="17" class="soft">slot 0</text>
+<rect x="230.0" y="442" width="892.0" height="16" rx="3" fill="#4a4a52"/>
+<text x="56" y="489" font-size="17" class="soft">slot 1</text>
+<rect x="230.0" y="476" width="176.8" height="16" rx="3" fill="#4a4a52"/>
+<rect x="408.8" y="476" width="87.4" height="16" rx="3" fill="#d95926"/>
+<rect x="498.2" y="476" width="623.8" height="16" rx="3" fill="#4a4a52"/>
+<text x="498.2" y="490" font-size="20" text-anchor="middle" font-weight="700">✕</text>
+<text x="56" y="523" font-size="17" class="soft">slot 2</text>
+<rect x="230.0" y="510" width="266.2" height="16" rx="3" fill="#d95926"/>
+<rect x="498.2" y="510" width="623.8" height="16" rx="3" fill="#4a4a52"/>
+<text x="498.2" y="524" font-size="20" text-anchor="middle" font-weight="700">✕</text>
+<text x="56" y="566" font-size="18" class="soft">Rejected on cycle 1,500; every slot back on the old build. 4,999 delivered, 0 wrong, 3 alive.</text>
+<line x1="408.8" x2="408.8" y1="430" y2="534" stroke="#8f8f8a" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="400.8" y="416" font-size="16" text-anchor="end" class="faint">slot 2 passes</text>
+<line x1="498.2" x2="498.2" y1="430" y2="534" stroke="#8f8f8a" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="506.2" y="416" font-size="16" class="faint">rejected, rolled back</text>
+<line x1="230" x2="230" y1="592" y2="600" stroke="#8f8f8a" stroke-width="1.5"/>
+<text x="230" y="622" font-size="17" text-anchor="middle" class="faint">0</text>
+<line x1="408.8" x2="408.8" y1="592" y2="600" stroke="#8f8f8a" stroke-width="1.5"/>
+<text x="408.8" y="622" font-size="17" text-anchor="middle" class="faint">1,000</text>
+<line x1="587.6" x2="587.6" y1="592" y2="600" stroke="#8f8f8a" stroke-width="1.5"/>
+<text x="587.6" y="622" font-size="17" text-anchor="middle" class="faint">2,000</text>
+<line x1="766.4" x2="766.4" y1="592" y2="600" stroke="#8f8f8a" stroke-width="1.5"/>
+<text x="766.4" y="622" font-size="17" text-anchor="middle" class="faint">3,000</text>
+<line x1="945.2" x2="945.2" y1="592" y2="600" stroke="#8f8f8a" stroke-width="1.5"/>
+<text x="945.2" y="622" font-size="17" text-anchor="middle" class="faint">4,000</text>
+<line x1="1124" x2="1124" y1="592" y2="600" stroke="#8f8f8a" stroke-width="1.5"/>
+<text x="1124" y="622" font-size="17" text-anchor="middle" class="faint">5,000</text>
+<text x="56" y="622" font-size="17" class="faint">cycle</text>
+<text x="56" y="660" font-size="16" class="faint">Trials of 1,000 cycles. Apple M4. Data: mruspace/field v0.2.0, docs/results/2026-11-14-darwin-arm64/staged/crash-1500-*.</text>
+</svg>

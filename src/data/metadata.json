@@ -188,6 +188,14 @@
     "schema": ["BlogPosting", "SoftwareSourceCode", "BreadcrumbList"]
   },
   {
+    "url": "https://mru.space/research/field-staged-updates/",
+    "title": "One update, every copy: Mru Field 0.2.0 · Mru Aerospace",
+    "description": "A backup fails with the original when one change reaches both. Field 0.2.0 brings a new build in one slot at a time: every bad build rejected, 0 wrong.",
+    "ogTitle": "One update, every copy: staged updates in Mru Field 0.2.0",
+    "cardLabel": "Research № 009 · Release",
+    "schema": ["BlogPosting", "SoftwareSourceCode", "BreadcrumbList"]
+  },
+  {
     "url": "https://mru.space/research/flight-orbit-2/",
     "title": "Second run in orbit: a safe halt and a restart · Mru Aerospace",
     "description": "On October 22, 2026, v0.4.0 ran on ESA's OPS-SAT PRETTY: down to one replica, a safe halt with 0 wrong results, and a resume after the voter was killed.",
