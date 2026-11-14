@@ -70,7 +70,8 @@ const katFiles = files.filter((f) => /^\d{4}-\d{2}-\d{2}-.+-kat\.json$/.test(f))
 const kat = katFiles.length ? JSON.parse(await text('flight', `bench/results/${katFiles.at(-1)}`)) : null;
 
 const proofs = async (path) => ((await text('flight', path)).match(/#\[kani::proof\]/g) ?? []).length;
-const kaniCore = await proofs('quorum/src/lib.rs');
+// the quorum crate: the decision core and sensor selection
+const kaniCore = (await proofs('quorum/src/lib.rs')) + (await proofs('quorum/src/sensor.rs'));
 const kaniFfi = await proofs('quorum-ffi/src/lib.rs');
 
 // ---------- dusk ----------
@@ -429,10 +430,10 @@ for (const h of bench) {
 add('flight.kani.core', {
   value: kaniCore,
   format: 'int',
-  unit: 'Kani proofs of the decision core',
-  scope: 'quorum/src/lib.rs',
+  unit: 'Kani proofs of the decision core and sensor selection',
+  scope: 'quorum/src/lib.rs and quorum/src/sensor.rs',
   conditions: 'Run in CI on every change: cargo kani -p quorum -p quorum-ffi.',
-  source: { repo: 'flight', path: 'count of #[kani::proof] in quorum/src/lib.rs' },
+  source: { repo: 'flight', path: 'count of #[kani::proof] in quorum/src/lib.rs and quorum/src/sensor.rs' },
 });
 add('flight.kani.ffi', {
   value: kaniFfi,

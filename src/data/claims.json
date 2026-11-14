@@ -814,13 +814,13 @@
       "text": "45"
     },
     "flight.kani.core": {
-      "value": 4,
+      "value": 9,
       "format": "int",
-      "unit": "Kani proofs of the decision core",
-      "scope": "quorum/src/lib.rs",
+      "unit": "Kani proofs of the decision core and sensor selection",
+      "scope": "quorum/src/lib.rs and quorum/src/sensor.rs",
       "conditions": "Run in CI on every change: cargo kani -p quorum -p quorum-ffi.",
-      "source": { "repo": "flight", "path": "count of #[kani::proof] in quorum/src/lib.rs" },
-      "text": "4"
+      "source": { "repo": "flight", "path": "count of #[kani::proof] in quorum/src/lib.rs and quorum/src/sensor.rs" },
+      "text": "9"
     },
     "flight.kani.ffi": {
       "value": 7,
@@ -832,13 +832,13 @@
       "text": "7"
     },
     "flight.kani.total": {
-      "value": 11,
+      "value": 16,
       "format": "int",
       "unit": "Kani proofs in all",
       "scope": "quorum and quorum-ffi",
       "conditions": "Run in CI on every change.",
       "source": { "repo": "flight", "path": "sum of the two counts" },
-      "text": "11"
+      "text": "16"
     },
     "flight.kat_cost.1000000.cpu": {
       "scope": "Known-answer test cost, 10 runs of 100,000 ticks per period, self-check on the last replica, demo task on Apple M4 (darwin-arm64)",
