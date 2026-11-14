@@ -23,7 +23,10 @@ const result = await new LinkChecker().check({
     // The live site is checked after deploy; before it, these point at the old site.
     link.startsWith(site) ||
     // Scripts and endpoints that refuse plain GETs from a checker.
-    /fonts\.googleapis|googletagmanager\/m\.js|challenges\.cloudflare|api\.mru\.space/.test(link),
+    /fonts\.googleapis|googletagmanager\/m\.js|challenges\.cloudflare|api\.mru\.space/.test(link) ||
+    // News sites cited as sources: they rate-limit CI runners with long
+    // retry waits that outlast the job (№ 009). Checked by hand when cited.
+    /^https?:\/\/(www\.)?(cnbc\.com|cbsnews\.com|faa\.gov|ctpublic\.org|npr\.org)\//.test(link),
 });
 
 const local = result.links.filter((l) => LOCAL.test(l.url) || !/^https?:/.test(l.url));
