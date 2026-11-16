@@ -4,14 +4,17 @@ kind: Release
 title: 'What a nationwide ground stop shows about redundancy: staged updates in Mru Field 0.2.0'
 shortTitle: 'Staged updates'
 summary: A bad update that reaches every copy at once can stop a whole system. Mru Field 0.2.0 brings a new build in one slot at a time and checks it against the old build. On the bench, every bad build was rejected with 0 wrong outputs.
-lede: On Friday, November 13, the FAA held departures across the United States for more than four hours after the network between air traffic control centers failed. The cause is not confirmed, and two of the three accounts point to an update. A bad update that reaches every copy at once is what Mru Field 0.2.0 is built to stop. It brings a new build in one copy at a time, and the old build checks it.
+lede: On Friday, November 13, the FAA held departures across the United States for more than four hours after the network between air traffic control centers became unstable. The FAA says data flooded the network from two remote sites, one of them where a contractor was installing a new router. Trouble at two sites reached 17 of 22 centers. Staged updates in Mru Field 0.2.0 address a related case, a bad update that reaches every copy at once. A new build comes in one copy at a time, and the old build checks it.
 date: 2026-11-14
+updated: 2026-11-16
 readingTime: 7 min
 byline:
   - { label: Release, text: v0.2.0, href: 'https://github.com/mruspace/field/releases/tag/v0.2.0' }
   - { label: Specification, text: section 10, href: 'https://github.com/mruspace/field/blob/main/docs/spec.md#10-staged-updates' }
   - { label: Raw files, text: docs/results, href: 'https://github.com/mruspace/field/tree/main/docs/results/2026-11-14-darwin-arm64/staged' }
 sources:
+  - 'Federal Aviation Administration, "Nationwide Ground Stop: Questions and Answers," November 15, 2026. https://www.faa.gov/newsroom/nationwide-ground-stop-questions-and-answers'
+  - 'L. Josephs, "DOT Sec. Duffy ties router in southern Arkansas to issues that led to nationwide ground stop," CNBC, November 14, 2026. https://www.cnbc.com/2026/11/14/faa-ground-stop-flights-resume-delays.html'
   - 'L. Josephs, "FAA lifts ground stop after more than four hours, but flight cancellations will stretch into the weekend," CNBC, November 13, 2026. https://www.cnbc.com/2026/11/13/faa-ground-stop.html'
   - '"FAA lifts nationwide ground stop that disrupted thousands of flights," CBS News, November 13, 2026. https://www.cbsnews.com/news/faa-issues-nationwide-ground-stop/'
   - '"Update to network connecting ATC system led to outage before ground stop, sources say," CBS News (video), November 13, 2026. https://www.cbsnews.com/video/update-to-network-connecting-air-traffic-control-system-led-to-outage-before-ground-stop-sources-ay/'
@@ -34,9 +37,11 @@ import Figure from '../../components/research/Figure.astro';
 
 ## What happened on November 13
 
-At about 4 p.m. ET on Friday, November 13, the FAA stopped departures at airports across the United States. It lifted the stop at 8:15 p.m. ET. More than 10,000 flights were disrupted ([CNBC](https://www.cnbc.com/2026/11/13/faa-ground-stop.html)). The FAA called it a temporary telecommunications outage that affected multiple Air Route Traffic Control Centers.
+At about 3:30 p.m. ET on Friday, November 13, the FAA had a technical problem, and it stopped departures at airports across the United States. It lifted the stop at 8:15 p.m. ET. Instability began at 17 of its 22 Air Route Traffic Control Centers and spread into several approach control facilities. Operators canceled about 12,462 flights that day. The FAA says not all of them were caused by the ground stop ([FAA](https://www.faa.gov/newsroom/nationwide-ground-stop-questions-and-answers)).
 
-The cause is not confirmed, and the accounts differ:
+**The FAA's account, November 15.** The FAA's older equipment became unstable when data flooded its telecommunications network at 1,000 connection attempts every 4 to 5 seconds. Its initial investigation points to two sites: a radar site in Amarillo, Texas, and a radio site in El Dorado, Arkansas, where its network contractor, L3Harris, had been doing work that included a new router. When L3Harris blocked the two sites, the network stabilized. The FAA turned off a broadcasting function on about 60 similar routers, and it says there is no indication of a cyberattack ([FAA](https://www.faa.gov/newsroom/nationwide-ground-stop-questions-and-answers)). Transportation Secretary Sean Duffy said the router was part of a switch from copper wire to fiber. Whether the installation or the router itself was at fault is still under investigation ([CNBC](https://www.cnbc.com/2026/11/14/faa-ground-stop-flights-resume-delays.html)).
+
+**The first accounts, November 13.** Before the FAA's account, the reports differed:
 
 - Transportation Secretary Sean Duffy said telecommunications routers were overloaded with data ([CNBC](https://www.cnbc.com/2026/11/13/faa-ground-stop.html)).
 - Homeland Security Secretary Markwayne Mullin said new security patches in the older system appeared to overwhelm its routers. He said it did not appear to be a cyberattack ([CBS News](https://www.cbsnews.com/news/faa-issues-nationwide-ground-stop/)).
@@ -47,7 +52,7 @@ Stopping was the right call. An aircraft on the ground can wait safely. With the
 </Section>
 
 <Section label="Scope">
-<Fragment slot="note">Whether staged updates would have helped on Friday depends on the cause, which is not confirmed. If an update or new patches caused it, as two accounts say, it is the pattern they address. If overloaded routers caused it, they do not. We have not seen the network.</Fragment>
+<Fragment slot="note">By the FAA's account, Friday was a flood of data on a network, after work at a remote site. Staged updates do not cover it: they check a new build of a task on one processor, not a device on a network (Limits). What the two cases share is redundancy that fails together. We have not seen the network. This section was updated on November 16 with the FAA's account. On November 14 it said that two of the first three accounts pointed to an update.</Fragment>
 
 ## Redundancy that fails together
 
@@ -55,7 +60,7 @@ A backup protects against a part that fails on its own. It does not protect agai
 
 A change was behind an earlier outage. On January 11, 2023, the FAA's NOTAM system failed, and the FAA paused domestic departures nationwide that morning. Its preliminary review found that contract personnel deleted files while they worked to "correct synchronization between the live primary database and a backup database" ([NPR](https://www.ctpublic.org/2023-01-19/faa-contractors-deleted-files-and-inadvertently-grounded-thousands-of-flights); [FAA statement](https://www.faa.gov/newsroom/faa-notam-statement)). The backup was part of the same change.
 
-Two of the three accounts of Friday also name a change: an update, or new patches. A change is designed to reach every copy.
+Friday also began during a change: work at one remote site that included a new router. The flood that followed reached 17 of 22 centers through the network they share. A change at one place can reach every copy that depends on it.
 
 </Section>
 
@@ -129,7 +134,7 @@ By staged update, every bad build was rejected on the cycle its bug first showed
 
 - **A bug that shows after the last switch.** No slot runs the old build any more, so nothing can disagree (the last row). A longer trial covers more inputs and more time.
 - **Updates meant to change outputs.** The new build must give the same outputs as the old one: a patch, a new compiler, new libraries, a new platform. A build that changes outputs on purpose needs a different check. That is an open question in the specification.
-- **Overload.** A vote cannot add capacity. If Friday's cause was overloaded routers, nothing here applies to it.
+- **Overload.** A vote cannot add capacity. By the FAA's account, Friday was a flood of data that overloaded its network, so nothing here applies to it.
 - **Networks.** Field runs on one processor. A replica on a second processor over a link is planned, and nothing here covers a network.
 - **A false rejection.** In the second trial, a fault on the one old slot rejects a good build. The operator can try it again.
 
