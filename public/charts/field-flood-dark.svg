@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="812" viewBox="0 0 1200 812">
+<style>text{font-family:Charter,'Source Serif 4',Georgia,serif;fill:#ecece8} .soft{fill:#c0c0bc} .faint{fill:#8f8f8a} .display{font-family:Futura,Jost,'Century Gothic',sans-serif;font-weight:500}</style>
+<rect width="1200" height="812" fill="#16161a"/>
+<text class="display" x="56" y="76" font-size="34">Flood limits in Mru Field 0.3.0</text>
+<text x="56" y="114" font-size="20" class="soft">Three bench runs on Linux: what a node sends, how old its input gets, and whether it keeps control.</text>
+<line x1="56" x2="86" y1="155" y2="155" stroke="#3987e5" stroke-width="5" stroke-linecap="round"/>
+<text x="98" y="162" font-size="20">Flood limits on</text>
+<line x1="306" x2="336" y1="155" y2="155" stroke="#d95926" stroke-width="5" stroke-linecap="round"/>
+<text x="348" y="162" font-size="20">Lock off, queue, or version 0.2.0</text>
+<text x="56" y="220" font-size="21" class="display">A new build that floods a network, with every output right</text>
+<line x1="400" x2="400" y1="244" y2="406" stroke="#2e2e33" stroke-width="1.5"/>
+<text x="56" y="268" font-size="19">Lock off, all at once</text>
+<path d="M400,250 H896.0 Q900.0,250 900.0,254 V270 Q900.0,274 896.0,274 H400 Z" fill="#d95926"/>
+<text x="910.0" y="268" font-size="17" class="soft">450,300</text>
+<text x="56" y="310" font-size="19">Lock off, staged update</text>
+<path d="M400,292 H840.3 Q844.3,292 844.3,296 V312 Q844.3,316 840.3,316 H400 Z" fill="#d95926"/>
+<text x="854.3" y="310" font-size="17" class="soft">400,100 · the update took it in</text>
+<text x="56" y="352" font-size="19">Lock on, all at once</text>
+<circle cx="403" cy="346" r="5" fill="#3987e5"/>
+<text x="418.0" y="352" font-size="17" class="soft">0</text>
+<text x="56" y="394" font-size="19">Lock on, staged update</text>
+<circle cx="403" cy="388" r="5" fill="#3987e5"/>
+<text x="418.0" y="394" font-size="17" class="soft">0</text>
+<text x="56" y="452" font-size="21" class="display">Input 100 times faster than the cycle: its age at the last cycle</text>
+<line x1="400" x2="400" y1="476" y2="554" stroke="#2e2e33" stroke-width="1.5"/>
+<text x="56" y="500" font-size="19">Every record in turn (queue)</text>
+<path d="M400,482 H896.0 Q900.0,482 900.0,486 V502 Q900.0,506 896.0,506 H400 Z" fill="#d95926"/>
+<text x="910.0" y="500" font-size="17" class="soft">12.0 s</text>
+<text x="56" y="542" font-size="19">Newest record (newest)</text>
+<path d="M400,524 H400.0 Q400.0,524 400.0,524.0166615293617 V547.9833384706383 Q400.0,548 400.0,548 H400 Z" fill="#3987e5"/>
+<circle cx="403" cy="536" r="5" fill="#3987e5"/>
+<text x="418.0" y="542" font-size="17" class="soft">0.8 ms</text>
+<text x="56" y="600" font-size="21" class="display">An output peer that stops reading: time until the run ends</text>
+<line x1="400" x2="400" y1="624" y2="702" stroke="#2e2e33" stroke-width="1.5"/>
+<text x="56" y="648" font-size="19">Version 0.2.0</text>
+<path d="M400,630 H896.0 Q900.0,630 900.0,634 V650 Q900.0,654 896.0,654 H400 Z" fill="#d95926"/>
+<text x="910.0" y="648" font-size="17" class="soft">hung · killed at 60 s</text>
+<text x="56" y="690" font-size="19">Version 0.3.0</text>
+<path d="M400,672 H460.2 Q464.2,672 464.2,676 V692 Q464.2,696 460.2,696 H400 Z" fill="#3987e5"/>
+<text x="474.2" y="690" font-size="17" class="soft">7.7 s · sink-error, checkpoint kept</text>
+<text x="56" y="762" font-size="16" class="faint">Lock: 2,000 cycles, 100 datagrams per request from cycle 500. Backlog: 10,000 records a second into 100 cycles a second.</text>
+<text x="56" y="786" font-size="16" class="faint">Linux in Docker on one Apple M4. Data: mruspace/field v0.3.0, docs/results/2026-11-16-linux-aarch64/flood.</text>
+</svg>

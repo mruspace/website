@@ -1,17 +1,18 @@
 ---
 number: '009'
 kind: Release
-title: 'What a nationwide ground stop shows about redundancy: staged updates in Mru Field 0.2.0'
-shortTitle: 'Staged updates'
-summary: A bad update that reaches every copy at once can stop a whole system. Mru Field 0.2.0 brings a new build in one slot at a time and checks it against the old build. On the bench, every bad build was rejected with 0 wrong outputs.
-lede: On Friday, November 13, the FAA held departures across the United States for more than four hours after the network between air traffic control centers became unstable. The FAA says data flooded the network from two remote sites, one of them where a contractor was installing a new router. Trouble at two sites reached 17 of 22 centers. Staged updates in Mru Field 0.2.0 address a related case, a bad update that reaches every copy at once. A new build comes in one copy at a time, and the old build checks it.
+title: 'What a nationwide ground stop shows about redundancy: staged updates and flood limits in Mru Field'
+shortTitle: 'Staged updates and flood limits'
+summary: 'One change can stop a whole system in two ways. A bad update reaches every copy at once, or a part with right answers floods what it shares. Mru Field handles each: a new build is checked against the old one, and the task is locked off the network. On the bench, every bad build was rejected with 0 wrong outputs, and a build that floods sent 0 packets.'
+lede: 'On Friday, November 13, the FAA held departures across the United States for more than four hours after the network between air traffic control centers became unstable. The FAA says data flooded the network from two remote sites, one of them where a contractor was installing a new router. Trouble at two sites reached 17 of 22 centers. It points at two ways one change can stop a whole system: a bad update that reaches every copy at once, and a part that floods what it shares while its own answers look right. This note shows how Mru Field handles each: staged updates for the first, and flood limits for the second.'
 date: 2026-11-14
 updated: 2026-11-16
-readingTime: 7 min
+readingTime: 10 min
 byline:
-  - { label: Release, text: v0.2.0, href: 'https://github.com/mruspace/field/releases/tag/v0.2.0' }
-  - { label: Specification, text: section 10, href: 'https://github.com/mruspace/field/blob/main/docs/spec.md#10-staged-updates' }
-  - { label: Raw files, text: docs/results, href: 'https://github.com/mruspace/field/tree/main/docs/results/2026-11-14-darwin-arm64/staged' }
+  - { label: Releases, text: v0.2.0, href: 'https://github.com/mruspace/field/releases/tag/v0.2.0' }
+  - { label: and, text: v0.3.0, href: 'https://github.com/mruspace/field/releases/tag/v0.3.0' }
+  - { label: Specification, text: sections 10 and 11, href: 'https://github.com/mruspace/field/blob/main/docs/spec.md#10-staged-updates' }
+  - { label: Raw files, text: docs/results, href: 'https://github.com/mruspace/field/tree/main/docs/results' }
 sources:
   - 'Federal Aviation Administration, "Nationwide Ground Stop: Questions and Answers," November 15, 2026. https://www.faa.gov/newsroom/nationwide-ground-stop-questions-and-answers'
   - 'L. Josephs, "DOT Sec. Duffy ties router in southern Arkansas to issues that led to nationwide ground stop," CNBC, November 14, 2026. https://www.cnbc.com/2026/11/14/faa-ground-stop-flights-resume-delays.html'
@@ -20,12 +21,13 @@ sources:
   - '"Update to network connecting ATC system led to outage before ground stop, sources say," CBS News (video), November 13, 2026. https://www.cbsnews.com/video/update-to-network-connecting-air-traffic-control-system-led-to-outage-before-ground-stop-sources-ay/'
   - 'Federal Aviation Administration, "FAA NOTAM Statement," January 19, 2023. https://www.faa.gov/newsroom/faa-notam-statement'
   - '"FAA contractors deleted files and inadvertently grounded thousands of flights," NPR, January 19, 2023. https://www.ctpublic.org/2023-01-19/faa-contractors-deleted-files-and-inadvertently-grounded-thousands-of-flights'
-  - 'Mru Field specification, version 0.3, section 10, "Staged updates." https://github.com/mruspace/field/blob/main/docs/spec.md'
+  - 'Mru Field specification, version 0.4, section 10, "Staged updates," and section 11, "Floods." https://github.com/mruspace/field/blob/main/docs/spec.md'
+  - 'Linux kernel documentation, "Seccomp BPF (SECure COMPuting with filters)." https://docs.kernel.org/userspace-api/seccomp_filter.html'
 related: [flight-orbit-3, flight-measured]
 request:
   interest: field
-  topic: № 009 · Staged updates
-  heading: Questions about staged updates?
+  topic: № 009 · Staged updates and flood limits
+  heading: Questions about staged updates or flood limits?
 code: { repo: 'https://github.com/mruspace/field', language: Rust, license: Apache-2.0 }
 ---
 
@@ -33,7 +35,7 @@ import Section from '../../components/research/Section.astro';
 import Figure from '../../components/research/Figure.astro';
 
 <Section label="Status">
-<Fragment slot="note">Mru Field v0.2.0, built and tested on the bench, on general-purpose processors. It has not run on a board in a system yet, and it is not qualification evidence. Field is not for certified safety functions, which keep their own certification.</Fragment>
+<Fragment slot="note">Mru Field v0.3.0, with staged updates since v0.2.0 and flood limits since v0.3.0, built and tested on the bench, on general-purpose processors. It has not run on a board in a system yet, and it is not qualification evidence. Field is not for certified safety functions, which keep their own certification.</Fragment>
 
 ## What happened on November 13
 
@@ -52,7 +54,7 @@ Stopping was the right call. An aircraft on the ground can wait safely. With the
 </Section>
 
 <Section label="Scope">
-<Fragment slot="note">By the FAA's account, Friday was a flood of data on a network, after work at a remote site. Staged updates do not cover it: they check a new build of a task on one processor, not a device on a network (Limits). What the two cases share is redundancy that fails together. We have not seen the network. This section was updated on November 16 with the FAA's account. On November 14 it said that two of the first three accounts pointed to an update.</Fragment>
+<Fragment slot="note">By the FAA's account, Friday was a flood of data on a network, after work at a remote site. Field does not run a network, and nothing in this note would have stopped Friday's flood (Limits). What Friday shares with the two cases below is the pattern: one change that reaches past the part it was made for. We have not seen the network. Updated on November 16 with the FAA's account and Field 0.3.0. On November 14 this note said that two of the first three accounts pointed to an update, and it covered staged updates only.</Fragment>
 
 ## Redundancy that fails together
 
@@ -61,6 +63,20 @@ A backup protects against a part that fails on its own. It does not protect agai
 A change was behind an earlier outage. On January 11, 2023, the FAA's NOTAM system failed, and the FAA paused domestic departures nationwide that morning. Its preliminary review found that contract personnel deleted files while they worked to "correct synchronization between the live primary database and a backup database" ([NPR](https://www.ctpublic.org/2023-01-19/faa-contractors-deleted-files-and-inadvertently-grounded-thousands-of-flights); [FAA statement](https://www.faa.gov/newsroom/faa-notam-statement)). The backup was part of the same change.
 
 Friday also began during a change: work at one remote site that included a new router. The flood that followed reached 17 of 22 centers through the network they share. A change at one place can reach every copy that depends on it.
+
+A change can reach past its own part in two ways, and redundancy fails differently in each:
+
+<div class="tbl-box" tabindex="0" style="margin: 24px 0 0">
+  <table class="tbl">
+    <thead><tr><th style="min-width: 150px">A bad change that</th><th>What happens to three copies</th><th>In Mru Field</th></tr></thead>
+    <tbody>
+      <tr><td>Reaches every copy at once</td><td>All three stop together, or agree on the same wrong answer</td><td>Staged updates, 0.2.0</td></tr>
+      <tr><td>Gives right answers but floods what it shares</td><td>All three agree, so the vote passes, and the traffic goes out</td><td>Flood limits, 0.3.0</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p class="tiny">The second row is why the second release exists: a vote and a staged update both compare answers, and right answers pass both.</p>
 
 </Section>
 
@@ -71,7 +87,7 @@ Friday also began during a change: work at one remote site that included a new r
 
 Mru Field runs an operator's task as three replicas on a system's own processor. Every replica gets the same input, and the supervisor delivers only outputs it has checked. When one replica is wrong, hung or dead, the other two outvote it or carry on without it.
 
-Three copies of the same program share their bugs, so a fault that reaches all three at once needs a different check. We measure that limit and publish it: on the last replica, a fault that hits both computations alike gets through (at a common-mode share of 0.05, 23 of 400 bit flips). A new build is the change that reaches every copy. Brought into all three slots at once, a bad build takes all three replicas down together, or makes all three agree on the same wrong answer. Version 0.2.0 checks a new build before it reaches every copy.
+Three copies of the same program share their bugs, so a fault that reaches all three at once needs a different check. We measure that limit and publish it: on the last replica, a fault that hits both computations alike gets through (at a common-mode share of 0.05, 23 of 400 bit flips). A new build is the change that reaches every copy. Brought into all three slots at once, a bad build takes all three replicas down together, or makes all three agree on the same wrong answer. Version 0.2.0 checks a new build before it reaches every copy. Version 0.3.0 adds limits that do not depend on the answers at all.
 
 </Section>
 
@@ -127,16 +143,61 @@ By staged update, every bad build was rejected on the cycle its bug first showed
 
 <Figure name="field-staged" alt="Correct outputs of 5,000 per bad build, staged update against all at once. Crashes on cycle 500: 5,000 and 499, halted at 500. Hangs on cycle 500: 5,000 and 499, halted at 500. Wrong from cycle 500: 5,000 and 499 plus 4,501 wrong. Wrong on 1 input in 97: 5,000 and 4,949 plus 51 wrong. Fails its known-answer test: 5,000 and 0, never started. Crashes on cycle 1,500: 4,999 and 1,499, halted at 1,500. Hangs on cycle 1,500: 4,999 and 1,499, halted at 1,500. Wrong from cycle 1,500: 4,999 and 1,499 plus 3,501 wrong. Wrong from cycle 2,500, after the last switch: 2,499 plus 2,501 wrong both ways.">Fig. 2 · Correct outputs per run of 5,000 cycles, each bad build brought in both ways. The last row is the stated limit.</Figure>
 
+<Section label="Flood limits">
+<Fragment slot="note">The rules are section 11 of the <a href="https://github.com/mruspace/field/blob/main/docs/spec.md#11-floods">specification</a>. Field does not run a network and cannot stop a flood on one. Version 0.3.0 is about the node itself: what it sends, and what happens to it when its own links are flooded or jammed.</Fragment>
+
+## Right answers, flooded network
+
+A new part can do its own job and still harm what it shares a link with, through its traffic, not through its answers. Field checks answers, so we tested that case first. A build of our demo task that answers correctly and sends 100 network packets per request passed a staged update on the bench, and 400,100 packets went out. Version 0.3.0 adds three limits that hold whatever build a node runs:
+
+**The task network lock.** With `task_network = "deny"`, the default, each task process gets a seccomp filter before it starts ([kernel documentation](https://docs.kernel.org/userspace-api/seccomp_filter.html)). It can open local AF_UNIX sockets and nothing else: every other `socket` call fails. The filter stays with every process the task starts. However wrong a build is, and however right its answers are, it cannot send to a network. Only the supervisor talks to the outside, at most one output per cycle and one heartbeat line per interval, and it never listens for connections. The lock is enforced on Linux on x86_64, ARM64 and 32-bit ARM.
+
+**The input backlog.** A source that sends faster than the cycle builds a backlog. By default, every record waits its turn, so during a flood the input grows older for as long as the flood lasts. With `input_backlog = "newest"`, the supervisor reads what is already waiting, keeps the newest complete record and skips the rest. It logs the backlog once when it begins and once when it clears, so a long flood does not also flood the log.
+
+**Writes with a deadline.** In 0.2.0, a TCP peer that stopped reading held the supervisor without end: no cycles, no heartbeat, and its own run caps never ran. Every write to a TCP peer or a serial port now ends at 5 seconds. An output write that runs out of time stops the run with an error and keeps the checkpoint, so the service manager can start it again. The bench found one more fix: a serial source that never sent a newline could grow the supervisor's memory without limit. A long line is now cut as it arrives.
+
+</Section>
+
+<Section label="Flood bench">
+<Fragment slot="note">Linux in Docker on one Apple M4, field 0.3.0, `scripts/flood.py`. The old build in the last row is Field 0.2.0, built from its release tag. The raw files have every run's configuration, events and summary.</Fragment>
+
+## Flood limits on the bench
+
+<div class="tbl-box" tabindex="0" style="margin: 24px 0 0">
+  <table class="tbl">
+    <thead><tr><th style="min-width: 180px">Run</th><th>Without the limit</th><th>Field 0.3.0</th></tr></thead>
+    <tbody>
+      <tr><td>A build with right answers that sends 100 packets per request from cycle 500, all at once</td><td>450,300 packets out; 2,000 delivered, 0 wrong</td><td class="sig">0 packets out; 2,000 delivered, 0 wrong</td></tr>
+      <tr><td>The same build, by staged update</td><td>Updated on cycle 1,000; 400,100 packets out</td><td class="sig">Updated on cycle 1,000; 0 packets out</td></tr>
+      <tr><td>A source sending 10,000 records a second into 100 cycles a second</td><td>Input 12.0 s old by the last cycle</td><td class="sig">Input 0.8 ms old at the median; 122,489 skipped, one log line</td></tr>
+      <tr><td>The same source at 1,000 records a second</td><td>Input 11.1 s old by the last cycle</td><td class="sig">Input 0.6 ms old at the median; 11,175 skipped</td></tr>
+      <tr><td>An output peer that stops reading</td><td>Field 0.2.0 hung; its 30 s run cap never ran; killed at 60 s</td><td class="sig">Ended at 7.7 s with an error, checkpoint kept</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p class="tiny">Every line is a row in lock.csv, backlog.csv or stall.csv. "Without the limit" is the lock off, <code>input_backlog = "queue"</code>, or Field 0.2.0. Packets are the UDP datagrams a local listener read during the run. The supervisor's peak memory was about 13 MB in every backlog run.</p>
+
+The lock does not change what the vote sees. With the lock off and with it on, the build gave the same right answers, and the staged update took it in both times. The lock is what made its traffic zero.
+
+</Section>
+
+<Figure name="field-flood" alt="Three bench results. A new build that floods a network with every output right: lock off, all at once, 450,300 datagrams sent; lock off, staged update, 400,100 and the update took it in; lock on, 0 both ways. Input 100 times faster than the cycle, its age at the last cycle: every record in turn, 12.0 s; newest record, 0.8 ms. An output peer that stops reading, time until the run ends: version 0.2.0 hung and was killed at 60 s; version 0.3.0 ended at 7.7 s with sink-error, checkpoint kept.">Fig. 3 · Flood limits on and off, from the bench's CSV files. The newest-record and zero results are too small to draw as bars.</Figure>
+
 <Section label="Limits">
-<Fragment slot="note">Mru Field is not for certified safety functions, which keep their own certification (<a href="/field/">Field page</a>). Air traffic control is one. The method, a new build checked against the old one before it reaches every copy, does not depend on Field.</Fragment>
+<Fragment slot="note">Mru Field is not for certified safety functions, which keep their own certification (<a href="/field/">Field page</a>). Air traffic control is one. The methods, a new build checked against the old one before it reaches every copy, and a task kept off the network, do not depend on Field.</Fragment>
 
 ## What this does not cover
 
 - **A bug that shows after the last switch.** No slot runs the old build any more, so nothing can disagree (the last row). A longer trial covers more inputs and more time.
 - **Updates meant to change outputs.** The new build must give the same outputs as the old one: a patch, a new compiler, new libraries, a new platform. A build that changes outputs on purpose needs a different check. That is an open question in the specification.
-- **Overload.** A vote cannot add capacity. By the FAA's account, Friday was a flood of data that overloaded its network, so nothing here applies to it.
-- **Networks.** Field runs on one processor. A replica on a second processor over a link is planned, and nothing here covers a network.
 - **A false rejection.** In the second trial, a fault on the one old slot rejects a good build. The operator can try it again.
+- **A flood on a network.** Field does not run the network. By the FAA's account, Friday was a flood of data that overloaded its network, and nothing here would have stopped it. The flood limits keep a Field node from adding to a flood, and keep it working through one on its own links.
+- **Overload of the processor.** A vote cannot add capacity, and the CPU share limits only the supervisor.
+- **Links between processors.** Field runs on one processor. A replica on a second processor over a link is planned.
+- **The operator's own programs.** A `cmd:` source or sink is the operator's program, not the task, and the lock does not apply to it.
+- **Platforms without seccomp.** Elsewhere the lock is not enforced, and the summary says so. A Linux kernel without seccomp filters refuses it, and the task does not start until the operator sets `task_network = "allow"`.
+- **Every record, in order.** `newest` skips records by design. A stream where every record matters, such as commands, keeps the default.
 
 </Section>
 
@@ -147,6 +208,8 @@ By staged update, every bad build was rejected on the cycle its bug first showed
 
 At an airport, the safe state is on the ground. A seafloor observatory, a polar station or a spacecraft has no gate to wait at. A visit to a seafloor node can be a year away, and a spacecraft waits for its next contact. These systems still need updates: fixes, new compilers, new libraries. A staged update lets the system judge a new build against the one it already trusts, on its own, and keep working while it does.
 
-Staged updates are in Mru Field 0.2.0. Bringing them to Mru Flight is planned.
+These systems also share their links. A buoy shares a modem with its instruments, a substation shares a network with every relay on it, and a spacecraft shares a bus and a downlink with every other payload. On each, one part that sends too much can crowd out the rest, and its answers say nothing about it. The flood limits hold whatever build a node runs, including one that has not been checked yet.
+
+Staged updates are in Mru Field 0.2.0, and flood limits in 0.3.0. Bringing both to Mru Flight is planned.
 
 </Section>
