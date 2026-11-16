@@ -56,7 +56,7 @@ const faq = [
           left. A second processor over a link is planned.
         </p>
         <p class="soft small">
-          Status: version 0.2.0, built and tested on the bench on general-purpose processors, not yet on a board in the
+          Status: version 0.3.0, built and tested on the bench on general-purpose processors, not yet on a board in the
           field. The decision core has run three times in orbit.
         </p>
         <div class="row">
@@ -207,6 +207,15 @@ const faq = [
             </td>
           </tr>
           <tr>
+            <td>Network</td>
+            <td>
+              Your task cannot open a network socket, whatever build it runs: a build with right answers that floods a
+              network sends nothing. Under a flooded input, the supervisor can keep the newest record, and a jammed
+              output cannot hold it. <a href="/research/field-staged-updates/">Measured on the bench</a>: 450,300
+              packets out with the lock off, 0 with it on. Linux. Field does not run your network.
+            </td>
+          </tr>
+          <tr>
             <td>Not for</td>
             <td>Certified safety functions. Protection systems keep their own certification.</td>
           </tr>
@@ -227,7 +236,7 @@ const faq = [
         <h3>Mru Field</h3>
         <p>
           Acquisition once, shrinking quorum, health record, known-answer tests, checkpoint and resume, staged updates,
-          decision log.
+          flood limits, decision log.
         </p>
       </div>
       <div class="stratum">

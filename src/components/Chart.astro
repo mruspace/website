@@ -1,7 +1,7 @@
 ---
 // A chart drawn once per palette (the original SVGs from the flight and dusk
 // repos; flight-bench is drawn from the flight bench results by
-// scripts/charts/flight-bench.mjs; field-staged and field-staged-timeline from the field staged-update bench by scripts/charts/field-staged.mjs). Shown as <img>: the SVGs carry their own <style>, which must not
+// scripts/charts/flight-bench.mjs; field-staged and field-staged-timeline from the field staged-update bench by scripts/charts/field-staged.mjs; field-flood from the field flood bench by scripts/charts/field-flood.mjs). Shown as <img>: the SVGs carry their own <style>, which must not
 // leak into the page. Both are lazy, so only the visible one downloads.
 interface Props {
   name:
@@ -14,7 +14,8 @@ interface Props {
     | 'dusk-sensitivity'
     | 'dusk-cold-aging'
     | 'field-staged'
-    | 'field-staged-timeline';
+    | 'field-staged-timeline'
+    | 'field-flood';
   alt: string;
 }
 const SIZES = {
@@ -28,6 +29,7 @@ const SIZES = {
   'dusk-cold-aging': [760, 400],
   'field-staged': [1200, 874],
   'field-staged-timeline': [1200, 680],
+  'field-flood': [1200, 812],
 } as const;
 const { name, alt } = Astro.props;
 const [w, h] = SIZES[name];
