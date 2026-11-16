@@ -35,7 +35,7 @@ import Section from '../../components/research/Section.astro';
 import Figure from '../../components/research/Figure.astro';
 
 <Section label="Status">
-<Fragment slot="note">Mru Field v0.3.0, with staged updates since v0.2.0 and flood limits since v0.3.0, built and tested on the bench, on general-purpose processors. It has not run on a board in a system yet, and it is not qualification evidence. Field is not for certified safety functions, which keep their own certification.</Fragment>
+<Fragment slot="note">Mru Field 0.3.0, built and tested on the bench, on general-purpose processors. It has not run on a board in a system yet.</Fragment>
 
 ## What happened on November 13
 
@@ -54,7 +54,7 @@ Stopping was the right call. An aircraft on the ground can wait safely. With the
 </Section>
 
 <Section label="Scope">
-<Fragment slot="note">By the FAA's account, Friday was a flood of data on a network, after work at a remote site. Field does not run a network, and nothing in this note would have stopped Friday's flood (Limits). What Friday shares with the two cases below is the pattern: one change that reaches past the part it was made for. We have not seen the network. Updated on November 16 with the FAA's account and Field 0.3.0. On November 14 this note said that two of the first three accounts pointed to an update, and it covered staged updates only.</Fragment>
+<Fragment slot="note">By the FAA's account, Friday was a flood of data on a network, after work at a remote site. Field does not run a network, and nothing in this note would have stopped Friday's flood. What Friday shares with the two cases below is the pattern: one change that reaches past the part it was made for. We have not seen the network. Updated on November 16 with the FAA's account and Field 0.3.0. On November 14 this note said that two of the first three accounts pointed to an update, and it covered staged updates only.</Fragment>
 
 ## Redundancy that fails together
 
@@ -185,18 +185,18 @@ The lock does not change what the vote sees. With the lock off and with it on, t
 <Figure name="field-flood" alt="Three bench results. A new build that floods a network with every output right: lock off, all at once, 450,300 datagrams sent; lock off, staged update, 400,100 and the update took it in; lock on, 0 both ways. Input 100 times faster than the cycle, its age at the last cycle: every record in turn, 12.0 s; newest record, 0.8 ms. An output peer that stops reading, time until the run ends: version 0.2.0 hung and was killed at 60 s; version 0.3.0 ended at 7.7 s with sink-error, checkpoint kept.">Fig. 3 · Flood limits on and off, from the bench's CSV files. The newest-record and zero results are too small to draw as bars.</Figure>
 
 <Section label="Limits">
-<Fragment slot="note">Mru Field is not for certified safety functions, which keep their own certification (<a href="/field/">Field page</a>). Air traffic control is one. The methods, a new build checked against the old one before it reaches every copy, and a task kept off the network, do not depend on Field.</Fragment>
+<Fragment slot="note">The methods, a new build checked against the old one before it reaches every copy, and a task kept off the network, do not depend on Field.</Fragment>
 
 ## What this does not cover
 
 - **A bug that shows after the last switch.** No slot runs the old build any more, so nothing can disagree (the last row). A longer trial covers more inputs and more time.
 - **Updates meant to change outputs.** The new build must give the same outputs as the old one: a patch, a new compiler, new libraries, a new platform. A build that changes outputs on purpose needs a different check. That is an open question in the specification.
 - **A false rejection.** In the second trial, a fault on the one old slot rejects a good build. The operator can try it again.
-- **A flood on a network.** Field does not run the network. By the FAA's account, Friday was a flood of data that overloaded its network, and nothing here would have stopped it. The flood limits keep a Field node from adding to a flood, and keep it working through one on its own links.
-- **Overload of the processor.** A vote cannot add capacity, and the CPU share limits only the supervisor.
+- **Overload of the processor.** Three replicas add work, not capacity. The CPU share caps what Field and its replicas use together; it does not make the processor faster.
 - **Links between processors.** Field runs on one processor. A replica on a second processor over a link is planned.
 - **The operator's own programs.** A `cmd:` source or sink is the operator's program, not the task, and the lock does not apply to it.
-- **Platforms without seccomp.** Elsewhere the lock is not enforced, and the summary says so. A Linux kernel without seccomp filters refuses it, and the task does not start until the operator sets `task_network = "allow"`.
+- **Systems other than Linux on x86_64, ARM64 or 32-bit ARM.** There the lock is not enforced, and the summary says so. A Linux kernel without seccomp filters refuses the lock, and the supervisor does not start the task until the operator sets `task_network = "allow"`.
+- **Disk.** The lock covers the network only. A task that writes too much to a shared disk is not stopped by it.
 - **Every record, in order.** `newest` skips records by design. A stream where every record matters, such as commands, keeps the default.
 
 </Section>
