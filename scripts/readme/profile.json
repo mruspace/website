@@ -1,7 +1,7 @@
 {
   "tagline": "Systems that still run a thousand years after we're gone.",
   "paragraphs": [
-    "Mru builds software for unattended missions with no repair path. When a processor fails and no one can replace it, Mru steps down from voting on three replicas to comparing two, then to one replica that checks its own work, so the system keeps doing useful work on the hardware that is left.",
+    "Mru builds software for hard-to-reach systems with no repair path. When a processor fails and no one can replace it, Mru steps down from voting on three replicas to comparing two, then to one replica that checks its own work, so the system keeps doing useful work on the hardware that is left.",
     "Mru Flight is the version for spacecraft. Mru Field is the version for equipment on Earth that nobody can reach in time, such as deep-ocean sensors."
   ],
   "status": {
@@ -15,7 +15,7 @@
     },
     {
       "name": "field",
-      "desc": "Mru Field: the supervisor for hard-to-reach systems on Earth. Version 0.1.0, bench-tested, not yet in the field."
+      "desc": "Mru Field: the supervisor for hard-to-reach systems on Earth. Version 0.3.0, bench-tested, not yet in the field."
     },
     {
       "name": "dusk",
