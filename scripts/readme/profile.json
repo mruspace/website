@@ -11,7 +11,7 @@
   "repos": [
     {
       "name": "flight",
-      "desc": "The decision core in Rust, F´ components, the demo and the bench."
+      "desc": "Mru Flight 0.9.0: the decision core in Rust, F´ components, a cFS app, the demo and the bench."
     },
     {
       "name": "field",
