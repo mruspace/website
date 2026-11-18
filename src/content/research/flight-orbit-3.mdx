@@ -90,17 +90,6 @@ The prediction had four parts. Zero wrong results in every segment: zero. About 
 
 </Section>
 
-<Section label="Scope">
-<Fragment slot="note">Runs 1 and 2 are <a href="/research/flight-orbit/">№ 006</a> and <a href="/research/flight-orbit-2/">№ 007</a>.</Fragment>
-
-## What it shows, and what it does not
-
-It shows the F&#x2060;´ components doing in orbit what the demo did in runs 1 and 2: the shrinking quorum went down to its last replica with no wrong result, and fixed TMR, on the same faults, stopped delivering at cycle 240. It shows the parts a mission integrates: the components inside F&#x2060;´, commanded by a sequence, reporting through F&#x2060;´ events, a replica lost to a real process kill and found by its silence, and a manager restart that brings a retired replica back as retired. The F&#x2060;´ components had only run on the ground before this run.
-
-It does not show more than that. The three replicas were processes on one Linux processor with two cores, not three processors. The stuck value and the bit flip came from the test-only fault injector, and both kills came from our own software. The package had no memory sensor, so it says nothing about real upsets. <a href="https://docs.mru.space/concepts/qualification/">Qualification evidence</a> needs independent processors, real upsets and a long run.
-
-</Section>
-
 <Section label="Credit">
 <Fragment slot="note">ESA OPS-SAT Space Lab ran experiment exp4051 on OPS-SAT PRETTY. TU Graz operates the satellite and ran the FlatSat test.</Fragment>
 
