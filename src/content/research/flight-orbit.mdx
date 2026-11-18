@@ -66,6 +66,8 @@ Fixed TMR, on the same faults, delivered 239 correct results. From tick 240 it h
 
 The voter used 65,992 KiB resident, almost all of it the 64 MB sensor block, and 5.2% of wall time including start-up. Each replica used 452 KiB.
 
+One defect: both runs overran the 110-second cap by about 3 seconds. The limit is checked once per tick, and the last tick was a 64 MB scan. Fixed in v0.4.0: the scan checks the limit every 1 MiB and the sleep stops at the cap.
+
 </Section>
 
 <Figure name="flight-orbit" alt="Timeline of the two runs in orbit by tick, with an axis break at tick 300. Faults at ticks 20, 120 and 240, and the memory scan at tick 250. The shrinking quorum delivers checked results to tick 5,250: 2,745 correct, 0 wrong. Fixed TMR delivers 239 correct results to tick 239, then detects 4,261 disagreements and delivers nothing to tick 4,500.">Fig. 1 · Events as the program logged them on OPS-SAT PRETTY, from the files the satellite sent down. The axis breaks at tick 300: every fault lands before it, both runs go on past it. The bit flip in replica 2 at tick 60 is outvoted and leaves no event in the log, so it has no mark.</Figure>
@@ -76,19 +78,6 @@ The voter used 65,992 KiB resident, almost all of it the 64 MB sensor block, and
 ## What we said it would do
 
 The prediction had five parts. The same events on the same ticks as on the FlatSat: met, every fault on its tick. About 2,700 correct results for the shrinking quorum: 2,745. 239 for fixed TMR: 239. Zero wrong results: zero. About 225 seconds in total: 227. We also wrote that any real upset would show as an extra sensor_upset line in the log. There was none.
-
-</Section>
-
-<Section label="Scope">
-<Fragment slot="note">The 1.34× figure in <a href="/research/dusk-results/">№ 002</a> comes from 10,000 simulated missions, not from this run. With no real upset in the window, the run calibrates nothing.</Fragment>
-
-## What it shows, and what it does not
-
-It shows that the policy runs on a flight processor, in user space, at a 5% share of the processor, and keeps delivering correct results on the last replica where fixed TMR stops. It shows that one binary gives the same events on a virtual machine, on the FlatSat and in orbit. For an operator, that answers one question: the policy behaves the same on the flight processor as on the ground.
-
-It does not show more than that. The three replicas were software processes on one Linux processor, not three processors. The faults came from a schedule, not from the environment. The memory sensor saw no real upset in 227 seconds. The run used the demo voter and replicas, not the F&#x2060;´ components. <a href="https://docs.mru.space/concepts/qualification/">Qualification evidence</a> needs the F&#x2060;´ version in orbit, real upsets and a long run. This run is the step before that.
-
-One defect: both runs overran the 110-second cap by about 3 seconds. The limit is checked once per tick, and the last tick was a 64 MB scan. Fixed in v0.4.0: the scan checks the limit every 1 MiB and the sleep stops at the cap.
 
 </Section>
 
