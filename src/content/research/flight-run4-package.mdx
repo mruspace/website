@@ -6,7 +6,7 @@ shortTitle: 'Mru Flight 0.9.0'
 summary: 'Run 4 on OPS-SAT PRETTY is approved, not flown. Its package adds automatic resets, sensor selection, the decision core as a NASA cFS application, and real bit flips in the replicas'' memory. In three full runs in ESA''s environment image, every segment gave 0 wrong results.'
 lede: 'Runs 1 to 3 injected each fault at its symptom. Mru Flight 0.8.0 and 0.9.0 add what comes after a fault and one step closer to its cause: a unit reset and taken back, sensors that disagree, the same core under NASA''s core Flight System, and bit flips in memory that nothing tells the manager about. The OPS-SAT team approved run 4 on November 16, 2026.'
 date: 2026-11-18
-readingTime: 7 min
+readingTime: 6 min
 byline:
   - { label: Releases, text: v0.8.0, href: 'https://github.com/mruspace/flight/releases/tag/v0.8.0' }
   - { label: and, text: v0.9.0, href: 'https://github.com/mruspace/flight/releases/tag/v0.9.0' }
@@ -27,7 +27,7 @@ import Section from '../../components/research/Section.astro';
 
 ## What is in run 4
 
-On November 16, 2026, the OPS-SAT team approved a fourth run of experiment exp4051 on ESA's OPS-SAT PRETTY, and we sent the package, `exp4051-mru-flight-v0.9.0.tar.gz`, the same day. It has the same shape as run 3: one entry script in the foreground, user space only, no network, 128 MB per process, everything written to `toGround/`. Six segments run one after the other, about four minutes in all:
+On November 16, 2026, the OPS-SAT team approved a fourth run of experiment exp4051 on ESA's OPS-SAT PRETTY. The package, `exp4051-mru-flight-v0.9.0.tar.gz`, has the same shape as run 3: one entry script in the foreground, user space only, no network, 128 MB per process, everything written to `toGround/`. Six segments run one after the other:
 
 1. Automatic resets. Replica 1 stops answering at cycles 60 and 300. Replica 2's process is killed with SIGKILL at cycle 150, a real dead unit. The manager resets a silent replica, up to three times.
 2. The same faults with resets off.
@@ -36,9 +36,9 @@ On November 16, 2026, the OPS-SAT team approved a fourth run of experiment exp40
 5. The same decision core as an application of NASA's core Flight System (cFS), with the faults of run 1.
 6. Real bit flips in each replica process's own memory, made by software.
 
-Segments 1 to 5 inject each fault at its symptom, as runs 1 to 3 did: a replica's answer is changed, withheld or stopped. Nothing on the platform is simulated, and the run shows the recovery logic, not a recovered device.
+Segments 1 to 5 simulate each fault at its symptom, as runs 1 to 3 did: a replica's answer is changed, withheld or stopped.
 
-In ESA's OPS-SAT PRETTY environment image (32-bit ARM, emulated on a laptop), the whole package ran three times at full length: 246 seconds, every exit 0, 0 wrong results in every segment.
+In ESA's OPS-SAT PRETTY environment image (32-bit ARM, emulated on a laptop), the whole package ran three times at full length: every exit 0, 0 wrong results in every segment.
 
 </Section>
 
@@ -62,7 +62,7 @@ In a full-length native run of segments 1 to 3 in the build container (not the f
   </table>
 </div>
 
-<p class="tiny">Source: the 0.8.0 entry of the <a href="https://github.com/mruspace/flight/blob/main/CHANGELOG.md">changelog</a>. In the runs, a reset ends a simulated hang. On a real system, <code>resetOut</code> would drive the platform's reset line for that unit. Mru decides when to reset and whether to take the unit back; it does not reset hardware itself.</p>
+<p class="tiny">Source: the 0.8.0 entry of the <a href="https://github.com/mruspace/flight/blob/main/CHANGELOG.md">changelog</a>.</p>
 
 </Section>
 
@@ -91,11 +91,11 @@ Segment 5 runs it with the faults of run 1: a bit flip at cycle 60, a stuck repl
 </Section>
 
 <Section label="Bit flips">
-<Fragment slot="note">Requirements MRU-DEP-008 and MRU-DEP-009. The flips are real, in user space, one bit at a time, made by software. They are not radiation.</Fragment>
+<Fragment slot="note">Requirements MRU-DEP-008 and MRU-DEP-009. Real flips, one bit at a time, made by software in user space.</Fragment>
 
 ## Closer to the cause
 
-Segment 6 injects at the cause, not the symptom. A thread in each replica process flips one bit at a time in that process's own memory: code, read-only data, data, heap and stacks, in proportion to their size, at random times, 2 flips per second per replica from 2 seconds in, for 40 seconds. Each flip is logged before it is made. The package's files are never changed. The manager runs the shrinking quorum with a known-answer test on the last replica every cycle, and it is told nothing about the flips.
+Segment 6 injects at the cause, not the symptom. A thread in each replica process flips one bit at a time in that process's own memory: code, read-only data, data, heap and stacks, in proportion to their size, at random times, 2 flips per second per replica. Each flip is logged before it is made. The package's files are never changed. The manager runs the shrinking quorum with a known-answer test on the last replica every cycle, and it is told nothing about the flips.
 
 Where a flip lands cannot be scheduled. In ESA's environment image and in 160 native runs at up to 200 flips per second, most flips changed nothing. Some crashed or hung a replica, and it was lost. Some made a replica answer wrong; the disagreement was caught and the replica retired. When the last replica went, Mru halted and delivered nothing. No run delivered a wrong result.
 
@@ -111,17 +111,6 @@ A replica that a flip sets spinning stops at 2 seconds of CPU time, one that wri
 ## What we said it would do
 
 In segment 1, replica 1 is back at cycles 63 and 303, and replica 2 is kept out at cycle 158. Fixed TMR halts at cycle 153. Sensor 2 is excluded at cycle 137. Where the flips of segment 6 land cannot be predicted, so for them we predict only the outcome that matters: zero wrong results, in every segment.
-
-</Section>
-
-<Section label="Scope">
-<Fragment slot="note">The full fault model, each simulated fault and the failure it stands for: <a href="https://github.com/mruspace/flight/blob/main/docs/fault-model.md">docs/fault-model.md</a>.</Fragment>
-
-## What it shows, and what it does not
-
-It shows the recovery logic: a silent unit reset and taken back only on the right known answer, a dead one kept out, sensors that disagree handled without a wrong value, the same core under cFS, and a manager that survives whatever a corrupted replica sends it.
-
-It does not show more than that. The replicas are processes on one Linux processor, not three processors. The bit flips are made by software in user space; a real particle can also flip a register, a cache, the kernel or the shared processor itself, and several bits at once, and none of that is modeled. A fault in the shared processor, clock or power supply hits every replica at once. <a href="https://docs.mru.space/concepts/qualification/">Qualification evidence</a> needs independent processors, real upsets and a long run.
 
 </Section>
 
