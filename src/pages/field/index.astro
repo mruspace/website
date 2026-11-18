@@ -56,8 +56,8 @@ const faq = [
           left. A second processor over a link is planned.
         </p>
         <p class="soft small">
-          Status: version 0.3.0, built and tested on the bench on general-purpose processors, not yet on a board in the
-          field. The decision core has run three times in orbit.
+          Status: version {t('field.version')}, built and tested on the bench on general-purpose processors, not yet on
+          a board in the field. The decision core has run three times in orbit.
         </p>
         <div class="row">
           <a class="btn" href="#request">
@@ -143,6 +143,9 @@ const faq = [
       <div class="stack-m">
         <p class="eyebrow">Requirements and limits</p>
         <h2 class="h2">What it needs, and what it does not do.</h2>
+        <a class="link-more" href="https://docs.mru.space/field/">
+          The full reference, in the docs
+        </a>
       </div>
       <p class="lede">
         Your instrument and control code stays as it is. Mru Field sits between your task and the processor.
@@ -167,9 +170,9 @@ const faq = [
           <tr>
             <td>Footprint</td>
             <td>
-              The supervisor used at most 13 MB of resident memory on 64-bit ARM Linux, with input arriving at 10,000
-              records a second (bench, November 16, 2026). Each task process is held to 128 MB of address space by
-              default.
+              The supervisor used at most {t('field.flood.supervisor_rss_max')} of resident memory on 64-bit ARM Linux,
+              with input arriving at up to 10,000 records a second on the flood bench. Each task process is held to 128
+              MB of address space by default.
             </td>
           </tr>
           <tr>
@@ -212,8 +215,9 @@ const faq = [
             <td>
               Your task cannot open a network socket, whatever build it runs: a build with right answers that floods a
               network sends nothing. Under a flooded input, the supervisor can keep the newest record, and a jammed
-              output cannot hold it. <a href="/research/field-staged-updates/">Measured on the bench</a>: 450,300
-              packets out with the lock off, 0 with it on. Linux. Field does not run your network.
+              output cannot hold it. <a href="/research/field-staged-updates/">Measured on the bench</a>:{' '}
+              {t('field.flood.datagrams_unlocked')} packets out with the lock off, {t('field.flood.datagrams_locked')}{' '}
+              with it on. Linux. Field does not run your network.
             </td>
           </tr>
           <tr>
