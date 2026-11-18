@@ -4,12 +4,13 @@
   "sources": {
     "flight": {
       "repo": "mruspace/flight",
-      "commit": "009dd1b",
+      "commit": "ce2214f",
       "bench": ["2026-10-11-darwin-arm64.json", "2026-10-11-linux-aarch64.json", "2026-10-11-linux-x86_64.json"],
       "bench_commits": { "darwin-arm64": "7c1a629", "linux-aarch64": "d79b345", "linux-x86_64": "d79b345" },
       "kat": "2026-10-11-darwin-arm64-kat.json",
       "kat_commit": "22ea557"
     },
+    "field": { "repo": "mruspace/field", "commit": "05c1655", "flood": "docs/results/2026-11-16-linux-aarch64/flood" },
     "dusk": {
       "repo": "mruspace/dusk",
       "commit": "6936feb",
@@ -507,6 +508,72 @@
       "text": "1.00%",
       "ci": "0.96% to 1.04%"
     },
+    "field.flood.datagrams_locked": {
+      "value": 0,
+      "format": "int",
+      "unit": "datagrams received with the network lock on",
+      "scope": "a build with right outputs that sends 100 UDP datagrams per request from cycle 500, 2,000 cycles",
+      "conditions": "task_network = \"deny\", all at once and by staged update",
+      "source": {
+        "repo": "field",
+        "path": "docs/results/2026-11-16-linux-aarch64/flood/lock.csv",
+        "command": "scripts/flood.py"
+      },
+      "text": "0"
+    },
+    "field.flood.datagrams_unlocked": {
+      "value": 450300,
+      "format": "int",
+      "unit": "datagrams received with the network lock off",
+      "scope": "a build with right outputs that sends 100 UDP datagrams per request from cycle 500, 2,000 cycles",
+      "conditions": "task_network = \"allow\", the build in every slot at once",
+      "source": {
+        "repo": "field",
+        "path": "docs/results/2026-11-16-linux-aarch64/flood/lock.csv",
+        "command": "scripts/flood.py"
+      },
+      "text": "450,300"
+    },
+    "field.flood.supervisor_rss_max": {
+      "value": 13236,
+      "format": "mb1",
+      "unit": "supervisor peak resident memory",
+      "scope": "input at 1,000 and 10,000 records a second, 1,000 cycles, both backlog policies",
+      "conditions": "64-bit ARM Linux",
+      "source": {
+        "repo": "field",
+        "path": "docs/results/2026-11-16-linux-aarch64/flood/backlog.csv",
+        "command": "scripts/flood.py"
+      },
+      "text": "12.9 MB"
+    },
+    "field.tests.integration": {
+      "value": 29,
+      "format": "int",
+      "unit": "integration tests",
+      "scope": "cargo test --release",
+      "conditions": "",
+      "source": { "repo": "field", "path": "README.md: the cargo test line" },
+      "text": "29"
+    },
+    "field.tests.unit": {
+      "value": 39,
+      "format": "int",
+      "unit": "unit tests",
+      "scope": "cargo test --release",
+      "conditions": "",
+      "source": { "repo": "field", "path": "README.md: the cargo test line" },
+      "text": "39"
+    },
+    "field.version": {
+      "value": "0.3.0",
+      "format": "text",
+      "unit": "Mru Field version",
+      "scope": "mruspace/field main",
+      "conditions": "",
+      "source": { "repo": "field", "path": "Cargo.toml" },
+      "text": "0.3.0"
+    },
     "flight.bench.pairs": {
       "value": 150,
       "format": "int",
@@ -798,10 +865,10 @@
     "flight.fprime.components": {
       "value": 7,
       "format": "int",
-      "unit": "F´ components: four for flight, three test-only (FaultInjector, RunRecorder, SensorSim)",
+      "unit": "F´ components with unit tests",
       "scope": "fprime/Mru/Components",
-      "conditions": "F´ v4.4.1",
-      "source": { "repo": "flight", "kind": "manual", "ref": "fprime/Mru/Components/" },
+      "conditions": "F´ v4.4.1: HealthRegistry, ReplicaHost, FaultInjector, RedundancyManager, RunRecorder, SensorVoter, SensorSim",
+      "source": { "repo": "flight", "path": "docs/fprime-design-fpp.md: the F´ unit tests row" },
       "text": "7"
     },
     "flight.fprime.unit_tests": {
@@ -810,7 +877,7 @@
       "unit": "F´ unit tests",
       "scope": "fprime/Mru components, fprime-util check in CI",
       "conditions": "HealthRegistry 5, ReplicaHost 5, FaultInjector 9, RedundancyManager 27, RunRecorder 4, SensorVoter 6, SensorSim 3",
-      "source": { "repo": "flight", "kind": "manual", "ref": "docs/fprime-design-fpp.md" },
+      "source": { "repo": "flight", "path": "docs/fprime-design-fpp.md: the F´ unit tests row" },
       "text": "59"
     },
     "flight.kani.core": {
@@ -3032,6 +3099,15 @@
         "command": "./scripts/bench.sh"
       },
       "text": "20"
+    },
+    "flight.version": {
+      "value": "0.9.0",
+      "format": "text",
+      "unit": "Mru Flight version",
+      "scope": "mruspace/flight main",
+      "conditions": "",
+      "source": { "repo": "flight", "path": "Cargo.toml" },
+      "text": "0.9.0"
     },
     "flight.wrong.common_mode_max": {
       "value": 3.6,

@@ -17,7 +17,10 @@ const result = await new LinkChecker().check({
   recurse: true, // follows local pages only; external links are checked, not crawled
   concurrency: 20,
   timeout: 15000,
-  retry: true,
+  // No retry on 429: GitHub answers a burst with a long Retry-After, and the
+  // wait outlasted the CI job (November 18, 2026). External links never fail
+  // the check, so a 429 is reported, not waited out.
+  retry: false,
   linksToSkip: async (link) =>
     /^(mailto:|tel:|data:|javascript:)/.test(link) ||
     // The live site is checked after deploy; before it, these point at the old site.

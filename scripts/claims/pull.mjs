@@ -4,11 +4,14 @@
 // come from the results files the code writes, never from a person:
 //   - mruspace/flight: bench/results/<date>-<host>.json (the bench, three hosts)
 //     and bench/results/<date>-<host>-kat.json (known-answer test coverage),
-//     plus the Kani proofs counted in quorum/src/lib.rs and quorum-ffi/src/lib.rs
+//     plus the Kani proofs counted in quorum/src/lib.rs, quorum/src/sensor.rs and
+//     quorum-ffi/src/lib.rs, and the F´ unit tests row of docs/fprime-design-fpp.md
+//   - mruspace/field: the version (Cargo.toml), the test counts (README.md) and
+//     the latest flood bench (docs/results/<date>-<host>/flood/*.csv)
 //   - mruspace/dusk: docs/data.json (written by `cargo run --release --bin charts`)
 // Pages read claims.json through src/data/claims.ts. Never edit it by hand.
 //
-//   node scripts/claims/pull.mjs          read ../flight and ../dusk, else GitHub main
+//   node scripts/claims/pull.mjs          read ../flight, ../field and ../dusk, else GitHub main
 //   node scripts/claims/pull.mjs --check  exit 1 if claims.json is stale
 //   CLAIMS_FROM=github ...                always read GitHub main (CI does this)
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
@@ -519,27 +522,125 @@ if (kat?.throughput?.[0]?.kat_tests_per_delivered_result !== undefined) {
   }
 }
 
-// Kept by hand, with the file that states them.
-const MANUAL = {
-  'flight.fprime.components': {
-    value: 7,
-    format: 'int',
-    unit: 'F´ components: four for flight, three test-only (FaultInjector, RunRecorder, SensorSim)',
-    scope: 'fprime/Mru/Components',
-    conditions: 'F´ v4.4.1',
-    source: { repo: 'flight', kind: 'manual', ref: 'fprime/Mru/Components/' },
-  },
-  'flight.fprime.unit_tests': {
-    value: 59,
-    format: 'int',
-    unit: 'F´ unit tests',
-    scope: 'fprime/Mru components, fprime-util check in CI',
-    conditions:
-      'HealthRegistry 5, ReplicaHost 5, FaultInjector 9, RedundancyManager 27, RunRecorder 4, SensorVoter 6, SensorSim 3',
-    source: { repo: 'flight', kind: 'manual', ref: 'docs/fprime-design-fpp.md' },
-  },
+// ---------- flight: the version ----------
+const flightVersion = (await text('flight', 'Cargo.toml')).match(/^version = "([^"]+)"/m)?.[1];
+if (!flightVersion) throw new Error('claims: no version in flight Cargo.toml');
+add('flight.version', {
+  value: flightVersion,
+  format: 'text',
+  unit: 'Mru Flight version',
+  scope: 'mruspace/flight main',
+  conditions: '',
+  source: { repo: 'flight', path: 'Cargo.toml' },
+});
+
+// ---------- flight: the F´ components, from the results table of the design notes ----------
+// docs/fprime-design-fpp.md has one row "| F´ unit tests | 59 (HealthRegistry 5, ...) ...". The
+// split names every component with unit tests; the counts must add up to the total.
+const FPP = 'docs/fprime-design-fpp.md';
+const fppRow = (await text('flight', FPP)).match(/^\| F´ unit tests \| (\d+) \(([^)]+)\)/m);
+if (!fppRow) throw new Error(`claims: no "F´ unit tests" row in flight ${FPP}`);
+const fppSplit = fppRow[2].split(', ').map((p) => p.match(/^(\w+) (\d+)$/));
+if (fppSplit.some((m) => !m)) throw new Error(`claims: cannot read the F´ unit test split: ${fppRow[2]}`);
+const fppTotal = Number(fppRow[1]);
+if (fppSplit.reduce((n, m) => n + Number(m[2]), 0) !== fppTotal)
+  throw new Error(`claims: the F´ unit test split does not add up to ${fppTotal}`);
+add('flight.fprime.components', {
+  value: fppSplit.length,
+  format: 'int',
+  unit: 'F´ components with unit tests',
+  scope: 'fprime/Mru/Components',
+  conditions: `F´ v4.4.1: ${fppSplit.map((m) => m[1]).join(', ')}`,
+  source: { repo: 'flight', path: `${FPP}: the F´ unit tests row` },
+});
+add('flight.fprime.unit_tests', {
+  value: fppTotal,
+  format: 'int',
+  unit: 'F´ unit tests',
+  scope: 'fprime/Mru components, fprime-util check in CI',
+  conditions: fppRow[2],
+  source: { repo: 'flight', path: `${FPP}: the F´ unit tests row` },
+});
+
+// ---------- field: version, tests and the latest flood bench ----------
+const fieldVersion = (await text('field', 'Cargo.toml')).match(/^version = "([^"]+)"/m)?.[1];
+if (!fieldVersion) throw new Error('claims: no version in field Cargo.toml');
+const fieldReadme = await text('field', 'README.md');
+const fieldTests = fieldReadme.match(/cargo test --release\s+# (\d+) unit tests, (\d+) integration tests/);
+if (!fieldTests) throw new Error('claims: no test counts on the cargo test line of field README.md');
+add('field.version', {
+  value: fieldVersion,
+  format: 'text',
+  unit: 'Mru Field version',
+  scope: 'mruspace/field main',
+  conditions: '',
+  source: { repo: 'field', path: 'Cargo.toml' },
+});
+add('field.tests.unit', {
+  value: Number(fieldTests[1]),
+  format: 'int',
+  unit: 'unit tests',
+  scope: 'cargo test --release',
+  conditions: '',
+  source: { repo: 'field', path: 'README.md: the cargo test line' },
+});
+add('field.tests.integration', {
+  value: Number(fieldTests[2]),
+  format: 'int',
+  unit: 'integration tests',
+  scope: 'cargo test --release',
+  conditions: '',
+  source: { repo: 'field', path: 'README.md: the cargo test line' },
+});
+const fieldRuns = (await list('field', 'docs/results')).filter((d) => /^\d{4}-\d{2}-\d{2}-/.test(d)).sort();
+let floodDir = null;
+for (const d of fieldRuns.slice().reverse()) {
+  try {
+    await text('field', `docs/results/${d}/flood/lock.csv`);
+    floodDir = `docs/results/${d}/flood`;
+    break;
+  } catch {
+    // no flood bench in this run
+  }
+}
+if (!floodDir) throw new Error('claims: no flood results in field docs/results');
+const csv = async (f) => {
+  const [head, ...rows] = (await text('field', `${floodDir}/${f}`)).trim().split('\n');
+  const keys = head.split(',');
+  return rows.map((r) => Object.fromEntries(r.split(',').map((v, i) => [keys[i], v])));
 };
-for (const [id, e] of Object.entries(MANUAL)) add(id, e);
+const lock = await csv('lock.csv');
+const lockRow = (network, rollout) => {
+  const r = lock.find((x) => x.network === network && x.rollout === rollout);
+  if (!r) throw new Error(`claims: no ${network},${rollout} row in ${floodDir}/lock.csv`);
+  return Number(r.datagrams_received);
+};
+const FLOOD_SCOPE = 'a build with right outputs that sends 100 UDP datagrams per request from cycle 500, 2,000 cycles';
+add('field.flood.datagrams_unlocked', {
+  value: lockRow('allow', 'all-at-once'),
+  format: 'int',
+  unit: 'datagrams received with the network lock off',
+  scope: FLOOD_SCOPE,
+  conditions: 'task_network = "allow", the build in every slot at once',
+  source: { repo: 'field', path: `${floodDir}/lock.csv`, command: 'scripts/flood.py' },
+});
+add('field.flood.datagrams_locked', {
+  value: Math.max(lockRow('deny', 'all-at-once'), lockRow('deny', 'staged')),
+  format: 'int',
+  unit: 'datagrams received with the network lock on',
+  scope: FLOOD_SCOPE,
+  conditions: 'task_network = "deny", all at once and by staged update',
+  source: { repo: 'field', path: `${floodDir}/lock.csv`, command: 'scripts/flood.py' },
+});
+const backlog = await csv('backlog.csv');
+add('field.flood.supervisor_rss_max', {
+  value: Math.max(...backlog.map((r) => Number(r.supervisor_max_rss_kib))),
+  format: 'mb1',
+  unit: 'supervisor peak resident memory',
+  scope: 'input at 1,000 and 10,000 records a second, 1,000 cycles, both backlog policies',
+  conditions: '64-bit ARM Linux',
+  source: { repo: 'field', path: `${floodDir}/backlog.csv`, command: 'scripts/flood.py' },
+});
 
 const out = {
   note: 'Generated by scripts/claims/pull.mjs. Do not edit by hand.',
@@ -552,6 +653,11 @@ const out = {
       bench_commits: Object.fromEntries(bench.map((h) => [h.host, h.commit])),
       kat: katFiles.at(-1) ?? null,
       kat_commit: kat?.commit ?? null,
+    },
+    field: {
+      repo: 'mruspace/field',
+      commit: headCommit('field'),
+      flood: floodDir,
     },
     dusk: {
       repo: 'mruspace/dusk',
