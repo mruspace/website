@@ -1545,14 +1545,17 @@
 .docs-main .body p {
   margin-bottom: 1em;
 }
-.docs-main .body code {
+/* Inline code: the same box in the docs and in research entries. */
+.docs-main .body code,
+.article .body :not(pre) > code {
   background: var(--bg-sunk);
   border: 1px solid var(--rule);
   border-radius: 3px;
   padding: 1px 5px;
   font-size: 0.84em;
 }
-.docs-main .body .pre code {
+.docs-main .body .pre code,
+.article .body .tiny code {
   background: none;
   border: 0;
   padding: 0;
