@@ -184,23 +184,6 @@ The lock does not change what the vote sees. With the lock off and with it on, t
 
 <Figure name="field-flood" alt="Three bench results. A new build that floods a network with every output right: lock off, all at once, 450,300 datagrams sent; lock off, staged update, 400,100 and the update took it in; lock on, 0 both ways. Input 100 times faster than the cycle, its age at the last cycle: every record in turn, 12.0 s; newest record, 0.8 ms. An output peer that stops reading, time until the run ends: version 0.2.0 hung and was killed at 60 s; version 0.3.0 ended at 7.7 s with sink-error, checkpoint kept.">Fig. 3 · Flood limits on and off, from the bench's CSV files. The newest-record and zero results are too small to draw as bars.</Figure>
 
-<Section label="Limits">
-<Fragment slot="note">The methods, a new build checked against the old one before it reaches every copy, and a task kept off the network, do not depend on Field.</Fragment>
-
-## What this does not cover
-
-- **A bug that shows after the last switch.** No slot runs the old build any more, so nothing can disagree (the last row). A longer trial covers more inputs and more time.
-- **Updates meant to change outputs.** The new build must give the same outputs as the old one: a patch, a new compiler, new libraries, a new platform. A build that changes outputs on purpose needs a different check. That is an open question in the specification.
-- **A false rejection.** In the second trial, a fault on the one old slot rejects a good build. The operator can try it again.
-- **Overload of the processor.** Three replicas add work, not capacity. The CPU share caps what Field and its replicas use together; it does not make the processor faster.
-- **Links between processors.** Field runs on one processor. A replica on a second processor over a link is planned.
-- **The operator's own programs.** A `cmd:` source or sink is the operator's program, not the task, and the lock does not apply to it.
-- **Systems other than Linux on x86_64, ARM64 or 32-bit ARM.** There the lock is not enforced, and the summary says so. A Linux kernel without seccomp filters refuses the lock, and the supervisor does not start the task until the operator sets `task_network = "allow"`.
-- **Disk.** The lock covers the network only. A task that writes too much to a shared disk is not stopped by it.
-- **Every record, in order.** `newest` skips records by design. A stream where every record matters, such as commands, keeps the default.
-
-</Section>
-
 <Section label="Field and Flight">
 <Fragment slot="note">Mru Field is for systems on Earth. Mru Flight, the same core for spacecraft, ran three times on ESA's OPS-SAT PRETTY satellite (<a href="/research/flight-orbit-3/">№ 008</a>).</Fragment>
 
