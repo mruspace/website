@@ -12,7 +12,7 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Mru Flight' }];
 const faq = [
   {
     q: 'Do we need new flight hardware?',
-    a: 'No. Mru Flight is software for the processors you already fly, starting with F´, then other flight software frameworks. It needs two or more processors that can run the same task at the same time, and each one costs power. The prototype that ran in orbit put all three replicas on one processor.',
+    a: 'No. Mru Flight is software for the processors you already fly, as F´ components and as a cFS application, with a C interface for other flight software frameworks. It needs two or more processors that can run the same task at the same time, and each one costs power. The prototype that ran in orbit put all three replicas on one processor.',
   },
   {
     q: 'What does it cost us in throughput?',
@@ -52,14 +52,14 @@ const faq = [
       <div class="stack-m">
         <p class="lede">
           Onboard software for the processors you already fly. A small Rust decision core, checked with the Kani model
-          checker, as components for NASA JPL's F&#180; framework, with a C interface for other flight software
-          frameworks.
+          checker, as components for NASA JPL's F&#180; framework and an application for NASA's core Flight System, with
+          a C interface for other flight software frameworks.
         </p>
         <div class="row">
           <a class="btn" href="#request">
             Get in touch
           </a>
-          <a class="btn ghost" href="/research/flight-measured/">
+          <a class="btn ghost" href="/research/flight-run4-package/">
             Read the release
           </a>
         </div>
@@ -114,14 +114,14 @@ const faq = [
   </section>
 
   <section class="wrap section">
-    <div class="cards">
+    <div class="cards four">
       <div class="note lead">
         <p class="tiny" style="margin: 0">
           Proved, per decision
         </p>
         <h3 class="h3">Same outcome as fixed TMR on two or more</h3>
         <p class="soft small">
-          <a href="https://github.com/mruspace/flight/blob/v0.3.1/quorum/src/lib.rs#L331">Kani proves</a> that, with two
+          <a href="https://github.com/mruspace/flight/blob/v0.9.0/quorum/src/lib.rs#L334">Kani proves</a> that, with two
           or more replicas alive, <code>decide()</code> gives the same outcome under both policies, for every set of
           three replies.
         </p>
@@ -133,8 +133,19 @@ const faq = [
         <h3 class="h3">Only agreed results</h3>
         <p class="soft small">
           A delivered value came from two agreeing replicas, or from both runs of the last replica&#39;s self-check.
-          <a href="https://github.com/mruspace/flight/blob/v0.3.1/quorum/src/lib.rs#L362">Kani proves it</a> for every
+          <a href="https://github.com/mruspace/flight/blob/v0.9.0/quorum/src/lib.rs#L365">Kani proves it</a> for every
           set of three replies to <code>decide()</code>.
+        </p>
+      </div>
+      <div class="note">
+        <p class="tiny" style="margin: 0">
+          Proved, per reading
+        </p>
+        <h3 class="h3">An outlier is never chosen</h3>
+        <p class="soft small">
+          For up to three sensor readings of one quantity, the value chosen is never one flagged as an outlier.
+          <a href="https://github.com/mruspace/flight/blob/v0.9.0/quorum/src/sensor.rs#L254">Kani proves it</a> for
+          every set of readings and every tolerance.
         </p>
       </div>
       <div class="note">
@@ -179,11 +190,14 @@ const faq = [
             <tr>
               <td>Framework</td>
               <td>
-                F&#180; v4.4.1 components, built and tested: RedundancyManager, HealthRegistry and ReplicaHost for
-                flight, and the test-only FaultInjector and RunRecorder. A first F&#180; deployment runs them with
-                F&#180;&#39;s own services, built for the OPS-SAT flight processor, with each replica in a process of
-                its own on the processor&#39;s two cores. It ran in orbit on October 28, 2026, the third OPS-SAT run;
-                runs 1 and 2 used the demo voter and replicas.
+                F&#180; v4.4.1 components, built and tested: RedundancyManager, HealthRegistry, ReplicaHost and
+                SensorVoter for flight, and the test-only FaultInjector, RunRecorder and SensorSim. The manager resets a
+                replica that falls silent and takes it back only on the right known answer, a set number of times. A
+                first F&#180; deployment runs them with F&#180;&#39;s own services, built for the OPS-SAT flight
+                processor, with each replica in a process of its own on the processor&#39;s two cores. It ran in orbit
+                on October 28, 2026, the third OPS-SAT run; runs 1 and 2 used the demo voter and replicas. The same core
+                also runs as an application of NASA&#39;s core Flight System (cFS v7.0.1), built and run in ESA&#39;s
+                environment image, not flown.
               </td>
             </tr>
             <tr>
@@ -212,8 +226,10 @@ const faq = [
             <tr>
               <td>Input agreement</td>
               <td>
-                The demo gives every replica the same input, derived from the tick. Real sensor inputs need an agreement
-                step between replicas, which Mru does not provide yet.
+                The demo gives every replica the same input, derived from the tick. For up to three readings of one
+                quantity, the core chooses one value within a tolerance and excludes a sensor that keeps disagreeing,
+                with Kani proofs; with two readings left that disagree, it delivers nothing. A step that makes every
+                replica&#39;s input equal before it computes is not built.
               </td>
             </tr>
             <tr>
@@ -302,7 +318,8 @@ const faq = [
         <h3>Core, F&#180; components and bench</h3>
         <p>
           Rust core with Kani proofs, F&#180; components that give the demo&#39;s counts, a bench of three replica
-          processes on general-purpose hosts, resets survived, and three runs in orbit. v0.7.0.
+          processes on general-purpose hosts, resets survived, and three runs in orbit. Since run 3: automatic resets,
+          sensor selection, a cFS application and real bit flips made by software, on the ground. v0.9.0.
         </p>
       </div>
       <div class="stratum">
@@ -325,15 +342,19 @@ const faq = [
       </div>
       <div class="stratum">
         <span class="lv">Next</span>
-        <h3>Hardware in the loop</h3>
-        <p>Target-class boards with injected faults: bit flips, resets, power cuts. The scripts are ready.</p>
+        <h3>Run 4, approved, not flown</h3>
+        <p>
+          The OPS-SAT team approved a fourth run on November 16, 2026, and the v0.9.0 package is with TU Graz: automatic
+          resets, sensor selection, the cFS application, and real bit flips in the replicas&#39; memory, made by
+          software. All faults are simulated. <a href="/research/flight-run4-package/">What is in it</a>.
+        </p>
       </div>
       <div class="stratum base">
         <span class="lv">Then</span>
-        <h3>F&#180; deployment</h3>
+        <h3>Hardware in the loop</h3>
         <p>
-          A first F&#180; deployment runs the components with F&#180;&#39;s own command, event, telemetry and sequencing
-          services, without a ground link. Next: on those boards, with commands and telemetry from the ground.
+          Target-class boards with injected faults: bit flips, resets, power cuts. The scripts are ready. Then the
+          F&#180; deployment on those boards, with commands and telemetry from the ground.
         </p>
       </div>
     </div>

@@ -193,8 +193,10 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Architecture' }];
             <tr>
               <td>Input agreement</td>
               <td>
-                The demo derives each input from the tick, so replicas agree by construction. Real sensor inputs need an
-                agreement step between replicas. Mru does not provide one, and nothing models it.
+                The demo derives each input from the tick, so replicas agree by construction. Mru Field reads each input
+                once and hands every replica the same bytes. Mru Flight chooses one value from up to three sensor
+                readings within a tolerance. A step that makes inputs read by each replica equal is not built, and
+                nothing models it.
               </td>
             </tr>
             <tr>
@@ -208,7 +210,7 @@ const crumbs = [{ label: 'Mru', href: '/' }, { label: 'Architecture' }];
               <td>Known-answer test coverage</td>
               <td>
                 Measured for the demo task on general-purpose processors, on the bench. Not measured on target hardware
-                or under radiation; the two OPS-SAT runs saw no real upset.
+                or under radiation. OPS-SAT runs 1 and 2 saw no real upset; run 3 had no memory sensor.
               </td>
             </tr>
           </tbody>

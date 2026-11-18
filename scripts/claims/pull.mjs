@@ -522,19 +522,20 @@ if (kat?.throughput?.[0]?.kat_tests_per_delivered_result !== undefined) {
 // Kept by hand, with the file that states them.
 const MANUAL = {
   'flight.fprime.components': {
-    value: 5,
+    value: 7,
     format: 'int',
-    unit: 'F´ components: three for flight, two test-only (FaultInjector, RunRecorder)',
+    unit: 'F´ components: four for flight, three test-only (FaultInjector, RunRecorder, SensorSim)',
     scope: 'fprime/Mru/Components',
     conditions: 'F´ v4.4.1',
     source: { repo: 'flight', kind: 'manual', ref: 'fprime/Mru/Components/' },
   },
   'flight.fprime.unit_tests': {
-    value: 45,
+    value: 59,
     format: 'int',
     unit: 'F´ unit tests',
     scope: 'fprime/Mru components, fprime-util check in CI',
-    conditions: 'HealthRegistry 5, ReplicaHost 5, FaultInjector 8, RedundancyManager 23, RunRecorder 4',
+    conditions:
+      'HealthRegistry 5, ReplicaHost 5, FaultInjector 9, RedundancyManager 27, RunRecorder 4, SensorVoter 6, SensorSim 3',
     source: { repo: 'flight', kind: 'manual', ref: 'docs/fprime-design-fpp.md' },
   },
 };

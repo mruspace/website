@@ -188,6 +188,14 @@
     "schema": ["BlogPosting", "SoftwareSourceCode", "BreadcrumbList"]
   },
   {
+    "url": "https://mru.space/research/flight-run4-package/",
+    "title": "Mru Flight 0.9.0: resets, sensors, cFS · Mru Aerospace",
+    "description": "Run 4 on OPS-SAT PRETTY is approved, not flown: automatic resets, sensor selection, a cFS app and real bit flips. 0 wrong results on the ground.",
+    "ogTitle": "Mru Flight 0.9.0: resets, sensors, cFS and bit flips",
+    "cardLabel": "Research № 010 · Release",
+    "schema": ["BlogPosting", "SoftwareSourceCode", "BreadcrumbList"]
+  },
+  {
     "url": "https://mru.space/research/field-staged-updates/",
     "title": "What a ground stop shows about redundancy · Mru Aerospace",
     "description": "One change can stop a whole system two ways: a bad update in every copy, or right answers that flood a network. How Mru Field handles each, measured.",
