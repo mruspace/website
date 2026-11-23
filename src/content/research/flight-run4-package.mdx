@@ -1,33 +1,36 @@
 ---
 number: '010'
-kind: Release
-title: 'Mru Flight 0.9.0: resets, sensors, cFS and bit flips'
-shortTitle: 'Mru Flight 0.9.0'
-summary: 'Run 4 on OPS-SAT PRETTY is approved, not flown. Its package adds automatic resets, sensor selection, the decision core as a NASA cFS application, and real bit flips in the replicas'' memory. In three full runs in ESA''s environment image, every segment gave 0 wrong results.'
-lede: 'Runs 1 to 3 injected each fault at its symptom. Mru Flight 0.8.0 and 0.9.0 add what comes after a fault and one step closer to its cause: a unit reset and taken back, sensors that disagree, the same core under NASA''s core Flight System, and bit flips in memory that nothing tells the manager about. The OPS-SAT team approved run 4 on November 16, 2026.'
+kind: Results
+title: 'Fourth run in orbit: resets, sensors, cFS and real bit flips'
+shortTitle: 'Fourth run in orbit'
+summary: 'On November 20, 2026, Mru Flight v0.9.0 ran on ESA''s OPS-SAT PRETTY: automatic resets, sensor selection and a NASA cFS application with simulated faults, and real bit flips made by software in the replicas'' memory. 0 wrong results in every segment.'
+lede: 'Runs 1 to 3 injected each fault at its symptom. Run 4 adds what comes after a fault and one step closer to its cause: a unit reset and taken back, sensors that disagree, the same core under NASA''s core Flight System, and bit flips in memory that nothing tells the manager about. It ran in orbit on November 20, 2026, and met the prediction written four days before.'
 date: 2026-11-18
-readingTime: 6 min
+updated: 2026-11-23
+readingTime: 7 min
 byline:
-  - { label: Releases, text: v0.8.0, href: 'https://github.com/mruspace/flight/releases/tag/v0.8.0' }
-  - { label: and, text: v0.9.0, href: 'https://github.com/mruspace/flight/releases/tag/v0.9.0' }
+  - { label: Release, text: v0.9.0, href: 'https://github.com/mruspace/flight/releases/tag/v0.9.0' }
+  - { label: Experiment, text: exp4051, href: 'https://github.com/mruspace/flight/blob/main/docs/opssat.md#run-4-v090-flown-november-20-2026' }
+  - { label: Raw files, text: opssat/results, href: 'https://github.com/mruspace/flight/tree/main/opssat/results/2026-11-20-ops-sat-pretty-on-board-run4' }
   - { label: Fault model, text: docs/fault-model.md, href: 'https://github.com/mruspace/flight/blob/main/docs/fault-model.md' }
-  - { label: Package, text: opssat/run4, href: 'https://github.com/mruspace/flight/tree/main/opssat/run4' }
 related: [flight-orbit-3, flight-measured]
 request:
   interest: flight
-  topic: № 010 · Mru Flight 0.9.0
-  heading: Questions about this release?
+  topic: № 010 · Fourth run in orbit
+  heading: Questions about this run?
 code: { repo: 'https://github.com/mruspace/flight', language: Rust, license: Apache-2.0 }
 ---
 
 import Section from '../../components/research/Section.astro';
 
 <Section label="Status">
-<Fragment slot="note">Prototype, v0.9.0. Run 4 is approved by the OPS-SAT team and the package is with TU Graz. It has not flown. Every number on this page is from the ground. Run 3 is <a href="/research/flight-orbit-3/">№ 008</a>.</Fragment>
+<Fragment slot="note">Prototype, v0.9.0. The fourth run in orbit, 244 seconds, on a Linux payload processor in user space. Not a hardware-redundancy test. Run 3 is <a href="/research/flight-orbit-3/">№ 008</a>.</Fragment>
 
-## What is in run 4
+## What ran
 
-On November 16, 2026, the OPS-SAT team approved a fourth run of experiment exp4051 on ESA's OPS-SAT PRETTY. The package, `exp4051-mru-flight-v0.9.0.tar.gz`, has the same shape as run 3: one entry script in the foreground, user space only, no network, 128 MB per process, everything written to `toGround/`. Six segments run one after the other:
+On November 20, 2026, at 20:28 UTC, Mru Flight v0.9.0 ran on ESA's OPS-SAT PRETTY satellite, the fourth and last run of experiment exp4051 of the ESA OPS-SAT Space Lab. The OPS-SAT team approved it on November 16, the package went to TU Graz the same day, and TU Graz ran it on the FlatSat on the morning of November 20.
+
+The package, `exp4051-mru-flight-v0.9.0.tar.gz`, has the same shape as run 3: one entry script in the foreground, user space only, no network, 128 MB per process, everything written to `toGround/`. Six segments of 40 seconds run one after the other:
 
 1. Automatic resets. Replica 1 stops answering at cycles 60 and 300. Replica 2's process is killed with SIGKILL at cycle 150, a real dead unit. The manager resets a silent replica, up to three times.
 2. The same faults with resets off.
@@ -36,9 +39,33 @@ On November 16, 2026, the OPS-SAT team approved a fourth run of experiment exp40
 5. The same decision core as an application of NASA's core Flight System (cFS), with the faults of run 1.
 6. Real bit flips in each replica process's own memory, made by software.
 
-Segments 1 to 5 simulate each fault at its symptom, as runs 1 to 3 did: a replica's answer is changed, withheld or stopped.
+Segments 1 to 5 simulate each fault at its symptom, as runs 1 to 3 did: a replica's answer is changed, withheld or stopped. Segment 6 schedules no fault.
 
-In ESA's OPS-SAT PRETTY environment image (32-bit ARM, emulated on a laptop), the whole package ran three times at full length: every exit 0, 0 wrong results in every segment.
+</Section>
+
+<Section label="Hosts">
+<Fragment slot="note">The flight processor is the SEPP: an Altera Cyclone V SoC with two ARM Cortex-A9 cores at 800 MHz, 1 GB of memory and Linux 4.9. The run used a container as an unprivileged user, in user space only.</Fragment>
+
+## Three hosts, 0 wrong on each
+
+The same package ran in ESA's environment image on our laptop on November 16, the run the prediction came from, on TU Graz's FlatSat on the morning of November 20, and in orbit that evening. No segment on any host gave a wrong result.
+
+<div class="tbl-box" tabindex="0" style="margin: 24px 0 0">
+  <table class="tbl">
+    <thead><tr><th>Segment, correct · caught · wrong</th><th>FlatSat, 2026-11-20</th><th>In orbit, 2026-11-20</th></tr></thead>
+    <tbody>
+      <tr><td>1 · Shrinking quorum, resets on</td><td class="m">394 · 3 · 0</td><td class="m sig">394 · 3 · 0</td></tr>
+      <tr><td>2 · Shrinking quorum, resets off</td><td class="m">271 · 3 · 0</td><td class="m">271 · 3 · 0</td></tr>
+      <tr><td>3 · Fixed TMR</td><td class="m">149 · 0 · 0, halted at 153</td><td class="m">148 · 0 · 0, halted at 153</td></tr>
+      <tr><td>4 · Sensors: values correct · wrong · none</td><td class="m">279 · 0 · 120</td><td class="m">279 · 0 · 120</td></tr>
+      <tr><td>5 · cFS application</td><td class="m">318 · 3 · 0</td><td class="m">318 · 3 · 0</td></tr>
+      <tr><td>6 · Real bit flips</td><td class="m">399 · 0 · 0</td><td class="m sig">399 · 0 · 0</td></tr>
+      <tr><td>Total</td><td class="m">245 s</td><td class="m">244 s</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p class="tiny">The segments run to a time cap at ten cycles a second. Where a cycle closed late on the processor, the manager withheld it (the late-cycle rule, added in v0.6.0): that cycle delivers nothing and counts against no replica, and the next event can move by one cycle. In orbit fixed TMR lost one cycle that way, 148 correct instead of 149. Total is the six segments plus start-up, from the run-info times. Every exit was 0, and the binaries' checksums match release v0.9.0 on both hosts.</p>
 
 </Section>
 
@@ -49,33 +76,35 @@ In ESA's OPS-SAT PRETTY environment image (32-bit ARM, emulated on a laptop), th
 
 When a replica is retired for silence, the F&#x2060;´ `RedundancyManager` sends a reset on its `resetOut` port and starts an admission at the next cycle. The unit comes back only if it gives the right known answer. A unit still silent gets the next reset. After `ResetLimit` resets the manager emits `ResetsExhausted` and keeps the slot retired, so a dead unit cannot cause a reset loop. A replica retired for a wrong answer is never reset.
 
-In a full-length native run of segments 1 to 3 in the build container (not the flight processor), the same faults gave three different ends:
+In orbit, segment 1: replica 1 hung at cycle 60, was lost at 62, reset and taken back at 63 on its known answer. Replica 2's process was killed at 150; it was reset at 153, 155 and 157, stayed silent each time, and was kept out at 159. Replica 1 hung again at 300, was caught in self-check, reset a second time and taken back at 303. The segment ended with two units live and 394 correct results.
+
+The same faults gave three different ends:
 
 <div class="tbl-box" tabindex="0" style="margin: 24px 0 0">
   <table class="tbl">
-    <thead><tr><th>Segment</th><th>End of the segment</th><th>Wrong results</th></tr></thead>
+    <thead><tr><th>Segment, in orbit</th><th>End of the segment</th><th>Wrong results</th></tr></thead>
     <tbody>
       <tr><td>1 · Shrinking quorum, resets on</td><td>2 units live: replica 1 back twice, replica 2 kept out after 3 resets</td><td class="m sig">0</td></tr>
-      <tr><td>2 · Shrinking quorum, resets off</td><td>Replica 0 alone, in self-check</td><td class="m">0</td></tr>
+      <tr><td>2 · Shrinking quorum, resets off</td><td>Replica 0 alone, in self-check from cycle 154</td><td class="m">0</td></tr>
       <tr><td>3 · Fixed TMR</td><td>Halted at cycle 153, one unit left after the kill</td><td class="m">0</td></tr>
     </tbody>
   </table>
 </div>
 
-<p class="tiny">Source: the 0.8.0 entry of the <a href="https://github.com/mruspace/flight/blob/main/CHANGELOG.md">changelog</a>.</p>
+<p class="tiny">Source: the summaries and event files in <a href="https://github.com/mruspace/flight/tree/main/opssat/results/2026-11-20-ops-sat-pretty-on-board-run4">opssat/results</a>.</p>
 
 </Section>
 
 <Section label="Sensors">
-<Fragment slot="note"><code>quorum::sensor</code> in the core, and the F&#x2060;´ component <code>SensorVoter</code> (MRU-SV-001 to 007). Five Kani proofs, 16 in the workspace.</Fragment>
+<Fragment slot="note"><code>quorum::sensor</code> in the core, and the F&#x2060;´ component <code>SensorVoter</code> (MRU-SV-001 to 007). Five Kani proofs, 16 in the workspace. The readings are simulated.</Fragment>
 
 ## One value from readings that differ slightly
 
-Three sensors that read the same quantity never agree to the bit, so a vote on equal values does not work for them. The core now chooses one value within a tolerance: the median of three if another reading is within the tolerance of it, the midpoint of two if they agree, a single reading marked unchecked. With two readings that disagree, it delivers nothing, since nothing says which one is right. `SensorVoter` excludes a sensor only after a set number of outlier cycles in a row (5 by default), so a short spike never excludes it.
+Three sensors that read the same quantity never agree to the bit, so a vote on equal values does not work for them. The core chooses one value within a tolerance: the median of three if another reading is within the tolerance of it, the midpoint of two if they agree, a single reading marked unchecked. With two readings that disagree, it delivers nothing, since nothing says which one is right. `SensorVoter` excludes a sensor only after a set number of outlier cycles in a row (5 by default), so a short spike never excludes it.
 
-Kani proves five properties for every set of three readings and every tolerance: an agreed value is agreed and in range, an outlier is never chosen, nothing is unchecked while two or more readings are in, the median is a median, ties included, and a sensor is excluded exactly after its limit. A unit test found a tie bug in the first version of the median.
+Kani proves five properties for every set of three readings and every tolerance: an agreed value is agreed and in range, an outlier is never chosen, nothing is unchecked while two or more readings are in, the median is a median, ties included, and a sensor is excluded exactly after its limit.
 
-Segment 4 runs a spike on sensor 1 at cycle 60, a drift on sensor 2 from cycle 120, and sensor 0 frozen from cycle 260, with a tolerance of 2.00 and noise up to 0.50. In a full-length native run, 399 cycles: 279 correct values, 0 wrong, and 120 cycles with no value after the two readings left disagreed from cycle 279. The spike was masked, and sensor 2 was excluded at cycle 137. A plain average of the same readings was wrong in 261 of the 399 cycles.
+Segment 4 runs a spike on sensor 1 at cycle 60, a drift on sensor 2 from cycle 120, and sensor 0 frozen from cycle 260, with a tolerance of 2.00 and noise up to 0.50. In orbit, 399 cycles: 279 correct values, 0 wrong, and 120 cycles with no value after the two readings left disagreed from cycle 279. The spike was masked, and sensor 2 was excluded at cycle 137. A plain average of the same readings was wrong in 261 of the 399 cycles.
 
 </Section>
 
@@ -84,9 +113,9 @@ Segment 4 runs a spike on sensor 1 at cycle 60, a drift on sensor 2 from cycle 1
 
 ## The same core in NASA's core Flight System
 
-The decision core now also runs as a cFS application: three replicas as cFE child tasks, every decision through the core's C interface, a known-answer test of every replica before cycle 1, linked statically into one binary for the flight processor. No sample or lab application is built, so nothing opens a network socket. The app has the core's decisions and the F&#x2060;´ manager's rules around them. It does not have the automatic resets or the sensor voter; those are F&#x2060;´ only.
+The decision core also runs as a cFS application: three replicas as cFE child tasks, every decision through the core's C interface, a known-answer test of every replica before cycle 1, linked statically into one binary for the flight processor. No sample or lab application is built, so nothing opens a network socket. The app has the core's decisions and the F&#x2060;´ manager's rules around them. It does not have the automatic resets or the sensor voter; those are F&#x2060;´ only.
 
-Segment 5 runs it with the faults of run 1: a bit flip at cycle 60, a stuck replica at 120, a hung one at 240. In ESA's environment image: 400 cycles, 318 correct, 3 disagreements caught, 0 wrong. The stuck replica 1 was retired on its known answer at cycle 122, the hung replica 0 was lost at cycle 242, and replica 2 went on alone in self-check. No socket was open, and nothing was left behind. Natively, under an enforced 128 MB limit, the process used 9.0 MB of address space.
+Segment 5 was the first run of the application on flight hardware, with the faults of run 1: a bit flip at cycle 60, a stuck replica at 120, a hung one at 240. In orbit: 400 cycles, 318 correct, 3 disagreements caught, 0 wrong, the same counts as on the FlatSat and in ESA's image. The stuck replica 1 was retired on its known answer at cycle 122, the hung replica 0 was lost at cycle 242, and replica 2 went on alone in self-check. No socket was open, and nothing was left behind. On the SEPP the process peaked at 4.5 MB of address space.
 
 </Section>
 
@@ -97,9 +126,9 @@ Segment 5 runs it with the faults of run 1: a bit flip at cycle 60, a stuck repl
 
 Segment 6 injects at the cause, not the symptom. A thread in each replica process flips one bit at a time in that process's own memory: code, read-only data, data, heap and stacks, in proportion to their size, at random times, 2 flips per second per replica. Each flip is logged before it is made. The package's files are never changed. The manager runs the shrinking quorum with a known-answer test on the last replica every cycle, and it is told nothing about the flips.
 
-Where a flip lands cannot be scheduled. In ESA's environment image and in 160 native runs at up to 200 flips per second, most flips changed nothing. Some crashed or hung a replica, and it was lost. Some made a replica answer wrong; the disagreement was caught and the replica retired. When the last replica went, Mru halted and delivered nothing. No run delivered a wrong result.
+In orbit, 173 flips hit the three replicas, 149 of them in code. Replica 2 crashed after 41 flips and was lost at cycle 229. Replicas 0 and 1 delivered all 399 results to the end: 0 caught, 0 wrong, and no message dropped on the manager's links. Both then crashed at shutdown, after the last result: the flips had corrupted memory that only their exit code read. The FlatSat gave the same outcome, flip for flip, because the seed fixes when the flips come and where they land.
 
-The flips found one real flaw before flight. A corrupted replica sent a reply too short to decode, and F&#x2060;´'s generated port code in the manager asserted on it and ended the manager process: 1 of 64 native runs at 200 flips per second from start-up. Faults injected at the symptom never sent the manager a malformed message, so they could not find it. In 0.9.0 the manager checks every message from a replica on its link before F&#x2060;´'s hub sees it. A message that is not exactly one well-formed reply, or one more than four in a cycle, is dropped and counted (`links: dropped=` in the summary). A replica that sends only garbage is then silent to the manager, and is lost. In 160 runs after the fix, the manager never crashed.
+The flips found one real flaw before flight. On the ground, a corrupted replica sent a reply too short to decode, and F&#x2060;´'s generated port code in the manager asserted on it and ended the manager process: 1 of 64 native runs at 200 flips per second from start-up. Faults injected at the symptom never sent the manager a malformed message, so they could not find it. In 0.9.0 the manager checks every message from a replica on its link before F&#x2060;´'s hub sees it. A message that is not exactly one well-formed reply, or one more than four in a cycle, is dropped and counted. A replica that sends only garbage is then silent to the manager, and is lost. In 160 native runs after the fix, the manager never crashed.
 
 A replica that a flip sets spinning stops at 2 seconds of CPU time, one that writes without end stops at 256 KB, and no process of the run writes a core file.
 
@@ -110,15 +139,17 @@ A replica that a flip sets spinning stops at 2 seconds of CPU time, one that wri
 
 ## What we said it would do
 
-In segment 1, replica 1 is back at cycles 63 and 303, and replica 2 is kept out at cycle 158. Fixed TMR halts at cycle 153. Sensor 2 is excluded at cycle 137. Where the flips of segment 6 land cannot be predicted, so for them we predict only the outcome that matters: zero wrong results, in every segment.
+In segment 1, replica 1 back at cycles 63 and 303: 63 and 303. Replica 2 kept out at cycle 158: 159, one cycle later, because the cycle of the kill closed late and was withheld. Fixed TMR halted at cycle 153: 153. Sensor 2 excluded at cycle 137: 137. Where the flips of segment 6 land cannot be predicted, so for them we predicted only the outcome that matters: zero wrong results, in every segment. Zero.
+
+The four F&#x2060;´ processes used 0.47% to 1.41% of wall time, measured on the SEPP, under the registered 5% share.
 
 </Section>
 
 <Section label="Credit">
-<Fragment slot="note">ESA OPS-SAT Space Lab runs experiment exp4051 on OPS-SAT PRETTY. TU Graz operates the satellite and runs the FlatSat tests.</Fragment>
+<Fragment slot="note">ESA OPS-SAT Space Lab ran experiment exp4051 on OPS-SAT PRETTY. TU Graz operates the satellite and ran the FlatSat tests.</Fragment>
 
 ## Next
 
-TU Graz runs the package on the FlatSat, then in orbit. We will publish the results against the prediction above. After run 4, the next step is independent processors, on boards on the bench.
+Run 4 completes the series on PRETTY: four runs in orbit, each against a prediction written before it, 0 wrong results in all of them. The faults so far were simulated, or made by software. The next step is real hardware faults, on independent processors, on boards on the bench.
 
 </Section>

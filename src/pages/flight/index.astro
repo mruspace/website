@@ -198,9 +198,9 @@ const faq = [
                 replica that falls silent and takes it back only on the right known answer, a set number of times. A
                 first F&#180; deployment runs them with F&#180;&#39;s own services, built for the OPS-SAT flight
                 processor, with each replica in a process of its own on the processor&#39;s two cores. It ran in orbit
-                on October 28, 2026, the third OPS-SAT run; runs 1 and 2 used the demo voter and replicas. The same core
-                also runs as an application of NASA&#39;s core Flight System (cFS v7.0.1), built and run in ESA&#39;s
-                environment image, not flown.
+                on October 28, 2026, the third OPS-SAT run, and again on November 20, 2026, the fourth; runs 1 and 2
+                used the demo voter and replicas. The same core also runs as an application of NASA&#39;s core Flight
+                System (cFS v7.0.1), which ran in orbit in run 4.
               </td>
             </tr>
             <tr>
@@ -286,7 +286,7 @@ const faq = [
               <td>
                 Unit tests, {t('flight.kani.total')} Kani proofs, CI on three operating systems and emulated ARM,
                 scenario tests, a bench, F&#180; unit and system tests, TU Graz&#39;s FlatSat test on the flight
-                processor and three runs in orbit on OPS-SAT PRETTY.
+                processor and four runs in orbit on OPS-SAT PRETTY.
               </td>
             </tr>
             <tr>
@@ -312,7 +312,8 @@ const faq = [
       </div>
       <p class="lede">
         The decision core and its F&#180; components are built, tested and measured, and have run in orbit: the demo
-        twice, then the F&#180; components. Each next step adds longer runs and more hardware.
+        twice, then the F&#180; components twice, the second time with a cFS application. Each next step adds longer
+        runs and more hardware.
       </p>
     </div>
     <div class="strata">
@@ -321,14 +322,13 @@ const faq = [
         <h3>Core, F&#180; components and bench</h3>
         <p>
           Rust core with Kani proofs, F&#180; components that give the demo&#39;s counts, a bench of three replica
-          processes on general-purpose hosts, resets survived, and three runs in orbit. Since run 3: automatic resets,
-          sensor selection, a cFS application and real bit flips made by software, on the ground. v{t('flight.version')}
-          .
+          processes on general-purpose hosts, resets survived, and four runs in orbit, the last with automatic resets,
+          sensor selection, a cFS application and real bit flips made by software. v{t('flight.version')}.
         </p>
       </div>
       <div class="stratum">
         <span class="lv">Orbit</span>
-        <h3>Ran in orbit, October 18, 22 and 28, 2026</h3>
+        <h3>Ran in orbit, October 18, 22 and 28 and November 20, 2026</h3>
         <p>
           The experiment on OPS-SAT PRETTY (exp4051): faults from a schedule, with the software&#39;s own memory sensor
           logged. After ESA&#39;s software environment test on October 15, 2026, and TU Graz&#39;s FlatSat test on the
@@ -340,17 +340,19 @@ const faq = [
           program was killed. It matched its prediction too. v0.7.0{' '}
           <a href="/research/flight-orbit-3/">ran on October 28</a> as F&#180; components, each replica a process of its
           own on the processor&#39;s two cores: down to one replica with 0 wrong results after a real process kill, and
-          a restart of the manager from its state file, as predicted. No real upset was seen in runs 1 and 2; run 3 had
-          no memory sensor.
+          a restart of the manager from its state file, as predicted. v0.9.0{' '}
+          <a href="/research/flight-run4-package/">ran on November 20</a>: a silent unit reset and taken back only on
+          the right answer, sensors that disagree, the core as a cFS application, all with simulated faults, and 173
+          real bit flips made by software in the replicas&#39; memory. 0 wrong results in every segment, as predicted.
+          No real upset was seen in runs 1 and 2; runs 3 and 4 had no memory sensor.
         </p>
       </div>
       <div class="stratum">
         <span class="lv">Next</span>
-        <h3>Run 4, approved, not flown</h3>
+        <h3>Real hardware faults</h3>
         <p>
-          The OPS-SAT team approved a fourth run on November 16, 2026, and the v0.9.0 package is with TU Graz: automatic
-          resets, sensor selection, the cFS application, and real bit flips in the replicas&#39; memory, made by
-          software. All faults are simulated. <a href="/research/flight-run4-package/">What is in it</a>.
+          Run 4 completed the series on OPS-SAT PRETTY. Its faults were simulated or made by software. Next: faults in
+          real hardware, on independent processors, so that one processor failing does not take the others with it.
         </p>
       </div>
       <div class="stratum base">

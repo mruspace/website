@@ -43,7 +43,7 @@ export const FOOTER_COLUMNS: { title: string; links: { label: string; href: stri
       { label: 'Log', href: '/research/' },
       { label: 'Whitepaper', href: '/research/' },
       { label: 'Dusk', href: '/research/dusk-results/' },
-      { label: 'Flight 0.9.0', href: '/research/flight-run4-package/' },
+      { label: 'Fourth run in orbit', href: '/research/flight-run4-package/' },
     ],
   },
   {

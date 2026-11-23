@@ -21,7 +21,7 @@
   {
     "url": "https://mru.space/flight/",
     "title": "Mru Flight: onboard fault tolerance · Mru Aerospace",
-    "description": "A no_std Rust decision core that continues on two, then one processor, where fixed TMR stops. It ran in orbit on OPS-SAT PRETTY three times, October 2026.",
+    "description": "A no_std Rust decision core that continues on two, then one processor, where fixed TMR stops. It ran in orbit on OPS-SAT PRETTY four times in 2026.",
     "ogTitle": "Mru Flight: fault tolerance for spacecraft out of reach",
     "cardLabel": "Product · Space",
     "schema": ["SoftwareApplication", "BreadcrumbList", "FAQPage"]
@@ -189,10 +189,10 @@
   },
   {
     "url": "https://mru.space/research/flight-run4-package/",
-    "title": "Mru Flight 0.9.0: resets, sensors, cFS · Mru Aerospace",
-    "description": "Run 4 on OPS-SAT PRETTY is approved, not flown: automatic resets, sensor selection, a cFS app and real bit flips. 0 wrong results on the ground.",
-    "ogTitle": "Mru Flight 0.9.0: resets, sensors, cFS and bit flips",
-    "cardLabel": "Research № 010 · Release",
+    "title": "Fourth run in orbit: resets, sensors, cFS · Mru Aerospace",
+    "description": "Run 4 on OPS-SAT PRETTY, November 20, 2026: automatic resets, sensor selection, a cFS app and real bit flips made by software. 0 wrong results.",
+    "ogTitle": "Fourth run in orbit: resets, sensors, cFS and real bit flips",
+    "cardLabel": "Research № 010 · Results",
     "schema": ["BlogPosting", "SoftwareSourceCode", "BreadcrumbList"]
   },
   {
