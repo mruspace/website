@@ -302,7 +302,7 @@
         }
       ],
       "statNote": "The figure shows that a sealed pod still loses servers, with no way to swap them. Mru does not stop servers from failing.",
-      "fails": ["compute", "alone"],
+      "fails": ["compute", "memory", "alone"],
       "last": "keeps the control loop running until the pod comes up",
       "fit": {
         "power": "Grid, renewable or seafloor cable",
