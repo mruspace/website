@@ -285,6 +285,50 @@
       "rel": ["remote-energy", "satellite-iot", "rail-trackside"]
     },
     {
+      "slug": "unstaffed-data-centers",
+      "key": "datacenters",
+      "name": "Unstaffed data centers",
+      "kicker": "Infrastructure · Data centers",
+      "plate": "21",
+      "cap": "A modular data center lifted into place by crane",
+      "hook": "Built where power and cooling are cheap, far from the people who fix them.",
+      "intro": "Data centers now go where power and cooling are: the seabed, remote renewable sites and orbit. Some are sealed for their whole life. When a server fails there, it stays failed until the next swap, or the end of the deployment.",
+      "stats": [
+        {
+          "v": "864",
+          "u": "servers, sealed",
+          "l": "Microsoft sealed a pod of servers in dry nitrogen, 36 m down off Orkney, Scotland, from 2018 to 2020. Its failure rate was one eighth of a matching data center on land. It was not zero, and no failed server could be swapped until the pod came up.",
+          "src": "Microsoft, Project Natick results, September 14, 2020"
+        }
+      ],
+      "statNote": "The figure shows that a sealed pod still loses servers, with no way to swap them. Mru does not stop servers from failing.",
+      "fails": ["compute", "alone"],
+      "last": "keeps the control loop running until the pod comes up",
+      "fit": {
+        "power": "Grid, renewable or seafloor cable",
+        "link": "Fiber, usually good",
+        "visit": "Never for sealed pods; days to weeks for edge sites",
+        "life": "Years per deployment"
+      },
+      "faq": [
+        {
+          "shared": "HW"
+        },
+        {
+          "q": "Does Mru protect the main workload?",
+          "a": "No. Each replica costs processor time, so Mru fits the small task whose result decides: control, failover, health checks and logs. The workload keeps its own redundancy."
+        },
+        {
+          "q": "Is Mru Field for staffed data centers?",
+          "a": "No. Where staff can swap a failed server in minutes, a repair visit is cheap. Mru fits sites where no one can get in. For data centers in orbit, see Mru Flight."
+        },
+        {
+          "shared": "START"
+        }
+      ],
+      "rel": ["remote-energy", "remote-telecom", "deep-sea-observatories"]
+    },
+    {
       "slug": "satellite-iot",
       "key": "sat-iot",
       "name": "Satellite-linked remote devices",
@@ -599,6 +643,11 @@
           "slug": "remote-telecom",
           "kicker": "Telecom",
           "hook": "Sites placed for coverage, not for access."
+        },
+        {
+          "slug": "unstaffed-data-centers",
+          "kicker": "Data centers",
+          "hook": "Sited for power and cooling, far from staff."
         },
         {
           "slug": "satellite-iot",

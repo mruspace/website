@@ -1,5 +1,5 @@
 ---
-// One template, fifteen settings (canvas UseCase artboard).
+// One template, sixteen settings (canvas UseCase artboard).
 import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Seam from '../../components/Seam.astro';
@@ -88,8 +88,8 @@ const crumbs = [
         </p>
         {c.stats.length > 0 && (
           <p class="soft small">
-            The figures here are the cost of reaching the hardware. Batteries, sensors and mechanical work cause most
-            visits, and Mru does not remove them.
+            {c.statNote ??
+              'The figures here are the cost of reaching the hardware. Batteries, sensors and mechanical work cause most visits, and Mru does not remove them.'}
           </p>
         )}
       </div>

@@ -37,7 +37,7 @@
   {
     "url": "https://mru.space/use-cases/",
     "title": "Use cases for Mru Field · Mru Aerospace",
-    "description": "Fifteen settings where equipment has a Linux processor, runs unattended for months, and a repair visit is slow or costly. Ocean settings first.",
+    "description": "Sixteen settings where equipment has a Linux processor, runs unattended for months, and a repair visit is slow or costly. Ocean settings first.",
     "ogTitle": "Where Mru Field applies",
     "cardLabel": "Use cases",
     "schema": ["CollectionPage", "BreadcrumbList"]
@@ -96,6 +96,14 @@
     "description": "Relay and cell sites are placed for coverage, not access. Mru Field keeps site controllers reporting after a processor fails, without a truck roll.",
     "ogTitle": "Sites placed for coverage, not for access",
     "cardLabel": "Use case · Remote telecom",
+    "schema": ["Service", "FAQPage", "BreadcrumbList"]
+  },
+  {
+    "url": "https://mru.space/use-cases/unstaffed-data-centers/",
+    "title": "Unstaffed data centers · Mru Field",
+    "description": "Data centers now go to the seabed and remote sites, far from staff. Mru Field keeps their control tasks giving checked results as servers fail.",
+    "ogTitle": "Built where power and cooling are cheap",
+    "cardLabel": "Use case · Data centers",
     "schema": ["Service", "FAQPage", "BreadcrumbList"]
   },
   {

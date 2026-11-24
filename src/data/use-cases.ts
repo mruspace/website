@@ -1,4 +1,4 @@
-// The fifteen use cases, from the UseCase artboard's data. One source for
+// The sixteen use cases, from the UseCase artboard's data. One source for
 // the pages, the index, the Markdown twins, llms.txt and the FAQPage JSON-LD.
 import data from './use-cases.json';
 import { photo, type Photo } from './images';
@@ -25,6 +25,8 @@ interface RawEntry {
   hook: string;
   intro: string;
   stats: Stat[];
+  /** Replaces the default note under the stats, where the stat is not a cost of reaching the hardware. */
+  statNote?: string;
   fails: string[];
   last: string;
   fit: { power: string; link: string; visit: string; life: string };
