@@ -238,5 +238,17 @@
     "licenseUrl": "https://commons.wikimedia.org/wiki/Template:PD-USGov-NASA",
     "source": "https://commons.wikimedia.org/wiki/File:Voyager_spacecraft_(cropped).jpg",
     "sameLicense": false
+  },
+  {
+    "plate": "21",
+    "id": "modular-data-center",
+    "file": "pl21-modular-data-center.jpg",
+    "caption": "A modular data center lifted into place by crane",
+    "alt": "A white modular data center module hangs from a crane above a parking lot",
+    "author": "Tsgrayson",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Modular_Data_Center.jpg",
+    "sameLicense": false
   }
 ]
