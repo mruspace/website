@@ -110,8 +110,8 @@
       "kicker": "Ocean · Autonomous",
       "plate": "03",
       "cap": "Argo Arvor profiling float drifting at the sea surface",
-      "hook": "Deployed once, rarely recovered. The battery sets the mission length.",
-      "intro": "Profiling floats dive and surface on their own for years, until their batteries run out. Gliders fly for months between recoveries. Every extra month of good data counts.",
+      "hook": "Deployed once, rarely recovered. The battery limits the mission, and faults often end it sooner.",
+      "intro": "Profiling floats dive and surface on their own for years. Many stop early, before their batteries run out. Gliders fly for months between recoveries. Every extra month of good data counts.",
       "stats": [
         {
           "v": "600",
