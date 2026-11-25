@@ -1,4 +1,4 @@
-// The sixteen use cases, from the UseCase artboard's data. One source for
+// The seventeen use cases, from the UseCase artboard's data. One source for
 // the pages, the index, the Markdown twins, llms.txt and the FAQPage JSON-LD.
 import data from './use-cases.json';
 import { photo, type Photo } from './images';

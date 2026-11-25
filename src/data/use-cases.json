@@ -175,6 +175,42 @@
       "rel": ["profiling-floats", "deep-sea-observatories", "polar-stations"]
     },
     {
+      "slug": "uncrewed-surface-vessels",
+      "key": "usv",
+      "name": "Uncrewed surface vessels",
+      "kicker": "Ocean · Surface vessels",
+      "plate": "22",
+      "cap": "A wave glider deployed in Alaskan waters",
+      "hook": "Months at sea, run from a desk on shore.",
+      "intro": "Uncrewed surface vessels sail on wind, waves and sunlight, with no one on board. Operators pilot them from shore over a satellite link. When a processor fails at sea, the fault stays until the vessel comes back to port.",
+      "stats": [],
+      "fails": ["compute", "power", "memory"],
+      "last": "keeps the sensors logging until the vessel comes home",
+      "fit": {
+        "power": "Solar, wind or waves, with batteries",
+        "link": "Satellite, from shore",
+        "visit": "At the end of each mission",
+        "life": "Weeks to months per mission"
+      },
+      "faq": [
+        {
+          "shared": "HW"
+        },
+        {
+          "q": "Which tasks would Mru run?",
+          "a": "The tasks whose results the vessel acts on or sends home: sensor logging, health checks and the decisions it makes between contacts with shore. Your piloting software stays the same."
+        },
+        {
+          "q": "Does Mru check results across the fleet?",
+          "a": "No. Mru runs on each vessel's own Linux processor, and each vessel decides alone. A second processor over a link is planned."
+        },
+        {
+          "shared": "START"
+        }
+      ],
+      "rel": ["ocean-buoys", "auv", "profiling-floats"]
+    },
+    {
       "slug": "offshore-wind",
       "key": "offshore-wind",
       "name": "Offshore wind",
@@ -608,6 +644,11 @@
           "slug": "auv",
           "kicker": "Vehicles",
           "hook": "Out of contact, with no way to swap a board."
+        },
+        {
+          "slug": "uncrewed-surface-vessels",
+          "kicker": "Surface vessels",
+          "hook": "Months at sea, run from a desk on shore."
         }
       ]
     },
