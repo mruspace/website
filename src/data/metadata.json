@@ -37,7 +37,7 @@
   {
     "url": "https://mru.space/use-cases/",
     "title": "Use cases for Mru Field · Mru Aerospace",
-    "description": "Sixteen settings where equipment has a Linux processor, runs unattended for months, and a repair visit is slow or costly. Ocean settings first.",
+    "description": "Seventeen settings where equipment has a Linux processor, runs unattended for months, and a repair visit is slow or costly. Ocean settings first.",
     "ogTitle": "Where Mru Field applies",
     "cardLabel": "Use cases",
     "schema": ["CollectionPage", "BreadcrumbList"]
@@ -72,6 +72,14 @@
     "description": "AUVs work out of contact with finite power and no way to swap a board. Mru Field decides which processor to trust so the mission continues.",
     "ogTitle": "Out of contact, with no way to swap a board",
     "cardLabel": "Use case · AUVs",
+    "schema": ["Service", "FAQPage", "BreadcrumbList"]
+  },
+  {
+    "url": "https://mru.space/use-cases/uncrewed-surface-vessels/",
+    "title": "Uncrewed surface vessels · Mru Field",
+    "description": "Uncrewed vessels spend months at sea, piloted from shore over a satellite link. Mru Field keeps their logging and checks working as processors fail.",
+    "ogTitle": "Months at sea, run from a desk on shore",
+    "cardLabel": "Use case · Surface vessels",
     "schema": ["Service", "FAQPage", "BreadcrumbList"]
   },
   {

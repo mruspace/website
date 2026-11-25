@@ -250,5 +250,17 @@
     "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
     "source": "https://commons.wikimedia.org/wiki/File:Modular_Data_Center.jpg",
     "sameLicense": false
+  },
+  {
+    "plate": "22",
+    "id": "wave-glider",
+    "file": "pl22-wave-glider.jpg",
+    "caption": "A wave glider deployed in Alaskan waters",
+    "alt": "A yellow wave glider hangs on a line above a gray sea before deployment",
+    "author": "NOAA PMEL",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Deploying_a_carbon_wave_glider_in_Alaskan_waters_(NOAA_2015).jpg",
+    "sameLicense": false
   }
 ]
