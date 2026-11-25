@@ -541,6 +541,19 @@
   gap: 64px;
   align-items: start;
 }
+.hero-grid.bottom {
+  align-items: end;
+}
+/* Two-column headers: when the left column opens with a label (.eyebrow) over
+   its heading, the right column drops by the label's height (its 12px line at
+   1.66, then 12px under it), so its first line sits level with the heading,
+   not the label. Wide layouts only; below 1081px the columns stack.
+   Bottom-aligned grids (.bottom) keep their own line. */
+@container (min-width: 1081px) {
+  :is(.split, .hero-grid):not(.bottom):has(> :first-child > .eyebrow:first-child) > :nth-child(2) {
+    margin-top: calc(12px * 1.66 + 12px);
+  }
+}
 
 /* The descent line */
 .descent {
